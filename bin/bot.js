@@ -11,7 +11,8 @@ const buntstift = require('buntstift'),
 
 const packageJson = require('../package.json');
 
-const gulpfile = path.join(process.cwd(), 'roboter.js');
+const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp'),
+    gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2);
 
@@ -19,8 +20,6 @@ updateNotifier({
   packageName: packageJson.name,
   packageVersion: packageJson.version
 }).notify();
-
-let gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
 
 if (!fs.existsSync(gulp)) {
   buntstift.error('roboter is not installed locally.');
