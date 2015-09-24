@@ -23,7 +23,7 @@ updateNotifier({
 
 /* eslint-disable no-process-exit */
 if (!fs.existsSync(gulp)) {
-  gulp = path.join(process.cw(), 'node_modules', 'roboter', 'node_modules', 'bin', 'gulp');
+  gulp = path.join(process.cwd(), 'node_modules', 'roboter', 'node_modules', 'bin', 'gulp');
 
   if (!fs.existsSync(gulp)) {
     buntstift.error('roboter is not installed locally.');
