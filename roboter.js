@@ -5,7 +5,7 @@ const roboter = require('./lib/roboter');
 roboter.
   workOn('client').
   equipWith(task => {
-    task('universal/analyze', () => ({
+    task('universal/analyze', {
       src: [
         '**/*.js',
         '!node_modules/**/*.js',
@@ -13,5 +13,5 @@ roboter.
         '!test/bundle-scripts/src/app.js',
         '!test/serve-client/app.js'
       ]
-    }));
+    });
   }).start();
