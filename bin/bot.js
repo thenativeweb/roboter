@@ -3,14 +3,22 @@
 'use strict';
 
 const fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    updateNotifier = require('update-notifier');
 
 const shell = require('shelljs');
+
+const packageJson = require('../package.json');
 
 const gulp = path.join(__dirname, '..', 'node_modules', '.bin', 'gulp'),
     gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2).join(' ');
+
+updateNotifier({
+  packageName: packageJson.name,
+  packageVersion: packageJson.version
+}).notify();
 
 /* eslint-disable no-process-exit */
 if (!fs.existsSync(gulp)) {

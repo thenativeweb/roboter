@@ -54,6 +54,10 @@ If you want to get an overview of all available tasks, simply run `bot` without 
 $ bot
 ```
 
+## Using tasks
+
+### ...
+
 ## Running the build
 
 This module can be built using itself. For that install roboter globally and run it with the `build` command.
