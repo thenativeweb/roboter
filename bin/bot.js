@@ -2,16 +2,24 @@
 
 'use strict';
 
-const path = require('path');
+const fs = require('fs'),
+    path = require('path');
 
 const shell = require('shelljs');
 
-const gulp = path.join(__dirname, '..', 'node_modules', '.bin', 'gulp');
-const gulpfile = path.join(process.cwd(), 'roboter.js');
+const gulp = path.join(__dirname, '..', 'node_modules', '.bin', 'gulp'),
+    gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2).join(' ');
 
 /* eslint-disable no-process-exit */
+if (!fs.existsSync(gulp)) {
+  console.log('roboter is not installed locally. Please run the following command:');
+  console.log();
+  console.log('    npm install roboter --save-dev --save-exact');
+  process.exit(1);
+}
+
 if (args.length === 0) {
   const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
 
