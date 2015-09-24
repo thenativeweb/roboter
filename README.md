@@ -14,7 +14,45 @@ roboter automates your build.
 
 ## Quick start
 
-...
+First you need to create a `roboter.js` file in your application's directory. Inside that file you need to reference the module, define the environment you are working in, and run `start`.
+
+```javascript
+'use strict';
+
+const roboter = require('roboter');
+
+roboter.
+  workOn('server').
+  start();
+```
+
+This already allows you to run some pre-defined tasks, e.g. code-analysis. For that run the `bot` CLI tool and provide `analyze` as parameter.
+
+```bash
+$ bot analyze
+```
+
+By default, the pre-defined tasks use a default configuration. Most probably you want to change it. To do so, use the `equipWith` function and setup the desired tasks. Please note that the actual configuration is of course task-dependent.
+
+```javascript
+'use strict';
+
+const roboter = require('roboter');
+
+roboter.
+  workOn('server').
+  equipWith(task => {
+    task('universal/analyze', () => ({
+      src: [ '**/*.js', '!node_modules/**/*.js' ]
+    }));
+  start();
+```
+
+If you want to get an overview of all available tasks, simply run `bot` without any parameters.
+
+```bash
+$ bot
+```
 
 ## Running the build
 
