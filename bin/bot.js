@@ -11,7 +11,7 @@ const buntstift = require('buntstift'),
 
 const packageJson = require('../package.json');
 
-const gulp = path.join(__dirname, '..', 'node_modules', '.bin', 'gulp'),
+const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp'),
     gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2);
