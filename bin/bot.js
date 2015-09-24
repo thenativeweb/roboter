@@ -15,7 +15,7 @@ const args = process.argv.slice(2).join(' ');
 if (args.length === 0) {
   const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
 
-  const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).join('\n');
+  const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).sort().join('\n');
 
   /* eslint-disable no-console */
   console.log(tasks);
