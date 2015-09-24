@@ -40,6 +40,7 @@ roboter.
     });
 
     task('client/build-themes', {
+      baseDir: './build-themes/src/',
       entryFiles: './build-themes/src/**/theme.scss',
       watch: './build-themes/src/**/*.scss',
       assets: [ './build-themes/src/**/*', '!**/*.scss' ],
