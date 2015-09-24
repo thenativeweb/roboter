@@ -10,6 +10,14 @@ roboter.
       rules: './.eslintrc'
     }));
 
+    task('universal/test-units', () => ({
+      src: './test-units/**/*Tests.js',
+      reporter: 'spec',
+      asyncOnly: true,
+      bail: true,
+      ui: 'tdd'
+    }));
+
     task('client/serve-client', () => ({
       baseDir: './serve-client/',
       watch: [ './serve-client/*.html', './serve-client/**/*.css', './serve-client/**/*.js' ],

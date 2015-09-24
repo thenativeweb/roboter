@@ -31,6 +31,7 @@
     "gulp-eslint": "1.0.0",
     "gulp-git": "1.4.0",
     "gulp-minify-css": "1.2.1",
+    "gulp-mocha": "2.1.3",
     "gulp-rename": "1.2.2",
     "gulp-sass": "2.0.4",
     "gulp-svgo": "0.1.1",
@@ -43,7 +44,9 @@
     "vinyl-source-stream": "1.1.0",
     "watchify": "3.4.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "assertthat": "0.6.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
