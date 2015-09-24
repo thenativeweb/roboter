@@ -11,8 +11,8 @@ const buntstift = require('buntstift'),
 
 const packageJson = require('../package.json');
 
-const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp'),
-    gulpfile = path.join(process.cwd(), 'roboter.js');
+let gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp'),
+const gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2);
 
@@ -23,12 +23,16 @@ updateNotifier({
 
 /* eslint-disable no-process-exit */
 if (!fs.existsSync(gulp)) {
-  buntstift.error('roboter is not installed locally.');
-  buntstift.newLine();
-  buntstift.info('Please run the following command:');
-  buntstift.newLine();
-  buntstift.info('  npm install roboter --save-dev --save-exact');
-  process.exit(1);
+  gulp = path.join(process.cw(), 'node_modules', 'roboter', 'node_modules', 'bin', 'gulp');
+
+  if (!fs.existsSync(gulp)) {
+    buntstift.error('roboter is not installed locally.');
+    buntstift.newLine();
+    buntstift.info('Please run the following command:');
+    buntstift.newLine();
+    buntstift.info('  npm install roboter --save-dev --save-exact');
+    process.exit(1);
+  }
 }
 
 if (!fs.existsSync(gulpfile)) {
