@@ -6,6 +6,12 @@ roboter.
   workOn('client').
   equipWith(task => {
     task('universal/analyze', () => ({
-      src: [ '**/*.js', '!node_modules/**/*.js', '!**/build/**/*.js', '!test/bundle-scripts/src/app.js' ]
+      src: [
+        '**/*.js',
+        '!node_modules/**/*.js',
+        '!**/build/**/*.js',
+        '!test/bundle-scripts/src/app.js',
+        '!test/serve-client/app.js'
+      ]
     }));
   }).start();

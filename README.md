@@ -45,6 +45,7 @@ roboter.
     task('universal/analyze', () => ({
       src: [ '**/*.js', '!node_modules/**/*.js' ]
     }));
+  });
   start();
 ```
 
