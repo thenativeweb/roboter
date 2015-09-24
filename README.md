@@ -8,7 +8,7 @@ roboter automates your build.
 
     $ npm install roboter gulp
 
-Please note that this module depends on a *locally* installed gulp which *must* be a direct dependency of your application. Hence make sure that you always run the above command to install this module.
+Please note that this module depends on a *locally* installed gulp which *must* be a direct dependency of your application. Hence make sure that you always run the above command to install both modules.
 
 ### As CLI
 
