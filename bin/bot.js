@@ -11,7 +11,6 @@ const buntstift = require('buntstift'),
 
 const packageJson = require('../package.json');
 
-let gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
 const gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2);
@@ -21,9 +20,10 @@ updateNotifier({
   packageVersion: packageJson.version
 }).notify();
 
-/* eslint-disable no-process-exit */
+let gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
+
 if (!fs.existsSync(gulp)) {
-  gulp = path.join(process.cwd(), 'node_modules', 'roboter', 'node_modules', 'bin', 'gulp');
+  gulp = path.join(process.cwd(), 'node_modules', 'roboter', 'node_modules', '.bin', 'gulp');
 
   if (!fs.existsSync(gulp)) {
     buntstift.error('roboter is not installed locally.');
@@ -31,13 +31,13 @@ if (!fs.existsSync(gulp)) {
     buntstift.info('Please run the following command:');
     buntstift.newLine();
     buntstift.info('  npm install roboter --save-dev --save-exact');
-    process.exit(1);
+    buntstift.exit(1);
   }
 }
 
 if (!fs.existsSync(gulpfile)) {
   buntstift.error('roboter.js is missing.');
-  process.exit(1);
+  buntstift.exit(1);
 }
 
 if (args.length === 0) {
@@ -50,8 +50,7 @@ if (args.length === 0) {
     buntstift.list(task);
   });
 
-  process.exit(0);
+  buntstift.exit(0);
 }
 
-process.exit(shell.exec(`${gulp} --gulpfile ${gulpfile} --color true ${args.join(' ')}`).code);
-/* eslint-enable no-process-exit */
+buntstift.exit(shell.exec(`${gulp} --gulpfile ${gulpfile} --color true ${args.join(' ')}`).code);
