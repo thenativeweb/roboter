@@ -11,4 +11,6 @@ const gulpfile = path.join(process.cwd(), 'roboter.js');
 
 const args = process.argv.slice(2).join(' ');
 
-shell.exec(`${gulp} --gulpfile ${gulpfile} --color -- ${args}`);
+/* eslint-disable no-process-exit */
+process.exit(shell.exec(`${gulp} --gulpfile ${gulpfile} --color -- ${args}`).code);
+/* eslint-enable no-process-exit */
