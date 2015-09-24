@@ -38,10 +38,10 @@ roboter.
       buildDir: './bundle-scripts/build'
     });
 
-    task('client/themes', {
-      entryFiles: './themes/src/**/theme.scss',
-      watch: './themes/src/**/*.scss',
-      assets: [ './themes/src/**/*', '!**/*.scss' ],
-      buildDir: './themes/build/'
+    task('client/build-themes', {
+      entryFiles: './build-themes/src/**/theme.scss',
+      watch: './build-themes/src/**/*.scss',
+      assets: [ './build-themes/src/**/*', '!**/*.scss' ],
+      buildDir: './build-themes/build/'
     });
   }).start();
