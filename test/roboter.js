@@ -26,6 +26,12 @@ roboter.
       open: false
     });
 
+    task('client/build-html', {
+      src: './build-html/src/**.html',
+      watch: './build-html/src/**.html',
+      buildDir: './build-html/build/'
+    });
+
     task('client/bundle-scripts', {
       baseDir: './bundle-scripts/src/',
       entryFiles: 'app.js',
