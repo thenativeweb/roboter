@@ -13,7 +13,7 @@
     }
   ],
   "bin": {
-    "bot": "bin/roboter.js"
+    "bot": "bin/bot.js"
   },
   "main": "lib/roboter.js",
   "dependencies": {
