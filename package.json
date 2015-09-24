@@ -12,6 +12,7 @@
       "email": "matthias.wagler@thenativeweb.io"
     }
   ],
+  "bin": "bin/bot.js",
   "main": "lib/roboter.js",
   "dependencies": {
     "babelify": "6.3.0",
