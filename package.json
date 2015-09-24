@@ -1,7 +1,17 @@
 {
   "name": "roboter",
   "version": "0.0.0",
-  "description": "",
+  "description": "roboter automates your build.",
+  "contributors": [
+    {
+      "name": "Golo Roden",
+      "email": "golo.roden@thenativeweb.io"
+    },
+    {
+      "name": "Matthias Wagler",
+      "email": "matthias.wagler@thenativeweb.io"
+    }
+  ],
   "main": "lib/roboter.js",
   "dependencies": {
     "babelify": "6.3.0",
@@ -23,5 +33,15 @@
     "shelljs": "0.5.3",
     "vinyl-source-stream": "1.1.0",
     "watchify": "3.4.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thenativeweb/roboter.git"
+  },
+  "keywords": [
+    "build",
+    "gulp"
+  ],
+  "license": "MIT"
 }
