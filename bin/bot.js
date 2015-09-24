@@ -17,7 +17,9 @@ if (args.length === 0) {
 
   const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).join('\n');
 
+  /* eslint-disable no-console */
   console.log(tasks);
+  /* eslint-enable no-console */
 
   process.exit(0);
 }
