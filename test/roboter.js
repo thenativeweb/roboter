@@ -10,6 +10,14 @@ roboter.
       rules: './.eslintrc'
     }));
 
+    task('client/serve-client', () => ({
+      baseDir: './serve-client/',
+      watch: [ './serve-client/*.html', './serve-client/**/*.css', './serve-client/**/*.js' ],
+      ghostMode: false,
+      notify: false,
+      open: false
+    }));
+
     task('client/bundle-scripts', () => ({
       baseDir: './bundle-scripts/src/',
       entryFiles: 'app.js',
