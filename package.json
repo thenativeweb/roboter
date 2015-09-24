@@ -32,6 +32,7 @@
     "gulp-svgo": "0.1.1",
     "gulp-util": "3.0.6",
     "merge-stream": "1.0.0",
+    "minimist": "1.2.0",
     "run-sequence": "1.1.4",
     "shelljs": "0.5.3",
     "vinyl-source-stream": "1.1.0",
