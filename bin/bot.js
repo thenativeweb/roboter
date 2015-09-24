@@ -23,16 +23,12 @@ updateNotifier({
 let gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
 
 if (!fs.existsSync(gulp)) {
-  gulp = path.join(process.cwd(), 'node_modules', 'roboter', 'node_modules', '.bin', 'gulp');
-
-  if (!fs.existsSync(gulp)) {
-    buntstift.error('roboter is not installed locally.');
-    buntstift.newLine();
-    buntstift.info('Please run the following command:');
-    buntstift.newLine();
-    buntstift.info('  npm install roboter --save-dev --save-exact');
-    buntstift.exit(1);
-  }
+  buntstift.error('roboter is not installed locally.');
+  buntstift.newLine();
+  buntstift.info('Please run the following command:');
+  buntstift.newLine();
+  buntstift.info('  npm install roboter --save-dev --save-exact');
+  buntstift.exit(1);
 }
 
 if (!fs.existsSync(gulpfile)) {
