@@ -31,6 +31,11 @@ if (!fs.existsSync(gulp)) {
   process.exit(1);
 }
 
+if (!fs.existsSync(gulpfile)) {
+  buntstift.error('roboter.js is missing.');
+  process.exit(1);
+}
+
 if (args.length === 0) {
   const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
 
