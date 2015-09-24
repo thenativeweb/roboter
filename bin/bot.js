@@ -3,10 +3,11 @@
 'use strict';
 
 const fs = require('fs'),
-    path = require('path'),
-    updateNotifier = require('update-notifier');
+    path = require('path');
 
-const shell = require('shelljs');
+const buntstift = require('buntstift'),
+    shell = require('shelljs'),
+    updateNotifier = require('update-notifier');
 
 const packageJson = require('../package.json');
 
@@ -22,20 +23,23 @@ updateNotifier({
 
 /* eslint-disable no-process-exit */
 if (!fs.existsSync(gulp)) {
-  console.log('roboter is not installed locally. Please run the following command:');
-  console.log();
-  console.log('    npm install roboter --save-dev --save-exact');
+  buntstift.error('roboter is not installed locally.');
+  buntstift.newLine();
+  buntstift.info('Please run the following command:');
+  buntstift.newLine();
+  buntstift.info('  npm install roboter --save-dev --save-exact');
   process.exit(1);
 }
 
 if (args.length === 0) {
   const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
 
-  const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).sort().join('\n');
+  const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).sort();
 
-  /* eslint-disable no-console */
-  console.log(tasks);
-  /* eslint-enable no-console */
+  buntstift.success('The following tasks are availabe:');
+  tasks.forEach(task => {
+    buntstift.list(task);
+  });
 
   process.exit(0);
 }
