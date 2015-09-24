@@ -6,19 +6,19 @@ roboter.
   workOn('client').
   equipWith(task => {
     task('analyze', () => ({
-      src: './test/client-scripts/src/**/*'
+      src: './test/bundle-scripts/src/**/*'
     }));
 
-    task('client-scripts', () => ({
-      baseDir: './test/client-scripts/src/',
+    task('bundle-scripts', () => ({
+      baseDir: './test/bundle-scripts/src/',
       entryFiles: 'app.js',
-      buildDir: './test/client-scripts/build'
+      buildDir: './test/bundle-scripts/build'
     }));
 
-    task('client-themes', () => ({
-      entryFiles: './test/client-themes/src/**/theme.scss',
-      watch: './test/client-themes/src/**/*.scss',
-      assets: [ './test/client-themes/src/**/*', '!**/*.scss' ],
-      buildDir: './test/client-themes/build/'
+    task('themes', () => ({
+      entryFiles: './test/themes/src/**/theme.scss',
+      watch: './test/themes/src/**/*.scss',
+      assets: [ './test/themes/src/**/*', '!**/*.scss' ],
+      buildDir: './test/themes/build/'
     }));
   }).start();
