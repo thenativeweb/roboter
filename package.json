@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "roboter automates your build.",
   "contributors": [
     {
@@ -23,7 +23,9 @@
     "eslint-plugin-react": "3.4.2",
     "gulp": "3.9.0",
     "gulp-autoprefixer": "3.0.2",
+    "gulp-bump": "1.0.0",
     "gulp-eslint": "1.0.0",
+    "gulp-git": "1.4.0",
     "gulp-minify-css": "1.2.1",
     "gulp-rename": "1.2.2",
     "gulp-sass": "2.0.4",
