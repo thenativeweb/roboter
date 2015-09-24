@@ -23,6 +23,7 @@ roboter.
       watch: [ './serve-client/*.html', './serve-client/**/*.css', './serve-client/**/*.js' ],
       ghostMode: false,
       notify: false,
+      port: 8080,
       open: false
     });
 
