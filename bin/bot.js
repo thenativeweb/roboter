@@ -12,19 +12,12 @@ const buntstift = require('buntstift'),
 
 const packageJson = require('../package.json');
 
-const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp'),
-    gulpfile = path.join(process.cwd(), 'roboter.js'),
-    localRoboter = path.join(process.cwd(), 'node_modules', 'roboter'),
-    localRoboterPackageJson = path.join(process.cwd(), 'node_modules', 'roboter', 'package.json');
-
-const args = process.argv.slice(2);
-
 updateNotifier({
   packageName: packageJson.name,
   packageVersion: packageJson.version
 }).notify();
 
-if (!fs.existsSync(localRoboter)) {
+if (!fs.existsSync(path.join(process.cwd(), 'node_modules', 'roboter'))) {
   buntstift.error('roboter is not installed locally.');
   buntstift.newLine();
   buntstift.info('Please run the following command:');
@@ -32,6 +25,8 @@ if (!fs.existsSync(localRoboter)) {
   buntstift.info('  npm install roboter --save-dev --save-exact');
   buntstift.exit(1);
 }
+
+const localRoboterPackageJson = require(path.join(process.cwd(), 'node_modules', 'roboter', 'package.json'));
 
 if (semver.gt(localRoboterPackageJson.version, packageJson.version)) {
   buntstift.error('The roboter runner is too old.');
@@ -42,10 +37,25 @@ if (semver.gt(localRoboterPackageJson.version, packageJson.version)) {
   buntstift.exit(1);
 }
 
+const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
+
+if (!fs.existsSync(gulp)) {
+  buntstift.error('gulp is not installed locally.');
+  buntstift.newLine();
+  buntstift.info('Please run the following command:');
+  buntstift.newLine();
+  buntstift.info('  npm install gulp --save-dev --save-exact');
+  buntstift.exit(1);
+}
+
+const gulpfile = path.join(process.cwd(), 'roboter.js');
+
 if (!fs.existsSync(gulpfile)) {
   buntstift.error('roboter.js is missing.');
   buntstift.exit(1);
 }
+
+const args = process.argv.slice(2);
 
 if (args.length === 0) {
   const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
