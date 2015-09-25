@@ -1,7 +1,0 @@
-{
-  "extends": "eslint-config-es/2015/client",
-
-  "rules": {
-    "no-console": 0
-  }
-}

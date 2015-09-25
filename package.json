@@ -47,7 +47,6 @@
     "watchify": "3.4.0"
   },
   "devDependencies": {
-    "assertthat": "0.6.0"
   },
   "repository": {
     "type": "git",
