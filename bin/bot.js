@@ -22,7 +22,7 @@ if (!fs.existsSync(path.join(process.cwd(), 'node_modules', 'roboter'))) {
   buntstift.newLine();
   buntstift.info('Please run the following command:');
   buntstift.newLine();
-  buntstift.info('  npm install roboter --save-dev --save-exact');
+  buntstift.info('  npm install roboter gulp --save-dev --save-exact');
   buntstift.exit(1);
 }
 
@@ -42,9 +42,10 @@ const gulp = path.join(process.cwd(), 'node_modules', '.bin', 'gulp');
 if (!fs.existsSync(gulp)) {
   buntstift.error('gulp is not installed locally.');
   buntstift.newLine();
-  buntstift.info('Please run the following command:');
+  buntstift.info('Please run the following commands:');
   buntstift.newLine();
-  buntstift.info('  npm install gulp --save-dev --save-exact');
+  buntstift.info('  npm rm roboter');
+  buntstift.info('  npm install roboter gulp --save-dev --save-exact');
   buntstift.exit(1);
 }
 
