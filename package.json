@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "roboter automates your build.",
   "contributors": [
     {
@@ -45,8 +45,7 @@
     "vinyl-source-stream": "1.1.0",
     "watchify": "3.4.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
