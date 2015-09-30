@@ -2,6 +2,8 @@
 
 roboter automates your build.
 
+![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
+
 ## Installation
 
 ### As Node.js module
