@@ -83,9 +83,9 @@ The environment you select defines what tasks are available to you. The exceptio
 - [`build-server`](#the-build-server-task)
 - [`watch-server`](#the-watch-server-task)
 
-### Universal tasks
+## Universal tasks
 
-#### The `analyze` task
+### The `analyze` task
 
 This task runs static code analysis on your source files. You only need to specify which files to analyse. For that use the `src` parameter.
 
@@ -116,7 +116,7 @@ To run this task continuously run the following command.
 $ bot watch-analyze
 ```
 
-#### The `outdated` task
+### The `outdated` task
 
 This task verifies whether all of your dependencies and development dependencies are up-to-date.
 
@@ -126,7 +126,7 @@ To run this task use the following command.
 $ bot outdated
 ```
 
-#### The `release` task
+### The `release` task
 
 This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date.
 
@@ -143,7 +143,7 @@ $ bot release --type minor
 $ bot release --type major
 ```
 
-#### The `shell` task
+### The `shell` task
 
 This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
 
@@ -159,7 +159,7 @@ To run a custom-defined task run `bot` and provide the name of the task.
 $ bot build
 ```
 
-#### The `test-units` task
+### The `test-units` task
 
 This task runs unit tests using Mocha, where the tests need to be written as asynchronous tests using the `tdd` style.
 
@@ -201,7 +201,7 @@ Then run the following command.
 $ bot watch-test-units
 ```
 
-#### The `update` task
+### The `update` task
 
 This task updates your module's dependencies.
 
@@ -217,11 +217,11 @@ By default this updates all dependencies. If you only want update a single depen
 $ bot update --module lodash
 ```
 
-### Client tasks
+## Client tasks
 
-### Server tasks
+## Server tasks
 
-#### The `build-server` task
+### The `build-server` task
 
 This task runs code analysis and unit tests on your code as defined by the `analyze` and `test-units` tasks.
 
@@ -231,7 +231,7 @@ To run this task use the following command.
 $ bot build-server
 ```
 
-#### The `watch-server` task
+### The `watch-server` task
 
 This task runs your unit tests continuously as defined by the `test-units` tasks.
 
