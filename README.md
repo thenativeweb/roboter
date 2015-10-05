@@ -96,7 +96,7 @@ task('universal/analyze', {
 });
 ```
 
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an ESLint configuration file using the `rules` property.
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file using the `rules` property.
 
 ```javascript
 task('universal/analyze', {
@@ -162,7 +162,7 @@ $ bot build
 
 ### The `test-units` task
 
-This task runs unit tests using Mocha, where the tests need to be written as asynchronous tests using the `tdd` style.
+This task runs unit tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
 
 ```javascript
 suite('Basic math', () => {
@@ -255,15 +255,15 @@ $ bot build-client
 
 Building HTML simply means copying files from one directory to another. This is the most basic part of the build steps.
 
-When building client applications roboter assumes that you want your application to be themable by default. If you do not want this just use a `default` theme. Anyway, all of your themes are compiled using Sass.
+When building client applications roboter assumes that you want your application to be themable by default. If you do not want this just use a `default` theme. Anyway, all of your themes are compiled using [Sass](http://sass-lang.com/).
 
-Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using svgo, copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
+Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using [svgo](https://github.com/svg/svgo), copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
 
-Building the scripts means compiling JavaScript using Browserify and Babel, using Babel's default settings, i.e. without any experimental language feature support.
+Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/) and [Babel](https://babeljs.io/), using Babel's default settings, i.e. without any experimental language feature support.
 
 ### The `watch-client` task
 
-This task rebuilds a web application continuously. Additionally it starts a live-preview server that will automatically refresh when files have been changed.
+This task rebuilds a web application continuously. Additionally it starts a [live-preview server](http://www.browsersync.io/) that will automatically refresh when files have been changed.
 
 Additionally to the aforementioned configuration you now also have to define the `watch` property for the `build-html` and `build-themes` tasks. Additionally, you have to configure the `serve-client` task.
 
@@ -320,6 +320,10 @@ Unfortunately, this module can not be used to build itself. Hence you have to us
     $ npm run publish-patch
 
 Alternative you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
+
+## Standing on the shoulders of giants
+
+roboter is an opinionated abstraction layer to streamline your build flow. For that it leverages the streaming power of [gulp](http://gulpjs.com/).
 
 ## License
 
