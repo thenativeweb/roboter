@@ -222,7 +222,7 @@ $ bot update --module lodash
 
 ### The `build-client` task
 
-This task builds a web application. To make this task work you need to configure several sub-tasks.
+This task builds a web application and consists of several sub-task that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values.
 
 ```javascript
 task('client/build-html', {
