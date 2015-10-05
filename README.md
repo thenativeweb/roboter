@@ -59,7 +59,7 @@ If you want to get an overview of all available tasks, simply run `bot` without 
 $ bot
 ```
 
-## Using tasks
+## Configuring and using tasks
 
 Before using tasks you need to select an environment, i.e. whether you are working on a `client` or a `server` project. For that provide the name of the environment to the `workOn` function.
 
@@ -67,9 +67,26 @@ The environment you select defines what tasks are available to you. The exceptio
 
 ### Universal tasks
 
+- [`analyze`](#the-analyze-task)
+- [`outdated`](#the-outdated-task)
+- [`release`](#the-release-task)
+- [`shell`](#the-shell-task)
+- [`test-units`](#the-test-units-task)
+- [`update`](#the-update-task)
+
+### Client tasks
+
+- ...
+
+### Server tasks
+
+- ...
+
+### Universal tasks
+
 #### The `analyze` task
 
-This tasks runs static code analysis on your source files. You only need to specify which files to analyse. For that use the `src` parameter.
+This task runs static code analysis on your source files. You only need to specify which files to analyse. For that use the `src` parameter.
 
 ```javascript
 task('universal/analyze', {
@@ -100,7 +117,7 @@ $ bot watch-analyze
 
 #### The `outdated` task
 
-This tasks verifies whether all of your dependencies and development dependencies are up-to-date.
+This task verifies whether all of your dependencies and development dependencies are up-to-date.
 
 To run this task use the following command.
 
@@ -110,7 +127,7 @@ $ bot outdated
 
 #### The `release` task
 
-This tasks publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date.
+This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date.
 
 To run this task use the following command.
 
@@ -123,6 +140,80 @@ By default this creates a `patch` release. If you want to create a `minor` or a 
 ```bash
 $ bot release --type minor
 $ bot release --type major
+```
+
+#### The `shell` task
+
+This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
+
+```javascript
+task('universal/shell', {
+  build: 'docker build .'
+});
+```
+
+To run a custom-defined task run `bot` and provide the name of the task.
+
+```bash
+$ bot build
+```
+
+#### The `test-units` task
+
+This task runs unit tests using Mocha, where the tests need to be written as asynchronous tests using the `tdd` style.
+
+```javascript
+suite('Basic math', () => {
+  test('1 plus 1 is 2.', done => {
+    assert.that(1 + 1).is.equalTo(2);
+    done();
+  });  
+});
+```
+
+You need to specify which files contain your tests. For that use the `src` parameter.
+
+```javascript
+task('universal/test-units', {
+  src: 'test/units/**/*Tests.js'
+});
+```
+
+To run this task use the following command.
+
+```bash
+$ bot test-units
+```
+
+To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
+
+```javascript
+task('universal/test-units', {
+  src: 'test/units/**/*Tests.js',
+  watch: [ '**/*.js', '!node_modules/**/*.js' ]
+});
+```
+
+Then run the following command.
+
+```bash
+$ bot watch-test-units
+```
+
+#### The `update` task
+
+This task updates your module's dependencies.
+
+To run this task use the following command.
+
+```bash
+$ bot update
+```
+
+By default this updates all dependencies. If you only want update a single dependency, provide the module name as command-line argument.
+
+```bash
+$ bot update --module lodash
 ```
 
 ### Client tasks
