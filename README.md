@@ -63,7 +63,7 @@ $ bot
 
 Before using tasks you need to select an environment, i.e. whether you are working on a `client` or a `server` project. For that provide the name of the environment to the `workOn` function.
 
-The environment you select defines what tasks are available to you. Anyway, there is an exception to the rule - the so-called *universal* tasks that work the same way on the client and on the server.
+The environment you select defines what tasks are available to you. The exception to the rule are the *universal* tasks that are available independent of the selected environment.
 
 ### Universal tasks
 
@@ -77,13 +77,25 @@ task('universal/analyze', {
 });
 ```
 
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying an ESLint configuration file using the `rules` property.
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an ESLint configuration file using the `rules` property.
 
 ```javascript
 task('universal/analyze', {
   src: [ '**/*.js', '!node_modules/**/*.js' ],
   rules: '.eslintrc'
 });
+```
+
+To run this task use the following command.
+
+```bash
+$ bot analyze
+```
+
+To run this task continuously run the following command.
+
+```bash
+$ bot watch-analyze
 ```
 
 ### Client tasks
