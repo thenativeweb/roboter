@@ -61,7 +61,34 @@ $ bot
 
 ## Using tasks
 
-### ...
+Before using tasks you need to select an environment, i.e. whether you are working on a `client` or a `server` project. For that provide the name of the environment to the `workOn` function.
+
+The environment you select defines what tasks are available to you. Anyway, there is an exception to the rule - the so-called *universal* tasks that work the same way on the client and on the server.
+
+### Universal tasks
+
+#### The `analyze` task
+
+This tasks runs static code analysis on your source files. You only need to specify which files to analyse. For that use the `src` parameter.
+
+```javascript
+task('universal/analyze', {
+  src: [ '**/*.js', '!node_modules/**/*.js' ]
+});
+```
+
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying an ESLint configuration file using the `rules` property.
+
+```javascript
+task('universal/analyze', {
+  src: [ '**/*.js', '!node_modules/**/*.js' ],
+  rules: '.eslintrc'
+});
+```
+
+### Client tasks
+
+### Server tasks
 
 ## Running the build
 
