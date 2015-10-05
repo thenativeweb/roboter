@@ -104,9 +104,11 @@ $ bot watch-analyze
 
 ## Running the build
 
-This module can be built using itself. For that install roboter globally and run it with the `build` command.
+Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
 
-    $ bot build
+    $ npm run publish-patch
+
+Alternative you may also use `publich-minor` and `publish-major`, depending on the changes you have made.
 
 ## License
 
