@@ -76,7 +76,8 @@ The environment you select defines what tasks are available to you. The exceptio
 
 ### Client tasks
 
-- ...
+- [`build-client`](#the-build-client-task)
+- [`watch-client`](#the-watch-client-task)
 
 ### Server tasks
 
@@ -218,6 +219,77 @@ $ bot update --module lodash
 ```
 
 ## Client tasks
+
+### The `build-client` task
+
+This task builds a web application. To make this task work you need to configure several sub-tasks.
+
+```javascript
+task('client/build-html', {
+  src: 'src/**/*.html',
+  buildDir: 'build/'
+});
+
+task('client/build-themes', {
+  baseDir: 'src/themes/',
+  entryFiles: 'src/themes/**/theme.scss',
+  assets: [ 'src/themes/**/*.png', '!src/themes/**/*.scss' ],
+  buildDir: 'build/themes/'
+});
+
+task('client/build-scripts', {
+  baseDir: 'src/',
+  entryFile: 'index.js',
+  buildDir: 'build/',
+  outputFile: 'app.js'
+});
+```
+
+To run this task use the following command.
+
+```bash
+$ bot build-client
+```
+
+#### Building the various parts
+
+Building HTML simply means copying files from one directory to another. This is the most basic part of the build steps.
+
+When building client applications roboter assumes that you want your application to be themable by default. If you do not want this just use a `default` theme. Anyway, all of your themes are compiled using Sass.
+
+Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using svgo, copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
+
+Building the scripts means compiling JavaScript using Browserify and Babel, using Babel's default settings, i.e. without any experimental language feature support.
+
+### The `watch-client` task
+
+This task rebuilds a web application continuously. Additionally it starts a live-preview server that will automatically refresh when files have been changed.
+
+Additionally to the aforementioned configuration you now also have to define the `watch` property for the `build-html` and `build-themes` tasks. Additionally, you have to configure the `serve-client` task.
+
+```javascript
+task('client/build-html', {
+  ...,
+  watch: 'src/**/*.html'
+});
+
+task('client/build-themes', {
+  ...,
+  watch: 'src/themes/**/*'
+});
+
+task('client/serve-client', {
+  baseDir: 'build/',
+  watch: [ 'build/**/*' ],
+  port: 3000
+});
+```
+
+To finally run this task use the following command.
+
+```bash
+$ bot watch-client
+```
 
 ## Server tasks
 
