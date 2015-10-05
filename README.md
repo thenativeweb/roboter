@@ -108,6 +108,23 @@ To run this task use the following command.
 $ bot outdated
 ```
 
+#### The `release` task
+
+This tasks publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date.
+
+To run this task use the following command.
+
+```bash
+$ bot release
+```
+
+By default this creates a `patch` release. If you want to create a `minor` or a `major` release, provide the release type as command-line argument.
+
+```bash
+$ bot release --type minor
+$ bot release --type major
+```
+
 ### Client tasks
 
 ### Server tasks
