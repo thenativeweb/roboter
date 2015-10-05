@@ -80,7 +80,8 @@ The environment you select defines what tasks are available to you. The exceptio
 
 ### Server tasks
 
-- ...
+- [`build-server`](#the-build-server-task)
+- [`watch-server`](#the-watch-server-task)
 
 ### Universal tasks
 
@@ -219,6 +220,26 @@ $ bot update --module lodash
 ### Client tasks
 
 ### Server tasks
+
+#### The `build-server` task
+
+This task runs code analysis and unit tests on your code as defined by the `analyze` and `test-units` tasks.
+
+To run this task use the following command.
+
+```bash
+$ bot build-server
+```
+
+#### The `watch-server` task
+
+This task runs your unit tests continuously as defined by the `test-units` tasks.
+
+To run this task use the following command.
+
+```bash
+$ bot watch-server
+```
 
 ## Running the build
 
