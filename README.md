@@ -98,6 +98,16 @@ To run this task continuously run the following command.
 $ bot watch-analyze
 ```
 
+#### The `outdated` task
+
+This tasks verifies whether all of your dependencies and development dependencies are up-to-date.
+
+To run this task use the following command.
+
+```bash
+$ bot outdated
+```
+
 ### Client tasks
 
 ### Server tasks
@@ -108,7 +118,7 @@ Unfortunately, this module can not be used to build itself. Hence you have to us
 
     $ npm run publish-patch
 
-Alternative you may also use `publich-minor` and `publish-major`, depending on the changes you have made.
+Alternative you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
 
 ## License
 
