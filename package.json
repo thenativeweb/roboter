@@ -56,9 +56,9 @@
     "publish-patch": "npm version patch && git push --tags && git push && npm publish",
     "publish-minor": "npm version minor && git push --tags && git push && npm publish",
     "publish-major": "npm version major && git push --tags && git push && npm publish",
-    "prepublish-patch": "npm analyze",
-    "prepublish-minor": "npm analyze",
-    "prepublish-major": "npm analyze"
+    "prepublish-patch": "npm run analyze",
+    "prepublish-minor": "npm run analyze",
+    "prepublish-major": "npm run analyze"
   },
   "keywords": [
     "build",
