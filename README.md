@@ -317,9 +317,15 @@ $ bot watch-server
 
 Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
 
+To analyze the source code run the following command.
+
+    $ npm run analyze
+
+To release a new version run the following command.
+
     $ npm run publish-patch
 
-Alternative you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
+Alternatively you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
 
 ## Standing on the shoulders of giants
 
