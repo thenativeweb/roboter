@@ -6,6 +6,7 @@ const fs = require('fs'),
     path = require('path');
 
 const buntstift = require('buntstift'),
+    minimist = require('minimist'),
     semver = require('semver'),
     shell = require('shelljs'),
     updateNotifier = require('update-notifier');
@@ -48,26 +49,18 @@ if (!fs.existsSync(gulp)) {
   buntstift.exit(1);
 }
 
-const gulpfile = path.join(process.cwd(), 'roboter.js');
+const configurationFile = minimist(process.argv.slice(2), {
+  string: 'file',
+  default: 'roboter.js'
+}).file || 'roboter.js';
 
-if (!fs.existsSync(gulpfile)) {
-  buntstift.error('roboter.js is missing.');
+const configurationFileWithPath = path.join(process.cwd(), configurationFile);
+
+if (!fs.existsSync(configurationFileWithPath)) {
+  buntstift.error(`${configurationFile} is missing.`);
   buntstift.exit(1);
 }
 
-const args = process.argv.slice(2);
+const args = process.argv.slice(2).join(' ');
 
-if (args.length === 0) {
-  const result = shell.exec(`${gulp} --gulpfile ${gulpfile} --color true --tasks-simple`, { silent: true });
-
-  const tasks = result.output.split('\n').filter(task => task && !task.startsWith('_')).sort();
-
-  buntstift.success('The following tasks are availabe:');
-  tasks.forEach(task => {
-    buntstift.list(task);
-  });
-
-  buntstift.exit(0);
-}
-
-buntstift.exit(shell.exec(`${gulp} --gulpfile ${gulpfile} --color true ${args.join(' ')}`).code);
+buntstift.exit(shell.exec(`${gulp} --gulpfile ${configurationFileWithPath} --color true ${args}`).code);
