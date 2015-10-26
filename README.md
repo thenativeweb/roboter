@@ -225,6 +225,10 @@ $ bot update --module lodash
 This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values.
 
 ```javascript
+task('client/clean-client', {
+  buildDir: 'build/**/*'
+});
+
 task('client/build-html', {
   src: 'src/**/*.html',
   buildDir: 'build/'
