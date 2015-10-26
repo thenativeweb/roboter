@@ -21,6 +21,7 @@
     "browser-sync": "2.9.6",
     "browserify": "11.1.0",
     "buntstift": "0.4.0",
+    "del": "2.0.2",
     "eslint": "1.5.1",
     "eslint-config-es": "0.4.3",
     "eslint-plugin-mocha": "1.0.0",
