@@ -263,7 +263,7 @@ When building client applications roboter assumes that you want your application
 
 Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using [svgo](https://github.com/svg/svgo), copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
 
-Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/) and [Babel](https://babeljs.io/), using Babel's default settings, i.e. without any experimental language feature support.
+Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/), [Babel](https://babeljs.io/) and [envify](https://github.com/hughsk/envify), using Babel's default settings, i.e. without any experimental language feature support.
 
 ### The `watch-client` task
 
