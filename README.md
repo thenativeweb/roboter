@@ -257,7 +257,7 @@ $ bot build-client
 
 #### Building the various parts
 
-Building HTML simply means copying files from one directory to another. This is the most basic part of the build steps.
+Building HTML means copying files from one directory to another. You can use [preprocess](https://github.com/jsoverson/preprocess) and its [directive syntax](https://github.com/jsoverson/preprocess#directive-syntax) to include and exclude HTML content based on ENV variables. 
 
 When building client applications roboter assumes that you want your application to be themable by default. If you do not want this just use a `default` theme. Anyway, all of your themes are compiled using [Sass](http://sass-lang.com/).
 
