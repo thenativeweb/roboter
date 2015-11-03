@@ -247,6 +247,12 @@ task('client/build-scripts', {
   buildDir: 'build/',
   outputFile: 'app.js'
 });
+
+task('client/copy-static', {
+  src: 'src/static-content/**/*',
+  watch: 'src/static-content/**/*',
+  buildDir: 'build/'
+});
 ```
 
 To run this task use the following command.
