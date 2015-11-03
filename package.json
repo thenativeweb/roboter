@@ -17,6 +17,7 @@
   },
   "main": "lib/roboter.js",
   "dependencies": {
+    "babel-preset-es2015": "6.0.15",
     "babelify": "7.2.0",
     "browser-sync": "2.9.11",
     "browserify": "12.0.1",

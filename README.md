@@ -241,7 +241,7 @@ task('client/build-themes', {
   buildDir: 'build/themes/'
 });
 
-task('client/build-scripts', {
+task('client/bundle-scripts', {
   baseDir: 'src/',
   entryFile: 'index.js',
   buildDir: 'build/',
@@ -263,17 +263,7 @@ When building client applications roboter assumes that you want your application
 
 Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using [svgo](https://github.com/svg/svgo), copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
 
-Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/), [envify](https://github.com/hughsk/envify) and [Babel](https://babeljs.io/). Please note that since Babel 6.0.0 you need to explicitly install and configure presets in order to tell Babel which language features to use. If you would like to use es2015 simply install `babel-preset-es2015` to your project and configure it via the `babel.presets` option.
-
-```javascript
-task('client/build-scripts', {
-  ...
-  babel: {
-    presets: [ 'es2015' ]
-  },
-  ...
-});
-```
+Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/), [envify](https://github.com/hughsk/envify) and [Babel](https://babeljs.io/).
 
 ### The `watch-client` task
 
