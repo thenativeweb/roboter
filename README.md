@@ -337,6 +337,19 @@ To run this task use the following command.
 $ bot watch-server
 ```
 
+## Using the default task
+
+No matter whether you are working on the client or on the server, roboter provides a meaningful `default` task.
+
+- On the client, it is equivalent to the `watch-client` task.
+- On the server, it is equivalent to the `build-server` task.
+
+To run the `default` task, simply run `bot` without any further parameters.
+
+```bash
+$ bot
+```
+
 ## Running the build
 
 Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
