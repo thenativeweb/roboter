@@ -120,6 +120,20 @@ task('universal/analyze', {
 });
 ```
 
+In both configuration file and shareable configuration the [extends](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) feature is supported which allows to build up a hierarchy of ESLint configurations.
+
+The following shareable configuration uses the `2015/server.js` file from the `eslint-config-es` sharable configuration as base and overrides two rules keeping the others.
+
+```javascript
+module.exports = {
+  extends: 'es/2015/server',
+  rules: {
+    'array-bracket-spacing': [2, 'never'],
+    'object-curly-spacing': [2, 'always']
+  }
+};
+```
+
 To run this task use the following command.
 
 ```bash
