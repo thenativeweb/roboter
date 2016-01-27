@@ -96,12 +96,27 @@ task('universal/analyze', {
 });
 ```
 
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file using the `rules` property.
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file or a [shareable ESLint configuration](http://eslint.org/docs/developer-guide/shareable-configs.html) using the `rules` property.
 
 ```javascript
 task('universal/analyze', {
   src: [ '**/*.js', '!node_modules/**/*.js' ],
   rules: '.eslintrc'
+});
+```
+
+To use a shareable ESLint configuration install the npm package first.
+
+```bash
+$ npm install --save-dev eslint-config-myconfig
+```
+
+In the second step specify the last part of the package name in the `rules` property.
+
+```javascript
+task('universal/analyze', {
+  src: [ '**/*.js', '!node_modules/**/*.js' ],
+  rules: 'myconfig'
 });
 ```
 
