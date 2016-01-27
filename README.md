@@ -96,7 +96,7 @@ task('universal/analyze', {
 });
 ```
 
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file or a [shareable ESLint configuration](http://eslint.org/docs/developer-guide/shareable-configs.html) using the `rules` property.
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file or to a [shareable ESLint configuration](http://eslint.org/docs/developer-guide/shareable-configs.html). Either way, use the `rules` property for overriding the default.
 
 ```javascript
 task('universal/analyze', {
@@ -105,13 +105,13 @@ task('universal/analyze', {
 });
 ```
 
-To use a shareable ESLint configuration install the npm package first.
+To use a shareable ESLint configuration first install the desired npm module.
 
 ```bash
-$ npm install --save-dev eslint-config-myconfig
+$ npm install <eslint-config-myconfig>
 ```
 
-In the second step specify the last part of the package name in the `rules` property.
+Next remove the `eslint-config-` prefix from the module name and provide what's left as value to the `rules` property.
 
 ```javascript
 task('universal/analyze', {
@@ -120,16 +120,16 @@ task('universal/analyze', {
 });
 ```
 
-In both configuration file and shareable configuration the [extends](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) feature is supported which allows to build up a hierarchy of ESLint configurations.
+Whether you use a configuration file or a shareable configuration, you can always make use of ESLint's [extends](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) feature which allows to build a hierarchy of ESLint configurations.
 
-The following shareable configuration uses the `2015/server.js` file from the `eslint-config-es` sharable configuration as base and overrides two rules keeping the others.
+As an example, the following shareable configuration uses the `2015/server.js` file from the `eslint-config-es` module as its base and overrides two rules while keeping the others.
 
 ```javascript
 module.exports = {
   extends: 'es/2015/server',
   rules: {
-    'array-bracket-spacing': [2, 'never'],
-    'object-curly-spacing': [2, 'always']
+    'array-bracket-spacing': [ 2, 'never' ],
+    'object-curly-spacing': [ 2, 'always' ]
   }
 };
 ```
