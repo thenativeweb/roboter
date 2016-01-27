@@ -96,13 +96,42 @@ task('universal/analyze', {
 });
 ```
 
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file using the `rules` property.
+By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file or to a [shareable ESLint configuration](http://eslint.org/docs/developer-guide/shareable-configs.html). Either way, use the `rules` property for overriding the default.
 
 ```javascript
 task('universal/analyze', {
   src: [ '**/*.js', '!node_modules/**/*.js' ],
   rules: '.eslintrc'
 });
+```
+
+To use a shareable ESLint configuration first install the desired npm module.
+
+```bash
+$ npm install <eslint-config-myconfig>
+```
+
+Next remove the `eslint-config-` prefix from the module name and provide what's left as value to the `rules` property.
+
+```javascript
+task('universal/analyze', {
+  src: [ '**/*.js', '!node_modules/**/*.js' ],
+  rules: 'myconfig'
+});
+```
+
+Whether you use a configuration file or a shareable configuration, you can always make use of ESLint's [extends](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) feature which allows to build a hierarchy of ESLint configurations.
+
+As an example, the following shareable configuration uses the `2015/server.js` file from the `eslint-config-es` module as its base and overrides two rules while keeping the others.
+
+```javascript
+module.exports = {
+  extends: 'es/2015/server',
+  rules: {
+    'array-bracket-spacing': [ 2, 'never' ],
+    'object-curly-spacing': [ 2, 'always' ]
+  }
+};
 ```
 
 To run this task use the following command.
