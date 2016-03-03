@@ -30,12 +30,12 @@
     "eslint-plugin-react": "3.6.3",
     "gulp-autoprefixer": "3.1.0",
     "gulp-bump": "1.0.0",
+    "gulp-clean-css": "2.0.3",
     "gulp-depcheck": "1.0.1",
     "gulp-eslint": "1.0.0",
     "gulp-git": "1.6.0",
     "gulp-imagemin": "2.4.0",
     "gulp-inject": "3.0.0",
-    "gulp-minify-css": "1.2.1",
     "gulp-preprocess": "1.2.0",
     "gulp-rename": "1.2.2",
     "gulp-sass": "2.1.0",
@@ -51,7 +51,6 @@
     "vinyl-source-stream": "1.1.0",
     "watchify": "3.6.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
