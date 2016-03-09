@@ -59,6 +59,12 @@ If you want to get an overview of all available tasks, simply run `bot` without 
 $ bot
 ```
 
+Any environment variables you specify when running `bot` are also available for the tasks. E.g., if you want to run unit tests with disabled TLS verification, run bot as follows.
+
+```bash
+$ NODE_TLS_REJECT_UNAUTHORIZED=0 bot test-units
+```
+
 ## Configuring and using tasks
 
 Before using tasks you need to select an environment, i.e. whether you are working on a `client` or a `server` project. For that provide the name of the environment to the `workOn` function.
@@ -400,7 +406,7 @@ roboter is an opinionated abstraction layer to streamline your build flow. For t
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2015 the native web.
+Copyright (c) 2015-2016 the native web.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
