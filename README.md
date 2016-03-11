@@ -77,6 +77,8 @@ The environment you select defines what tasks are available to you. The exceptio
 - [`outdated`](#the-outdated-task)
 - [`release`](#the-release-task)
 - [`shell`](#the-shell-task)
+- [`test`](#the-test-task)
+- [`test-integration`](#the-test-integration-task)
 - [`test-units`](#the-test-units-task)
 - [`update`](#the-update-task)
 
@@ -193,6 +195,67 @@ To run a custom-defined task run `bot` and provide the name of the task.
 
 ```bash
 $ bot build
+```
+
+### The `test` task
+
+This task runs your unit and integration tests.
+
+To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
+
+```javascript
+task('universal/test', {
+  watch: [ '**/*.js', '!node_modules/**/*.js' ]
+});
+```
+
+Then run the following command.
+
+```bash
+$ bot watch-test
+```
+
+
+### The `test-integration` task
+
+This task runs integration tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
+
+```javascript
+suite('api', () => {
+  test('runs on port 80.', done => {
+    ...
+    done();
+  });  
+});
+```
+
+By default roboter assumes that you store your integration tests in the `test/integration` directory of your project. However you can specify which files contain your integration tests. For that use the `src` parameter.
+
+```javascript
+task('universal/test-integration', {
+  src: 'test/integration/**/*Tests.js'
+});
+```
+
+To run this task use the following command.
+
+```bash
+$ bot test-integration
+```
+
+To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
+
+```javascript
+task('universal/test-integration', {
+  src: 'test/integration/**/*Tests.js',
+  watch: [ '**/*.js', '!node_modules/**/*.js' ]
+});
+```
+
+Then run the following command.
+
+```bash
+$ bot watch-test-integration
 ```
 
 ### The `test-units` task
