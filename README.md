@@ -229,7 +229,7 @@ suite('api', () => {
 });
 ```
 
-By default roboter assumes that you store your integration tests in the `test/integration` folder of your project. However can specify which files contain your integration tests. For that use the `src` parameter.
+By default roboter assumes that you store your integration tests in the `test/integration` directory of your project. However you can specify which files contain your integration tests. For that use the `src` parameter.
 
 ```javascript
 task('universal/test-integration', {
