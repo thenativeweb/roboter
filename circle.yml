@@ -2,7 +2,7 @@ machine:
   timezone: Europe/Berlin
 
   node:
-    version: 4.0.0
+    version: 6.2.0
 
 dependencies:
   pre:
@@ -10,4 +10,4 @@ dependencies:
 
 test:
   override:
-    - bob build
+    - bot build

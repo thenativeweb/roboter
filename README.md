@@ -8,13 +8,17 @@ roboter automates your build.
 
 ### As Node.js module
 
-    $ npm install roboter gulp
+```bash
+$ npm install roboter gulp
+```
 
-Please note that this module depends on a *locally* installed gulp which *must* be a direct dependency of your application. Hence make sure that you always run the above command to install both modules.
+*Please note that roboter requires Node.js 6.2.0 or higher.*
 
 ### As CLI
 
-    $ npm install -g roboter
+```bash
+$ npm install -g roboter
+```
 
 ## Quick start
 
@@ -454,17 +458,17 @@ Unfortunately, this module can not be used to build itself. Hence you have to us
 
 To analyze the source code run the following command.
 
-    $ npm run analyze
+```bash
+$ npm run analyze
+```
 
 To release a new version run the following command.
 
-    $ npm run publish-patch
+```bash
+$ npm run publish-patch
+```
 
 Alternatively you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
-
-## Standing on the shoulders of giants
-
-roboter is an opinionated abstraction layer to streamline your build flow. For that it leverages the streaming power of [gulp](http://gulpjs.com/).
 
 ## License
 

@@ -3,16 +3,17 @@
 'use strict';
 
 const fs = require('fs'),
-    path = require('path');
+      path = require('path');
 
 const buntstift = require('buntstift'),
-    minimist = require('minimist'),
-    semver = require('semver'),
-    shell = require('shelljs'),
-    updateNotifier = require('update-notifier');
+      minimist = require('minimist'),
+      semver = require('semver'),
+      shell = require('shelljs'),
+      updateNotifier = require('update-notifier');
 
 const packageJson = require('../package.json');
 
+/* eslint-disable no-sync */
 updateNotifier({
   packageName: packageJson.name,
   packageVersion: packageJson.version
@@ -27,7 +28,8 @@ if (!fs.existsSync(path.join(process.cwd(), 'node_modules', 'roboter'))) {
   buntstift.exit(1);
 }
 
-const localRoboterPackageJson = require(path.join(process.cwd(), 'node_modules', 'roboter', 'package.json'));
+const localRoboterPackageJson = require(path.join(
+  process.cwd(), 'node_modules', 'roboter', 'package.json'));
 
 if (semver.gt(localRoboterPackageJson.version, packageJson.version)) {
   buntstift.error('The roboter runner is too old.');
@@ -63,4 +65,6 @@ if (!fs.existsSync(configurationFileWithPath)) {
 
 const args = process.argv.slice(2).join(' ');
 
-buntstift.exit(shell.exec(`${gulp} --gulpfile ${configurationFileWithPath} --color true ${args}`).code);
+buntstift.exit(shell.exec(
+  `${gulp} --gulpfile ${configurationFileWithPath} --color true ${args}`).code);
+/* eslint-enable no-sync */
