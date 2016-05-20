@@ -4,10 +4,6 @@ machine:
   node:
     version: 6.2.0
 
-dependencies:
-  pre:
-    - npm install -g roboter
-
 test:
   override:
-    - bot build
+    - npm run analyze
