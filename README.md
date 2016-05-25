@@ -9,7 +9,7 @@ roboter automates your build.
 ### As Node.js module
 
 ```bash
-$ npm install roboter gulp
+$ npm install roboter
 ```
 
 *Please note that roboter requires Node.js 6.2.0 or higher.*
