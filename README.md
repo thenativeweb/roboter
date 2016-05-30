@@ -327,27 +327,13 @@ $ bot update --module lodash
 This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values.
 
 ```javascript
-task('client/clean-client', {
-  buildDir: 'build/**/*'
-});
-
-task('client/build-html', {
-  src: 'src/**/*.html',
+task('client/build-app', {
+  entryFiles: [
+    'src/index.html',
+    'src/index.scss',
+    'src/index.js'
+  ],
   buildDir: 'build/'
-});
-
-task('client/build-themes', {
-  baseDir: 'src/themes/',
-  entryFiles: 'src/themes/**/theme.scss',
-  assets: [ 'src/themes/**/*.png', '!src/themes/**/*.scss' ],
-  buildDir: 'build/themes/'
-});
-
-task('client/build-scripts', {
-  baseDir: 'src/',
-  entryFile: 'index.js',
-  buildDir: 'build/',
-  outputFile: 'app.js'
 });
 
 task('client/copy-static', {
@@ -365,49 +351,60 @@ $ bot build-client
 
 #### Building the various parts
 
-Building HTML means copying files from one directory to another. You can use [preprocess](https://github.com/jsoverson/preprocess) and its [directive syntax](https://github.com/jsoverson/preprocess#directive-syntax) to include and exclude HTML content based on ENV variables.
+By default, roboter expects three entry files for a web application: An `index.html`, an `index.scss`, and an `index.js` file. Please note that within the `index.html` file you need to reference the built JavaScript artefact. The built CSS is injected automatically:
 
-When building client applications roboter assumes that you want your application to be themable by default. If you do not want this just use a `default` theme. Anyway, all of your themes are compiled using [Sass](http://sass-lang.com/).
-
-Additionally, if you create an `icons` folder within a theme and put `.svg` files into it, they will be optimized using [svgo](https://github.com/svg/svgo), copied to the build directory, and additionally be compiled into a single JavaScript file called `icons.js`. This way you can use the `.svg` files individually or inject them as inline SVG.
-
-Building the scripts means compiling JavaScript using [Browserify](http://browserify.org/), [envify](https://github.com/hughsk/envify) and [Babel](https://babeljs.io/).
-
-Please note that you need to explicitly install and configure presets in order to tell the `build-scripts` task which language features to support. If you want to use ES2015 you need to install [`babel-preset-es2015`](https://www.npmjs.com/package/babel-preset-es2015) inside your project and configure it via the `babel.presets` option.
-
-```javascript
-task('client/build-scripts', {
-  baseDir: 'src/',
-  entryFile: 'index.js',
-  babel: {
-    presets: [ 'es2015' ]
-  },
-  buildDir: 'build/',
-  outputFile: 'app.js'
-});
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+    <script type="text/javascript" src="index.js"></script>
+	</body>
+</html>
 ```
+
+Since roboter uses [webpack](https://webpack.github.io/) internally, you may specify the loader to be used when calling the `require` function. Currently, the following loaders are supported:
+
+- `css`
+- `file`
+- `postcss`
+- `raw`
+- `sass`
+- `style`
+- `url`
+
+#### Compiling CSS
+
+All CSS code will automatically be parsed by [autoprefixer](https://github.com/postcss/autoprefixer).
+
+#### Compiling JavaScript
+
+To compile your JavaScript code using Babel, add a `.babelrc` file to your application and register the plugins and presets you want to use. E.g., to enable compilation for ES2015 and React, add the following lines:
+
+```json
+{
+  "presets": [ "es2015", "react" ]
+}
+```
+
+Please note that you explicitly need to install plugins and presets in order for this to work.
 
 ### The `watch-client` task
 
-This task rebuilds a web application continuously. Additionally it starts a [live-preview server](http://www.browsersync.io/) that will automatically refresh when files have been changed.
-
-Additionally to the aforementioned configuration you now also have to define the `watch` property for the `build-html` and `build-themes` tasks. Additionally, you have to configure the `serve-client` task.
+This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components.
 
 ```javascript
-task('client/build-html', {
-  ...,
-  watch: 'src/**/*.html'
-});
-
-task('client/build-themes', {
-  ...,
-  watch: 'src/themes/**/*'
-});
-
-task('client/serve-client', {
-  baseDir: 'build/',
-  watch: [ 'build/**/*' ],
-  port: 3000
+task('client/watch-app', {
+  entryFiles: [
+    'src/index.html',
+    'src/index.scss',
+    'src/index.js'
+  ],
+  buildDir: 'build/',
+  host: 'localhost',
+  port: 8080,
+  hotReloading: true
 });
 ```
 
