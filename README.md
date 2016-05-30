@@ -356,11 +356,12 @@ By default, roboter expects three entry files for a web application: An `index.h
 ```html
 <!DOCTYPE html>
 <html>
-	<head>
-	</head>
-	<body>
+  <head>
+    <title>...</title>
+  </head>
+  <body>
     <script type="text/javascript" src="index.js"></script>
-	</body>
+  </body>
 </html>
 ```
 
