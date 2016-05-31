@@ -17,7 +17,7 @@ $ npm install roboter
 ### As CLI
 
 ```bash
-$ npm install -g roboter
+$ npm install -g roboter-cli
 ```
 
 ## Quick start
