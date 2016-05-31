@@ -6,15 +6,11 @@ roboter automates your build.
 
 ## Installation
 
-### As Node.js module
-
 ```bash
 $ npm install roboter
 ```
 
-*Please note that roboter requires Node.js 6.2.0 or higher.*
-
-### As CLI
+To use roboter it is recommended to install `roboter-cli` globally. This way you can easily run roboter by simply typing `bot`. To install roboter-cli, run the following command.
 
 ```bash
 $ npm install -g roboter-cli
