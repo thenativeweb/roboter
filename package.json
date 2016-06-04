@@ -34,6 +34,7 @@
     "gulp-git": "1.7.1",
     "gulp-inject": "4.1.0",
     "gulp-istanbul": "0.10.4",
+    "gulp-mocha": "2.2.0",
     "gulp-preprocess": "2.0.0",
     "gulp-rename": "1.2.2",
     "gulp-spawn-mocha": "2.2.2",
