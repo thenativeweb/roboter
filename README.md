@@ -74,6 +74,7 @@ The environment you select defines what tasks are available to you. The exceptio
 ### Universal tasks
 
 - [`analyze`](#the-analyze-task)
+- [`coverage`](#the-coverage-task)
 - [`outdated`](#the-outdated-task)
 - [`release`](#the-release-task)
 - [`shell`](#the-shell-task)
@@ -152,6 +153,39 @@ To run this task continuously run the following command.
 
 ```bash
 $ bot watch-analyze
+```
+
+### The `coverage` task
+
+This task analyzes the coverage of your [unit tests](#the-test-units-task) and creates a HTML report in the project's `coverage` directory.
+
+```javascript
+task('universal/coverage', {
+  src: [ './lib/**/*.js', './src/**/*.js' ],
+  test: './test/units/**/*Tests.js'
+});
+```
+
+Roboter assumes that you store your source code in the `lib` or `src` directory and your unit tests in the `test/units` directory of your project. You can specify other directories using the `src` and `test` parameters.
+
+You can define a minimum coverage below which the build fails:
+
+```javascript
+task('universal/coverage', {
+  thresholds: {
+    global: 90
+  }
+});
+```
+
+For more details, please refer to: https://github.com/peterjwest/istanbul-threshold-checker#thresholds
+
+By default, completely untested code files are ignored. To also take those files into account, set the `includeUntested` parameter:
+
+```javascript
+task('universal/coverage', {
+  includeUntested: true
+});
 ```
 
 ### The `outdated` task
