@@ -157,7 +157,7 @@ $ bot watch-analyze
 
 ### The `coverage` task
 
-This task analyzes the coverage of your [unit tests](#the-test-units-task) and creates a HTML report in the project's `coverage` directory.
+This task calculates the coverage of your [unit tests](#the-test-units-task) and creates an HTML report in the project's `coverage` directory.
 
 ```javascript
 task('universal/coverage', {
@@ -166,21 +166,19 @@ task('universal/coverage', {
 });
 ```
 
-Roboter assumes that you store your source code in the `lib` or `src` directory and your unit tests in the `test/units` directory of your project. You can specify other directories using the `src` and `test` parameters.
+By default, roboter assumes that the code to calculate the coverage for is located in the `lib` or the `src` directory, and that your unit tests are located in the `test/units` directory of your project. If you need to, specify other directories using the `src` and `test` parameters.
 
-You can define a minimum coverage below which the build fails:
+Optionally, you may specify a coverage threshold which fails the build if it is not being reached. The value must be given as percentage, i.e. as a number between `0` and `100`:
 
 ```javascript
 task('universal/coverage', {
-  thresholds: {
-    global: 90
-  }
+  threshold: 90
 });
 ```
 
-For more details, please refer to: https://github.com/peterjwest/istanbul-threshold-checker#thresholds
+For more details, please refer to the [documentation of istanbul](https://github.com/peterjwest/istanbul-threshold-checker#thresholds).
 
-By default, completely untested code files are ignored. To also take those files into account, set the `includeUntested` parameter:
+By default, code files that are not tested by any test are ignored. To take these files into account as well, set the `includeUntested` parameter to `true`:
 
 ```javascript
 task('universal/coverage', {
