@@ -75,6 +75,7 @@ The environment you select defines what tasks are available to you. The exceptio
 
 - [`analyze`](#the-analyze-task)
 - [`coverage`](#the-coverage-task)
+- [`license`](#the-license-task)
 - [`outdated`](#the-outdated-task)
 - [`release`](#the-release-task)
 - [`shell`](#the-shell-task)
@@ -183,6 +184,18 @@ By default, code files that are not tested by any test are ignored. To take thes
 ```javascript
 task('universal/coverage', {
   includeUntested: true
+});
+```
+
+### The `license` task
+
+This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
+
+To accept additional licenses, add them to the `compatiable` property of the task configuration.
+
+```javascript
+task('universal/license', {
+  compatible: [ 'MIT', 'ISC' ]
 });
 ```
 
