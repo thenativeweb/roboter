@@ -187,16 +187,28 @@ task('universal/coverage', {
 });
 ```
 
+To run this task use the following command.
+
+```bash
+$ bot coverage
+```
+
 ### The `license` task
 
 This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
 
-To accept additional licenses, add them to the `compatiable` property of the task configuration.
+To accept additional licenses, add them to the `compatible` property of the task configuration.
 
 ```javascript
 task('universal/license', {
   compatible: [ 'MIT', 'ISC' ]
 });
+```
+
+To run this task use the following command.
+
+```bash
+$ bot license
 ```
 
 ### The `outdated` task
