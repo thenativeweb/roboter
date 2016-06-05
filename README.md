@@ -191,7 +191,7 @@ task('universal/coverage', {
 
 This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
 
-To accept additional licenses, add them to the `compatiable` property of the task configuration.
+To accept additional licenses, add them to the `compatible` property of the task configuration.
 
 ```javascript
 task('universal/license', {
