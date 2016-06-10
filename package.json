@@ -14,6 +14,7 @@
   ],
   "main": "lib/roboter.js",
   "dependencies": {
+    "async": "2.0.0-rc.6",
     "autoprefixer": "6.3.6",
     "babel-core": "6.9.0",
     "babel-loader": "6.2.4",
