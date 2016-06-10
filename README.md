@@ -370,8 +370,16 @@ $ bot update
 By default this updates all dependencies. If you only want update a single dependency, provide the module name as command-line argument.
 
 ```bash
-$ bot update --module lodash
+$ bot update --package lodash
 ```
+
+If you want to updata to a specific version, supply the version.
+
+```bash
+$ bot update --package lodash@4.13.1
+```
+
+*Please note that you may also specify multiple packages. If you want to do so, remember that you have to provide the `--package` option for each package individually.*
 
 ## Client tasks
 
