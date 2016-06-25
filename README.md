@@ -373,7 +373,7 @@ By default this updates all dependencies. If you only want update a single depen
 $ bot update --package lodash
 ```
 
-If you want to updata to a specific version, supply the version.
+If you want to update to a specific version, supply the version.
 
 ```bash
 $ bot update --package lodash@4.13.1
