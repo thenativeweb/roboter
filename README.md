@@ -385,7 +385,7 @@ $ bot update --package lodash@4.13.1
 
 ### The `build-client` task
 
-This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values.
+This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values. In order to adjust the settings configure the `client/build-app` and the `client/copy-static` task.
 
 ```javascript
 task('client/build-app', {
@@ -393,6 +393,10 @@ task('client/build-app', {
     'src/index.html',
     'src/index.scss',
     'src/index.js'
+  ],
+  babelize: [
+    'src/',
+    'node_modules/my-es2015-dependency'
   ],
   buildDir: 'build/'
 });
@@ -454,7 +458,7 @@ Please note that you explicitly need to install plugins and presets in order for
 
 ### The `watch-client` task
 
-This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components.
+This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components. In order to adjust the settings used during watch mode configure the `client/watch-app` task.
 
 ```javascript
 task('client/watch-app', {
@@ -464,6 +468,10 @@ task('client/watch-app', {
     'src/index.js'
   ],
   buildDir: 'build/',
+  babelize: [
+    'src/',
+    'node_modules/my-es2015-dependency'
+  ],
   host: 'localhost',
   port: 8080,
   hotReloading: true
