@@ -403,7 +403,9 @@ task('client/build-app', {
 });
 ```
 
-The `client/build-app` task bundles your application using the given `entryFiles`. All the build assets will be transpiled and bundled into the given `buildDir`. Provide an array of strings or regular expressions via the `babelize` option to let roboter transpile `.js` and `.jsx` files via babel. During runtime your app will use `'/'` as the default `publicPath` when loading bundles. In other words it assumes that you publish your application into the root path of your http-server. If your application is located in a nested file structure adjust `publicPath` to `'/nested-folders/my-app-root'`. If you prefer loading bundles via relative paths set `publicPath` to `''`.
+The `client/build-app` task bundles your application using the given `entryFiles`. All the build assets will be transpiled and bundled into the given `buildDir`. Provide an array of strings or regular expressions via the `babelize` option to let roboter transpile `.js` and `.jsx` files via babel. During runtime your app will use `/` as the default `publicPath` when loading bundles. In other words it assumes that you publish your application into the root path of your http server.
+
+If your application is using a nested directory structure, adjust `publicPath` to `/nested-folders/my-app-root`. If you prefer loading bundles via relative paths set `publicPath` to the empty string.
 
 ```javascript
 task('client/copy-static', {
