@@ -385,7 +385,7 @@ $ bot update --package lodash@4.13.1
 
 ### The `build-client` task
 
-This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values. In order to adjust the settings configure the `client/build-app` and the `client/copy-static` task.
+This task builds a web application and consists of two sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values. In order to adjust the settings configure the `client/build-app` and the `client/copy-static` task.
 
 ```javascript
 task('client/build-app', {
@@ -398,9 +398,14 @@ task('client/build-app', {
     'src/',
     'node_modules/my-es2015-dependency'
   ],
-  buildDir: 'build/'
+  buildDir: 'build/',
+  publicPath: '/'
 });
+```
 
+The `client/build-app` task bundles your application using the given `entryFiles`. All the build assets will be transpiled and bundled into the given `buildDir`. Provide an array of strings or regular expressions via the `babelize` option to let roboter transpile `.js` and `.jsx` files via babel. During runtime your app will use `'/'` as the default `publicPath` when loading bundles. In other words it assumes that you publish your application into the root path of your http-server. If your application is located in a nested file structure adjust `publicPath` to `'/nested-folders/my-app-root'`. If you prefer loading bundles via relative paths set `publicPath` to `''`.
+
+```javascript
 task('client/copy-static', {
   src: 'src/static-content/**/*',
   watch: 'src/static-content/**/*',
@@ -408,7 +413,9 @@ task('client/copy-static', {
 });
 ```
 
-To run this task use the following command.
+The `client/copy-static` task will copy any additional assets into the `buildDir`.
+
+To run the `build-client` task use the following command.
 
 ```bash
 $ bot build-client
