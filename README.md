@@ -373,7 +373,7 @@ By default this updates all dependencies. If you only want update a single depen
 $ bot update --package lodash
 ```
 
-If you want to updata to a specific version, supply the version.
+If you want to update to a specific version, supply the version.
 
 ```bash
 $ bot update --package lodash@4.13.1
@@ -385,7 +385,7 @@ $ bot update --package lodash@4.13.1
 
 ### The `build-client` task
 
-This task builds a web application and consists of several sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values.
+This task builds a web application and consists of two sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values. In order to adjust the settings configure the `client/build-app` and the `client/copy-static` task.
 
 ```javascript
 task('client/build-app', {
@@ -394,9 +394,20 @@ task('client/build-app', {
     'src/index.scss',
     'src/index.js'
   ],
-  buildDir: 'build/'
+  babelize: [
+    'src/',
+    'node_modules/my-es2015-dependency'
+  ],
+  buildDir: 'build/',
+  publicPath: '/'
 });
+```
 
+The `client/build-app` task bundles your application using the given `entryFiles`. All the build assets will be transpiled and bundled into the given `buildDir`. Provide an array of strings or regular expressions via the `babelize` option to let roboter transpile `.js` and `.jsx` files via babel. During runtime your app will use `/` as the default `publicPath` when loading bundles. In other words it assumes that you publish your application into the root path of your http server.
+
+If your application is using a nested directory structure, adjust `publicPath` to `/nested-folders/my-app-root`. If you prefer loading bundles via relative paths set `publicPath` to the empty string.
+
+```javascript
 task('client/copy-static', {
   src: 'src/static-content/**/*',
   watch: 'src/static-content/**/*',
@@ -404,7 +415,9 @@ task('client/copy-static', {
 });
 ```
 
-To run this task use the following command.
+The `client/copy-static` task will copy any additional assets into the `buildDir`.
+
+To run the `build-client` task use the following command.
 
 ```bash
 $ bot build-client
@@ -454,7 +467,7 @@ Please note that you explicitly need to install plugins and presets in order for
 
 ### The `watch-client` task
 
-This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components.
+This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components. In order to adjust the settings used during watch mode configure the `client/watch-app` task.
 
 ```javascript
 task('client/watch-app', {
@@ -464,6 +477,10 @@ task('client/watch-app', {
     'src/index.js'
   ],
   buildDir: 'build/',
+  babelize: [
+    'src/',
+    'node_modules/my-es2015-dependency'
+  ],
   host: 'localhost',
   port: 8080,
   hotReloading: true
