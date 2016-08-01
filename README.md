@@ -272,7 +272,6 @@ Then run the following command.
 $ bot watch-test
 ```
 
-
 ### The `test-integration` task
 
 This task runs integration tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
@@ -315,6 +314,31 @@ Then run the following command.
 $ bot watch-test-integration
 ```
 
+If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/integration/pre.js` and `test/integration/post.js` in your application. They need to export an asynchronous function, as in the following example.
+
+```javascript
+'use strict';
+
+module.exports = function (done) {
+  // ...
+  done(null);
+};
+```
+
+In case something goes wrong, hand over the error to `done` instead of `null`.
+
+If you need to configure where these files are located, use the `pre` and `post` properties.
+
+```javascript
+task('universal/test-integration', {
+  src: 'test/integration/**/*Tests.js',
+  pre: 'test/start-database.js',
+  post: 'test/stop-database.js'
+});
+```
+
+*Please note that the `post` task is always run, even in case of failing tests.*
+
 ### The `test-units` task
 
 This task runs unit tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
@@ -356,6 +380,31 @@ Then run the following command.
 ```bash
 $ bot watch-test-units
 ```
+
+If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/units/pre.js` and `test/units/post.js` in your application. They need to export an asynchronous function, as in the following example.
+
+```javascript
+'use strict';
+
+module.exports = function (done) {
+  // ...
+  done(null);
+};
+```
+
+In case something goes wrong, hand over the error to `done` instead of `null`.
+
+If you need to configure where these files are located, use the `pre` and `post` properties.
+
+```javascript
+task('universal/test-units', {
+  src: 'test/units/**/*Tests.js',
+  pre: 'test/start-database.js',
+  post: 'test/stop-database.js'
+});
+```
+
+*Please note that the `post` task is always run, even in case of failing tests.*
 
 ### The `update` task
 
