@@ -60,6 +60,9 @@
     "webpack": "1.13.1",
     "webpack-dev-server": "1.14.1"
   },
+  "devDependencies": {
+    "assertthat": "0.8.0"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
@@ -71,7 +74,8 @@
     "publish-major": "npm version major && git push --tags && git push && npm publish",
     "prepublish-patch": "npm run analyze",
     "prepublish-minor": "npm run analyze",
-    "prepublish-major": "npm run analyze"
+    "prepublish-major": "npm run analyze",
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd"
   },
   "keywords": [
     "build",
