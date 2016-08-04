@@ -17,7 +17,9 @@ const runRoboterTask = function (task, testCase, callback) {
   });
 };
 
-suite('roboter', () => {
+suite('roboter', function () {
+  this.timeout(60 * 1000);
+
   setup(() => {
     shell.rm('-rf', path.join(tempDirectory, '*'));
   });
