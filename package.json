@@ -68,7 +68,7 @@
     "url": "git://github.com/thenativeweb/roboter.git"
   },
   "scripts": {
-    "analyze": "eslint --config eslint-config-es/2015/server **/*.js",
+    "analyze": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
     "publish-patch": "npm version patch && git push --tags && git push && npm publish",
     "publish-minor": "npm version minor && git push --tags && git push && npm publish",
     "publish-major": "npm version major && git push --tags && git push && npm publish",
