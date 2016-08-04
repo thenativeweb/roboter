@@ -577,6 +577,14 @@ To run the `default` task, simply run `bot` without any further parameters.
 $ bot
 ```
 
+## Running the tests
+
+To run the tests run the following command.
+
+```bash
+$ npm run test
+```
+
 ## Running the build
 
 Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
