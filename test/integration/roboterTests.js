@@ -18,11 +18,11 @@ const runRoboterTask = function (task, testCase, callback) {
 };
 
 suite('roboter', () => {
-  suiteSetup(() => {
+  setup(() => {
     shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
-  suiteTeardown(() => {
+  teardown(() => {
     shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
@@ -46,17 +46,35 @@ suite('roboter', () => {
           shell.mkdir('-p', tempDirectory);
           shell.cp('-r', path.join(__dirname, task, testCase), tempDirectory);
 
-          runRoboterTask(task, testCase, (err, options) => {
-            assert.that(err).is.null();
+          const tempTestDirectory = path.join(tempDirectory, testCase);
 
+          let pre;
+
+          try {
             /* eslint-disable global-require */
-            const expected = require(path.join(__dirname, task, testCase, 'expected.js'));
+            pre = require(path.join(__dirname, task, testCase, 'pre.js'));
             /* eslint-enable global-require */
+          } catch (ex) {
+            pre = function (options, callback) {
+              callback(null);
+            };
+          }
 
-            assert.that(options.exitCode).is.equalTo(expected.exitCode);
-            assert.that(options.stdout.includes(expected.stdout)).is.true();
-            assert.that(options.stderr.includes(expected.stderr)).is.true();
-            done();
+          pre({ dirname: tempTestDirectory }, errPre => {
+            assert.that(errPre).is.null();
+
+            runRoboterTask(task, testCase, (err, options) => {
+              assert.that(err).is.null();
+
+              /* eslint-disable global-require */
+              const expected = require(path.join(__dirname, task, testCase, 'expected.js'));
+              /* eslint-enable global-require */
+
+              assert.that(options.exitCode).is.equalTo(expected.exitCode);
+              assert.that(options.stdout).is.containing(expected.stdout);
+              assert.that(options.stderr).is.containing(expected.stderr);
+              done();
+            });
           });
         });
       });
