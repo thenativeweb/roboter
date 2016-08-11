@@ -39,6 +39,7 @@
     "gulp-spawn-mocha": "3.0.0",
     "gulp-util": "3.0.7",
     "lodash": "4.14.1",
+    "markdown-toc": "0.12.16",
     "minimist": "1.2.0",
     "run-sequence": "1.2.2",
     "semver": "5.3.0",

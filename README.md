@@ -245,6 +245,12 @@ $ bot release --type minor
 $ bot release --type major
 ```
 
+If you want roboter to generate a table of contents for your `README.md` file, add the following line to that file.
+
+```html
+<!-- toc -->
+```
+
 ### The `shell` task
 
 This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
