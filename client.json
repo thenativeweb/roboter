@@ -1,6 +1,6 @@
 {
   "name": "roboter-client",
-  "description": "roboter-client contains the server-side dependencies for roboter.",
+  "description": "roboter-client contains the client-side dependencies for roboter.",
   "dependencies": {
     "autoprefixer": "6.4.0",
     "babel-core": "6.11.4",
