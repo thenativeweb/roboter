@@ -1,0 +1,6 @@
+{
+  "name": "roboter-server",
+  "description": "roboter-server contains the server-side dependencies for roboter.",
+  "dependencies": {
+  }
+}

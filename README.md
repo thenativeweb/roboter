@@ -10,6 +10,12 @@ roboter automates your build.
 $ npm install roboter
 ```
 
+Additionally, you either need to install [roboter-server](https://www.npmjs.com/package/roboter-server) or [roboter-client](https://www.npmjs.com/package/roboter-client), depending on whether you want to do development for the server- or the client-side.
+
+```bash
+$ npm install roboter-server
+```
+
 To use roboter it is recommended to install [roboter-cli](https://www.npmjs.com/package/roboter-cli) globally. This way you can easily run roboter by simply typing `bot`. To install roboter-cli, run the following command.
 
 ```bash
