@@ -89,6 +89,7 @@ The environment you select defines what tasks are available to you. The exceptio
 - [`test`](#the-test-task)
 - [`test-integration`](#the-test-integration-task)
 - [`test-units`](#the-test-units-task)
+- [`unused-dependencies`](#the-unused-dependencies-task)
 - [`update`](#the-update-task)
 
 ### Client tasks
@@ -418,6 +419,24 @@ task('universal/test-units', {
 ```
 
 *Please note that the `post` task is always run, even in case of failing tests.*
+
+### The `unused-dependencies` task
+
+This task searches for dependencies that are not required anywhere in your source code.
+
+To run this task use the following command.
+
+```bash
+$ bot unused-dependencies
+```
+
+By default, the directory `node_modules` is excluded from the search. If you want to exclude additional directories, use the `exclude` property.
+
+```javascript
+task('universal/unused-dependencies', {
+  exclude: [ 'foo/bar', 'node_modules' ]
+});
+```
 
 ### The `update` task
 
