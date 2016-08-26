@@ -6,4 +6,4 @@ machine:
 
 test:
   override:
-    - npm run analyze
+    - npm run analyze && npm run test

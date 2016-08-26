@@ -10,6 +10,13 @@ roboter automates your build.
 $ npm install roboter
 ```
 
+Additionally, you either need to install [roboter-server](https://www.npmjs.com/package/roboter-server) or [roboter-client](https://www.npmjs.com/package/roboter-client), depending on whether you want to do development for the server- or the client-side.
+
+```bash
+$ npm install roboter-server
+$ npm install roboter-client
+```
+
 To use roboter it is recommended to install [roboter-cli](https://www.npmjs.com/package/roboter-cli) globally. This way you can easily run roboter by simply typing `bot`. To install roboter-cli, run the following command.
 
 ```bash
@@ -82,6 +89,7 @@ The environment you select defines what tasks are available to you. The exceptio
 - [`test`](#the-test-task)
 - [`test-integration`](#the-test-integration-task)
 - [`test-units`](#the-test-units-task)
+- [`unused-dependencies`](#the-unused-dependencies-task)
 - [`update`](#the-update-task)
 
 ### Client tasks
@@ -238,6 +246,12 @@ $ bot release --type minor
 $ bot release --type major
 ```
 
+If you want roboter to generate a table of contents for your `README.md` file, add the following line to that file.
+
+```html
+<!-- toc -->
+```
+
 ### The `shell` task
 
 This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
@@ -271,7 +285,6 @@ Then run the following command.
 ```bash
 $ bot watch-test
 ```
-
 
 ### The `test-integration` task
 
@@ -315,6 +328,31 @@ Then run the following command.
 $ bot watch-test-integration
 ```
 
+If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/integration/pre.js` and `test/integration/post.js` in your application. They need to export an asynchronous function, as in the following example.
+
+```javascript
+'use strict';
+
+module.exports = function (done) {
+  // ...
+  done(null);
+};
+```
+
+In case something goes wrong, hand over the error to `done` instead of `null`.
+
+If you need to configure where these files are located, use the `pre` and `post` properties.
+
+```javascript
+task('universal/test-integration', {
+  src: 'test/integration/**/*Tests.js',
+  pre: 'test/start-database.js',
+  post: 'test/stop-database.js'
+});
+```
+
+*Please note that the `post` task is always run, even in case of failing tests.*
+
 ### The `test-units` task
 
 This task runs unit tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
@@ -355,6 +393,49 @@ Then run the following command.
 
 ```bash
 $ bot watch-test-units
+```
+
+If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/units/pre.js` and `test/units/post.js` in your application. They need to export an asynchronous function, as in the following example.
+
+```javascript
+'use strict';
+
+module.exports = function (done) {
+  // ...
+  done(null);
+};
+```
+
+In case something goes wrong, hand over the error to `done` instead of `null`.
+
+If you need to configure where these files are located, use the `pre` and `post` properties.
+
+```javascript
+task('universal/test-units', {
+  src: 'test/units/**/*Tests.js',
+  pre: 'test/start-database.js',
+  post: 'test/stop-database.js'
+});
+```
+
+*Please note that the `post` task is always run, even in case of failing tests.*
+
+### The `unused-dependencies` task
+
+This task searches for dependencies that are not required anywhere in your source code.
+
+To run this task use the following command.
+
+```bash
+$ bot unused-dependencies
+```
+
+By default, the directory `node_modules` is excluded from the search. If you want to exclude additional directories, use the `exclude` property.
+
+```javascript
+task('universal/unused-dependencies', {
+  exclude: [ 'foo/bar', 'node_modules' ]
+});
 ```
 
 ### The `update` task
@@ -526,6 +607,14 @@ To run the `default` task, simply run `bot` without any further parameters.
 
 ```bash
 $ bot
+```
+
+## Running the tests
+
+To run the tests run the following command.
+
+```bash
+$ npm run test
 ```
 
 ## Running the build
