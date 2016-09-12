@@ -60,10 +60,10 @@ roboter.
   start();
 ```
 
-If you want to get an overview of all available tasks, simply run `bot` without any parameters.
+If you want to get an overview of all available tasks, simply run `bot` with the `--help` parameter.
 
 ```bash
-$ bot
+$ bot --help
 ```
 
 Any environment variables you specify when running `bot` are also available for the tasks. E.g., if you want to run unit tests with disabled TLS verification, run bot as follows.
