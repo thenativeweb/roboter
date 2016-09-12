@@ -60,6 +60,32 @@ roboter.
   start();
 ```
 
+If you want to register custom tasks use the `custom/` prefix and provide an asynchronous function with a `done` callback.
+
+```javascript
+roboter.
+  workOn('server').
+  equipWith(task => {
+    task('custom/foo', done => {
+      // ...
+    });
+  }).
+  start();
+```
+
+Then you can run your custom code using `bot foo`. To avoid naming conflicts with built-in tasks, it is recommended to prefix your task names with a unique identifier such as `custom-`. Of course, then you need to run `bot custom-foo` on the command-line.
+
+```javascript
+roboter.
+  workOn('server').
+  equipWith(task => {
+    task('custom/custom-foo', done => {
+      // ...
+    });
+  }).
+  start();
+```
+
 If you want to get an overview of all available tasks, simply run `bot` with the `--help` parameter.
 
 ```bash
