@@ -600,6 +600,12 @@ To finally run this task use the following command.
 $ bot watch-client
 ```
 
+If you use vi you have set the following configuration value for the watch mode to work.
+
+```bash
+:set backupcopy=yes
+```
+
 ## Server tasks
 
 ### The `build-server` task
@@ -620,6 +626,12 @@ To run this task use the following command.
 
 ```bash
 $ bot watch-server
+```
+
+If you use vi you have set the following configuration value for the watch mode to work.
+
+```bash
+:set backupcopy=yes
 ```
 
 ## Using the default task
