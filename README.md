@@ -514,6 +514,8 @@ The `client/build-app` task bundles your application using the given `entryFiles
 
 If your application is using a nested directory structure, adjust `publicPath` to `/nested-folders/my-app-root`. If you prefer loading bundles via relative paths set `publicPath` to the empty string.
 
+The `client/copy-static` task will copy any additional assets into the `buildDir`.
+
 ```javascript
 task('client/copy-static', {
   src: 'src/static-content/**/*',
@@ -521,8 +523,6 @@ task('client/copy-static', {
   buildDir: 'build/'
 });
 ```
-
-The `client/copy-static` task will copy any additional assets into the `buildDir`.
 
 To run the `build-client` task use the following command.
 
