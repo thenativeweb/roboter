@@ -13,7 +13,7 @@ const runRoboterTask = function (task, testCase, callback) {
         gulpFile = path.join(tempDirectory, testCase, 'roboter.js');
 
   shell.exec(`${gulp} --gulpfile ${gulpFile} ${task}`, (exitCode, stdout, stderr) => {
-    callback(null, { exitCode, stdout, stderr });
+    callback(null, { exitCode, stderr, stdout });
   });
 };
 
