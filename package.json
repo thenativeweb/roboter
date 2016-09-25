@@ -23,8 +23,8 @@
   "main": "lib/roboter.js",
   "dependencies": {
     "async": "2.0.1",
-    "eslint": "3.2.2",
-    "eslint-config-es": "0.8.0",
+    "eslint": "3.6.0",
+    "eslint-config-es": "0.8.2",
     "eslint-plugin-extended": "0.2.0",
     "eslint-plugin-mocha": "4.3.0",
     "eslint-plugin-react": "6.0.0",
