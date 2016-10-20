@@ -108,6 +108,7 @@ The environment you select defines what tasks are available to you. The exceptio
 
 - [`analyze`](#the-analyze-task)
 - [`coverage`](#the-coverage-task)
+- [`generate-toc`](#the-generate-toc-task)
 - [`license`](#the-license-task)
 - [`outdated`](#the-outdated-task)
 - [`release`](#the-release-task)
@@ -227,6 +228,14 @@ To run this task use the following command.
 $ bot coverage
 ```
 
+### The `generate-toc` task
+
+This task generates a TOC for your `README.md` file. To enable this task, add the following line to your `README.md` file.
+
+```html
+<!-- toc -->
+```
+
 ### The `license` task
 
 This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
@@ -257,7 +266,7 @@ $ bot outdated
 
 ### The `release` task
 
-This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date.
+This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date. Additionally, it updates the TOC of your `README.md` file, if the [`generate-toc`](#the-generate-toc-task) task has been set up appropriately.
 
 To run this task use the following command.
 
@@ -270,12 +279,6 @@ By default this creates a `patch` release. If you want to create a `minor` or a 
 ```bash
 $ bot release --type minor
 $ bot release --type major
-```
-
-If you want roboter to generate a table of contents for your `README.md` file, add the following line to that file.
-
-```html
-<!-- toc -->
 ```
 
 ### The `shell` task
