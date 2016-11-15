@@ -451,7 +451,7 @@ task('universal/test-units', {
 
 ### The `unused-dependencies` task
 
-This task searches for dependencies that are not required anywhere in your source code.
+This task looks for dependencies that are register in the `package.json` file, but are not being used anywhere in your source code. It also looks for dependencies that are requires in your source code, but have not been registered in the `package.json` file.
 
 To run this task use the following command.
 
