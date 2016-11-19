@@ -1,9 +1,9 @@
 'use strict';
 
-const exitCode = 1;
+const exitCode = 0;
 
 const stdout = `
-You have missing dependencies:
+You have unused dependencies:
 
 lodash
 `;
