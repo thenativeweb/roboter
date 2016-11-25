@@ -535,7 +535,7 @@ $ bot build-client
 
 #### Building the various parts
 
-By default, roboter expects three entry files for a web application: An `index.html`, an `index.scss`, and an `index.js` file. Please note that within the `index.html` file you need to reference the built JavaScript artefact. The built CSS is injected automatically:
+By default, roboter expects three entry files for a web application: An `index.html`, an `index.scss`, and an `index.js` file (although you may also use an `index.jsx` file here). Please note that within the `index.html` file you need to reference the built JavaScript artefact. The built CSS is injected automatically:
 
 ```html
 <!DOCTYPE html>
