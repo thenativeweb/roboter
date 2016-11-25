@@ -24,7 +24,7 @@
   "dependencies": {
     "async": "2.1.2",
     "eslint": "3.9.1",
-    "eslint-config-es": "0.8.8",
+    "eslint-config-es": "0.8.9",
     "eslint-plugin-extended": "0.2.0",
     "eslint-plugin-mocha": "4.7.0",
     "eslint-plugin-react": "6.4.1",
