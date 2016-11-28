@@ -59,7 +59,6 @@
   "scripts": {
     "analyze": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
     "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
-    "publish-beta": "npm run analyze && npm run test && npm version prepatch && git push --tags && git push && npm publish && node ./publish.js",
     "publish-patch": "npm run analyze && npm run test && npm version patch && git push --tags && git push && npm publish && node ./publish.js",
     "publish-minor": "npm run analyze && npm run test && npm version minor && git push --tags && git push && npm publish && node ./publish.js",
     "publish-major": "npm run analyze && npm run test && npm version major && git push --tags && git push && npm publish && node ./publish.js"
