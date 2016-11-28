@@ -603,7 +603,7 @@ To finally run this task use the following command.
 $ bot watch-client
 ```
 
-If you use vi you have set the following configuration value for the watch mode to work.
+If you use vi you have to set the following configuration value for the watch mode to work.
 
 ```bash
 :set backupcopy=yes
