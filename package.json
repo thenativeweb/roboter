@@ -31,7 +31,7 @@
     "glob": "7.1.1",
     "gulp": "3.9.1",
     "gulp-bump": "2.5.0",
-    "gulp-depcheck": "goloroden/gulp-depcheck",
+    "gulp-depcheck": "git+ssh://git@github.com:goloroden/gulp-depcheck.git#d180bbfc0df0e398ca35299bcdbdc65bdcf7695d",
     "gulp-eslint": "3.0.1",
     "gulp-git": "1.12.0",
     "gulp-istanbul": "1.1.1",
