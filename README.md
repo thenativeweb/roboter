@@ -248,6 +248,16 @@ task('universal/license', {
 });
 ```
 
+To ignore specific modules, e.g. because their license can not be obtained automatically and you have verified them manually, add them to the `ignore` property of the task configuration.
+
+```javascript
+task('universal/license', {
+  ignore: {
+    lodash: '4.17.2'
+  }
+});
+```
+
 To run this task use the following command.
 
 ```bash
