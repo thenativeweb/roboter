@@ -276,7 +276,7 @@ $ bot outdated
 
 ### The `release` task
 
-This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, and checks whether your Git repositoriy is up-to-date. Additionally, it updates the TOC of your `README.md` file, if the [`generate-toc`](#the-generate-toc-task) task has been set up appropriately.
+This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, checks license compatibility, and checks whether your Git repositoriy is up-to-date. Additionally, it updates the TOC of your `README.md` file, if the [`generate-toc`](#the-generate-toc-task) task has been set up appropriately.
 
 To run this task use the following command.
 
