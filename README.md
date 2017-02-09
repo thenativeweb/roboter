@@ -240,6 +240,14 @@ This task generates a TOC for your `README.md` file. To enable this task, add th
 
 This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
 
+As long as you do not specify a license in your `package.json` file, or if you use `UNKNOWN`, the license check is disabled. To explicitly disable the license check, set its `disable` property to true.
+
+```javascript
+task('universal/license', {
+  disable: true
+});
+```
+
 To accept additional licenses, add them to the `compatible` property of the task configuration.
 
 ```javascript
