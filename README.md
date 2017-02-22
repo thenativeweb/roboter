@@ -609,6 +609,7 @@ task('client/watch-app', {
     'src/',
     'node_modules/my-es2015-dependency'
   ],
+  https: false,
   host: 'localhost',
   port: 8080,
   hotReloading: true
@@ -619,6 +620,16 @@ To finally run this task use the following command.
 
 ```bash
 $ bot watch-client
+```
+
+Optionally, you can use `https` instead of `http`. If you set the `https` property to `true`, roboter will use a self-signed certificate. To specify a custom certificate, use the following syntax:
+
+```javascript
+https: {
+  cert: fs.readFileSync('/.../certificate.pem'),
+  key: fs.readFileSync('/.../privateKey.pem'),
+  cacert: fs.readFileSync('/.../caCertificate.pem')
+}
 ```
 
 If you use vi you have to set the following configuration value for the watch mode to work.
