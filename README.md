@@ -299,6 +299,24 @@ $ bot release --type minor
 $ bot release --type major
 ```
 
+If you want to create a module that does also run in environments that only support ES5, create a distribution version of your module. To do so, set the `createDistribution` property to `true`:
+
+```javascript
+task('universal/release', {
+  createDistribution: true
+});
+```
+
+By default, this uses `lib` as source directory and `dist` as distribution directory. To change this, provide the `srcDir` and `distributionDir` properties:
+
+```javascript
+task('universal/release', {
+  createDistribution: true,
+  srcDir: 'src',
+  distributionDir: 'build'
+});
+```
+
 ### The `shell` task
 
 This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
