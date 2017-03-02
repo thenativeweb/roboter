@@ -587,13 +587,13 @@ By default, roboter expects three entry files for a web application: An `index.h
 
 Since roboter uses [webpack](https://webpack.github.io/) internally, you may specify the loader to be used when calling the `require` function. Currently, the following loaders are supported:
 
-- `css`
-- `file`
-- `postcss`
-- `raw`
-- `sass`
-- `style`
-- `url`
+- `css-loader`
+- `file-loader`
+- `postcss-loader`
+- `raw-loader`
+- `sass-loader`
+- `style-loader`
+- `url-loader`
 
 #### Compiling CSS
 
