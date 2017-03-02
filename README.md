@@ -541,8 +541,8 @@ task('client/build-app', {
     'src/index.js'
   ],
   babelize: [
-    'src/',
-    'node_modules/my-es2015-dependency'
+    path.join(__dirname, 'src'),
+    path.join(__dirname, 'node_modules', 'my-es2015-dependency')
   ],
   buildDir: 'build/',
   publicPath: '/'
@@ -624,8 +624,8 @@ task('client/watch-app', {
   ],
   buildDir: 'build/',
   babelize: [
-    'src/',
-    'node_modules/my-es2015-dependency'
+    path.join(__dirname, 'src'),
+    path.join(__dirname, 'node_modules', 'my-es2015-dependency')
   ],
   https: false,
   host: 'localhost',
