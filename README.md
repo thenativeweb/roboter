@@ -611,6 +611,28 @@ To compile your JavaScript code using Babel, add a `.babelrc` file to your appli
 
 Please note that you explicitly need to install plugins and presets in order for this to work.
 
+#### Configuring the client by defining globals
+
+You can use the `define` option of the `build-app` task to make your client configurable from outside. This can be helpful e.g. to set properties that differ between development and production environments.
+
+```javascript
+task('client/build-app', {
+  define: {
+    'process.env.API_HOST': 'my.api.com'
+  }
+});
+```
+
+In this example roboter will replace all the strings `process.env.API_HOST` inside your client code with the string `"my.api.com"`.
+
+```javascript
+// That line…
+console.log(process.env.API_HOST);
+
+// … will be compiled into this line.
+console.log("my.api.com");
+```
+
 ### The `watch-client` task
 
 This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components. In order to adjust the settings used during watch mode configure the `client/watch-app` task.
