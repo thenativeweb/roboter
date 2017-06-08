@@ -179,18 +179,6 @@ module.exports = {
 };
 ```
 
-By default, the `analyze` task uses ESLint's `stylish` formatter, and prints the output to the console. If you need to, you can define other formatters, and redirect their output to a file. It is even possible to use multiple formatters at once:
-
-```javascript
-task('universal/analyze', {
-  src: [ '**/*.js', '!node_modules/**/*.js' ],
-  format: [
-    { as: 'stylish' },
-    { as: 'checkstyle', file: 'checkstyle.xml' }
-  ]
-});
-```
-
 To run this task use the following command.
 
 ```bash
