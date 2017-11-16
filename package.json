@@ -20,52 +20,35 @@
       "email": "joachim.haecker-becker@arcor.de"
     }
   ],
-  "main": "lib/roboter.js",
+  "bin": {
+    "bot": "dist/bin/roboter.js",
+    "roboter": "dist/bin/roboter.js"
+  },
   "dependencies": {
-    "async": "2.4.1",
-    "eslint": "3.19.0",
-    "eslint-config-es": "0.8.11",
-    "eslint-plugin-extended": "0.2.0",
-    "eslint-plugin-mocha": "4.11.0",
-    "eslint-plugin-react": "7.0.1",
-    "glob": "7.1.2",
-    "gulp": "3.9.1",
-    "gulp-bump": "2.7.0",
-    "gulp-depcheck": "1.2.0",
-    "gulp-eslint": "3.0.1",
-    "gulp-git": "2.4.0",
-    "gulp-istanbul": "1.1.2",
-    "gulp-mocha": "4.3.1",
-    "gulp-rename": "1.2.2",
-    "gulp-sequence": "0.4.6",
-    "gulp-spawn-mocha": "3.3.0",
-    "gulp-util": "3.0.8",
+    "babel-polyfill": "6.26.0",
+    "buntstift": "0.5.0",
+    "chokidar": "1.7.0",
+    "command-line-args": "4.0.7",
+    "command-line-commands": "2.0.1",
+    "command-line-usage": "4.0.1",
+    "defekt": "0.2.0",
+    "eslint": "4.11.0",
+    "file-exists": "5.0.0",
+    "findsuggestions": "0.2.1",
     "lodash": "4.17.4",
-    "markdown-toc": "1.1.0",
-    "minimist": "1.2.0",
-    "semver": "5.3.0",
-    "shelljs": "0.7.8",
-    "stringify-object": "3.2.0"
+    "require-dir": "0.3.2",
+    "update-notifier": "2.3.0",
+    "util.promisify": "1.0.0"
   },
   "devDependencies": {
-    "assertthat": "0.9.0",
-    "buntstift": "0.4.0",
-    "isolated": "0.3.0"
+    "eslint-config-es": "0.8.12"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
   },
-  "scripts": {
-    "analyze": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
-    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
-    "publish-patch": "npm run analyze && npm run test && npm version patch && git push --tags && git push && npm publish && node ./publish.js",
-    "publish-minor": "npm run analyze && npm run test && npm version minor && git push --tags && git push && npm publish && node ./publish.js",
-    "publish-major": "npm run analyze && npm run test && npm version major && git push --tags && git push && npm publish && node ./publish.js"
-  },
   "keywords": [
-    "build",
-    "gulp"
+    "build"
   ],
   "license": "MIT"
 }

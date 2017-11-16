@@ -1,0 +1,4 @@
+test/integration/analyze/fails-on-invalid-code/app.js
+test/integration/custom/runs-custom-code/roboter.js
+test/integration/unused-dependencies/warns-on-missing-dependencies/index.js
+test/integration/unused-dependencies/warns-on-unused-dependencies/index.js
