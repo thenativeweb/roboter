@@ -41,7 +41,13 @@
     "util.promisify": "1.0.0"
   },
   "devDependencies": {
-    "eslint-config-es": "0.8.12"
+    "assertthat": "0.11.0",
+    "eslint-config-es": "0.8.12",
+    "mocha": "4.0.1",
+    "shelljs": "0.7.8"
+  },
+  "scripts": {
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js"
   },
   "repository": {
     "type": "git",

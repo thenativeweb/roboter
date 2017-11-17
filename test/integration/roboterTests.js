@@ -8,11 +8,10 @@ const assert = require('assertthat'),
 
 const tempDirectory = path.join(__dirname, 'temp');
 
-const runRoboterTask = function (task, testCase, callback) {
-  const gulp = path.join(__dirname, '..', '..', 'node_modules', '.bin', 'gulp'),
-        gulpFile = path.join(tempDirectory, testCase, 'roboter.js');
+const runRoboterTask = function ({ task, directory }, callback) {
+  const pathToCli = path.join(__dirname, '..', '..', 'lib', 'bin', 'roboter.js');
 
-  shell.exec(`${gulp} --gulpfile ${gulpFile} ${task}`, (exitCode, stdout, stderr) => {
+  shell.exec(`node ${pathToCli} ${task}`, { cwd: directory }, (exitCode, stdout, stderr) => {
     callback(null, { exitCode, stderr, stdout });
   });
 };
@@ -65,7 +64,7 @@ suite('roboter', function () {
           pre({ dirname: tempTestDirectory }, errPre => {
             assert.that(errPre).is.null();
 
-            runRoboterTask(task, testCase, (err, options) => {
+            runRoboterTask({ task, directory: tempTestDirectory }, (err, options) => {
               assert.that(err).is.null();
 
               /* eslint-disable global-require */
