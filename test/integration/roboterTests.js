@@ -36,6 +36,12 @@ suite('roboter', function () {
       return;
     }
 
+    // Just a temporary gate to only run the test tests.
+    // Should be removed once the branch is finished.
+    if (task !== 'test') {
+      return;
+    }
+
     suite(task, () => {
       fs.readdirSync(path.join(__dirname, task)).forEach(testCase => {
         if (!fs.statSync(path.join(__dirname, task, testCase)).isDirectory()) {
