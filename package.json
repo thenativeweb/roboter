@@ -31,6 +31,7 @@
     "command-line-args": "4.0.7",
     "command-line-commands": "2.0.1",
     "command-line-usage": "4.0.1",
+    "common-tags": "1.5.1",
     "defekt": "0.2.0",
     "eslint": "4.11.0",
     "file-exists": "5.0.0",
@@ -38,6 +39,7 @@
     "glob": "7.1.2",
     "lodash": "4.17.4",
     "mocha": "4.0.1",
+    "processenv": "0.1.1",
     "require-dir": "0.3.2",
     "update-notifier": "2.3.0",
     "util.promisify": "1.0.0"

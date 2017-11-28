@@ -1,8 +1,8 @@
 'use strict';
 
-const exitCode = 0;
+const exitCode = 1;
 
-const stdout = 'foo';
+const stdout = '1 problem (1 error, 0 warnings)';
 
 const stderr = '';
 

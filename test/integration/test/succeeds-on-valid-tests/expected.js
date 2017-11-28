@@ -2,7 +2,7 @@
 
 const exitCode = 0;
 
-const stdout = `✓ All tests succeeded! Life is good.`;
+const stdout = `✓ Tests successful.`;
 
 const stderr = '';
 

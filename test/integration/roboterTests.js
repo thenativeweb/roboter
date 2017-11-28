@@ -4,14 +4,40 @@ const fs = require('fs'),
       path = require('path');
 
 const assert = require('assertthat'),
+      buntstift = require('buntstift'),
       shell = require('shelljs');
 
 const tempDirectory = path.join(__dirname, 'temp');
 
 const runRoboterTask = function ({ task, directory }, callback) {
+  let args;
+
+  try {
+    /* eslint-disable global-require */
+    args = require(path.join(directory, 'args.js'));
+    /* eslint-enable global-require */
+  } catch (ex) {
+    args = {};
+  }
+
+  const argsAsString = Object.
+    keys(args).
+    map(arg => {
+      const value = args[arg];
+
+      if (typeof value === 'boolean') {
+        return `--${arg}`;
+      }
+
+      return `--${arg} ${args[arg]}`;
+    }).
+    join(' ');
+
   const pathToCli = path.join(__dirname, '..', '..', 'lib', 'bin', 'roboter.js');
 
-  shell.exec(`node ${pathToCli} ${task}`, { cwd: directory }, (exitCode, stdout, stderr) => {
+  shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
+    cwd: directory
+  }, (exitCode, stdout, stderr) => {
     callback(null, { exitCode, stderr, stdout });
   });
 };
@@ -33,12 +59,6 @@ suite('roboter', function () {
       return;
     }
     if (task === 'temp') {
-      return;
-    }
-
-    // Just a temporary gate to only run the test tests.
-    // Should be removed once the branch is finished.
-    if (task !== 'test') {
       return;
     }
 
@@ -66,6 +86,10 @@ suite('roboter', function () {
               callback(null);
             };
           }
+
+          buntstift.line();
+          buntstift.info(`${task} - ${testCase}`);
+          buntstift.newLine();
 
           pre({ dirname: tempTestDirectory }, errPre => {
             assert.that(errPre).is.null();
