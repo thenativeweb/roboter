@@ -3,8 +3,8 @@
 const assert = require('assertthat');
 
 suite('baz', () => {
-  test('does not fail.', done => {
-    assert.that(true).is.true();
+  test('fails.', done => {
+    assert.that(true).is.false();
     done();
   });
 });

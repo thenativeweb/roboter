@@ -1,8 +1,11 @@
 'use strict';
 
-const exitCode = 1;
+const exitCode = 0;
 
-const stdout = `1) fails.`;
+const stdout = [
+  `✓ Tests of type baz successful.`,
+  `✓ Tests of type foobar successful.`
+];
 
 const stderr = '';
 
