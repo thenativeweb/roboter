@@ -37,7 +37,6 @@
     "execa": "0.8.0",
     "file-exists": "5.0.0",
     "findsuggestions": "0.2.1",
-    "get-stream": "3.0.0",
     "globby": "7.1.1",
     "lodash": "4.17.4",
     "mocha": "4.0.1",

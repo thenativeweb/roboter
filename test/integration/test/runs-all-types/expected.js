@@ -1,8 +1,8 @@
 'use strict';
 
-const exitCode = 0;
+const exitCode = 1;
 
-const stdout = `✓ Tests successful.`;
+const stdout = `1) fails.`;
 
 const stderr = '';
 

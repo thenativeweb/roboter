@@ -2,7 +2,10 @@
 
 const exitCode = 0;
 
-const stdout = '✓ Tests of type units successful.';
+const stdout = [
+  `✓ Tests of type baz successful.`,
+  `✓ Tests of type foobar successful.`
+];
 
 const stderr = '';
 

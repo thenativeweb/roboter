@@ -5,6 +5,7 @@ const fs = require('fs'),
 
 const assert = require('assertthat'),
       buntstift = require('buntstift'),
+      flatten = require('lodash/flatten'),
       shell = require('shelljs');
 
 const tempDirectory = path.join(__dirname, 'temp');
@@ -102,8 +103,14 @@ suite('roboter', function () {
               /* eslint-enable global-require */
 
               assert.that(options.exitCode).is.equalTo(expected.exitCode);
-              assert.that(options.stdout).is.containing(expected.stdout);
               assert.that(options.stderr).is.containing(expected.stderr);
+
+              const expectedStdouts = flatten([ expected.stdout ]);
+
+              expectedStdouts.forEach(stdout => {
+                assert.that(options.stdout).is.containing(stdout);
+              });
+
               done();
             });
           });
