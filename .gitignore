@@ -1,6 +1,7 @@
 # Node.js folders
 *node_modules/
 test/integration/temp
+!test/**/node_modules/
 
 # Build artefacts
 *build/
