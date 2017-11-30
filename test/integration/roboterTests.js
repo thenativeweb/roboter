@@ -107,8 +107,16 @@ suite('roboter', function () {
 
               const expectedStdouts = flatten([ expected.stdout ]);
 
+              let previousIndex = -1;
+
               expectedStdouts.forEach(stdout => {
                 assert.that(options.stdout).is.containing(stdout);
+
+                const currentIndex = options.stdout.indexOf(stdout);
+
+                assert.that(currentIndex).is.greaterThan(previousIndex);
+
+                previousIndex = currentIndex;
               });
 
               done();
