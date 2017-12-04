@@ -51,7 +51,7 @@
     "shelljs": "0.7.8"
   },
   "scripts": {
-    "analyze": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
+    "analyse": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
     "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js"
   },
   "repository": {
