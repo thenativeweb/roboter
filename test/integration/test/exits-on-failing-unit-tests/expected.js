@@ -2,7 +2,7 @@
 
 const exitCode = 1;
 
-const stdout = 'AssertionError: Expected true to be false.';
+const stdout = 'AssertionError [ERR_ASSERTION]: Expected true to be false.';
 
 const stderr = '';
 
