@@ -1,9 +1,0 @@
-machine:
-  timezone: Europe/Berlin
-
-  node:
-    version: 6.9.5
-
-test:
-  override:
-    - npm run analyze && npm run test
