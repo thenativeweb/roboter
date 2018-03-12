@@ -6,7 +6,7 @@ const pre = function (options, callback) {
   shell.exec('git init', { cwd: options.dirname });
   shell.exec('git add .', { cwd: options.dirname });
 
-  callback();
+  callback(null);
 };
 
 module.exports = pre;
