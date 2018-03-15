@@ -48,6 +48,7 @@
   "devDependencies": {
     "assertthat": "0.11.0",
     "eslint-config-es": "0.8.12",
+    "isolated": "0.3.0",
     "shelljs": "0.7.8"
   },
   "scripts": {
