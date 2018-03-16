@@ -119,7 +119,15 @@ suite('roboter', function () {
                 previousIndex = currentIndex;
               });
 
-              done();
+              if (typeof options.validate !== 'function') {
+                return done();
+              }
+
+              options.validate({ dirname: tempTestDirectory }, errPost => {
+                assert.that(errPost).is.null();
+
+                done();
+              });
             });
           });
         });

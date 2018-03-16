@@ -4,6 +4,6 @@ const exitCode = 1;
 
 const stdout = ``;
 
-const stderr = '✗ You have pending changes, commit your changes first.';
+const stderr = '✗ The local master branch is behind origin/master, run git pull first.';
 
 module.exports = { exitCode, stdout, stderr };
