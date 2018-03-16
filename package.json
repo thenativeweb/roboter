@@ -39,6 +39,7 @@
     "findsuggestions": "0.2.1",
     "globby": "7.1.1",
     "lodash": "4.17.4",
+    "markdown-toc": "1.2.0",
     "mocha": "4.0.1",
     "processenv": "0.1.1",
     "require-dir": "0.3.2",
@@ -46,7 +47,7 @@
     "util.promisify": "1.0.0"
   },
   "devDependencies": {
-    "assertthat": "0.11.0",
+    "assertthat": "1.0.0",
     "eslint-config-es": "0.8.12",
     "isolated": "0.3.0",
     "shelljs": "0.7.8"

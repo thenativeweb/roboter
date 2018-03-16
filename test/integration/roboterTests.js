@@ -47,11 +47,11 @@ suite('roboter', function () {
   this.timeout(60 * 1000);
 
   setup(() => {
-    shell.rm('-rf', path.join(tempDirectory, '*'));
+    // shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   teardown(() => {
-    shell.rm('-rf', path.join(tempDirectory, '*'));
+    // shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   /* eslint-disable no-sync */
@@ -119,15 +119,13 @@ suite('roboter', function () {
                 previousIndex = currentIndex;
               });
 
-              if (typeof options.validate !== 'function') {
+              if (typeof expected.validate !== 'function') {
                 return done();
               }
 
-              options.validate({ dirname: tempTestDirectory }, errPost => {
-                assert.that(errPost).is.null();
-
-                done();
-              });
+              expected.validate({ dirname: tempTestDirectory }).
+                then(done).
+                catch(done);
             });
           });
         });
