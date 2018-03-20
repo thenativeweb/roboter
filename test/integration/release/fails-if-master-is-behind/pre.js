@@ -1,30 +1,23 @@
 'use strict';
 
-const isolated = require('isolated'),
-      shell = require('shelljs');
+const shell = require('shelljs');
+
+const helpers = require('../../../helpers');
 
 const pre = function (options, callback) {
   const { dirname } = options;
 
-  shell.exec('git init', { cwd: dirname });
-  shell.exec('git add .', { cwd: dirname });
-  shell.exec('git commit -m "Initial commit."', { cwd: dirname });
+  helpers.createGitRepository({
+    dirname
+  }).
+    then(({ remoteDirectory }) => {
+      shell.exec('echo "second file" > second.txt', { cwd: remoteDirectory });
+      shell.exec('git add .', { cwd: remoteDirectory });
+      shell.exec('git commit -m "Second commit."', { cwd: remoteDirectory });
 
-  isolated((err, tempDirectory) => {
-    if (err) {
-      return callback(err);
-    }
-
-    shell.exec(`cp -r ./ ${tempDirectory}`, { cwd: dirname });
-
-    shell.exec(`git remote add origin ${tempDirectory}/.git/`, { cwd: dirname });
-
-    shell.exec('echo "second file" > second.txt', { cwd: tempDirectory });
-    shell.exec('git add .', { cwd: tempDirectory });
-    shell.exec('git commit -m "Second commit."', { cwd: tempDirectory });
-
-    callback(null);
-  });
+      callback(null);
+    }).
+    catch(callback);
 };
 
 module.exports = pre;

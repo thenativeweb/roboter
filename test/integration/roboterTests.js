@@ -47,11 +47,11 @@ suite('roboter', function () {
   this.timeout(60 * 1000);
 
   setup(() => {
-    // shell.rm('-rf', path.join(tempDirectory, '*'));
+    shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   teardown(() => {
-    // shell.rm('-rf', path.join(tempDirectory, '*'));
+    shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   /* eslint-disable no-sync */
