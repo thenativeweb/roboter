@@ -2,7 +2,8 @@
 
 const path = require('path');
 
-const assert = require('assertthat');
+const assert = require('assertthat'),
+      shell = require('shelljs');
 
 const exitCode = 0;
 
@@ -18,6 +19,11 @@ const validate = async function (options) {
   /* eslint-enable global-require */
 
   assert.that(packgeJson.version).is.equalTo('1.0.0');
+
+  const listTags = shell.exec('git tag -l', { cwd: dirname });
+  const tags = listTags.stdout.split('\n');
+
+  assert.that(tags[0]).is.equalTo('v1.0.0');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

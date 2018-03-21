@@ -727,6 +727,12 @@ To run the tests run the following command.
 $ npm run test
 ```
 
+You can run only a single integration test by specifing an individual test case as an additional argument.
+
+```bash
+$ npm run test release/bumps-minor-version
+```
+
 ## Running the build
 
 Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.

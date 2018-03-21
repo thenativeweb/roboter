@@ -6,7 +6,7 @@ const isolatedCallback = require('isolated'),
 
 const isolated = promisify(isolatedCallback);
 
-const createGitRepository = async function ({ dirname, files }) {
+const createGitRepository = async function ({ dirname, files, bareRemote = true }) {
   if (!dirname) {
     throw new Error('Dirname is missing.');
   }
@@ -23,9 +23,14 @@ const createGitRepository = async function ({ dirname, files }) {
 
   const tempDirectory = await isolated();
 
-  shell.exec(`cp -r ./ ${tempDirectory}`, { cwd: dirname });
-
-  shell.exec(`git remote add origin ${tempDirectory}`, { cwd: dirname });
+  if (bareRemote) {
+    shell.exec(`git init --bare ${tempDirectory}`, { cwd: dirname });
+    shell.exec(`git remote add origin ${tempDirectory}`, { cwd: dirname });
+    shell.exec(`git push origin master`, { cwd: dirname });
+  } else {
+    shell.exec(`cp -r ./ ${tempDirectory}`, { cwd: dirname });
+    shell.exec(`git remote add origin ${tempDirectory}`, { cwd: dirname });
+  }
 
   return {
     remoteDirectory: tempDirectory

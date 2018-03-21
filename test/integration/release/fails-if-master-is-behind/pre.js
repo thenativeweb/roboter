@@ -8,7 +8,8 @@ const pre = function (options, callback) {
   const { dirname } = options;
 
   helpers.createGitRepository({
-    dirname
+    dirname,
+    bareRemote: false
   }).
     then(({ remoteDirectory }) => {
       shell.exec('echo "second file" > second.txt', { cwd: remoteDirectory });
