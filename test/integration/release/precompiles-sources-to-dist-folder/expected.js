@@ -15,22 +15,14 @@ const stderr = '';
 const validate = async function (options) {
   const { dirname } = options;
 
-  const readMe = shell.cat(path.join(dirname, 'README.md'));
+  const precompiledFile = shell.cat(path.join(dirname, 'dist', 'index.js'));
 
-  assert.that(readMe.stdout).is.containing(stripIndent`
-    <!-- toc -->
+  assert.that(precompiledFile.stdout).is.equalTo(stripIndent`
+    'use strict';
 
-    - [Installation](#installation)
-    - [Quick start](#quick-start)
-    - [License](#license)
+    var foo = 'bar';
 
-    <!-- tocstop -->
-
-    ## Installation
-
-    ## Quick start
-
-    ## License`
+    module.exports = foo;`
   );
 };
 
