@@ -19,6 +19,7 @@ const licenseCompatibility = {
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
     '(MIT AND CC-BY-3.0)',
+    '(MIT OR Apache-2.0)',
     '(WTFPL OR MIT)'
   ],
   'AGPL-3.0': [
@@ -40,6 +41,7 @@ const licenseCompatibility = {
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
     '(MIT AND CC-BY-3.0)',
+    '(MIT OR Apache-2.0)',
     '(WTFPL OR MIT)'
   ]
 };
