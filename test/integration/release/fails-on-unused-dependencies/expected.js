@@ -1,9 +1,11 @@
 'use strict';
 
-const exitCode = 1;
+const exitCode = 0;
 
 const stdout = ``;
 
-const stderr = '';
+const stderr = `▻ You have unused dependencies:
+
+express`;
 
 module.exports = { exitCode, stdout, stderr };

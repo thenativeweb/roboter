@@ -38,6 +38,7 @@
     "command-line-usage": "4.0.1",
     "common-tags": "1.5.1",
     "defekt": "0.2.0",
+    "depcheck": "0.6.9",
     "eslint": "4.11.0",
     "execa": "0.8.0",
     "file-exists": "5.0.0",
