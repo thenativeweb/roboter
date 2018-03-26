@@ -2,14 +2,12 @@
 
 const helpers = require('../../../helpers');
 
-const pre = function (options, callback) {
+const pre = async function (options) {
   const { dirname } = options;
 
-  helpers.createGitRepository({
+  await helpers.createGitRepository({
     dirname
-  }).
-    then(() => callback(null)).
-    catch(callback);
+  });
 };
 
 module.exports = pre;

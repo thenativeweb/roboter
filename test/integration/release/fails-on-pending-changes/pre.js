@@ -2,11 +2,9 @@
 
 const shell = require('shelljs');
 
-const pre = function (options, callback) {
+const pre = async function (options) {
   shell.exec('git init', { cwd: options.dirname });
   shell.exec('git add .', { cwd: options.dirname });
-
-  callback(null);
 };
 
 module.exports = pre;

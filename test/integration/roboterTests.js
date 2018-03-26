@@ -17,7 +17,7 @@ suite('roboter', function () {
   });
 
   teardown(() => {
-    // shell.rm('-rf', path.join(tempDirectory, '*'));
+    shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   // Only a single test case should be run, specified as an additional command

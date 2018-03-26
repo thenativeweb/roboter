@@ -15,10 +15,10 @@ const validate = async function (options) {
   const { dirname } = options;
 
   /* eslint-disable global-require */
-  const packgeJson = require(path.join(dirname, 'package.json'));
+  const packageJson = require(path.join(dirname, 'package.json'));
   /* eslint-enable global-require */
 
-  assert.that(packgeJson.version).is.equalTo('1.0.0');
+  assert.that(packageJson.version).is.equalTo('1.0.0');
 
   const listTags = shell.exec('git tag -l', { cwd: dirname });
   const tags = listTags.stdout.split('\n');

@@ -32,7 +32,7 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
       }
       /* eslint-enable no-sync */
 
-      test(`${testCase.replace(/-/g, ' ')}.`, done => {
+      test(`${testCase.replace(/-/g, ' ')}.`, async () => {
         shell.mkdir('-p', tempDirectory);
         shell.cp('-r', path.join(cwd, task, testCase), tempDirectory);
 
@@ -45,8 +45,8 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
           pre = require(path.join(cwd, task, testCase, 'pre.js'));
           /* eslint-enable global-require */
         } catch (ex) {
-          pre = function (options, callback) {
-            callback(null);
+          pre = async function () {
+            // Dummy method as fallback
           };
         }
 
@@ -54,42 +54,36 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
         buntstift.info(`${task} - ${testCase}`);
         buntstift.newLine();
 
-        pre({ dirname: tempTestDirectory }, errPre => {
-          assert.that(errPre).is.null();
+        await pre({ dirname: tempTestDirectory });
 
-          runRoboterTask({ cwd, task, directory: tempTestDirectory }, (err, options) => {
-            assert.that(err).is.null();
+        const result = await runRoboterTask({ cwd, task, directory: tempTestDirectory });
 
-            /* eslint-disable global-require */
-            const expected = require(path.join(cwd, task, testCase, 'expected.js'));
-            /* eslint-enable global-require */
+        /* eslint-disable global-require */
+        const expected = require(path.join(cwd, task, testCase, 'expected.js'));
+        /* eslint-enable global-require */
 
-            assert.that(options.exitCode).is.equalTo(expected.exitCode);
-            assert.that(options.stderr).is.containing(expected.stderr);
+        assert.that(result.exitCode).is.equalTo(expected.exitCode);
+        assert.that(result.stderr).is.containing(expected.stderr);
 
-            const expectedStdouts = flatten([ expected.stdout ]);
+        const expectedStdouts = flatten([ expected.stdout ]);
 
-            let previousIndex = -1;
+        let previousIndex = -1;
 
-            expectedStdouts.forEach(stdout => {
-              assert.that(options.stdout).is.containing(stdout);
+        expectedStdouts.forEach(stdout => {
+          assert.that(result.stdout).is.containing(stdout);
 
-              const currentIndex = options.stdout.indexOf(stdout);
+          const currentIndex = result.stdout.indexOf(stdout);
 
-              assert.that(currentIndex).is.greaterThan(previousIndex);
+          assert.that(currentIndex).is.greaterThan(previousIndex);
 
-              previousIndex = currentIndex;
-            });
-
-            if (typeof expected.validate !== 'function') {
-              return done();
-            }
-
-            expected.validate({ dirname: tempTestDirectory }).
-              then(done).
-              catch(done);
-          });
+          previousIndex = currentIndex;
         });
+
+        if (typeof expected.validate !== 'function') {
+          return;
+        }
+
+        await expected.validate({ dirname: tempTestDirectory });
       });
     });
   });

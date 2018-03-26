@@ -4,7 +4,7 @@ const path = require('path');
 
 const shell = require('shelljs');
 
-const runRoboterTask = function ({ cwd, task, directory }, callback) {
+const runRoboterTask = async function ({ cwd, task, directory }) {
   if (!cwd) {
     throw new Error('Cwd is missing.');
   }
@@ -40,11 +40,15 @@ const runRoboterTask = function ({ cwd, task, directory }, callback) {
 
   const pathToCli = path.join(cwd, '..', '..', 'lib', 'bin', 'roboter.js');
 
-  shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
+  const { code, stderr, stdout } = shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
     cwd: directory
-  }, (exitCode, stdout, stderr) => {
-    callback(null, { exitCode, stderr, stdout });
   });
+
+  return {
+    exitCode: code,
+    stderr,
+    stdout
+  };
 };
 
 module.exports = runRoboterTask;
