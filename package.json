@@ -21,8 +21,8 @@
     }
   ],
   "bin": {
-    "bot": "dist/bin/roboter.js",
-    "roboter": "dist/bin/roboter.js"
+    "bot": "lib/bin/roboter.js",
+    "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
     "babel-cli": "6.26.0",
