@@ -25,23 +25,42 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
     args = {};
   }
 
-  const argsAsString = Object.
-    keys(args).
-    map(arg => {
-      const value = args[arg];
+  let env;
 
-      if (typeof value === 'boolean') {
-        return `--${arg}`;
-      }
+  try {
+    /* eslint-disable global-require */
+    env = require(path.join(directory, 'env.js'));
+    /* eslint-enable global-require */
+  } catch (ex) {
+    env = {};
+  }
 
-      return `--${arg} ${args[arg]}`;
-    }).
-    join(' ');
+  /* eslint-disable no-process-env */
+  env = Object.assign({}, process.env, env);
+  /* eslint-enable no-process-env */
+
+  let argsAsString = args;
+
+  if (typeof args === 'object') {
+    argsAsString = Object.
+      keys(args).
+      map(arg => {
+        const value = args[arg];
+
+        if (typeof value === 'boolean') {
+          return `--${arg}`;
+        }
+
+        return `--${arg} ${args[arg]}`;
+      }).
+      join(' ');
+  }
 
   const pathToCli = path.join(cwd, '..', '..', 'lib', 'bin', 'roboter.js');
 
   const { code, stderr, stdout } = shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
-    cwd: directory
+    cwd: directory,
+    env
   });
 
   return {
