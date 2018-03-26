@@ -3,45 +3,11 @@
 const fs = require('fs'),
       path = require('path');
 
-const assert = require('assertthat'),
-      buntstift = require('buntstift'),
-      flatten = require('lodash/flatten'),
-      shell = require('shelljs');
+const shell = require('shelljs');
+
+const helpers = require('../helpers');
 
 const tempDirectory = path.join(__dirname, 'temp');
-
-const runRoboterTask = function ({ task, directory }, callback) {
-  let args;
-
-  try {
-    /* eslint-disable global-require */
-    args = require(path.join(directory, 'args.js'));
-    /* eslint-enable global-require */
-  } catch (ex) {
-    args = {};
-  }
-
-  const argsAsString = Object.
-    keys(args).
-    map(arg => {
-      const value = args[arg];
-
-      if (typeof value === 'boolean') {
-        return `--${arg}`;
-      }
-
-      return `--${arg} ${args[arg]}`;
-    }).
-    join(' ');
-
-  const pathToCli = path.join(__dirname, '..', '..', 'lib', 'bin', 'roboter.js');
-
-  shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
-    cwd: directory
-  }, (exitCode, stdout, stderr) => {
-    callback(null, { exitCode, stderr, stdout });
-  });
-};
 
 suite('roboter', function () {
   this.timeout(60 * 1000);
@@ -54,6 +20,31 @@ suite('roboter', function () {
     shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
+  // Only a single test case should be run, specified as an additional command
+  // line argument, e.g. "npm run test analyse/fails-on-invalid-code".
+  // The preceding arguments are the options passed to mocha via the
+  // npm test script.
+  if (process.argv.length === 11 && process.argv[10].includes('/')) {
+    const testCaseOptions = process.argv[10].split('/');
+    const task = testCaseOptions[0];
+    const testCase = testCaseOptions[1];
+
+    /* eslint-disable no-sync */
+    if (!fs.statSync(path.join(__dirname, task, testCase)).isDirectory()) {
+      return;
+    }
+    /* eslint-enable no-sync */
+
+    helpers.createTestsForTask({
+      cwd: __dirname,
+      task,
+      testCases: [ testCase ],
+      tempDirectory
+    });
+
+    return;
+  }
+
   /* eslint-disable no-sync */
   fs.readdirSync(__dirname).forEach(task => {
     if (!fs.statSync(path.join(__dirname, task)).isDirectory()) {
@@ -63,67 +54,14 @@ suite('roboter', function () {
       return;
     }
 
-    suite(task, () => {
-      fs.readdirSync(path.join(__dirname, task)).forEach(testCase => {
-        if (!fs.statSync(path.join(__dirname, task, testCase)).isDirectory()) {
-          return;
-        }
-        /* eslint-disable no-sync */
+    const testCases = fs.readdirSync(path.join(__dirname, task));
+    /* eslint-enable no-sync */
 
-        test(`${testCase.replace(/-/g, ' ')}.`, done => {
-          shell.mkdir('-p', tempDirectory);
-          shell.cp('-r', path.join(__dirname, task, testCase), tempDirectory);
-
-          const tempTestDirectory = path.join(tempDirectory, testCase);
-
-          let pre;
-
-          try {
-            /* eslint-disable global-require */
-            pre = require(path.join(__dirname, task, testCase, 'pre.js'));
-            /* eslint-enable global-require */
-          } catch (ex) {
-            pre = function (options, callback) {
-              callback(null);
-            };
-          }
-
-          buntstift.line();
-          buntstift.info(`${task} - ${testCase}`);
-          buntstift.newLine();
-
-          pre({ dirname: tempTestDirectory }, errPre => {
-            assert.that(errPre).is.null();
-
-            runRoboterTask({ task, directory: tempTestDirectory }, (err, options) => {
-              assert.that(err).is.null();
-
-              /* eslint-disable global-require */
-              const expected = require(path.join(__dirname, task, testCase, 'expected.js'));
-              /* eslint-enable global-require */
-
-              assert.that(options.exitCode).is.equalTo(expected.exitCode);
-              assert.that(options.stderr).is.containing(expected.stderr);
-
-              const expectedStdouts = flatten([ expected.stdout ]);
-
-              let previousIndex = -1;
-
-              expectedStdouts.forEach(stdout => {
-                assert.that(options.stdout).is.containing(stdout);
-
-                const currentIndex = options.stdout.indexOf(stdout);
-
-                assert.that(currentIndex).is.greaterThan(previousIndex);
-
-                previousIndex = currentIndex;
-              });
-
-              done();
-            });
-          });
-        });
-      });
+    helpers.createTestsForTask({
+      cwd: __dirname,
+      task,
+      testCases,
+      tempDirectory
     });
   });
 });
