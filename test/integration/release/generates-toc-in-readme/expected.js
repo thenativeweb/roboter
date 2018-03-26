@@ -30,8 +30,7 @@ const validate = async function (options) {
 
     ## Quick start
 
-    ## License`
-  );
+    ## License`);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

@@ -2,6 +2,6 @@
   "name": "test-package",
   "version": "0.0.1",
   "dependencies": {
-    "express": "1.0.0"
+    "noop3": "13.7.2"
   }
 }

@@ -20,10 +20,13 @@ const validate = async function (options) {
   assert.that(precompiledFile.stdout).is.equalTo(stripIndent`
     'use strict';
 
+    const React = require('react');
+
+    const Bar = () => React.createElement('div', null);
+
     const foo = React.createElement(Bar, null);
 
-    module.exports = foo;`
-  );
+    module.exports = foo;`);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

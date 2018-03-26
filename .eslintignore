@@ -1,3 +1,4 @@
 test/integration/analyse/fails-on-invalid-code/app.js
 test/integration/analyse/supports-jsx/App.jsx
 test/integration/analyse/supports-mocha-tests/appTests.js
+test/integration/release/exits-on-invalid-code/app.js

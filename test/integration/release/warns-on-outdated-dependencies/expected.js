@@ -2,8 +2,8 @@
 
 const exitCode = 0;
 
-const stdout = `Package  Current  Wanted  Latest  Location
-express  MISSING   1.0.0`;
+const stdout = `Package  Current  Wanted       Latest  Location
+noop3    MISSING  13.7.2`;
 
 const stderr = '';
 

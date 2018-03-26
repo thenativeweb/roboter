@@ -6,6 +6,6 @@ const stdout = ``;
 
 const stderr = `▻ You have unused dependencies:
 
-express`;
+noop3`;
 
 module.exports = { exitCode, stdout, stderr };

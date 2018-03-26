@@ -22,8 +22,7 @@ const validate = async function (options) {
 
     var foo = 'bar';
 
-    module.exports = foo;`
-  );
+    module.exports = foo;`);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
