@@ -3,8 +3,10 @@
 const exitCode = 0;
 
 const stdout = [
-  `▸ Checking for unused dependencies...`,
-  `You have no unused or missing dependencies.`
+  `▸ Checking for unused or missing dependencies...
+─`,
+  `▸ Checking for outdated dependencies...
+─`
 ];
 
 const stderr = '';
