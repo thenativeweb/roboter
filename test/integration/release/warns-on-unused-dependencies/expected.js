@@ -2,10 +2,10 @@
 
 const exitCode = 0;
 
-const stdout = ``;
-
-const stderr = `▻ You have unused dependencies:
+const stdout = `Following dependencies are unused or missing:
 
 noop3`;
+
+const stderr = ``;
 
 module.exports = { exitCode, stdout, stderr };
