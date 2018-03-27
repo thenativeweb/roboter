@@ -2,7 +2,10 @@
 
 const exitCode = 1;
 
-const stdout = `License check failed.`;
+const stdout = [
+  'Verifying license compatibility',
+  'License check failed.'
+];
 
 const stderr = '';
 

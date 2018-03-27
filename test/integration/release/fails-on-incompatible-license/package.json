@@ -1,7 +1,5 @@
 {
   "name": "test-package",
   "version": "0.0.1",
-  "dependencies": {
-    "noop3": "*"
-  }
+  "license": "AGPL-3.0"
 }
