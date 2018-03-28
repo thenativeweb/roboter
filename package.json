@@ -31,7 +31,7 @@
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "bump-regex": "3.1.0",
-    "buntstift": "0.5.0",
+    "buntstift": "1.0.0",
     "chokidar": "1.7.0",
     "command-line-args": "4.0.7",
     "command-line-commands": "2.0.1",
