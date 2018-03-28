@@ -2,8 +2,8 @@
 
 const exitCode = 1;
 
-const stdout = `License check failed.`;
+const stdout = '';
 
-const stderr = '';
+const stderr = 'License check failed.';
 
 module.exports = { exitCode, stdout, stderr };

@@ -3,8 +3,8 @@
 const exitCode = 1;
 
 const stdout = [
-  'Verifying license compatibility',
-  'License check failed.'
+  'Running license check',
+  '  incompatible-package  0.0.0'
 ];
 
 const stderr = '';

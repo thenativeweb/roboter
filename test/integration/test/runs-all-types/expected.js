@@ -3,10 +3,10 @@
 const exitCode = 0;
 
 const stdout = [
-  `✓ Tests of type units successful.`,
-  `✓ Tests of type e2e successful.`,
-  `✓ Tests of type baz successful.`,
-  `✓ Tests of type foobar successful.`
+  `units tests successful.`,
+  `e2e tests successful.`,
+  `baz tests successful.`,
+  `foobar tests successful.`
 ];
 
 const stderr = '';
