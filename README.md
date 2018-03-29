@@ -727,7 +727,7 @@ To run the tests run the following command.
 $ npm run test
 ```
 
-You can run all integration test for one task by specifying the task name as an addtional argument.
+You can run all integration test for one task by specifying the task name as an additional argument.
 
 ```bash
 $ npm run test release
@@ -760,7 +760,7 @@ Alternatively you may also use `publish-minor` and `publish-major`, depending on
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2015-2016 the native web.
+Copyright (c) 2015-2018 the native web.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
