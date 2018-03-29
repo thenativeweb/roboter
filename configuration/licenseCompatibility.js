@@ -5,6 +5,9 @@ const licenseCompatibility = {
     // Individual licenses
     'Apache-2.0', 'Apache-2.0*',
     'BSD-2-Clause', 'BSD-3-Clause',
+    'CC-BY-4.0',
+    'CC-BY-3.0',
+    'CC0-1.0',
     'ISC',
     'LGPL-2.1+',
     'MIT', 'MIT/X11', 'MIT*',
@@ -27,6 +30,8 @@ const licenseCompatibility = {
     'Apache-2.0', 'Apache-2.0*',
     'BSD-2-Clause', 'BSD-3-Clause',
     'CC-BY-4.0',
+    'CC-BY-3.0',
+    'CC0-1.0',
     'ISC',
     'LGPL-2.1+',
     'MIT', 'MIT/X11', 'MIT*',
