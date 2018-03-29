@@ -6,20 +6,20 @@ roboter automates your build.
 
 ## Installation
 
-```bash
+```shell
 $ npm install roboter
 ```
 
 Additionally, you either need to install [roboter-server](https://www.npmjs.com/package/roboter-server) or [roboter-client](https://www.npmjs.com/package/roboter-client), depending on whether you want to do development for the server- or the client-side.
 
-```bash
+```shell
 $ npm install roboter-server
 $ npm install roboter-client
 ```
 
 To use roboter it is recommended to install [roboter-cli](https://www.npmjs.com/package/roboter-cli) globally. This way you can easily run roboter by simply typing `bot`. To install roboter-cli, run the following command.
 
-```bash
+```shell
 $ npm install -g roboter-cli
 ```
 
@@ -39,7 +39,7 @@ roboter.
 
 This already allows you to run some pre-defined tasks, e.g. code-analysis. For that run the `bot` CLI tool and provide `analyze` as parameter.
 
-```bash
+```shell
 $ bot analyze
 ```
 
@@ -88,13 +88,13 @@ roboter.
 
 If you want to get an overview of all available tasks, simply run `bot` with the `--help` parameter.
 
-```bash
+```shell
 $ bot --help
 ```
 
 Any environment variables you specify when running `bot` are also available for the tasks. E.g., if you want to run unit tests with disabled TLS verification, run bot as follows.
 
-```bash
+```shell
 $ NODE_TLS_REJECT_UNAUTHORIZED=0 bot test-units
 ```
 
@@ -152,7 +152,7 @@ task('universal/analyze', {
 
 To use a shareable ESLint configuration first install the desired npm module.
 
-```bash
+```shell
 $ npm install <eslint-config-myconfig>
 ```
 
@@ -181,13 +181,13 @@ module.exports = {
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot analyze
 ```
 
 To run this task continuously run the following command.
 
-```bash
+```shell
 $ bot watch-analyze
 ```
 
@@ -224,7 +224,7 @@ task('universal/coverage', {
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot coverage
 ```
 
@@ -268,7 +268,7 @@ task('universal/license', {
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot license
 ```
 
@@ -278,7 +278,7 @@ This task verifies whether all of your dependencies and development dependencies
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot outdated
 ```
 
@@ -288,13 +288,13 @@ This task publishes your project. Before publishing it, the task also runs the c
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot release
 ```
 
 By default this creates a `patch` release. If you want to create a `minor` or a `major` release, provide the release type as command-line argument.
 
-```bash
+```shell
 $ bot release --type minor
 $ bot release --type major
 ```
@@ -329,7 +329,7 @@ task('universal/shell', {
 
 To run a custom-defined task run `bot` and provide the name of the task.
 
-```bash
+```shell
 $ bot build
 ```
 
@@ -347,7 +347,7 @@ task('universal/test', {
 
 Then run the following command.
 
-```bash
+```shell
 $ bot watch-test
 ```
 
@@ -374,7 +374,7 @@ task('universal/test-integration', {
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot test-integration
 ```
 
@@ -389,7 +389,7 @@ task('universal/test-integration', {
 
 Then run the following command.
 
-```bash
+```shell
 $ bot watch-test-integration
 ```
 
@@ -441,7 +441,7 @@ task('universal/test-units', {
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot test-units
 ```
 
@@ -456,7 +456,7 @@ task('universal/test-units', {
 
 Then run the following command.
 
-```bash
+```shell
 $ bot watch-test-units
 ```
 
@@ -491,7 +491,7 @@ This task looks for dependencies that are registered in the `package.json` file,
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot unused-dependencies
 ```
 
@@ -509,19 +509,19 @@ This task updates your module's dependencies.
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot update
 ```
 
 By default this updates all dependencies. If you only want update a single dependency, provide the module name as command-line argument.
 
-```bash
+```shell
 $ bot update --package lodash
 ```
 
 If you want to update to a specific version, supply the version.
 
-```bash
+```shell
 $ bot update --package lodash@4.13.1
 ```
 
@@ -565,7 +565,7 @@ task('client/copy-static', {
 
 To run the `build-client` task use the following command.
 
-```bash
+```shell
 $ bot build-client
 ```
 
@@ -658,7 +658,7 @@ task('client/watch-app', {
 
 To finally run this task use the following command.
 
-```bash
+```shell
 $ bot watch-client
 ```
 
@@ -674,7 +674,7 @@ https: {
 
 If you use vi you have to set the following configuration value for the watch mode to work.
 
-```bash
+```shell
 :set backupcopy=yes
 ```
 
@@ -686,7 +686,7 @@ This task runs code analysis and unit tests on your code as defined by the `anal
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot build-server
 ```
 
@@ -696,13 +696,13 @@ This task runs your unit tests continuously as defined by the `test-units` tasks
 
 To run this task use the following command.
 
-```bash
+```shell
 $ bot watch-server
 ```
 
 If you use vi you have set the following configuration value for the watch mode to work.
 
-```bash
+```shell
 :set backupcopy=yes
 ```
 
@@ -715,7 +715,7 @@ No matter whether you are working on the client or on the server, roboter provid
 
 To run the `default` task, simply run `bot` without any further parameters.
 
-```bash
+```shell
 $ bot
 ```
 
@@ -723,19 +723,19 @@ $ bot
 
 To run the tests run the following command.
 
-```bash
+```shell
 $ npm run test
 ```
 
 You can run all integration test for one task by specifying the task name as an additional argument.
 
-```bash
+```shell
 $ npm run test release
 ```
 
 You can run a single integration test case by specifying the individual test as an additional argument.
 
-```bash
+```shell
 $ npm run test release/bumps-minor-version
 ```
 
@@ -745,13 +745,13 @@ Unfortunately, this module can not be used to build itself. Hence you have to us
 
 To analyze the source code run the following command.
 
-```bash
+```shell
 $ npm run analyze
 ```
 
 To release a new version run the following command.
 
-```bash
+```shell
 $ npm run publish-patch
 ```
 

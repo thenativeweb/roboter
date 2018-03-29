@@ -35,9 +35,9 @@ suite('roboter', function () {
 
   if (process.argv.length === 11) {
     // Only a single test case should be run, specified as an additional command
-    // line argument, e.g. "npm run test analyse/fails-on-invalid-code".
-    // The preceding arguments are the options passed to mocha via the
-    // npm test script.
+    // line argument, e.g. 'npm run test analyse/fails-on-invalid-code'. The
+    // preceding arguments are the options passed to mocha via the npm test
+    // script.
     if (process.argv[10].includes('/')) {
       const testCaseOptions = process.argv[10].split('/');
       const task = testCaseOptions[0];

@@ -2,7 +2,8 @@
 
 const path = require('path');
 
-const shell = require('shelljs');
+const shell = require('shelljs'),
+      stripAnsi = require('strip-ansi');
 
 const runRoboterTask = async function ({ cwd, task, directory }) {
   if (!cwd) {
@@ -65,8 +66,8 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
 
   return {
     exitCode: code,
-    stderr,
-    stdout
+    stderr: stripAnsi(stderr),
+    stdout: stripAnsi(stdout)
   };
 };
 
