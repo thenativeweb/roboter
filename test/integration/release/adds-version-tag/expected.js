@@ -23,7 +23,7 @@ const validate = async function (options) {
   const listTags = shell.exec('git tag -l', { cwd: dirname });
   const tags = listTags.stdout.split('\n');
 
-  assert.that(tags[0]).is.equalTo('v1.0.0');
+  assert.that(tags[0]).is.equalTo('1.0.0');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

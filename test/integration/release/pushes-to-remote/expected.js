@@ -16,7 +16,7 @@ const validate = async function (options) {
   const remoteTags = listRemoteTags.stdout.split('\n');
   const firstRemoteTag = remoteTags[0];
 
-  assert.that(firstRemoteTag).is.containing('v1.0.0');
+  assert.that(firstRemoteTag).is.containing('1.0.0');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
