@@ -4,7 +4,7 @@ const exitCode = 0;
 
 const stdout = [
   'Running unused or missing dependencies check',
-  `Following dependencies are unused or missing:
+  `The following dependencies are unused or missing:
 
 noop3`
 ];

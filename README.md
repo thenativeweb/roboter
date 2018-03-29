@@ -727,13 +727,13 @@ To run the tests run the following command.
 $ npm run test
 ```
 
-You can all integration test for one task by specifing the task name as an addtional argument.
+You can run all integration test for one task by specifying the task name as an addtional argument.
 
 ```bash
 $ npm run test release
 ```
 
-You can run a single integration test case by specifing the individual test case as an additional argument.
+You can run a single integration test case by specifying the individual test as an additional argument.
 
 ```bash
 $ npm run test release/bumps-minor-version

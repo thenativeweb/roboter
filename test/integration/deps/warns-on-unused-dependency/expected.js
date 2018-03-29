@@ -2,7 +2,7 @@
 
 const exitCode = 0;
 
-const stdout = `Following dependencies are unused or missing:
+const stdout = `The following dependencies are unused or missing:
 
 noop3`;
 
