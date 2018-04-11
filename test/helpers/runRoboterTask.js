@@ -18,6 +18,10 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
 
   let args;
 
+  if (task === 'default') {
+    task = '';
+  }
+
   try {
     /* eslint-disable global-require */
     args = require(path.join(directory, 'args.js'));
