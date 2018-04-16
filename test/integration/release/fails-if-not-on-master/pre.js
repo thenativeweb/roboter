@@ -12,8 +12,7 @@ const pre = async function (options) {
     bareRemote: false
   });
 
-  shell.exec('echo "second file" > second.txt', { cwd: dirname });
-  shell.exec('git add .', { cwd: dirname });
+  shell.exec('git checkout -b some-branch', { cwd: dirname });
 };
 
 module.exports = pre;

@@ -4,6 +4,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Upgrading from 0.x
+
+roboter 1.x was rewritten from scratch, and introduces a variety of breaking changes compared to the 0.x series. To upgrade, please refer to the [upgrading guide](UPGRADING-0.x-TO-1.0.md).
+
 ## Installation
 
 ```shell
