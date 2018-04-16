@@ -1,745 +1,354 @@
 # roboter
 
-roboter automates your build.
+roboter streamlines software development by automating tasks and enforcing conventions.
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Upgrading from 0.x
+
+roboter 1.x was rewritten from scratch, and introduces a variety of breaking changes compared to the 0.x series. To upgrade, please refer to the [upgrading guide](UPGRADING-0.x-TO-1.0.md).
+
 ## Installation
 
-```bash
-$ npm install roboter
+```shell
+$ npm install roboter --save-dev
 ```
 
-Additionally, you either need to install [roboter-server](https://www.npmjs.com/package/roboter-server) or [roboter-client](https://www.npmjs.com/package/roboter-client), depending on whether you want to do development for the server- or the client-side.
-
-```bash
-$ npm install roboter-server
-$ npm install roboter-client
-```
-
-To use roboter it is recommended to install [roboter-cli](https://www.npmjs.com/package/roboter-cli) globally. This way you can easily run roboter by simply typing `bot`. To install roboter-cli, run the following command.
-
-```bash
-$ npm install -g roboter-cli
-```
+*Please note: Never install roboter globally, but always into the local context of your module or application.*
 
 ## Quick start
 
-First you need to create a `roboter.js` file in your application's directory. Inside that file you need to reference the module, define the environment you are working in, and run `start`.
+To run roboter, execute the following command:
 
-```javascript
-'use strict';
-
-const roboter = require('roboter');
-
-roboter.
-  workOn('server').
-  start();
+```shell
+$ npx roboter
 ```
 
-This already allows you to run some pre-defined tasks, e.g. code-analysis. For that run the `bot` CLI tool and provide `analyze` as parameter.
+Since you will run this command quite often, you may want to setup a shorter alias. To do so, add the following line to your profile file, such as `.profile` (or the respective file of your platform):
 
-```bash
-$ bot analyze
+```shell
+alias bot='npx roboter'
 ```
 
-By default, the pre-defined tasks use a default configuration. Most probably you want to change it. To do so, use the `equipWith` function and setup the desired tasks. Please note that the actual configuration is of course task-dependent.
+Then you can simply run `bot` instead of `npx roboter`. In the following we will assume that you have *not* setup an alias like this.
 
-```javascript
-'use strict';
+## Quick start
 
-const roboter = require('roboter');
+roboter provides a variety of tasks. To run them, run roboter and provide the task's name as parameter:
 
-roboter.
-  workOn('server').
-  equipWith(task => {
-    task('universal/analyze', {
-      src: [ '**/*.js', '!node_modules/**/*.js' ]
-    });
-  }).
-  start();
+| Name | Description |
+|-|-|
+| [`analyse`](#the-analyse-task) | Runs code analysis. |
+| [`deps`](#the-deps-task) | Checks for missing, outdated, and unused dependencies. |
+| `help` | Shows the help. |
+| [`license`](#the-license-task) | Checks dependencies for incompatible licenses. |
+| [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
+| [`release`](#the-release-task) | Releases a new version. |
+| [`test`](#the-test-task) | Runs tests. |
+
+If you don't specify a task, the `qa` task is run as default task.
+
+To get help, run `npx roboter --help`. To get help for a specific command, run `npx roboter <command> --help`.
+
+If you need more detailed output, provide the `--verbose` flag for any command.
+
+### Running npm scripts
+
+If your `package.json` file contains custom scripts, you can run them using roboter to have a streamlined user experience. Supposed, your `package.json` looks like this:
+
+```json
+{
+  "scripts": {
+    "analyse-css": "..."
+  }
+}
 ```
 
-If you want to register custom tasks use the `custom/` prefix and provide an asynchronous function with a `done` callback.
+Then you can run the following command. If you specify any options, they will be handed over to the script:
 
-```javascript
-roboter.
-  workOn('server').
-  equipWith(task => {
-    task('custom/foo', done => {
-      // ...
-    });
-  }).
-  start();
+```shell
+$ npx roboter analyse-css
 ```
 
-Then you can run your custom code using `bot foo`. To avoid naming conflicts with built-in tasks, it is recommended to prefix your task names with a unique identifier such as `custom-`. Of course, then you need to run `bot custom-foo` on the command-line.
+### Setting environment variables
 
-```javascript
-roboter.
-  workOn('server').
-  equipWith(task => {
-    task('custom/custom-foo', done => {
-      // ...
-    });
-  }).
-  start();
+Environment variables you specify when running roboter are also available to the tasks. E.g., if you want to run tests with disabled TLS verification, run roboter as follows:
+
+```shell
+$ NODE_TLS_REJECT_UNAUTHORIZED=0 npx roboter test
 ```
 
-If you want to get an overview of all available tasks, simply run `bot` with the `--help` parameter.
+## The `analyse` task
 
-```bash
-$ bot --help
-```
+This task runs code analysis on your code using [ESLint](http://eslint.org/). By default it uses the rules defined in the [eslint-config-es](https://www.npmjs.com/package/eslint-config-es) module.
 
-Any environment variables you specify when running `bot` are also available for the tasks. E.g., if you want to run unit tests with disabled TLS verification, run bot as follows.
+### Flags
 
-```bash
-$ NODE_TLS_REJECT_UNAUTHORIZED=0 bot test-units
-```
+| Flag | Alias | Description |
+|-|-|-|
+| --watch | -w | Re-runs code analysis when files have been changed. |
 
-## Configuring and using tasks
+### Exit codes
 
-Before using tasks you need to select an environment, i.e. whether you are working on a `client` or a `server` project. For that provide the name of the environment to the `workOn` function.
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Code analysis failed |
 
-The environment you select defines what tasks are available to you. The exception to the rule are the *universal* tasks that are available independent of the selected environment.
+### Details
 
-### Universal tasks
+Code analysis affects all `.js` and `.jsx` files, but skips the following directories:
 
-- [`analyze`](#the-analyze-task)
-- [`coverage`](#the-coverage-task)
-- [`generate-toc`](#the-generate-toc-task)
-- [`license`](#the-license-task)
-- [`outdated`](#the-outdated-task)
-- [`release`](#the-release-task)
-- [`shell`](#the-shell-task)
-- [`test`](#the-test-task)
-- [`test-integration`](#the-test-integration-task)
-- [`test-units`](#the-test-units-task)
-- [`unused-dependencies`](#the-unused-dependencies-task)
-- [`update`](#the-update-task)
+- `node_modules` (nested)
+- `build` (only top-level)
+- `coverage` (only top-level)
+- `dist` (only top-level)
 
-### Client tasks
+To exclude other files or directories, add an [`.eslintignore`](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) file to the root directory of your module or application.
 
-- [`build-client`](#the-build-client-task)
-- [`watch-client`](#the-watch-client-task)
+To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.org/docs/user-guide/configuring) file to the root directory of your module or application. You may [extend](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) the built-in `es/2015/server` configuration if you only need to change a few rules:
 
-### Server tasks
-
-- [`build-server`](#the-build-server-task)
-- [`watch-server`](#the-watch-server-task)
-
-## Universal tasks
-
-### The `analyze` task
-
-This task runs static code analysis on your source files. You only need to specify which files to analyse. For that use the `src` parameter.
-
-```javascript
-task('universal/analyze', {
-  src: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-By default, the `analyze` task uses a built-in rule set, but you may override it by specifying the path to an [ESLint](http://eslint.org/) configuration file or to a [shareable ESLint configuration](http://eslint.org/docs/developer-guide/shareable-configs.html). Either way, use the `rules` property for overriding the default.
-
-```javascript
-task('universal/analyze', {
-  src: [ '**/*.js', '!node_modules/**/*.js' ],
-  rules: '.eslintrc'
-});
-```
-
-To use a shareable ESLint configuration first install the desired npm module.
-
-```bash
-$ npm install <eslint-config-myconfig>
-```
-
-Next remove the `eslint-config-` prefix from the module name and provide what's left as value to the `rules` property.
-
-```javascript
-task('universal/analyze', {
-  src: [ '**/*.js', '!node_modules/**/*.js' ],
-  rules: 'myconfig'
-});
-```
-
-Whether you use a configuration file or a shareable configuration, you can always make use of ESLint's [extends](http://eslint.org/docs/user-guide/configuring.html#extending-configuration-files) feature which allows to build a hierarchy of ESLint configurations.
-
-As an example, the following shareable configuration uses the `2015/server.js` file from the `eslint-config-es` module as its base and overrides two rules while keeping the others.
-
-```javascript
-module.exports = {
-  extends: 'es/2015/server',
-  rules: {
-    'array-bracket-spacing': [ 2, 'never' ],
-    'object-curly-spacing': [ 2, 'always' ]
+```json
+{
+  "extends": "es/2015/server",
+  "rules": {
+    "eqeqeq": 0
   }
 };
 ```
 
-To run this task use the following command.
+## The `deps` task
 
-```bash
-$ bot analyze
-```
+This task checks for missing, outdated, and unused dependencies.
 
-To run this task continuously run the following command.
+### Flags
 
-```bash
-$ bot watch-analyze
-```
+None
 
-### The `coverage` task
+### Exit codes
 
-This task calculates the coverage of your [unit tests](#the-test-units-task) and creates an HTML report in the project's `coverage` directory.
+| Exit code | Description |
+|-|-|
+| 0 | Success |
 
-```javascript
-task('universal/coverage', {
-  src: [ './lib/**/*.js', './src/**/*.js' ],
-  test: './test/units/**/*Tests.js'
-});
-```
+*Please note that missing, outdated, or unused dependencies do not lead to an erroneous exit code. This is by design, since these situations are typically not critical, and you may want to ignore them intentionally.*
 
-By default, roboter assumes that the code to calculate the coverage for is located in the `lib` or the `src` directory, and that your unit tests are located in the `test/units` directory of your project. If you need to, specify other directories using the `src` and `test` parameters.
+### Details
 
-Optionally, you may specify a coverage threshold which fails the build if it is not being reached. The value must be given as percentage, i.e. as a number between `0` and `100`:
+Under some circumstances, dependencies are reported as unused, although they are actually being used. This can be caused by dynamic requires, or similar things.
 
-```javascript
-task('universal/coverage', {
-  threshold: 90
-});
-```
+If you experience such a situation, feel free to ignore the warnings.
 
-For more details, please refer to the [documentation of istanbul](https://github.com/peterjwest/istanbul-threshold-checker#thresholds).
+## The `license` task
 
-By default, code files that are not tested by any test are ignored. To take these files into account as well, set the `includeUntested` parameter to `true`:
+This task checks your dependencies for incompatible licenses.
 
-```javascript
-task('universal/coverage', {
-  includeUntested: true
-});
-```
+### Flags
 
-To run this task use the following command.
+None
 
-```bash
-$ bot coverage
-```
+### Exit codes
 
-### The `generate-toc` task
+| Exit code | Description |
+|-|-|
+| 0 | Success |
 
-This task generates a TOC for your `README.md` file. To enable this task, add the following line to your `README.md` file.
+*Please note that license compatibility issues do not lead to an erroneous exit code. This is by design, since this situation is typically not critical, and you may want to ignore it intentionally.*
+
+### Details
+
+roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/master/lib/automation/pkg/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
+
+If you encounter a license incompatibility, and think that it should be fixed, please submit a pull request for either the [compatibility chart](https://github.com/thenativeweb/roboter/edit/master/configuration/licenseCompatibility.js) or the [license list](https://github.com/thenativeweb/roboter/edit/master/configuration/packageLicenses.js).
+
+*Please note: Consider the license compatibility check of roboter only to be a suggestion, not as legal advice you can rely on. If you want to be on the safe side, consult a lawyer. the native web does not provide any warranty of any kind.*
+
+To disable the license check, omit the `license` field in your `package.json` file, or set it to the value `UNKNOWN`.
+
+## The `qa` task
+
+This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
+
+### Flags
+
+None
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Code analysis or tests failed |
+
+*Please note that missing, outdated, or unused dependencies do not lead to an erroneous exit code. This is by design, since these situations are typically not critical, and you may want to ignore them intentionally.*
+
+### Details
+
+None
+
+## The `release` task
+
+This task releases a new version.
+
+It first runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
+
+Afterwards, it runs the following tasks:
+
+- Check if you're currently in the `master` branch
+- Check if there are any pending, i.e. not yet committed, changes
+- Check if your local `master` branch is up-to-date with the remote one
+- Optional: [Generate the TOC](#generating-the-toc) in the `README.md` file
+- Optional: [Precompile code](#precompiling-the-code) using Babel
+- Increase version number
+- Commit all changes
+- Create a tag for the new version
+- Push all changes and the tag
+
+*Please note: This task does not publish your module or application to the npm registry. Instead, you need to do this manually by running `npm publish`.*
+
+### Flags
+
+| Flag | Alias | Description |
+|-|-|-|
+| --force | -f | Releases without running tests, code analysis etc. |
+| --type | -t | Specifies the type of the release, either `patch`, `minor`, or `major`. |
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Code analysis or tests failed |
+
+### Details
+
+For generating version numbers roboter uses [SemVer](https://semver.org/). It omits the leading `v`.
+
+#### Generating the TOC
+
+To automatically generate a TOC for your `README.md` file, add the following line to your `README.md` file at the position where you want the TOC to be created:
 
 ```html
 <!-- toc -->
 ```
 
-### The `license` task
+#### Precompiling the code
 
-This task checks whether the licenses of your dependencies are compatible to your license. It assumes that the license you use yourself is fine to use for your dependencies, too.
+If you want to create a module or application that also runs in environments that only support ES5, put all your code into a `src` directory below the root of your module or application.
 
-As long as you do not specify a license in your `package.json` file, or if you use `UNKNOWN`, the license check is disabled. To explicitly disable the license check, set its `disable` property to true.
+*Please note: The precompilation step does only transform your code, not bundle it.*
+
+The precompiled code will be put into the `dist` directory. Make sure to reference the files in this directory when specifying the `main` and the `bin` fields in your `package.json` file.
+
+All `.js` and `.jsx` files inside of the `src` directory will be precompiled using Babel with the [`babel-env` preset](https://babeljs.io/docs/plugins/preset-env/). To customize the presets and plugins being used, add a [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) file to the root directory of your module or application.
+
+## The `test` task
+
+This task runs unit, integration, and other tests using [Mocha](https://mochajs.org/).
+
+### Flags
+
+| Flag | Alias | Description |
+|-|-|-|
+| --type | -t | The test type, such as `units`, `integration`, … |
+| --watch | -w | Re-runs tests when files have been changed. |
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Tests failed |
+
+### Details
+
+roboter will look for test types in the `test` directory of your module or application. You can add a type by simply creating a directory with the desired name, e.g. `units`, `integration`, `performance`, …
+
+If you are running the tests in watch  mode, tests are triggered by any change on `.js` files, without taking the following directories into account:
+
+- `node_modules` (nested)
+- `build` (only top-level)
+- `coverage` (only top-level)
+- `dist` (only top-level)
+
+#### Creating tests
+
+To create tests, add files with the naming schema `*Tests.js` to your test type directories. Use Mocha's [`tdd` interface](https://mochajs.org/#tdd) when writing tests. Please also note that all your tests must be asynchronous, i.e. they must either use the `done` callback or use the `async` keyword:
 
 ```javascript
-task('universal/license', {
-  disable: true
+// test/integration/databaseTests.js
+
+suite('connect', () => {
+  test('connects to the database.', async () => {
+    // ...
+  });
 });
 ```
 
-To accept additional licenses, add them to the `compatible` property of the task configuration.
+The test types are run in a specific order. If present, roboter will first run `units`, `integration`, `e2e`, and `performance`. After those test types, all remaining ones will be run in alphabetical order.
 
-```javascript
-task('universal/license', {
-  compatible: [ 'MIT', 'ISC' ]
-});
-```
+#### Using shared test helpers
 
-To ignore specific modules, e.g. because their license can not be obtained automatically and you have verified them manually, add them to the `ignore` property of the task configuration.
+If you want to use functions shared across multiple tests or test types, create a directory `test/shared` and put your code into it. This directory is handled as a special case and will not be picked up as a test type.
 
-```javascript
-task('universal/license', {
-  ignore: {
-    lodash: '4.17.2'
-  }
-});
-```
+#### Setting up and tearing down test types
 
-To run this task use the following command.
-
-```bash
-$ bot license
-```
-
-### The `outdated` task
-
-This task verifies whether all of your dependencies and development dependencies are up-to-date.
-
-To run this task use the following command.
-
-```bash
-$ bot outdated
-```
-
-### The `release` task
-
-This task publishes your project. Before publishing it, the task also runs the code analysis and the tests, checks license compatibility, and checks whether your Git repositoriy is up-to-date. Additionally, it updates the TOC of your `README.md` file, if the [`generate-toc`](#the-generate-toc-task) task has been set up appropriately.
-
-To run this task use the following command.
-
-```bash
-$ bot release
-```
-
-By default this creates a `patch` release. If you want to create a `minor` or a `major` release, provide the release type as command-line argument.
-
-```bash
-$ bot release --type minor
-$ bot release --type major
-```
-
-If you want to create a module that does also run in environments that only support ES5, create a distribution version of your module. To do so, set the `createDistribution` property to `true`:
-
-```javascript
-task('universal/release', {
-  createDistribution: true
-});
-```
-
-By default, this uses `lib` as source directory and `dist` as distribution directory. To change this, provide the `srcDir` and `distributionDir` properties:
-
-```javascript
-task('universal/release', {
-  createDistribution: true,
-  srcDir: 'src',
-  distributionDir: 'build'
-});
-```
-
-### The `shell` task
-
-This task lets you define shortcuts for arbitrary shell commands. E.g., if you want to automate Docker, you can define a `build` command that calls out to the Docker command-line interface.
-
-```javascript
-task('universal/shell', {
-  build: 'docker build .'
-});
-```
-
-To run a custom-defined task run `bot` and provide the name of the task.
-
-```bash
-$ bot build
-```
-
-### The `test` task
-
-This task runs your unit and integration tests.
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
-
-```javascript
-task('universal/test', {
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-Then run the following command.
-
-```bash
-$ bot watch-test
-```
-
-### The `test-integration` task
-
-This task runs integration tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
-
-```javascript
-suite('api', () => {
-  test('runs on port 80.', done => {
-    ...
-    done();
-  });  
-});
-```
-
-By default roboter assumes that you store your integration tests in the `test/integration` directory of your project. However you can specify which files contain your integration tests. For that use the `src` parameter.
-
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js'
-});
-```
-
-To run this task use the following command.
-
-```bash
-$ bot test-integration
-```
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
-
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js',
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-Then run the following command.
-
-```bash
-$ bot watch-test-integration
-```
-
-If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/integration/pre.js` and `test/integration/post.js` in your application. They need to export an asynchronous function, as in the following example.
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file, that export an asynchronous function:
 
 ```javascript
 'use strict';
 
-module.exports = function (done) {
+module.exports = async function () {
   // ...
-  done(null);
 };
 ```
 
-In case something goes wrong, hand over the error to `done` instead of `null`.
+*Please note: The `post.js` file will be run no matter whether the tests themselves were run successfully or not.*
 
-If you need to configure where these files are located, use the `pre` and `post` properties.
+#### Configuring test execution
 
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js',
-  pre: 'test/start-database.js',
-  post: 'test/stop-database.js'
-});
-```
+To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#mochaopts) file per test type. However, the following options can not be overwritten, and are always set:
 
-*Please note that the `post` task is always run, even in case of failing tests.*
-
-### The `test-units` task
-
-This task runs unit tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
-
-```javascript
-suite('Basic math', () => {
-  test('1 plus 1 is 2.', done => {
-    assert.that(1 + 1).is.equalTo(2);
-    done();
-  });  
-});
-```
-
-You need to specify which files contain your tests. For that use the `src` parameter.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js'
-});
-```
-
-To run this task use the following command.
-
-```bash
-$ bot test-units
-```
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js',
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-Then run the following command.
-
-```bash
-$ bot watch-test-units
-```
-
-If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/units/pre.js` and `test/units/post.js` in your application. They need to export an asynchronous function, as in the following example.
-
-```javascript
-'use strict';
-
-module.exports = function (done) {
-  // ...
-  done(null);
-};
-```
-
-In case something goes wrong, hand over the error to `done` instead of `null`.
-
-If you need to configure where these files are located, use the `pre` and `post` properties.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js',
-  pre: 'test/start-database.js',
-  post: 'test/stop-database.js'
-});
-```
-
-*Please note that the `post` task is always run, even in case of failing tests.*
-
-### The `unused-dependencies` task
-
-This task looks for dependencies that are registered in the `package.json` file, but are not being used anywhere in your source code. It also looks for dependencies that are required in your source code, but have not been registered in the `package.json` file.
-
-To run this task use the following command.
-
-```bash
-$ bot unused-dependencies
-```
-
-By default, the directory `node_modules` is excluded from the search. If you want to exclude additional directories, use the `exclude` property.
-
-```javascript
-task('universal/unused-dependencies', {
-  exclude: [ 'foo/bar', 'node_modules' ]
-});
-```
-
-### The `update` task
-
-This task updates your module's dependencies.
-
-To run this task use the following command.
-
-```bash
-$ bot update
-```
-
-By default this updates all dependencies. If you only want update a single dependency, provide the module name as command-line argument.
-
-```bash
-$ bot update --package lodash
-```
-
-If you want to update to a specific version, supply the version.
-
-```bash
-$ bot update --package lodash@4.13.1
-```
-
-*Please note that you may also specify multiple packages. If you want to do so, remember that you have to provide the `--package` option for each package individually.*
-
-## Client tasks
-
-### The `build-client` task
-
-This task builds a web application and consists of two sub-tasks that can be configured individually. As this configuration is completely optional roboter will fallback to sensible default values. In order to adjust the settings configure the `client/build-app` and the `client/copy-static` task.
-
-```javascript
-task('client/build-app', {
-  entryFiles: [
-    'src/index.html',
-    'src/index.scss',
-    'src/index.js'
-  ],
-  babelize: [
-    path.join(__dirname, 'src'),
-    path.join(__dirname, 'node_modules', 'my-es2015-dependency')
-  ],
-  buildDir: 'build/',
-  publicPath: '/'
-});
-```
-
-The `client/build-app` task bundles your application using the given `entryFiles`. All the build assets will be transpiled and bundled into the given `buildDir`. Provide an array of strings or regular expressions via the `babelize` option to let roboter transpile `.js` and `.jsx` files via babel. During runtime your app will use `/` as the default `publicPath` when loading bundles. In other words it assumes that you publish your application into the root path of your http server.
-
-If your application is using a nested directory structure, adjust `publicPath` to `/nested-folders/my-app-root`. If you prefer loading bundles via relative paths set `publicPath` to the empty string.
-
-The `client/copy-static` task will copy any additional assets into the `buildDir`.
-
-```javascript
-task('client/copy-static', {
-  src: 'src/static-content/**/*',
-  watch: 'src/static-content/**/*',
-  buildDir: 'build/'
-});
-```
-
-To run the `build-client` task use the following command.
-
-```bash
-$ bot build-client
-```
-
-#### Building the various parts
-
-By default, roboter expects three entry files for a web application: An `index.html`, an `index.scss`, and an `index.js` file (although you may also use an `index.jsx` file here). Please note that within the `index.html` file you need to reference the built JavaScript artefact. The built CSS is injected automatically:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>...</title>
-  </head>
-  <body>
-    <script type="text/javascript" src="index.js"></script>
-  </body>
-</html>
-```
-
-Since roboter uses [webpack](https://webpack.github.io/) internally, you may specify the loader to be used when calling the `require` function. Currently, the following loaders are supported:
-
-- `css-loader`
-- `file-loader`
-- `postcss-loader`
-- `raw-loader`
-- `sass-loader`
-- `style-loader`
-- `url-loader`
-
-#### Compiling CSS
-
-All CSS code will automatically be parsed by [autoprefixer](https://github.com/postcss/autoprefixer).
-
-#### Compiling JavaScript
-
-To compile your JavaScript code using Babel, add a `.babelrc` file to your application and register the plugins and presets you want to use. E.g., to enable compilation for ES2015 and React, add the following lines:
-
-```json
-{
-  "presets": [ "es2015", "react" ]
-}
-```
-
-Please note that you explicitly need to install plugins and presets in order for this to work.
-
-#### Configuring the client by defining globals
-
-You can use the `define` option of the `build-app` task to make your client configurable from outside. This can be helpful e.g. to set properties that differ between development and production environments.
-
-```javascript
-task('client/build-app', {
-  define: {
-    'process.env.API_HOST': 'my.api.com'
-  }
-});
-```
-
-In this example roboter will replace all the strings `process.env.API_HOST` inside your client code with the string `"my.api.com"`.
-
-```javascript
-// That line…
-console.log(process.env.API_HOST);
-
-// … will be compiled into this line.
-console.log("my.api.com");
-```
-
-### The `watch-client` task
-
-This task rebuilds a web application continuously. Additionally it starts a live-preview web server that will automatically refresh when files have been changed. By default, hot reloading is enabled for styles and React components. In order to adjust the settings used during watch mode configure the `client/watch-app` task.
-
-```javascript
-task('client/watch-app', {
-  entryFiles: [
-    'src/index.html',
-    'src/index.scss',
-    'src/index.js'
-  ],
-  buildDir: 'build/',
-  babelize: [
-    path.join(__dirname, 'src'),
-    path.join(__dirname, 'node_modules', 'my-es2015-dependency')
-  ],
-  https: false,
-  host: 'localhost',
-  port: 8080,
-  hotReloading: true
-});
-```
-
-To finally run this task use the following command.
-
-```bash
-$ bot watch-client
-```
-
-Optionally, you can use `https` instead of `http`. If you set the `https` property to `true`, roboter will use a self-signed certificate. To specify a custom certificate, use the following syntax:
-
-```javascript
-https: {
-  cert: fs.readFileSync('/.../certificate.pem'),
-  key: fs.readFileSync('/.../privateKey.pem'),
-  cacert: fs.readFileSync('/.../caCertificate.pem')
-}
-```
-
-If you use vi you have to set the following configuration value for the watch mode to work.
-
-```bash
-:set backupcopy=yes
-```
-
-## Server tasks
-
-### The `build-server` task
-
-This task runs code analysis and unit tests on your code as defined by the `analyze` and `test-units` tasks.
-
-To run this task use the following command.
-
-```bash
-$ bot build-server
-```
-
-### The `watch-server` task
-
-This task runs your unit tests continuously as defined by the `test-units` tasks.
-
-To run this task use the following command.
-
-```bash
-$ bot watch-server
-```
-
-If you use vi you have set the following configuration value for the watch mode to work.
-
-```bash
-:set backupcopy=yes
-```
-
-## Using the default task
-
-No matter whether you are working on the client or on the server, roboter provides a meaningful `default` task.
-
-- On the client, it is equivalent to the `watch-client` task.
-- On the server, it is equivalent to the `build-server` task.
-
-To run the `default` task, simply run `bot` without any further parameters.
-
-```bash
-$ bot
-```
+- `--async-only`
+- `--bail`
+- `--colors`
+- `--exit`
+- `--reporter spec`
+- `--ui tdd`
 
 ## Running the tests
 
-To run the tests run the following command.
+To run the tests run the following command:
 
-```bash
+```shell
 $ npm run test
+```
+
+You can run all integration tests for one task by specifying the task name as an additional argument:
+
+```shell
+$ npm run test release
+```
+
+You can run a single integration test case by specifying the individual test as an additional argument:
+
+```shell
+$ npm run test release/bumps-minor-version
 ```
 
 ## Running the build
 
 Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
 
-To analyze the source code run the following command.
+To analyse the source code run the following command:
 
-```bash
-$ npm run analyze
+```shell
+$ npm run analyse
 ```
 
-To release a new version run the following command.
+To release a new version run the following command:
 
-```bash
+```shell
 $ npm run publish-patch
 ```
 
@@ -748,7 +357,7 @@ Alternatively you may also use `publish-minor` and `publish-major`, depending on
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2015-2016 the native web.
+Copyright (c) 2015-2018 the native web.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

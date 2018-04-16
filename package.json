@@ -1,7 +1,7 @@
 {
   "name": "roboter",
-  "version": "0.16.0",
-  "description": "roboter automates your build.",
+  "version": "0.15.4",
+  "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
       "name": "Golo Roden",
@@ -18,58 +18,62 @@
     {
       "name": "Joachim Haecker-Becker",
       "email": "joachim.haecker-becker@arcor.de"
-    },
-    {
-      "name": "Jan-Hendrik Grundhöfer",
-      "email": "jan-hendrik.grundhoefer@thenativeweb.io"
     }
   ],
-  "main": "lib/roboter.js",
+  "bin": {
+    "bot": "lib/bin/roboter.js",
+    "roboter": "lib/bin/roboter.js"
+  },
   "dependencies": {
-    "async": "2.4.1",
+    "babel-cli": "6.26.0",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "bump-regex": "3.1.0",
+    "buntstift": "1.1.0",
+    "chokidar": "2.0.3",
+    "command-line-args": "5.0.2",
+    "command-line-commands": "2.0.1",
+    "command-line-usage": "5.0.4",
+    "common-tags": "1.7.2",
+    "defekt": "1.0.0",
+    "depcheck": "0.6.9",
     "eslint": "4.16.0",
     "eslint-config-es": "0.9.1",
     "eslint-plugin-extended": "0.2.0",
-    "eslint-plugin-mocha": "4.11.0",
-    "eslint-plugin-react": "7.0.1",
-    "glob": "7.1.2",
-    "gulp": "3.9.1",
-    "gulp-bump": "2.7.0",
-    "gulp-depcheck": "1.2.0",
-    "gulp-eslint": "4.0.2",
-    "gulp-git": "2.4.0",
-    "gulp-istanbul": "1.1.2",
-    "gulp-mocha": "4.3.1",
-    "gulp-rename": "1.2.2",
-    "gulp-sequence": "0.4.6",
-    "gulp-spawn-mocha": "3.3.0",
-    "gulp-util": "3.0.8",
-    "lodash": "4.17.4",
-    "markdown-toc": "1.1.0",
-    "minimist": "1.2.0",
-    "semver": "5.3.0",
-    "shelljs": "0.7.8",
-    "stringify-object": "3.2.0"
+    "eslint-plugin-mocha": "5.0.0",
+    "eslint-plugin-react": "7.7.0",
+    "execa": "0.10.0",
+    "findsuggestions": "0.2.1",
+    "globby": "8.0.1",
+    "lodash": "4.17.5",
+    "markdown-toc": "1.2.0",
+    "mocha": "5.1.0",
+    "processenv": "1.0.0",
+    "require-dir": "1.0.0",
+    "strip-ansi": "4.0.0",
+    "update-notifier": "2.5.0",
+    "util.promisify": "1.0.0"
   },
   "devDependencies": {
-    "assertthat": "0.9.0",
-    "buntstift": "0.4.0",
-    "isolated": "0.3.0"
+    "assertthat": "1.0.0",
+    "isolated": "0.3.0",
+    "shelljs": "0.7.8"
+  },
+  "scripts": {
+    "analyse": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-path .eslintignore",
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
+    "publish-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push && npm publish",
+    "publish-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push && npm publish",
+    "publish-major": "npm run analyse && npm run test && npm version major && git push --tags && git push && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/thenativeweb/roboter.git"
   },
-  "scripts": {
-    "analyze": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-pattern \"test/integration/*/**/*.js\"",
-    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
-    "publish-patch": "npm run analyze && npm run test && npm version patch && git push --tags && git push && npm publish && node ./publish.js",
-    "publish-minor": "npm run analyze && npm run test && npm version minor && git push --tags && git push && npm publish && node ./publish.js",
-    "publish-major": "npm run analyze && npm run test && npm version major && git push --tags && git push && npm publish && node ./publish.js"
-  },
   "keywords": [
-    "build",
-    "gulp"
+    "build"
   ],
   "license": "MIT"
 }
