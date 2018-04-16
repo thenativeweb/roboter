@@ -82,7 +82,7 @@ This task runs code analysis on your code using [ESLint](http://eslint.org/). By
 
 | Flag | Alias | Description |
 |-|-|-|
-| --watch | -w | Watches files. |
+| --watch | -w | Re-runs code analysis when files have been changed. |
 
 ### Exit codes
 
@@ -240,175 +240,77 @@ All `.js` and `.jsx` files inside of the `src` directory will be precompiled usi
 
 ## The `test` task
 
+This task runs unit, integration, and other tests using [Mocha](https://mochajs.org/).
 
+### Flags
 
+| Flag | Alias | Description |
+|-|-|-|
+| --type | -t | The test type, such as `units`, `integration`, … |
+| --watch | -w | Re-runs tests when files have been changed. |
 
+### Exit codes
 
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Tests failed |
 
+### Details
 
+roboter will look for test types in the `test` directory of your module or application. You can add a type by simply creating a directory with the desired name, e.g. `units`, `integration`, `performance`, …
 
+If you are running the tests in watch  mode, tests are triggered by any change on `.js` files, without taking the following directories into account:
 
+- `node_modules` (nested)
+- `build` (only top-level)
+- `coverage` (only top-level)
+- `dist` (only top-level)
 
+#### Creating tests
 
-This task runs your unit and integration tests.
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
+To create tests, add files with the naming schema `*Tests.js` to your test type directories. Use Mocha's [`tdd` interface](https://mochajs.org/#tdd) when writing tests. Please also note that all your tests must be asynchronous, i.e. they must either use the `done` callback or use the `async` keyword:
 
 ```javascript
-task('universal/test', {
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
+// test/integration/databaseTests.js
+
+suite('connect', () => {
+  test('connects to the database.', async () => {
+    // ...
+  });
 });
 ```
 
-Then run the following command.
+The test types are run in a specific order. If present, roboter will first run `units`, `integration`, `e2e`, and `performance`. After those test types, all remaining ones will be run in alphabetical order.
 
-```shell
-$ bot watch-test
-```
+#### Using shared test helpers
 
-### The `test-integration` task
+If you want to use functions shared across multiple tests or test types, create a directory `test/shared` and put your code into it. This directory is handled as a special case and will not be picked up as a test type.
 
-This task runs integration tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
+#### Setting up and tearing down test types
 
-```javascript
-suite('api', () => {
-  test('runs on port 80.', done => {
-    ...
-    done();
-  });  
-});
-```
-
-By default roboter assumes that you store your integration tests in the `test/integration` directory of your project. However you can specify which files contain your integration tests. For that use the `src` parameter.
-
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js'
-});
-```
-
-To run this task use the following command.
-
-```shell
-$ bot test-integration
-```
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
-
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js',
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-Then run the following command.
-
-```shell
-$ bot watch-test-integration
-```
-
-If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/integration/pre.js` and `test/integration/post.js` in your application. They need to export an asynchronous function, as in the following example.
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file, that export an asynchronous function:
 
 ```javascript
 'use strict';
 
-module.exports = function (done) {
+module.exports = async function () {
   // ...
-  done(null);
 };
 ```
 
-In case something goes wrong, hand over the error to `done` instead of `null`.
+*Please note: The `post.js` file will be run no matter whether the tests themselves were run successfully or not.*
 
-If you need to configure where these files are located, use the `pre` and `post` properties.
+#### Configuring test execution
 
-```javascript
-task('universal/test-integration', {
-  src: 'test/integration/**/*Tests.js',
-  pre: 'test/start-database.js',
-  post: 'test/stop-database.js'
-});
-```
+To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#mochaopts) file per test type. However, the following options can not be overwritten, and are always set:
 
-*Please note that the `post` task is always run, even in case of failing tests.*
-
-### The `test-units` task
-
-This task runs unit tests using [Mocha](https://mochajs.org/), where the tests need to be written as asynchronous tests using the `tdd` style.
-
-```javascript
-suite('Basic math', () => {
-  test('1 plus 1 is 2.', done => {
-    assert.that(1 + 1).is.equalTo(2);
-    done();
-  });  
-});
-```
-
-You need to specify which files contain your tests. For that use the `src` parameter.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js'
-});
-```
-
-To run this task use the following command.
-
-```shell
-$ bot test-units
-```
-
-To run this task continuously, you need to configure which files to watch. This usually is a combination of your test files and your actual source code.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js',
-  watch: [ '**/*.js', '!node_modules/**/*.js' ]
-});
-```
-
-Then run the following command.
-
-```shell
-$ bot watch-test-units
-```
-
-If you need to register any additional pre or post actions that shall be run before or after all tests, provide the files `test/units/pre.js` and `test/units/post.js` in your application. They need to export an asynchronous function, as in the following example.
-
-```javascript
-'use strict';
-
-module.exports = function (done) {
-  // ...
-  done(null);
-};
-```
-
-In case something goes wrong, hand over the error to `done` instead of `null`.
-
-If you need to configure where these files are located, use the `pre` and `post` properties.
-
-```javascript
-task('universal/test-units', {
-  src: 'test/units/**/*Tests.js',
-  pre: 'test/start-database.js',
-  post: 'test/stop-database.js'
-});
-```
-
-*Please note that the `post` task is always run, even in case of failing tests.*
-
-
-
-
-
-
-
-
-
-
+- `--async-only`
+- `--bail`
+- `--colors`
+- `--exit`
+- `--reporter spec`
+- `--ui tdd`
 
 ## Running the tests
 
