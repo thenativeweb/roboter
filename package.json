@@ -63,7 +63,10 @@
   },
   "scripts": {
     "analyse": "eslint --config eslint-config-es/2015/server \"**/*.js\" --ignore-path .eslintignore",
-    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js"
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
+    "publish-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push && npm publish",
+    "publish-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push && npm publish",
+    "publish-major": "npm run analyse && npm run test && npm version major && git push --tags && git push && npm publish"
   },
   "repository": {
     "type": "git",
