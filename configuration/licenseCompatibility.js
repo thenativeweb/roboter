@@ -10,6 +10,7 @@ const licenseCompatibility = {
     'CC0-1.0',
     'ISC',
     'LGPL-2.1+',
+    'LGPL-3.0',
     'MIT', 'MIT/X11', 'MIT*',
     'MIT Licensed. http://www.opensource.org/licenses/mit-license.php',
     'Public Domain',
@@ -25,6 +26,7 @@ const licenseCompatibility = {
     '(MIT OR Apache-2.0)',
     '(WTFPL OR MIT)'
   ],
+
   'AGPL-3.0': [
     // Individual licenses
     'Apache-2.0', 'Apache-2.0*',
@@ -34,6 +36,7 @@ const licenseCompatibility = {
     'CC0-1.0',
     'ISC',
     'LGPL-2.1+',
+    'LGPL-3.0',
     'MIT', 'MIT/X11', 'MIT*',
     'MIT Licensed. http://www.opensource.org/licenses/mit-license.php',
     'Public Domain',
