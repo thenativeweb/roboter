@@ -1,6 +1,6 @@
 # roboter
 
-roboter automates your build.
+roboter streamlines software development by automating tasks and enforcing conventions.
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
