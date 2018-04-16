@@ -31,6 +31,11 @@ const packageLicenses = {
     '0.2.1': 'MIT'
   },
 
+  'glob-to-regexp': {
+    // https://github.com/fitzgen/glob-to-regexp/tree/0.3.0#license
+    '0.3.0': 'BSD-2-Clause'
+  },
+
   has: {
     // https://github.com/tarruda/has/blob/1.0.1/package.json
     '1.0.1': 'MIT'
