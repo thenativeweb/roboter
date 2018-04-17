@@ -22,7 +22,9 @@ const licenseCompatibility = {
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
+    '(MIT AND BSD-3-Clause)',
     '(MIT AND CC-BY-3.0)',
+    '(MIT AND Zlib)',
     '(MIT OR Apache-2.0)',
     '(WTFPL OR MIT)'
   ],
@@ -48,7 +50,9 @@ const licenseCompatibility = {
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
+    '(MIT AND BSD-3-Clause)',
     '(MIT AND CC-BY-3.0)',
+    '(MIT AND Zlib)',
     '(MIT OR Apache-2.0)',
     '(WTFPL OR MIT)'
   ]
