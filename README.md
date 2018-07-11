@@ -313,7 +313,6 @@ To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#
 - `--bail`
 - `--colors`
 - `--exit`
-- `--reporter spec`
 - `--ui tdd`
 
 ## Running the tests
