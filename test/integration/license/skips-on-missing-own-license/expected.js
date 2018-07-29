@@ -1,9 +1,9 @@
 'use strict';
 
-const exitCode = 1;
+const exitCode = 0;
 
 const stdout = ``;
 
-const stderr = '';
+const stderr = 'License check failed.';
 
 module.exports = { exitCode, stdout, stderr };
