@@ -1,6 +1,6 @@
 'use strict';
 
-const exitCode = 1;
+const exitCode = 0;
 
 const stdout = '';
 
