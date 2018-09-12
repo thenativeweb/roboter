@@ -22,10 +22,9 @@ const validate = async function (options) {
 
     const React = require('react');
 
-    const Bar = () => React.createElement('div', null);
+    const Bar = () => React.createElement("div", null);
 
     const foo = React.createElement(Bar, null);
-
     module.exports = foo;`);
 };
 

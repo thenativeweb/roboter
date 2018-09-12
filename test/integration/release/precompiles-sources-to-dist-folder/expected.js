@@ -21,7 +21,6 @@ const validate = async function (options) {
     'use strict';
 
     var foo = 'bar';
-
     module.exports = foo;`);
 };
 
