@@ -3,7 +3,7 @@
 const exitCode = 0;
 
 const stdout = `Running outdated dependencies check...
-  Package  Current  Wanted       Latest  Location
+  Package  Current  Wanted    Latest  Location
 noop3     13.7.2  13.7.2`;
 
 const stderr = '';
