@@ -1,10 +1,7 @@
 'use strict';
 
-const isolatedCallback = require('isolated'),
-      promisify = require('util.promisify'),
+const isolated = require('isolated'),
       shell = require('shelljs');
-
-const isolated = promisify(isolatedCallback);
 
 const createGitRepository = async function ({ dirname, files, bareRemote = true }) {
   if (!dirname) {

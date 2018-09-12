@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "assertthat": "1.0.0",
-    "isolated": "0.3.0",
+    "isolated": "1.0.0",
     "shelljs": "0.8.2"
   },
   "scripts": {
