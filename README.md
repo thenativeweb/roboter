@@ -4,7 +4,11 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
-## Upgrading from 0.x
+## Upgrading from 1.x to 2.x
+
+roboter 2.x introduces `babel` 7. If you have been using the precompilation feature of the `release` task and have been using a local `.babelrc` make sure to upgrade it to the scoped package names of `babel` 7, please refer to the [babel upgrading guide](https://babeljs.io/docs/en/next/v7-migration).
+
+## Upgrading from 0.x to 1.x
 
 roboter 1.x was rewritten from scratch, and introduces a variety of breaking changes compared to the 0.x series. To upgrade, please refer to the [upgrading guide](UPGRADING-0.x-TO-1.0.md).
 
@@ -240,7 +244,7 @@ If you want to create a module or application that also runs in environments tha
 
 The precompiled code will be put into the `dist` directory. Make sure to reference the files in this directory when specifying the `main` and the `bin` fields in your `package.json` file.
 
-All `.js` and `.jsx` files inside of the `src` directory will be precompiled using Babel with the [`babel-env` preset](https://babeljs.io/docs/plugins/preset-env/). To customize the presets and plugins being used, add a [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) file to the root directory of your module or application.
+All `.js` and `.jsx` files inside of the `src` directory will be precompiled using Babel with the [`@babel/env` ](https://babeljs.io/docs/en/babel-preset-env) and [`@babel/react` ](https://babeljs.io/docs/en/babel-preset-react) presets. To customize the presets and plugins being used, add a [`.babelrc or a babel.config.js file`](https://babeljs.io/docs/en/configuration) to the root directory of your module or application.
 
 ## The `test` task
 
