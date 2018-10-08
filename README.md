@@ -4,7 +4,11 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
-## Upgrading from 0.x
+## Upgrading from 1.x to 2.x
+
+roboter 2.x introduces `babel` 7. If you have been using the precompilation feature of the `release` task, you might need to take action. If you've been using a local `.babelrc` make sure to upgrade it to the scoped package names of `babel` 7. If you have been using [`babel-runtime`](https://www.npmjs.com/package/babel-runtime) as a dependency in your module, also make sure to switch to the new scoped [`@babel/runtime`](https://www.npmjs.com/package/@babel/runtime) module. Please refer to the [babel upgrading guide](https://babeljs.io/docs/en/next/v7-migration) and the new [`precompile`](#the-precompile-task) task that has been introduced to verify the precompilation result before a release.
+
+## Upgrading from 0.x to 1.x
 
 roboter 1.x was rewritten from scratch, and introduces a variety of breaking changes compared to the 0.x series. To upgrade, please refer to the [upgrading guide](UPGRADING-0.x-TO-1.0.md).
 
@@ -42,6 +46,7 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 | [`deps`](#the-deps-task) | Checks for missing, outdated, and unused dependencies. |
 | `help` | Shows the help. |
 | [`license`](#the-license-task) | Checks dependencies for incompatible licenses. |
+| [`precompile`](#the-precompile-task) | Precompiles source files using babel. |
 | [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
 | [`release`](#the-release-task) | Releases a new version. |
 | [`test`](#the-test-task) | Runs tests. |
@@ -165,6 +170,37 @@ If you encounter a license incompatibility, and think that it should be fixed, p
 
 To disable the license check, omit the `license` field in your `package.json` file, or set it to the value `UNKNOWN`.
 
+## The `precompile` task
+
+If you want to create a module or application that also runs in environments that only support ES5, put all your code into a `src` directory below the root of your module or application. The precompiled code will be put into the `dist` directory. Additionally the [`release`](#the-release-task) task will precompile automatically for you when creating a new release. So this `precompile` task is mainly intended to be used as a helper to verify your precompiled output before releasing a new version.
+
+Make sure to reference the files in the `dist` directory when specifying the `main` and the `bin` fields in your `package.json` file.
+
+*Please note: The precompilation step does only transform your code, not bundle it.*
+
+All `.js` and `.jsx` files inside of the `src` directory will be precompiled using Babel with the [`@babel/env` ](https://babeljs.io/docs/en/babel-preset-env) and [`@babel/react` ](https://babeljs.io/docs/en/babel-preset-react) presets. To customize the presets and plugins being used, add a [`.babelrc or a babel.config.js file`](https://babeljs.io/docs/en/configuration) to the root directory of your module or application.
+
+By default roboter uses the [`babel-plugin-transform-runtime`](https://babeljs.io/docs/en/babel-plugin-transform-runtime). So instead of inlining runtime functions into every file that needs them, babel will rather require them from the [`@babel/runtime`](https://www.npmjs.com/package/@babel/runtime) module. This reduces the size of the generated code as babel won't include the same runtime functions over and over again.
+
+If you are using features like `async/await` that will require the babel runtime, you need to make need to make sure to also include [`@babel/runtime`](https://www.npmjs.com/package/@babel/runtime) as a dependency into your project. You can use this task before releasing to verify if the compiled version of your module actually requires `@babel/runtime`.
+
+### Flags
+
+None
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Precompilation failed |
+
+*Please note that missing, outdated, or unused dependencies do not lead to an erroneous exit code. This is by design, since these situations are typically not critical, and you may want to ignore them intentionally.*
+
+### Details
+
+None
+
 ## The `qa` task
 
 This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
@@ -198,7 +234,7 @@ Afterwards, it runs the following tasks:
 - Check if there are any pending, i.e. not yet committed, changes
 - Check if your local `master` branch is up-to-date with the remote one
 - Optional: [Generate the TOC](#generating-the-toc) in the `README.md` file
-- Optional: [Precompile code](#precompiling-the-code) using Babel
+- Optional: [Precompile code](#precompiling-the-code-before-releasing) using Babel
 - Increase version number
 - Commit all changes
 - Create a tag for the new version
@@ -232,15 +268,9 @@ To automatically generate a TOC for your `README.md` file, add the following lin
 <!-- toc -->
 ```
 
-#### Precompiling the code
+#### Precompiling the code before releasing
 
-If you want to create a module or application that also runs in environments that only support ES5, put all your code into a `src` directory below the root of your module or application.
-
-*Please note: The precompilation step does only transform your code, not bundle it.*
-
-The precompiled code will be put into the `dist` directory. Make sure to reference the files in this directory when specifying the `main` and the `bin` fields in your `package.json` file.
-
-All `.js` and `.jsx` files inside of the `src` directory will be precompiled using Babel with the [`babel-env` preset](https://babeljs.io/docs/plugins/preset-env/). To customize the presets and plugins being used, add a [`.babelrc`](https://babeljs.io/docs/usage/babelrc/) file to the root directory of your module or application.
+You can use roboter to automatically precompile your code before publishing. roboter will run the [`precompile`](#the-precompile-task) task automatically for you. For details on how to enable and to configure this precompilation step, see the [`precompile`](#the-precompile-task) task.
 
 ## The `test` task
 
