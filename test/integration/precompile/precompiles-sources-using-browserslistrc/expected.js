@@ -16,8 +16,6 @@ const validate = async function (options) {
 
   const precompiledFile = shell.cat(path.join(dirname, 'dist', 'index.js'));
 
-  console.log(precompiledFile.stdout);
-
   assert.that(precompiledFile.stdout).is.not.containing('require("@babel/runtime/regenerator")');
 };
 
