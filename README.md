@@ -234,7 +234,7 @@ Afterwards, it runs the following tasks:
 - Check if there are any pending, i.e. not yet committed, changes
 - Check if your local `master` branch is up-to-date with the remote one
 - Optional: [Generate the TOC](#generating-the-toc) in the `README.md` file
-- Optional: [Precompile code](#precompiling-the-code) using Babel
+- Optional: [Precompile code](#precompiling-the-code-before-releasing) using Babel
 - Increase version number
 - Commit all changes
 - Create a tag for the new version
@@ -270,7 +270,7 @@ To automatically generate a TOC for your `README.md` file, add the following lin
 
 #### Precompiling the code before releasing
 
-You can use roboter to automatically precompile your code before publishing. roboter will run the [`precompile`](#the-precompile-task) task automatically for you. For details on how to enable and to configure this precompilation step, see [`precompile`](#the-precompile-task).
+You can use roboter to automatically precompile your code before publishing. roboter will run the [`precompile`](#the-precompile-task) task automatically for you. For details on how to enable and to configure this precompilation step, see the [`precompile`](#the-precompile-task) task.
 
 ## The `test` task
 
