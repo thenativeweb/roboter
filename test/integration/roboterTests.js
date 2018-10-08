@@ -30,7 +30,7 @@ suite('roboter', function () {
   });
 
   teardown(() => {
-    // shell.rm('-rf', path.join(tempDirectory, '*'));
+    shell.rm('-rf', path.join(tempDirectory, '*'));
   });
 
   if (process.argv.length === 11) {
