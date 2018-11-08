@@ -26,6 +26,7 @@ const licenseCompatibility = {
     '(MIT AND CC-BY-3.0)',
     '(MIT AND Zlib)',
     '(MIT OR Apache-2.0)',
+    '(MIT OR GPL-3.0)',
     '(WTFPL OR MIT)'
   ],
 
@@ -54,6 +55,7 @@ const licenseCompatibility = {
     '(MIT AND CC-BY-3.0)',
     '(MIT AND Zlib)',
     '(MIT OR Apache-2.0)',
+    '(MIT OR GPL-3.0)',
     '(WTFPL OR MIT)'
   ],
 
@@ -82,6 +84,7 @@ const licenseCompatibility = {
     '(MIT AND CC-BY-3.0)',
     '(MIT AND Zlib)',
     '(MIT OR Apache-2.0)',
+    '(MIT OR GPL-3.0)',
     '(WTFPL OR MIT)'
   ]
 };

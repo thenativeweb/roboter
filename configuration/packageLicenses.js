@@ -11,6 +11,11 @@ const packageLicenses = {
     '1.0.4': 'MIT'
   },
 
+  'css-select': {
+    // https://github.com/fb55/css-select/blob/v1.2.0/LICENSE
+    '1.2.0': 'BSD-2-Clause'
+  },
+
   duplexer2: {
     // https://github.com/deoxxa/duplexer2/blob/0.0.2/LICENSE.md
     '0.0.2': 'BSD-3-Clause'
@@ -45,6 +50,11 @@ const packageLicenses = {
     // https://github.com/isaacs/inherits/blob/v1.0.1/LICENSE
     // Version 1.0.2 has not been tagged on Github.
     '1.0.2': 'ISC'
+  },
+
+  'is-running': {
+    // Assumption, related issue is https://github.com/nisaacson/is-running/issues/13
+    '2.1.0': 'BSD-3-Clause'
   },
 
   'json-schema': {
