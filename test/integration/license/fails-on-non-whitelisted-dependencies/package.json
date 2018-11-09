@@ -1,0 +1,8 @@
+{
+  "name": "this-is-not-wolkenkit-client",
+  "version": "0.0.0",
+  "license": "LGPL-3.0",
+  "dependencies": {
+    "wolkenkit": "2.0.0"
+  }
+}
