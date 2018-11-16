@@ -3,7 +3,8 @@
 const whitelistedPackages = {
   'wolkenkit-client': [
     'commands-events',
-    'wolkenkit'
+    'wolkenkit',
+    'wolkenkit-eventstore'
   ]
 };
 
