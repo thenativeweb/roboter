@@ -5,6 +5,11 @@ const whitelistedPackages = {
     'commands-events',
     'wolkenkit',
     'wolkenkit-eventstore'
+  ],
+  'wolkenkit-react': [
+    'commands-events',
+    'wolkenkit',
+    'wolkenkit-eventstore'
   ]
 };
 
