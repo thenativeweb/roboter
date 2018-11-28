@@ -20,6 +20,7 @@ const licenseCompatibility = {
     // Combined licenses
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
+    '(BSD-3-Clause OR GPL-2.0)',
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
     '(MIT AND BSD-3-Clause)',
@@ -49,6 +50,7 @@ const licenseCompatibility = {
     // Combined licenses
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
+    '(BSD-3-Clause OR GPL-2.0)',
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
     '(MIT AND BSD-3-Clause)',
@@ -78,6 +80,7 @@ const licenseCompatibility = {
     // Combined licenses
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
+    '(BSD-3-Clause OR GPL-2.0)',
     'BSD-3-Clause OR MIT',
     '(GPL-2.0 OR MIT)',
     '(MIT AND BSD-3-Clause)',
