@@ -11,6 +11,11 @@ const packageLicenses = {
     '1.0.4': 'MIT'
   },
 
+  colors: {
+    // https://github.com/Marak/colors.js/blob/v0.6.2/MIT-LICENSE.txt
+    '0.6.2': 'MIT'
+  },
+
   'css-select': {
     // https://github.com/fb55/css-select/blob/v1.2.0/LICENSE
     '1.2.0': 'BSD-2-Clause'
