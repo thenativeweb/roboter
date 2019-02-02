@@ -1,3 +1,7 @@
+# test-package
+
+Some introduction.
+
 ## toc
 
 ## Installation

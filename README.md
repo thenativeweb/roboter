@@ -4,13 +4,17 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Upgrading from 3.x to 4.x
+
+roboter 4.x slightly modifies the way it generates Table of Contents inside your `README.md` during the `publish` task. It is no longer necessary to add a `<!-- toc -->` tag your `README.md`. Instead add a heading called `Table of Contents` and roboter will insert a TOC below this headline. For more details refer to the section [Generating the TOC](#generating-the-toc)
+
 ## Upgrading from 2.x to 3.x
 
 roboter 3.x makes the `license` task fail if incompatible licenses were found. This means that you may need to adjust your build scripts, if you use the `license` task directly (you may have to ignore the exit code).
 
 ## Upgrading from 1.x to 2.x
 
-roboter 2.x introduces `babel` 7. If you have been using the precompilation feature of the `release` task, you might need to take action. If you've been using a local `.babelrc` make sure to upgrade it to the scoped package names of `babel` 7. If you have been using [`babel-runtime`](https://www.npmjs.com/package/babel-runtime) as a dependency in your module, also make sure to switch to the new scoped [`@babel/runtime`](https://www.npmjs.com/package/@babel/runtime) module. Please refer to the [babel upgrading guide](https://babeljs.io/docs/en/next/v7-migration) and the new [`precompile`](#the-precompile-task) task that has been introduced to verify the precompilation result before a release.
+roboter 2.x introduces `babel` 7. To upgrade, please refer to the [upgrading guide](UPGRADING-1.x-TO-2.0.md).
 
 ## Upgrading from 0.x to 1.x
 
@@ -265,11 +269,13 @@ For generating version numbers roboter uses [SemVer](https://semver.org/). It om
 
 #### Generating the TOC
 
-To automatically generate a TOC for your `README.md` file, add the following line to your `README.md` file at the position where you want the TOC to be created:
+To automatically generate a TOC for your `README.md` file add the following line to your `README.md`.
 
-```html
-<!-- toc -->
+```markdown
+## Table of Contents
 ```
+
+*Please note: roboter looks for the first heading containing 'Table of Contents', 'toc', or 'table-of-contents'. It removes all following contents until an equal or higher heading is found and inserts a table of contents.*
 
 #### Precompiling the code before releasing
 
