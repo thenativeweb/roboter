@@ -9,6 +9,7 @@ const whitelistedPackages = {
   'wolkenkit-react': [
     'commands-events',
     'wolkenkit',
+    'wolkenkit-application',
     'wolkenkit-eventstore'
   ]
 };
