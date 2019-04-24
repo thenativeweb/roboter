@@ -3,6 +3,8 @@
 /test/integration/analyse/fails-on-invalid-code/app.js
 /test/integration/analyse/supports-jsx/App.jsx
 /test/integration/analyse/supports-mocha-tests/appTests.js
+/test/integration/analyse/supports-nested-eslint-configurations/app.js
+/test/integration/analyse/supports-nested-eslint-configurations/foo/bar.js
 /test/integration/analyse/uses-eslintignore/app.js
 /test/integration/precompile/fails-when-precompilation-fails/src/index.js
 /test/integration/qa/fails-on-invalid-code/app.js
