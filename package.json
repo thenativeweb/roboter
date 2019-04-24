@@ -18,6 +18,10 @@
     {
       "name": "Joachim Haecker-Becker",
       "email": "joachim.haecker-becker@arcor.de"
+    },
+    {
+      "name": "Jan-Hendrik Grundhöfer",
+      "email": "jan-hendrik.grundhoefer@thenativeweb.io"
     }
   ],
   "bin": {
@@ -25,17 +29,17 @@
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "7.4.0",
-    "@babel/plugin-transform-runtime": "7.4.0",
-    "@babel/polyfill": "7.4.0",
-    "@babel/preset-env": "7.4.2",
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/plugin-transform-runtime": "7.4.3",
+    "@babel/polyfill": "7.4.3",
+    "@babel/preset-env": "7.4.3",
     "@babel/preset-react": "7.0.0",
-    "@babel/runtime": "7.4.2",
+    "@babel/runtime": "7.4.3",
     "bump-regex": "4.0.0",
     "buntstift": "1.5.1",
     "chokidar": "2.1.5",
-    "command-line-args": "5.1.0",
+    "command-line-args": "5.1.1",
     "command-line-commands": "2.0.1",
     "command-line-usage": "5.0.5",
     "common-tags": "1.8.0",
@@ -48,9 +52,9 @@
     "eslint-plugin-react": "7.7.0",
     "execa": "1.0.0",
     "findsuggestions": "1.0.0",
-    "globby": "9.1.0",
+    "globby": "9.2.0",
     "lodash": "4.17.11",
-    "mocha": "6.0.2",
+    "mocha": "6.1.4",
     "processenv": "1.1.0",
     "remark": "10.0.1",
     "remark-toc": "5.1.1",
@@ -62,7 +66,7 @@
   },
   "devDependencies": {
     "assertthat": "2.0.3",
-    "isolated": "1.0.0",
+    "isolated": "1.0.1",
     "shelljs": "0.8.3"
   },
   "scripts": {
