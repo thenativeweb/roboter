@@ -2,7 +2,7 @@
 
 const assert = require('assertthat');
 
-suite('units', () => {
+suite('unit', () => {
   setup(async () => {
     throw new Error('Error in setup.');
   });

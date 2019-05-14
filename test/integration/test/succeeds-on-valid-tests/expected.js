@@ -2,7 +2,7 @@
 
 const exitCode = 0;
 
-const stdout = `units tests successful.`;
+const stdout = `unit tests successful.`;
 
 const stderr = '';
 

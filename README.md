@@ -4,6 +4,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Upgrading from 4.x to 5.x
+
+roboter 5.x names the directory for unit tests `unit`, not `units`, to streamline things with `integration` and `performance`. This means that you need to rename the `units` directory to `unit` in your projects.
+
 ## Upgrading from 3.x to 4.x
 
 roboter 4.x slightly modifies the way it generates Table of Contents inside your `README.md` during the `publish` task. It is no longer necessary to add a `<!-- toc -->` tag your `README.md`. Instead add a heading called `Table of Contents` and roboter will insert a TOC below this headline. For more details refer to the section [Generating the TOC](#generating-the-toc)

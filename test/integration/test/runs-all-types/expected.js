@@ -3,7 +3,7 @@
 const exitCode = 0;
 
 const stdout = [
-  `units tests successful.`,
+  `unit tests successful.`,
   `e2e tests successful.`,
   `baz tests successful.`,
   `foobar tests successful.`
