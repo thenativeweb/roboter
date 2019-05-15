@@ -32,7 +32,7 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
       }
       /* eslint-enable no-sync */
 
-      test(`${testCase.replace(/-/g, ' ')}.`, async () => {
+      test(`${testCase.replace(/-/ug, ' ')}.`, async () => {
         shell.mkdir('-p', tempDirectory);
         shell.cp('-r', path.join(cwd, task, testCase), tempDirectory);
 
@@ -44,7 +44,7 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
           /* eslint-disable global-require */
           pre = require(path.join(cwd, task, testCase, 'pre.js'));
           /* eslint-enable global-require */
-        } catch (ex) {
+        } catch {
           pre = async function () {
             // Dummy method as fallback
           };

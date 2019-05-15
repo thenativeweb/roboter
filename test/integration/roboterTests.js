@@ -40,8 +40,7 @@ suite('roboter', function () {
     // script.
     if (process.argv[10].includes('/')) {
       const testCaseOptions = process.argv[10].split('/');
-      const task = testCaseOptions[0];
-      const testCase = testCaseOptions[1];
+      const [ task, testCase ] = testCaseOptions;
 
       /* eslint-disable no-sync */
       if (!fs.statSync(path.join(__dirname, task, testCase)).isDirectory()) {
@@ -56,7 +55,9 @@ suite('roboter', function () {
         tempDirectory
       });
     } else {
+      /* eslint-disable prefer-destructuring */
       const task = process.argv[10];
+      /* eslint-enable prefer-destructuring */
 
       createTestCasesForTask({ task });
     }

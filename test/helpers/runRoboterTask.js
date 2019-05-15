@@ -17,16 +17,13 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
   }
 
   let args;
-
-  if (task === 'default') {
-    task = '';
-  }
+  const transformedTask = task === 'default' ? '' : task;
 
   try {
     /* eslint-disable global-require */
     args = require(path.join(directory, 'args.js'));
     /* eslint-enable global-require */
-  } catch (ex) {
+  } catch {
     args = {};
   }
 
@@ -36,12 +33,12 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
     /* eslint-disable global-require */
     env = require(path.join(directory, 'env.js'));
     /* eslint-enable global-require */
-  } catch (ex) {
+  } catch {
     env = {};
   }
 
   /* eslint-disable no-process-env */
-  env = Object.assign({}, process.env, env);
+  env = { ...process.env, ...env };
   /* eslint-enable no-process-env */
 
   let argsAsString = args;
@@ -63,7 +60,7 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
 
   const pathToCli = path.join(cwd, '..', '..', 'lib', 'bin', 'roboter.js');
 
-  const { code, stderr, stdout } = shell.exec(`node ${pathToCli} ${task} ${argsAsString}`, {
+  const { code, stderr, stdout } = shell.exec(`node ${pathToCli} ${transformedTask} ${argsAsString}`, {
     cwd: directory,
     env
   });

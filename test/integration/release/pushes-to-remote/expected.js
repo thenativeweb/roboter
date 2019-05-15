@@ -14,7 +14,7 @@ const validate = async function (options) {
 
   const listRemoteTags = shell.exec('git ls-remote --refs --tags origin', { cwd: dirname });
   const remoteTags = listRemoteTags.stdout.split('\n');
-  const firstRemoteTag = remoteTags[0];
+  const [ firstRemoteTag ] = remoteTags;
 
   assert.that(firstRemoteTag).is.containing('1.0.0');
 };

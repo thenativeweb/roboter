@@ -1,3 +1,3 @@
 'use strict';
 
-test('Pending test');
+test('Pending test.');
