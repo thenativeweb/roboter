@@ -4,6 +4,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Upgrading from 5.x to 6.x
+
+roboter 6.x received a major update with respect to the ESLint rules being used. That means that when you update you should be prepared to adjust some code analysis issues in your code. Additionally, you need to change the name of the ESLint configuration module in your `.eslintrc.json` file: The new base name is now `es/node` (was `es/2015/server`), if you are working on a client project it's `es/browser` (was `es/2015/client`).
+
 ## Upgrading from 4.x to 5.x
 
 roboter 5.x names the directory for unit tests `unit`, not `units`, to streamline things with `integration` and `performance`. This means that you need to rename the `units` directory to `unit` in your projects.
