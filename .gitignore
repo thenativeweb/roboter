@@ -1,6 +1,5 @@
 # Node.js folders
-*node_modules/
-test/integration/temp
+node_modules/
 !test/**/node_modules/
 
 # Build artefacts

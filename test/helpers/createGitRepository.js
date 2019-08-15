@@ -3,35 +3,22 @@
 const isolated = require('isolated'),
       shell = require('shelljs');
 
-const createGitRepository = async function ({ dirname, files, bareRemote = true }) {
-  if (!dirname) {
-    throw new Error('Dirname is missing.');
+const createGitRepository = async function ({ directory }) {
+  if (!directory) {
+    throw new Error('Directory is missing.');
   }
 
-  if (Array.isArray(files)) {
-    files.forEach(file => {
-      shell.exec(`echo "${file.content}" > ${file.name}`, { cwd: dirname });
-    });
-  }
+  shell.exec('git init', { cwd: directory });
+  shell.exec('git add .', { cwd: directory });
+  shell.exec('git commit -m "Initial commit."', { cwd: directory });
 
-  shell.exec('git init', { cwd: dirname });
-  shell.exec('git add .', { cwd: dirname });
-  shell.exec('git commit -m "Initial commit."', { cwd: dirname });
+  const remoteDirectory = await isolated();
 
-  const tempDirectory = await isolated();
+  shell.exec(`git init --bare ${remoteDirectory}`, { cwd: directory });
+  shell.exec(`git remote add origin ${remoteDirectory}`, { cwd: directory });
+  shell.exec(`git push origin master`, { cwd: directory });
 
-  if (bareRemote) {
-    shell.exec(`git init --bare ${tempDirectory}`, { cwd: dirname });
-    shell.exec(`git remote add origin ${tempDirectory}`, { cwd: dirname });
-    shell.exec(`git push origin master`, { cwd: dirname });
-  } else {
-    shell.exec(`cp -r ./ ${tempDirectory}`, { cwd: dirname });
-    shell.exec(`git remote add origin ${tempDirectory}`, { cwd: dirname });
-  }
-
-  return {
-    remoteDirectory: tempDirectory
-  };
+  return { remoteDirectory };
 };
 
 module.exports = createGitRepository;

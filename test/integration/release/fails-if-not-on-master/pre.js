@@ -7,10 +7,7 @@ const helpers = require('../../../helpers');
 const pre = async function (options) {
   const { dirname } = options;
 
-  await helpers.createGitRepository({
-    dirname,
-    bareRemote: false
-  });
+  await helpers.createGitRepository({ dirname });
 
   shell.exec('git checkout -b some-branch', { cwd: dirname });
 };

@@ -5,10 +5,7 @@ const path = require('path');
 const shell = require('shelljs'),
       stripAnsi = require('strip-ansi');
 
-const runRoboterTask = async function ({ cwd, task, directory }) {
-  if (!cwd) {
-    throw new Error('Cwd is missing.');
-  }
+const runRoboterTask = async function ({ task, directory }) {
   if (!task) {
     throw new Error('Task is missing.');
   }
@@ -16,8 +13,8 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
     throw new Error('Directory is missing.');
   }
 
-  let args;
   const transformedTask = task === 'default' ? '' : task;
+  let args;
 
   try {
     /* eslint-disable global-require */
@@ -58,9 +55,7 @@ const runRoboterTask = async function ({ cwd, task, directory }) {
       join(' ');
   }
 
-  const pathToCli = path.join(cwd, '..', '..', 'lib', 'bin', 'roboter.js');
-
-  const { code, stderr, stdout } = shell.exec(`node ${pathToCli} ${transformedTask} ${argsAsString}`, {
+  const { code, stderr, stdout } = shell.exec(`npx roboter ${transformedTask} ${argsAsString}`, {
     cwd: directory,
     env
   });

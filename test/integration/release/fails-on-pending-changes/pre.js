@@ -7,10 +7,7 @@ const helpers = require('../../../helpers');
 const pre = async function (options) {
   const { dirname } = options;
 
-  await helpers.createGitRepository({
-    dirname,
-    bareRemote: false
-  });
+  await helpers.createGitRepository({ dirname });
 
   shell.exec('echo "second file" > second.txt', { cwd: dirname });
   shell.exec('git add .', { cwd: dirname });
