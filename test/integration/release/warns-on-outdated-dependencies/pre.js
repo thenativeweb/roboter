@@ -11,7 +11,7 @@ const pre = async function (options) {
     dirname
   });
 
-  shell.exec('npm install --no-package-lock', { cwd: dirname, silent: false });
+  shell.exec('npm install', { cwd: dirname, silent: false });
 };
 
 module.exports = pre;

@@ -1,5 +1,7 @@
 'use strict';
 
+const shell = require('shelljs');
+
 const helpers = require('../../../helpers');
 
 const pre = async function (options) {
@@ -8,6 +10,8 @@ const pre = async function (options) {
   await helpers.createGitRepository({
     dirname
   });
+
+  shell.exec('npm install', { cwd: dirname });
 };
 
 module.exports = pre;

@@ -63,7 +63,6 @@ const createTestsForTask = function ({ cwd, task, testCases, tempDirectory }) {
         /* eslint-enable global-require */
 
         assert.that(result.exitCode).is.equalTo(expected.exitCode);
-
         assert.that(result.stderr).is.containing(expected.stderr);
 
         const expectedStdouts = flatten([ expected.stdout ]);

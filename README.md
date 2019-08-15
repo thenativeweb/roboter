@@ -4,6 +4,16 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
 
+## Status
+
+| Category | Status |
+|-|-|
+| Version | [![npm](https://img.shields.io/npm/v/roboter)](https://www.npmjs.com/package/roboter) |
+| Dependencies | ![David](https://img.shields.io/david/thenativeweb/roboter) |
+| Dev dependencies | ![David](https://img.shields.io/david/dev/thenativeweb/roboter) |
+| Build | [![CircleCI](https://img.shields.io/circleci/build/github/thenativeweb/roboter)](https://circleci.com/gh/thenativeweb/roboter/tree/master) |
+| License | ![GitHub](https://img.shields.io/github/license/thenativeweb/roboter) |
+
 ## Upgrading from 5.x to 6.x
 
 roboter 6.x received a major update with respect to the ESLint rules being used. That means that when you update you should be prepared to adjust some code analysis issues in your code. Additionally, you need to change the name of the ESLint configuration module in your `.eslintrc.json` file: The new base name is now `es/node` (was `es/2015/server`), if you are working on a client project it's `es/browser` (was `es/2015/client`).
@@ -399,14 +409,3 @@ $ npm run publish-patch
 ```
 
 Alternatively you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
-
-## License
-
-The MIT License (MIT)
-Copyright (c) 2015-2019 the native web.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

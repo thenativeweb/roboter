@@ -1,2 +1,4 @@
+.circleci
+.dependabot
 images
 test

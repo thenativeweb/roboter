@@ -14,9 +14,11 @@ const stderr = '';
 const validate = async function (options) {
   const { dirname } = options;
 
-  const precompiledFile = shell.cat(path.join(dirname, 'build', 'index.js'));
+  const ls = shell.ls(path.join(dirname, 'build'));
 
-  assert.that(precompiledFile.stdout).is.containing('function (left, right) {');
+  assert.that(ls.length).is.equalTo(2);
+  assert.that(ls[0]).is.equalTo('index.d.ts');
+  assert.that(ls[1]).is.equalTo('index.js');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

@@ -4,7 +4,7 @@ test/integration/temp
 !test/**/node_modules/
 
 # Build artefacts
-*build/
+/build/
 
 # OS generated files and folders
 logs/
