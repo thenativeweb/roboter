@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const assert = require('assertthat'),
       isolated = require('isolated'),
       shell = require('shelljs');
@@ -15,7 +17,7 @@ const validate = async function ({ container }) {
 
   shell.exec(`docker cp ${container}:/home/node/app/build/ ${tempDirectory}`);
 
-  const ls = shell.ls(tempDirectory);
+  const ls = shell.ls(path.join(tempDirectory, 'build'));
 
   assert.that(ls.length).is.equalTo(2);
   assert.that(ls[0]).is.equalTo('index.d.ts');
