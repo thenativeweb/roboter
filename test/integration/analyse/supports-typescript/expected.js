@@ -2,7 +2,7 @@
 
 const exitCode = 1;
 
-const stdout = `7:5  error  Empty components are self-closing  react/self-closing-comp`;
+const stdout = `5:7  error  'sum' is assigned a value but never used  @typescript-eslint/no-unused-vars`;
 
 const stderr = '';
 

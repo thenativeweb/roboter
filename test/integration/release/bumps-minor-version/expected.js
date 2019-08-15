@@ -10,11 +10,9 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
+const validate = async function ({ directory }) {
   /* eslint-disable global-require */
-  const packgeJson = require(path.join(dirname, 'package.json'));
+  const packgeJson = require(path.join(directory, 'package.json'));
   /* eslint-enable global-require */
 
   assert.that(packgeJson.version).is.equalTo('0.1.0');

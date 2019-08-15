@@ -17,14 +17,18 @@ const getArgsList = function ({ directory }) {
     args = {};
   }
 
-  const argsList = Object.entries(args).
-    flatMap(([ argName, argValue ]) => {
-      if (typeof argValue === 'boolean') {
-        return [ `--${argName}` ];
-      }
+  let argsList = args;
 
-      return [ `--${argName}`, `${argValue}` ];
-    });
+  if (typeof argsList === 'object') {
+    argsList = Object.entries(args).
+      flatMap(([ argName, argValue ]) => {
+        if (typeof argValue === 'boolean') {
+          return [ `--${argName}` ];
+        }
+
+        return [ `--${argName}`, `${argValue}` ];
+      });
+  }
 
   return argsList;
 };

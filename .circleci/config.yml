@@ -1,24 +1,44 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: node:12.8.0-alpine
+    machine: true
 
     steps:
-      - run: apk add ca-certificates
-
       - checkout
+
+      - run:
+          name: Install Node.js
+          command: |
+            set +e
+
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            nvm install v12.8.0
+            nvm alias default v12.8.0
 
       - restore_cache:
           keys:
             - node-modules-{{ checksum "package.json" }}
             - node-modules-
 
-      - run: npm install
+      - run:
+          name: npm install
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            npm install
 
       - save_cache:
           paths:
             - node_modules
           key: node-modules-{{ checksum "package.json" }}
 
-      - run: npm run analyse && npm run test
+      - run:
+          name: npm run analyse && npm run test
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            npm run analyse && npm run test

@@ -12,10 +12,8 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
-  const precompiledFile = shell.cat(path.join(dirname, 'build', 'index.js'));
+const validate = async function ({ directory }) {
+  const precompiledFile = shell.cat(path.join(directory, 'build', 'index.js'));
 
   assert.that(precompiledFile.stdout.trim()).is.equalTo(stripIndent`
     "use strict";

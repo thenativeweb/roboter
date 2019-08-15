@@ -11,16 +11,14 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
+const validate = async function ({ directory }) {
   /* eslint-disable global-require */
-  const packageJson = require(path.join(dirname, 'package.json'));
+  const packageJson = require(path.join(directory, 'package.json'));
   /* eslint-enable global-require */
 
   assert.that(packageJson.version).is.equalTo('1.0.0');
 
-  const listTags = shell.exec('git tag -l', { cwd: dirname });
+  const listTags = shell.exec('git tag -l', { cwd: directory });
   const tags = listTags.stdout.split('\n');
 
   assert.that(tags[0]).is.equalTo('1.0.0');

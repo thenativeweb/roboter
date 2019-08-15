@@ -29,7 +29,12 @@ const createTest = function ({ task, testCase, directory }) {
   test(`${testCase.replace(/-/ug, ' ')}.`, async () => {
     const tempDirectory = await isolated();
 
-    shell.cp('-r', `${directory}/*`, tempDirectory);
+    shell.cp('-r', [
+      `${directory}/*`,
+      `${directory}/.*`
+    ], tempDirectory);
+
+    shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
 
     const transformedTask = task === 'default' ? '' : task;
 
@@ -83,7 +88,7 @@ const createTest = function ({ task, testCase, directory }) {
           stdout = stripAnsi(docker.stdout);
 
     /* eslint-disable global-require */
-    const expected = require(path.join(tempDirectory, 'expected.js'));
+    const expected = require(path.join(directory, 'expected.js'));
     /* eslint-enable global-require */
 
     assert.that(stderr).is.containing(expected.stderr);

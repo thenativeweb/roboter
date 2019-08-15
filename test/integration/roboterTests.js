@@ -40,7 +40,7 @@ suite('roboter', function () {
         if (!shallTestCaseBeExecuted({
           task,
           testCase,
-          args: process.argv.length[10]
+          args: process.argv[10]
         })) {
           return;
         }

@@ -11,10 +11,8 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
-  const ls = shell.ls(path.join(dirname, 'build'));
+const validate = async function ({ directory }) {
+  const ls = shell.ls(path.join(directory, 'build'));
 
   assert.that(ls.length).is.equalTo(2);
   assert.that(ls[0]).is.equalTo('index.d.ts');

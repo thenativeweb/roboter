@@ -12,10 +12,8 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
-  const readMe = shell.cat(path.join(dirname, 'README.md'));
+const validate = async function ({ directory }) {
+  const readMe = shell.cat(path.join(directory, 'README.md'));
 
   assert.that(readMe.stdout).is.containing(stripIndent`
 

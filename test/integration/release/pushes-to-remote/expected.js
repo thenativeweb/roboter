@@ -9,10 +9,8 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
-
-  const listRemoteTags = shell.exec('git ls-remote --refs --tags origin', { cwd: dirname });
+const validate = async function ({ directory }) {
+  const listRemoteTags = shell.exec('git ls-remote --refs --tags origin', { cwd: directory });
   const remoteTags = listRemoteTags.stdout.split('\n');
   const [ firstRemoteTag ] = remoteTags;
 
