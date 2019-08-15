@@ -1,12 +1,25 @@
 'use strict';
 
+const fs = require('fs'),
+      path = require('path'),
+      { promisify } = require('util');
+
 const isolated = require('isolated'),
-      shell = require('shelljs');
+      shell = require('shelljs'),
+      stripIndent = require('common-tags/lib/stripIndent');
+
+const writeFile = promisify(fs.writeFile);
 
 const createGitRepository = async function ({ directory }) {
   if (!directory) {
     throw new Error('Directory is missing.');
   }
+
+  const gitIgnorePath = path.join(directory, '.gitignore');
+
+  await writeFile(gitIgnorePath, stripIndent`
+    node_modules
+  `, { encoding: 'utf8' });
 
   shell.exec('git init', { cwd: directory });
   shell.exec('git add .', { cwd: directory });
