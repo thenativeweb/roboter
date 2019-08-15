@@ -3,6 +3,8 @@
 const fs = require('fs'),
       path = require('path');
 
+const shell = require('shelljs');
+
 const {
   createTest,
   shallTestCaseBeExecuted
@@ -10,6 +12,14 @@ const {
 
 suite('roboter', function () {
   this.timeout(60 * 1000);
+
+  suiteSetup(async function () {
+    this.timeout(5 * 60 * 1000);
+
+    shell.exec('docker build -t thenativeweb/roboter-test .', {
+      cwd: path.join(__dirname, '..', '..')
+    });
+  });
 
   /* eslint-disable no-sync */
   fs.readdirSync(__dirname).forEach(task => {
