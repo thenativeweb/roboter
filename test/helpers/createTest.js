@@ -11,7 +11,8 @@ const assert = require('assertthat'),
       stripIndent = require('common-tags/lib/stripIndent');
 
 const getArgsList = require('./getArgsList'),
-      getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters');
+      getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters'),
+      sleep = require('../../lib/sleep');
 
 const writeFile = promisify(fs.writeFile);
 
@@ -29,95 +30,103 @@ const createTest = function ({ task, testCase, directory }) {
   test(`${testCase.replace(/-/ug, ' ')}.`, async () => {
     const tempDirectory = await isolated();
 
-    shell.cp('-r', [
-      `${directory}/*`,
-      `${directory}/.*`
-    ], tempDirectory);
+    const imageName = `roboter-test-${task}-${testCase}`;
+    const containerName = imageName;
 
-    shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
+    try {
+      shell.cp('-r', [
+        `${directory}/*`,
+        `${directory}/.*`
+      ], tempDirectory);
 
-    const transformedTask = task === 'default' ? '' : task;
+      shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
 
-    const dockerfileName = path.join(tempDirectory, 'Dockerfile');
-    const dockerfileCmd = [
-      'npx',
-      'roboter',
-      transformedTask === '' ? [] : [ transformedTask ],
-      getArgsList({ directory: tempDirectory })
-    ].flat();
+      const transformedTask = task === 'default' ? '' : task;
 
-    const dockerfile = stripIndent`
-      FROM thenativeweb/roboter-test:latest
-      LABEL maintainer="the native web <hello@thenativeweb.io>"
+      const dockerfileName = path.join(tempDirectory, 'Dockerfile');
+      const dockerfileCmd = [
+        'npx',
+        'roboter',
+        transformedTask === '' ? [] : [ transformedTask ],
+        getArgsList({ directory: tempDirectory })
+      ].flat();
 
-      ADD . /home/node/app
+      const dockerfile = stripIndent`
+        FROM thenativeweb/roboter-test:latest
+        LABEL maintainer="the native web <hello@thenativeweb.io>"
 
-      RUN npm install --no-package-lock --silent
+        ADD . /home/node/app
 
-      RUN git init && \
-          git add . && \
-          git commit -m "Initial commit."
+        RUN npm install --no-package-lock --silent
 
-      RUN mkdir /home/node/remote && \
-          git init --bare /home/node/remote && \
-          git remote add origin /home/node/remote && \
-          git push origin master
+        RUN git init && \
+            git add . && \
+            git commit -m "Initial commit."
 
-      RUN if [ -f pre.js ]; then node pre.js; fi
+        RUN mkdir /home/node/remote && \
+            git init --bare /home/node/remote && \
+            git remote add origin /home/node/remote && \
+            git push origin master
 
-      CMD [ ${dockerfileCmd.map(part => `"${part}"`).join(', ')} ]
-    `;
+        RUN if [ -f pre.js ]; then node pre.js; fi
 
-    const gitignoreName = path.join(tempDirectory, '.gitignore');
-    const gitignore = stripIndent`
-      node_modules
-    `;
+        CMD [ ${dockerfileCmd.map(part => `"${part}"`).join(', ')} ]
+      `;
 
-    await writeFile(dockerfileName, dockerfile, { encoding: 'utf8' });
-    await writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
+      const gitignoreName = path.join(tempDirectory, '.gitignore');
+      const gitignore = stripIndent`
+        node_modules
+      `;
 
-    shell.exec(`docker build -t roboter-test-${task}-${testCase} .`, {
-      cwd: tempDirectory
-    });
+      await writeFile(dockerfileName, dockerfile, { encoding: 'utf8' });
+      await writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
 
-    const docker = shell.exec(`docker run ${getEnvListAsDockerParameters({ directory: tempDirectory })} --rm roboter-test-${task}-${testCase}`, {
-      cwd: tempDirectory
-    });
+      shell.exec(`docker build -t ${imageName} .`, {
+        cwd: tempDirectory
+      });
 
-    const stderr = stripAnsi(docker.stderr),
-          stdout = stripAnsi(docker.stdout);
+      const docker = shell.exec(`docker run ${getEnvListAsDockerParameters({ directory: tempDirectory })} --name ${containerName} ${imageName}`, {
+        cwd: tempDirectory
+      });
 
-    /* eslint-disable global-require */
-    const expected = require(path.join(directory, 'expected.js'));
-    /* eslint-enable global-require */
+      const stderr = stripAnsi(docker.stderr),
+            stdout = stripAnsi(docker.stdout);
 
-    assert.that(stderr).is.containing(expected.stderr);
-    assert.that(docker.code).is.equalTo(expected.exitCode);
+      /* eslint-disable global-require */
+      const expected = require(path.join(directory, 'expected.js'));
+      /* eslint-enable global-require */
 
-    const expectedStdouts = [ expected.stdout ].flat();
+      assert.that(stderr).is.containing(expected.stderr);
+      assert.that(docker.code).is.equalTo(expected.exitCode);
 
-    let previousIndex = -1;
+      const expectedStdouts = [ expected.stdout ].flat();
 
-    for (const expectedStdout of expectedStdouts) {
-      assert.that(stdout).is.containing(expectedStdout);
+      let previousIndex = -1;
 
-      const currentIndex = stdout.indexOf(expectedStdout);
+      for (const expectedStdout of expectedStdouts) {
+        assert.that(stdout).is.containing(expectedStdout);
 
-      assert.that(currentIndex).is.greaterThan(previousIndex);
+        const currentIndex = stdout.indexOf(expectedStdout);
 
-      previousIndex = currentIndex;
+        assert.that(currentIndex).is.greaterThan(previousIndex);
+
+        previousIndex = currentIndex;
+      }
+
+      if (typeof expected.validate !== 'function') {
+        return;
+      }
+
+      await expected.validate({
+        container: containerName,
+        directory: tempDirectory,
+        exitCode: docker.code,
+        stdout,
+        stderr
+      });
+    } finally {
+      shell.exec(`docker rm -v ${containerName}`);
     }
-
-    if (typeof expected.validate !== 'function') {
-      return;
-    }
-
-    await expected.validate({
-      cwd: tempDirectory,
-      exitCode: docker.code,
-      stdout,
-      stderr
-    });
   });
 };
 
