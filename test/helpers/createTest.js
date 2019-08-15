@@ -11,8 +11,7 @@ const assert = require('assertthat'),
       stripIndent = require('common-tags/lib/stripIndent');
 
 const getArgsList = require('./getArgsList'),
-      getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters'),
-      sleep = require('../../lib/sleep');
+      getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters');
 
 const writeFile = promisify(fs.writeFile);
 
