@@ -1,0 +1,9 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/mocha": "5.2.7",
+    "assertthat": "3.2.0",
+    "typescript": "3.5.3"
+  }
+}

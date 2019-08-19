@@ -33,6 +33,7 @@
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
+    "@types/mocha": "5.2.7",
     "bump-regex": "4.0.0",
     "buntstift": "1.6.0",
     "chokidar": "3.0.2",
@@ -43,7 +44,7 @@
     "defekt": "2.1.0",
     "depcheck": "0.8.3",
     "eslint": "6.1.0",
-    "eslint-config-es": "3.2.0",
+    "eslint-config-es": "3.3.0",
     "execa": "2.0.4",
     "findsuggestions": "1.0.0",
     "fs-extra": "8.1.0",
@@ -58,7 +59,8 @@
     "shelljs": "0.8.3",
     "strip-ansi": "5.2.0",
     "ts-node": "8.3.0",
-    "tsconfig-paths": "3.8.0"
+    "tsconfig-paths": "3.8.0",
+    "typescript": "3.5.3"
   },
   "devDependencies": {
     "assertthat": "3.2.0",
