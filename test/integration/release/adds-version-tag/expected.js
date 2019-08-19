@@ -23,15 +23,13 @@ const validate = async function ({ container }) {
 
   assert.that(packageJson.version).is.equalTo('1.0.0');
 
-  // TODO: @Hannes ... actually, I didn't have an idea of how to make this work,
-  //       without copying over *everything*, which takes forever ;-)
-  //       Hence, I just wanted to leave a comment here, so that we can discuss
-  //       this tomorrow.
-  //
-  // const listTags = shell.exec('git tag -l', { cwd: tempDirectory });
-  // const tags = listTags.stdout.split('\n');
-  //
-  // assert.that(tags[0]).is.equalTo('1.0.0');
+  shell.exec(`docker cp ${container}:/home/node/app/.git/refs/tags ${tempDirectory}`);
+
+  const listTags = shell.ls(`${tempDirectory}/tags`);
+
+  const tags = listTags.stdout.split('\n');
+
+  assert.that(tags[0]).is.equalTo('1.0.0');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
