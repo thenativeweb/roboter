@@ -40,13 +40,11 @@ const createTest = function ({ task, testCase, directory }) {
 
       shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
 
-      const transformedTask = task === 'default' ? '' : task;
-
       const dockerfileName = path.join(tempDirectory, 'Dockerfile');
       const dockerfileCmd = [
         'npx',
         'roboter',
-        transformedTask === '' ? [] : [ transformedTask ],
+        task === 'default' ? [] : [ task ],
         getArgsList({ directory: tempDirectory })
       ].flat();
 
@@ -100,16 +98,13 @@ const createTest = function ({ task, testCase, directory }) {
 
       const expectedStdouts = [ expected.stdout ].flat();
 
-      let previousIndex = -1;
-
-      for (const expectedStdout of expectedStdouts) {
-        assert.that(stdout).is.containing(expectedStdout);
-
-        const currentIndex = stdout.indexOf(expectedStdout);
-
-        assert.that(currentIndex).is.greaterThan(previousIndex);
-
-        previousIndex = currentIndex;
+      for (const stdoutLine of stdout.split('\n')) {
+        if (stdoutLine.includes(expectedStdouts[0])) {
+          expectedStdouts.shift();
+        }
+      }
+      if (expectedStdouts.length > 0) {
+        throw new Error(`Expected stdout to contain '${expectedStdouts.join('\n')}'.`);
       }
 
       if (typeof expected.validate !== 'function') {
