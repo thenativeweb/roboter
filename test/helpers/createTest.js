@@ -98,13 +98,16 @@ const createTest = function ({ task, testCase, directory }) {
 
       const expectedStdouts = [ expected.stdout ].flat();
 
-      for (const stdoutLine of stdout.split('\n')) {
-        if (stdoutLine.includes(expectedStdouts[0])) {
-          expectedStdouts.shift();
-        }
-      }
-      if (expectedStdouts.length > 0) {
-        throw new Error(`Expected stdout to contain '${expectedStdouts.join('\n')}'.`);
+      let previousIndex = -1;
+
+      for (const expectedStdout of expectedStdouts) {
+        assert.that(stdout).is.containing(expectedStdout);
+
+        const currentIndex = stdout.indexOf(expectedStdout);
+
+        assert.that(currentIndex).is.greaterThan(previousIndex);
+
+        previousIndex = currentIndex;
       }
 
       if (typeof expected.validate !== 'function') {
