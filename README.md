@@ -348,7 +348,7 @@ If you want to use functions shared across multiple tests or test types, create 
 
 #### Setting up and tearing down test types
 
-If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file, that export an asynchronous function:
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file (or `pre.ts`, `post.ts` in case of a TypeScript project), that export an asynchronous function:
 
 ```javascript
 'use strict';
@@ -358,7 +358,13 @@ module.exports = async function () {
 };
 ```
 
-*Please note: The `post.js` file will be run no matter whether the tests themselves were run successfully or not.*
+```typescript
+export default async function (): Promise<void> {
+  // ...
+}
+```
+
+*Please note: The `post.js`/`post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
 
 #### Configuring test execution
 
