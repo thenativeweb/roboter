@@ -18,7 +18,9 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ### From 6.x to 7.x
 
-roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional, so if you stick to vanilla JavaScript, everything continues to work as expected. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box).
+roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box).
+
+Pre/Post test tasks are now expected to be standalone executables instead of modules exporting async functions.
 
 ### From 5.x to 6.x
 
