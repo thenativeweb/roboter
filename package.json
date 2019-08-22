@@ -22,6 +22,10 @@
     {
       "name": "Jan-Hendrik Grundhöfer",
       "email": "jan-hendrik.grundhoefer@thenativeweb.io"
+    },
+    {
+      "name": "Hannes Leutloff",
+      "email": "hannes.leutloff@thenativeweb.io"
     }
   ],
   "bin": {
@@ -29,46 +33,42 @@
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.4",
-    "@babel/plugin-transform-runtime": "7.4.4",
-    "@babel/polyfill": "7.4.4",
-    "@babel/preset-env": "7.4.4",
-    "@babel/preset-react": "7.0.0",
-    "@babel/runtime": "7.4.4",
+    "@types/mocha": "5.2.7",
     "bump-regex": "4.0.0",
-    "buntstift": "1.5.1",
-    "chokidar": "2.1.6",
+    "buntstift": "1.6.0",
+    "chokidar": "3.0.2",
     "command-line-args": "5.1.1",
     "command-line-commands": "2.0.1",
-    "command-line-usage": "5.0.5",
+    "command-line-usage": "6.0.2",
     "common-tags": "1.8.0",
-    "defekt": "2.0.1",
-    "depcheck": "0.8.0",
-    "eslint": "5.16.0",
-    "eslint-config-es": "3.0.0",
-    "execa": "1.0.0",
+    "defekt": "2.1.0",
+    "depcheck": "0.8.3",
+    "eslint": "6.2.0",
+    "eslint-config-es": "3.3.1",
+    "execa": "2.0.4",
     "findsuggestions": "1.0.0",
-    "fs-extra": "8.0.1",
-    "globby": "9.2.0",
-    "lodash": "4.17.11",
-    "mocha": "6.1.4",
+    "fs-extra": "8.1.0",
+    "globby": "10.0.1",
+    "is-typescript": "2.1.0",
+    "lodash": "4.17.15",
+    "mocha": "6.2.0",
     "processenv": "1.1.0",
-    "remark": "10.0.1",
-    "remark-toc": "5.1.1",
+    "remark": "11.0.1",
+    "remark-toc": "6.0.0",
     "require-dir": "1.2.0",
-    "rimraf": "2.6.3",
+    "shelljs": "0.8.3",
     "strip-ansi": "5.2.0",
-    "update-notifier": "3.0.0"
+    "ts-node": "8.3.0",
+    "tsconfig-paths": "3.8.0",
+    "typescript": "3.5.3"
   },
   "devDependencies": {
-    "assertthat": "3.0.0",
+    "assertthat": "3.3.0",
     "isolated": "1.0.1",
-    "react": "16.8.6",
-    "shelljs": "0.8.3"
+    "react": "16.9.0"
   },
   "scripts": {
-    "analyse": "eslint --config eslint-config-es/node \"**/*.js\" --ignore-path .eslintignore",
+    "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
     "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
     "publish-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push && npm publish",
     "publish-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push && npm publish",

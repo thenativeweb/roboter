@@ -1,5 +1,5 @@
 {
   "rules": {
-    "semi": 0
+    "semi": "off"
   }
 }

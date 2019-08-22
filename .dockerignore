@@ -1,0 +1,7 @@
+.circleci
+.dependabot
+.git
+build
+images
+node_modules
+test

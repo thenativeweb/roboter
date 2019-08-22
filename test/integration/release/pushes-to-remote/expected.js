@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assertthat'),
+      isolated = require('isolated'),
       shell = require('shelljs');
 
 const exitCode = 0;
@@ -9,14 +10,16 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
+const validate = async function ({ container }) {
+  const tempDirectory = await isolated();
 
-  const listRemoteTags = shell.exec('git ls-remote --refs --tags origin', { cwd: dirname });
-  const remoteTags = listRemoteTags.stdout.split('\n');
-  const [ firstRemoteTag ] = remoteTags;
+  shell.exec(`docker cp ${container}:/home/node/remote/refs/tags ${tempDirectory}`);
 
-  assert.that(firstRemoteTag).is.containing('1.0.0');
+  const listTags = shell.ls(`${tempDirectory}/tags`);
+
+  const tags = listTags.stdout.split('\n');
+
+  assert.that(tags[0]).is.equalTo('1.0.0');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

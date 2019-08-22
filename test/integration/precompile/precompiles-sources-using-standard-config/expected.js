@@ -1,9 +1,14 @@
 'use strict';
 
-const path = require('path');
+const fs = require('fs'),
+      path = require('path'),
+      { promisify } = require('util');
 
 const assert = require('assertthat'),
+      isolated = require('isolated'),
       shell = require('shelljs');
+
+const readFile = promisify(fs.readFile);
 
 const exitCode = 0;
 
@@ -11,12 +16,14 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function (options) {
-  const { dirname } = options;
+const validate = async function ({ container }) {
+  const tempDirectory = await isolated();
 
-  const precompiledFile = shell.cat(path.join(dirname, 'dist', 'index.js'));
+  shell.exec(`docker cp ${container}:/home/node/app/build/index.js ${tempDirectory}`);
 
-  assert.that(precompiledFile.stdout).is.containing('require("@babel/runtime/regenerator")');
+  const precompiledFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
+
+  assert.that(precompiledFile).is.containing('function (left, right) {');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

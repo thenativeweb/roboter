@@ -5,76 +5,49 @@ const fs = require('fs'),
 
 const shell = require('shelljs');
 
-const helpers = require('../helpers');
-
-const tempDirectory = path.join(__dirname, 'temp');
-
-const createTestCasesForTask = function ({ task }) {
-  /* eslint-disable no-sync */
-  const testCases = fs.readdirSync(path.join(__dirname, task));
-  /* eslint-enable no-sync */
-
-  helpers.createTestsForTask({
-    cwd: __dirname,
-    task,
-    testCases,
-    tempDirectory
-  });
-};
+const {
+  createTest,
+  shallTestCaseBeExecuted
+} = require('../helpers');
 
 suite('roboter', function () {
   this.timeout(60 * 1000);
 
-  setup(() => {
-    shell.rm('-rf', path.join(tempDirectory, '*'));
+  suiteSetup(async function () {
+    this.timeout(5 * 60 * 1000);
+
+    shell.exec('docker build -t thenativeweb/roboter-test .', {
+      cwd: path.join(__dirname, '..', '..')
+    });
   });
-
-  teardown(() => {
-    shell.rm('-rf', path.join(tempDirectory, '*'));
-  });
-
-  if (process.argv.length === 11) {
-    // Only a single test case should be run, specified as an additional command
-    // line argument, e.g. 'npm run test analyse/fails-on-invalid-code'. The
-    // preceding arguments are the options passed to mocha via the npm test
-    // script.
-    if (process.argv[10].includes('/')) {
-      const testCaseOptions = process.argv[10].split('/');
-      const [ task, testCase ] = testCaseOptions;
-
-      /* eslint-disable no-sync */
-      if (!fs.statSync(path.join(__dirname, task, testCase)).isDirectory()) {
-        return;
-      }
-      /* eslint-enable no-sync */
-
-      helpers.createTestsForTask({
-        cwd: __dirname,
-        task,
-        testCases: [ testCase ],
-        tempDirectory
-      });
-    } else {
-      /* eslint-disable prefer-destructuring */
-      const task = process.argv[10];
-      /* eslint-enable prefer-destructuring */
-
-      createTestCasesForTask({ task });
-    }
-
-    return;
-  }
 
   /* eslint-disable no-sync */
   fs.readdirSync(__dirname).forEach(task => {
-    if (!fs.statSync(path.join(__dirname, task)).isDirectory()) {
-      return;
-    }
-    if (task === 'temp') {
+    const taskDirectory = path.join(__dirname, task);
+
+    if (!fs.statSync(taskDirectory).isDirectory()) {
       return;
     }
 
-    createTestCasesForTask({ task });
+    suite(task, () => {
+      fs.readdirSync(taskDirectory).forEach(testCase => {
+        const testCaseDirectory = path.join(taskDirectory, testCase);
+
+        if (!fs.statSync(testCaseDirectory).isDirectory()) {
+          return;
+        }
+
+        if (!shallTestCaseBeExecuted({
+          task,
+          testCase,
+          args: process.argv[10]
+        })) {
+          return;
+        }
+
+        createTest({ task, testCase, directory: testCaseDirectory });
+      });
+    });
   });
   /* eslint-enalbe no-sync */
 });

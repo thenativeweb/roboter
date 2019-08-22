@@ -9,4 +9,3 @@
 /test/integration/precompile/fails-when-precompilation-fails/src/index.js
 /test/integration/qa/fails-on-invalid-code/app.js
 /test/integration/release/fails-on-invalid-code/app.js
-/test/integration/temp/*

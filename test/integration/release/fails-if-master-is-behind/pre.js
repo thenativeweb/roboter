@@ -2,19 +2,9 @@
 
 const shell = require('shelljs');
 
-const helpers = require('../../../helpers');
-
-const pre = async function (options) {
-  const { dirname } = options;
-
-  const { remoteDirectory } = await helpers.createGitRepository({
-    dirname,
-    bareRemote: false
-  });
-
-  shell.exec('echo "second file" > second.txt', { cwd: remoteDirectory });
-  shell.exec('git add .', { cwd: remoteDirectory });
-  shell.exec('git commit -m "Second commit."', { cwd: remoteDirectory });
-};
-
-module.exports = pre;
+shell.mkdir('-p', '/home/node/temp');
+shell.exec('git clone /home/node/remote .', { cwd: '/home/node/temp' });
+shell.exec('echo "second file" > second.txt', { cwd: '/home/node/temp' });
+shell.exec('git add .', { cwd: '/home/node/temp' });
+shell.exec('git commit -m "Second commit."', { cwd: '/home/node/temp' });
+shell.exec('git push origin master', { cwd: '/home/node/temp' });
