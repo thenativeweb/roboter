@@ -51,7 +51,7 @@ declare const assert: {
         throwingAsync: (expected?: string | ((ex: Error) => boolean)) => void;
         true: () => void;
         undefined: () => void;
-      }
+      };
     };
   };
 };
