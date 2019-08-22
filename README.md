@@ -18,9 +18,7 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ### From 6.x to 7.x
 
-roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box).
-
-Pre/Post test tasks are now expected to be standalone executables instead of modules exporting async functions.
+roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box). The tests' pre and post tasks are now expected to be standalone executables instead of modules exporting `async` functions.
 
 ### From 5.x to 6.x
 
@@ -319,9 +317,9 @@ This task runs unit, integration, and other tests using [Mocha](https://mochajs.
 
 ### Details
 
-roboter will look for test types in the `test` directory of your module or application. You can add a type by simply creating a directory with the desired name, e.g. `units`, `integration`, `performance`, …
+roboter will look for test types in the `test` directory of your module or application. You can add a type by simply creating a directory with the desired name, e.g. `unit`, `integration`, `performance`, …
 
-If you are running the tests in watch  mode, tests are triggered by any change on `.js` and `.ts` files, without taking the following directories into account:
+If you are running the tests in watch  mode, tests are triggered by any change on `.js`, `.jsx`, `.ts` and `.tsx` files, without taking the following directories into account:
 
 - `node_modules` (nested)
 - `build` (only top-level)
@@ -330,7 +328,7 @@ If you are running the tests in watch  mode, tests are triggered by any change o
 
 #### Creating tests
 
-To create tests, add files with the naming schema `*Tests.js` to your test type directories. Use Mocha's [`tdd` interface](https://mochajs.org/#tdd) when writing tests. Please also note that all your tests must be asynchronous, i.e. they must either use the `done` callback or use the `async` keyword:
+To create tests, add files with the naming schema `*Tests.js` (or `*Tests.ts`, if you use TypeScript) to your test type directories. Use Mocha's [`tdd` interface](https://mochajs.org/#tdd) when writing tests. Please also note that all your tests must be asynchronous, i.e. they must either use the `done` callback or use the `async` keyword:
 
 ```javascript
 // test/integration/databaseTests.js
@@ -342,7 +340,7 @@ suite('connect', () => {
 });
 ```
 
-The test types are run in a specific order. If present, roboter will first run `units`, `integration`, `e2e`, and `performance`. After those test types, all remaining ones will be run in alphabetical order.
+The test types are run in a specific order. If present, roboter will first run `unit`, `integration`, `e2e`, and `performance`. After those test types, all remaining ones will be run in alphabetical order.
 
 #### Using shared test helpers
 
@@ -350,23 +348,17 @@ If you want to use functions shared across multiple tests or test types, create 
 
 #### Setting up and tearing down test types
 
-If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file (or `pre.ts`, `post.ts` in case of a TypeScript project), that export an asynchronous function:
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file (or `pre.ts` and `post.ts`, if you use TypeScript), that act as standalone modules. If you want to use `async` and `await`, you have to wrap the file's content in an asynchronous IIFE:
 
 ```javascript
 'use strict';
 
-module.exports = async function () {
-  // ...
-};
+(async () => {
+  // ...  
+})();
 ```
 
-```typescript
-export default async function (): Promise<void> {
-  // ...
-}
-```
-
-*Please note: The `post.js`/`post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
+*Please note: The `post.js` respectively `post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
 
 #### Configuring test execution
 
