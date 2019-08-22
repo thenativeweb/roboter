@@ -10,13 +10,11 @@
     "strict": true,
     "target": "es2019",
     "paths": {
-      "*": [ "./types/*" ],
       "@blub": ["./blub"]
     }
   },
   "include": [
     "./**/*.ts",
-    "./types",
     "./blub"
   ]
 }
