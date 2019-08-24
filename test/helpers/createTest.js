@@ -33,10 +33,14 @@ const createTest = function ({ task, testCase, directory }) {
     const containerName = imageName;
 
     try {
-      shell.cp('-r', [
-        `${directory}/*`,
-        `${directory}/.*`
-      ], tempDirectory);
+      shell.cp(
+        '-r',
+        [
+          `${directory}/*`,
+          `${directory}/.*`
+        ],
+        tempDirectory
+      );
 
       shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
 
