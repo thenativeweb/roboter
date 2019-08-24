@@ -43,7 +43,7 @@
     "common-tags": "1.8.0",
     "defekt": "2.1.0",
     "depcheck": "0.8.3",
-    "eslint": "6.2.1",
+    "eslint": "6.2.2",
     "eslint-config-es": "3.5.0",
     "execa": "2.0.4",
     "findsuggestions": "1.0.0",
