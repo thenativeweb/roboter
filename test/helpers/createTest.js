@@ -4,7 +4,7 @@ const fs = require('fs'),
       path = require('path'),
       { promisify } = require('util');
 
-const assert = require('assertthat'),
+const assert = require('assertthat').default,
       isolated = require('isolated'),
       shell = require('shelljs'),
       stripAnsi = require('strip-ansi'),

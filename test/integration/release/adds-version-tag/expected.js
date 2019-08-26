@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const assert = require('assertthat'),
+const assert = require('assertthat').default,
       isolated = require('isolated'),
       shell = require('shelljs');
 
