@@ -63,7 +63,7 @@
     "typescript": "3.5.3"
   },
   "devDependencies": {
-    "assertthat": "3.3.0",
+    "assertthat": "4.0.1",
     "isolated": "1.0.1",
     "react": "16.9.0"
   },

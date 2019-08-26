@@ -1,6 +1,6 @@
 'use strict';
 
-const assert = require('assertthat');
+const assert = require('assertthat').default;
 
 suite('sample', () => {
   test('does not fail but is long running.', done => {
