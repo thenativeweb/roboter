@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assertthat').default,
-      isolated = require('isolated'),
+      isolated = require('isolated').default,
       shell = require('shelljs');
 
 const exitCode = 0;

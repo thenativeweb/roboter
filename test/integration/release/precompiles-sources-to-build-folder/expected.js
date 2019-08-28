@@ -5,7 +5,7 @@ const fs = require('fs'),
       { promisify } = require('util');
 
 const assert = require('assertthat').default,
-      isolated = require('isolated'),
+      isolated = require('isolated').default,
       shell = require('shelljs'),
       stripIndent = require('common-tags/lib/stripIndent');
 
