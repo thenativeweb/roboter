@@ -41,7 +41,7 @@
     "command-line-commands": "2.0.1",
     "command-line-usage": "6.0.2",
     "common-tags": "1.8.0",
-    "defekt": "2.1.0",
+    "defekt": "3.0.0",
     "depcheck": "0.8.3",
     "eslint": "6.2.2",
     "eslint-config-es": "3.6.0",
