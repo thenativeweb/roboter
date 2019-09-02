@@ -35,7 +35,7 @@
   "dependencies": {
     "@types/mocha": "5.2.7",
     "bump-regex": "4.0.0",
-    "buntstift": "1.6.0",
+    "buntstift": "2.0.0",
     "chokidar": "3.0.2",
     "command-line-args": "5.1.1",
     "command-line-commands": "2.0.1",
