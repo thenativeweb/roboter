@@ -70,9 +70,9 @@
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
     "test": "mocha --async-only --bail --recursive --reporter spec --ui tdd test/integration/roboterTests.js",
-    "publish-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push",
-    "publish-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push",
-    "publish-major": "npm run analyse && npm run test && npm version major && git push --tags && git push"
+    "release-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push",
+    "release-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push",
+    "release-major": "npm run analyse && npm run test && npm version major && git push --tags && git push"
   },
   "repository": {
     "type": "git",

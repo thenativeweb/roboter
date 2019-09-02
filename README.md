@@ -403,7 +403,7 @@ $ npm run analyse
 To release a new version run the following command:
 
 ```shell
-$ npm run publish-patch
+$ npm run release-patch
 ```
 
-Alternatively you may also use `publish-minor` and `publish-major`, depending on the changes you have made.
+Alternatively you may also use `release-minor` and `release-major`, depending on the changes you have made.
