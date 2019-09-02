@@ -174,8 +174,6 @@ Under some circumstances, dependencies are reported as unused, although they are
 
 If you experience such a situation, feel free to ignore the warnings.
 
-Packages that provide only TypeScript type declarations are currently always marked as unused. `depcheck` has an [open issue on this](https://github.com/depcheck/depcheck/issues/163).
-
 ## The `license` task
 
 This task checks your dependencies for incompatible licenses.
