@@ -52,7 +52,7 @@
     "is-typescript": "2.1.0",
     "lodash": "4.17.15",
     "mocha": "6.2.0",
-    "processenv": "2.0.0",
+    "processenv": "2.0.1",
     "remark": "11.0.1",
     "remark-toc": "6.0.0",
     "require-dir": "1.2.0",
