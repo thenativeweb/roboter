@@ -97,6 +97,16 @@ const createTest = function ({ task, testCase, directory }) {
       const expected = require(path.join(directory, 'expected.js'));
       /* eslint-enable global-require */
 
+      if (docker.code !== expected.exitCode) {
+        /* eslint-disable no-console */
+        console.log({
+          stdout,
+          stderr,
+          exitCode: { actual: docker.code, expected: expected.exitCode }
+        });
+        /* eslint-enable no-console */
+      }
+
       assert.that(stderr).is.containing(expected.stderr);
       assert.that(docker.code).is.equalTo(expected.exitCode);
 
