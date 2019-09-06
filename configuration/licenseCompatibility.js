@@ -18,6 +18,7 @@ const licenseCompatibility = {
     'WTFPL',
 
     // Combined licenses
+    '(AFL-2.1 OR BSD-3-Clause)',
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
     '(BSD-3-Clause OR GPL-2.0)',
@@ -49,6 +50,7 @@ const licenseCompatibility = {
     'WTFPL',
 
     // Combined licenses
+    '(AFL-2.1 OR BSD-3-Clause)',
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
     '(BSD-3-Clause OR GPL-2.0)',
@@ -80,6 +82,7 @@ const licenseCompatibility = {
     'WTFPL',
 
     // Combined licenses
+    '(AFL-2.1 OR BSD-3-Clause)',
     '(Apache-2.0 OR MPL-1.1)',
     '(BSD-2-Clause OR MIT OR Apache-2.0)',
     '(BSD-3-Clause OR GPL-2.0)',
