@@ -11,7 +11,7 @@ const {
 } = require('../helpers');
 
 suite('roboter', function () {
-  this.timeout(60 * 1000);
+  this.timeout(100 * 1000);
 
   suiteSetup(async function () {
     this.timeout(5 * 60 * 1000);
