@@ -61,7 +61,7 @@
     "strip-ansi": "5.2.0",
     "ts-node": "8.3.0",
     "tsconfig-paths": "3.8.0",
-    "typescript": "3.6.2"
+    "typescript": "3.6.3"
   },
   "devDependencies": {
     "assertthat": "4.0.2",
