@@ -360,6 +360,14 @@ If you need to register any additional pre or post actions (such as starting or 
 
 *Please note: The `post.js` respectively `post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
 
+#### Setting environment variables
+
+To set environment variables that are available in the tests, you can create a `.env` file per test type:
+
+```shell
+SOME_ENV=foo
+```
+
 #### Configuring test execution
 
 To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#mochaopts) file per test type. However, the following options can not be overwritten, and are always set:
