@@ -21,9 +21,9 @@ const validate = async function ({ container }) {
 
   shell.exec(`docker cp ${container}:/home/node/app/build/index.js ${tempDirectory}`);
 
-  const precompiledFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
+  const builtFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
 
-  assert.that(precompiledFile).is.containing('function (left, right) {');
+  assert.that(builtFile).is.containing('function (left, right) {');
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

@@ -4,6 +4,6 @@ const exitCode = 1;
 
 const stdout = '';
 
-const stderr = 'Failed to precompile';
+const stderr = 'Failed to build';
 
 module.exports = { exitCode, stdout, stderr };
