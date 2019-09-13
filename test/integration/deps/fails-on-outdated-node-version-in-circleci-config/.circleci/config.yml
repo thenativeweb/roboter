@@ -1,0 +1,49 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: node:8.2.0-alpine
+
+only-publish-tags: &only-publish-tags
+  filters:
+    tags:
+      only: /^v?\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - run: apk add ca-certificates git openssh
+      - checkout
+      - run: npm install
+      - run: npx roboter
+      - persist_to_workspace:
+          root: ~/workspace
+          paths:
+            - .
+  publish:
+    <<: *defaults
+    steps:
+      - run: apk add ca-certificates
+      - attach_workspace:
+          at: ~/workspace
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/workspace/.npmrc
+      - run: npx roboter precompile
+      - run: npm publish
+
+workflows:
+  version: 2
+  untagged-build:
+    jobs:
+      - build
+  tagged-build:
+    jobs:
+      - build: *only-publish-tags
+      - publish:
+          <<: *only-publish-tags
+          requires:
+            - build
+          context: Default
