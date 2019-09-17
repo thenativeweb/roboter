@@ -1,4 +1,4 @@
 .circleci
 .dependabot
-images
-test
+/images
+/test

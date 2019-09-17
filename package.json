@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@types/mocha": "5.2.7",
+    "async-af": "7.0.35",
+    "axios": "0.19.0",
     "bump-regex": "4.0.0",
     "buntstift": "2.0.1",
     "chokidar": "3.1.0",
@@ -56,6 +58,7 @@
     "remark": "11.0.1",
     "remark-toc": "6.0.0",
     "require-dir": "1.2.0",
+    "semver": "6.3.0",
     "shelljs": "0.8.3",
     "strip-ansi": "5.2.0",
     "ts-node": "8.4.1",
