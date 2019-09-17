@@ -191,7 +191,7 @@ None
 
 ### Details
 
-roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/master/lib/steps/pkg/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
+roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/master/lib/steps/license/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
 
 If you encounter a license incompatibility, and think that it should be fixed, please submit a pull request for either the [compatibility chart](https://github.com/thenativeweb/roboter/edit/master/configuration/licenseCompatibility.js) or the [license list](https://github.com/thenativeweb/roboter/edit/master/configuration/packageLicenses.js).
 
