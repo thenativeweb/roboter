@@ -16,6 +16,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ## Upgrading
 
+### From 7.x to 8.x
+
+roboter 8.x introduces a [`build`](#the-build-task) command, which replaces the `precompile` command.
+
 ### From 6.x to 7.x
 
 roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box). The tests' pre and post tasks are now expected to be standalone executables instead of modules exporting `async` functions.
@@ -73,10 +77,10 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 | Name | Description |
 |-|-|
 | [`analyse`](#the-analyse-task) | Runs code analysis. |
+| [`build`](#the-build-task) | Builds a project using TypeScript. |
 | [`deps`](#the-deps-task) | Checks for missing, outdated, and unused dependencies. |
 | `help` | Shows the help. |
 | [`license`](#the-license-task) | Checks dependencies for incompatible licenses. |
-| [`precompile`](#the-precompile-task) | Precompiles source files using TypeScript. |
 | [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
 | [`release`](#the-release-task) | Releases a new version. |
 | [`test`](#the-test-task) | Runs tests. |
@@ -152,6 +156,31 @@ To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.
 };
 ```
 
+## The `build` task
+
+If you want to use TypeScript, add the required `tsconfig.json` file to the root of your package to enable compilation on build.
+
+*Please note that you do not need to install TypeScript itself, as this is provided by roboter out of the box.*
+
+Any build options are configured using the aforementioned `tsconfig.json` file.
+
+### Flags
+
+None
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success |
+| 1 | Build failed |
+
+*Please note that missing, outdated, or unused dependencies do not lead to an erroneous exit code. This is by design, since these situations are typically not critical, and you may want to ignore them intentionally.*
+
+### Details
+
+None
+
 ## The `deps` task
 
 This task checks for missing, outdated, and unused dependencies.
@@ -199,31 +228,6 @@ If you encounter a license incompatibility, and think that it should be fixed, p
 
 To disable the license check, omit the `license` field in your `package.json` file, or set it to the value `UNKNOWN`.
 
-## The `precompile` task
-
-If you want to use TypeScript, add the required `tsconfig.json` file to the root of your package to enable precompilation.
-
-*Please note that you do not need to install TypeScript itself, as this is provided by roboter out of the box.*
-
-Any precompilation options are configured using the aforementioned `tsconfig.json` file.
-
-### Flags
-
-None
-
-### Exit codes
-
-| Exit code | Description |
-|-|-|
-| 0 | Success |
-| 1 | Precompilation failed |
-
-*Please note that missing, outdated, or unused dependencies do not lead to an erroneous exit code. This is by design, since these situations are typically not critical, and you may want to ignore them intentionally.*
-
-### Details
-
-None
-
 ## The `qa` task
 
 This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
@@ -257,7 +261,7 @@ Afterwards, it runs the following tasks:
 - Check if there are any pending, i.e. not yet committed, changes
 - Check if your local `master` branch is up-to-date with the remote one
 - Optional: [Generate the TOC](#generating-the-toc) in the `README.md` file
-- Optional: [Precompile code](#precompiling-the-code-before-releasing) using TypeScript
+- Optional: [Build code](#building-the-code-before-releasing) using TypeScript
 - Increase version number
 - Commit all changes
 - Create a tag for the new version
@@ -293,9 +297,9 @@ To automatically generate a TOC for your `README.md` file add the following line
 
 *Please note: roboter looks for the first heading containing 'Table of Contents', 'toc', or 'table-of-contents'. It removes all following contents until an equal or higher heading is found and inserts a table of contents.*
 
-#### Precompiling the code before releasing
+#### Building the code before releasing
 
-You can use roboter to automatically precompile your code before publishing. roboter will run the [`precompile`](#the-precompile-task) task automatically for you. For details on how to enable and to configure this precompilation step, see the [`precompile`](#the-precompile-task) task.
+You can use roboter to automatically build your code before publishing. roboter will run the [`build`](#the-build-task) task automatically for you. For details on how to enable and to configure this build step, see the [`build`](#the-build-task) task.
 
 ## The `test` task
 
