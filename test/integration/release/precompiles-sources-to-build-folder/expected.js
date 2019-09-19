@@ -22,9 +22,9 @@ const validate = async function ({ container }) {
 
   shell.exec(`docker cp ${container}:/home/node/app/build/index.js ${tempDirectory}`);
 
-  const precompiledFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
+  const builtFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
 
-  assert.that(precompiledFile.trim()).is.equalTo(stripIndent`
+  assert.that(builtFile.trim()).is.equalTo(stripIndent`
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     const foo = 'bar';
