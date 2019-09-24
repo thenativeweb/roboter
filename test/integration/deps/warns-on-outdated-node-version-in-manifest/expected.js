@@ -3,7 +3,7 @@
 const exitCode = 0;
 
 const stdout = [
-  'Running outdated node version check...',
+  'Running outdated Node.js version check...',
   'Current',
   'Latest',
   'Location',

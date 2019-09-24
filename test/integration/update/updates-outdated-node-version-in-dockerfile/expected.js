@@ -3,12 +3,9 @@
 const exitCode = 0;
 
 const stdout = [
-  'Running outdated Node.js version check...',
-  'Current',
-  'Latest',
-  'Location',
+  'Updated Node.js version(s):',
   '8.2.0',
-  '.circleci/config.yml'
+  'Dockerfile'
 ];
 
 const stderr = '';

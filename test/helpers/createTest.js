@@ -64,8 +64,8 @@ const createTest = function ({ task, testCase, directory }) {
             git add . && \
             git commit -m "Initial commit."
 
-        RUN mkdir /home/node/remote && \
-            git init --bare /home/node/remote && \
+        RUN mkdir                 /home/node/remote && \
+            git init --bare       /home/node/remote && \
             git remote add origin /home/node/remote && \
             git push origin master
 
