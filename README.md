@@ -84,6 +84,7 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 | [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
 | [`release`](#the-release-task) | Releases a new version. |
 | [`test`](#the-test-task) | Runs tests. |
+| [`update`](#the-update-task) | Updates the Node.js version. |
 
 If you don't specify a task, the `qa` task is run as default task.
 
@@ -381,6 +382,26 @@ To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#
 - `--colors`
 - `--exit`
 - `--ui tdd`
+
+### The `update` task
+
+This task updates the Node.js version to the latest available LTS version as long as it is newer than the currently used version, commits it and optionally pushes the changes.
+
+I.e. if you're on version `8.2.0`, it will update to the latest LTS (at the time of writing `10.16.3`). But if you're on `12.11.0` (the most current version at the time of writing), it won't change anything.
+
+### Flags
+
+| Flag | Alias | Description |
+|-|-|-|
+| --no-push | -p | Prevents pushing the changes. |
+| --node | -n | Whether Node.js should be updated. True by default, currently has no effect. |
+
+### Exit codes
+
+| Exit code | Description |
+|-|-|
+| 0 | Success (either updates were made or were not necessary) |
+| 1 | Update failed |
 
 ## Running the tests
 
