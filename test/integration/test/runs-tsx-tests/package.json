@@ -1,0 +1,11 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "dependencies": {
+    "react": "16.10.2"
+  },
+  "devDependencies": {
+    "@types/react": "16.9.5",
+    "assertthat": "4.0.1"
+  }
+}
