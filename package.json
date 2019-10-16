@@ -38,7 +38,7 @@
     "axios": "0.19.0",
     "bump-regex": "4.0.0",
     "buntstift": "2.0.1",
-    "chokidar": "3.2.1",
+    "chokidar": "3.2.2",
     "command-line-args": "5.1.1",
     "command-line-commands": "3.0.1",
     "command-line-usage": "6.0.2",
