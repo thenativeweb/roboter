@@ -1,3 +1,6 @@
 {
-  "extends": "es/node"
+  "extends": "es/node",
+  "parserOptions": {
+    "noWatch": true
+  }
 }
