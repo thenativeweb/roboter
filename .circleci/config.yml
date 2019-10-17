@@ -39,6 +39,7 @@ jobs:
       - run: |
             export NVM_DIR="/opt/circleci/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export PARSER_NO_WATCH=true
 
             npm run analyse && npm run test
       - persist_to_workspace:
