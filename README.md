@@ -16,6 +16,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ## Upgrading
 
+### From 8.x to 9.x
+
+roboter 9.x dropped support for the `--watch` flag in the [`analyse`](#the-analyse-task) and [`test`](#the-test-task) commands, because it was unreliable and sometimes caused problems in CI/CD environments.
+
 ### From 7.x to 8.x
 
 roboter 8.x introduces a [`build`](#the-build-task) command, which replaces the `precompile` command.
@@ -124,9 +128,7 @@ This task runs code analysis on your code using [ESLint](http://eslint.org/). By
 
 ### Flags
 
-| Flag | Alias | Description |
-|-|-|-|
-| --watch | -w | Re-runs code analysis when files have been changed. |
+None
 
 ### Exit codes
 
@@ -311,7 +313,6 @@ This task runs unit, integration, and other tests using [Mocha](https://mochajs.
 | Flag | Alias | Description |
 |-|-|-|
 | --type | -t | The test type, such as `units`, `integration`, … |
-| --watch | -w | Re-runs tests when files have been changed. |
 
 ### Exit codes
 
@@ -323,13 +324,6 @@ This task runs unit, integration, and other tests using [Mocha](https://mochajs.
 ### Details
 
 roboter will look for test types in the `test` directory of your module or application. You can add a type by simply creating a directory with the desired name, e.g. `unit`, `integration`, `performance`, …
-
-If you are running the tests in watch  mode, tests are triggered by any change on `.js`, `.jsx`, `.ts` and `.tsx` files, without taking the following directories into account:
-
-- `node_modules` (nested)
-- `build` (only top-level)
-- `coverage` (only top-level)
-- `dist` (only top-level)
 
 #### Creating tests
 
