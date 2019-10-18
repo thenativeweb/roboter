@@ -4,7 +4,7 @@ const licenseCompatibility = {
   'AGPL-3.0': [
     // Individual licenses
     'Apache-2.0', 'Apache-2.0*',
-    'BSD-2-Clause', 'BSD-3-Clause',
+    'BSD-2-Clause', 'bsd-2-clause', 'BSD-3-Clause',
     'CC-BY-4.0',
     'CC-BY-3.0',
     'CC0-1.0',
@@ -37,7 +37,7 @@ const licenseCompatibility = {
   'LGPL-3.0': [
     // Individual licenses
     'Apache-2.0', 'Apache-2.0*',
-    'BSD-2-Clause', 'BSD-3-Clause',
+    'BSD-2-Clause', 'bsd-2-clause', 'BSD-3-Clause',
     'CC-BY-4.0',
     'CC-BY-3.0',
     'CC0-1.0',
@@ -70,7 +70,7 @@ const licenseCompatibility = {
   MIT: [
     // Individual licenses
     'Apache-2.0', 'Apache-2.0*',
-    'BSD-2-Clause', 'BSD-3-Clause',
+    'BSD-2-Clause', 'bsd-2-clause', 'BSD-3-Clause',
     'CC-BY-4.0',
     'CC-BY-3.0',
     'CC0-1.0',
