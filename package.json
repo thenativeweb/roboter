@@ -52,7 +52,7 @@
     "globby": "10.0.1",
     "is-typescript": "3.0.1",
     "lodash": "4.17.15",
-    "mocha": "6.2.1",
+    "mocha": "6.2.2",
     "processenv": "2.0.1",
     "remark": "11.0.1",
     "remark-toc": "6.0.0",
