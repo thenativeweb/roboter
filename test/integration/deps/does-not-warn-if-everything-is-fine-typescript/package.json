@@ -2,6 +2,6 @@
   "name": "test-package",
   "version": "0.0.1",
   "dependencies": {
-    "defekt": "3.0.1"
+    "noop3": "*"
   }
 }

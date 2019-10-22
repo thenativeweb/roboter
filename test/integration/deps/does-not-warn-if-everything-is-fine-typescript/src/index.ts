@@ -1,5 +1,3 @@
-import defekt from 'defekt';
+import noop from 'noop3';
 
-export const errors = defekt({
-    SomError: {}
-});
+noop();
