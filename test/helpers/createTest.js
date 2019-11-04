@@ -107,12 +107,25 @@ const createTest = function ({ task, testCase, directory }) {
         /* eslint-enable no-console */
       }
 
-      assert.that(stderr).is.containing(expected.stderr);
+      const expectedStderrs = [ expected.stderr ].flat();
+
+      let previousIndex = -1;
+
+      for (const expectedStderr of expectedStderrs) {
+        assert.that(stderr).is.containing(expectedStderr);
+
+        const currentIndex = stderr.indexOf(expectedStderr);
+
+        assert.that(currentIndex).is.greaterThan(previousIndex);
+
+        previousIndex = currentIndex;
+      }
+
       assert.that(docker.code).is.equalTo(expected.exitCode);
 
       const expectedStdouts = [ expected.stdout ].flat();
 
-      let previousIndex = -1;
+      previousIndex = -1;
 
       for (const expectedStdout of expectedStdouts) {
         assert.that(stdout).is.containing(expectedStdout);
