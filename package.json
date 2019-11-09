@@ -54,7 +54,7 @@
     "lodash": "4.17.15",
     "mocha": "6.2.2",
     "processenv": "2.0.1",
-    "remark": "11.0.1",
+    "remark": "11.0.2",
     "remark-toc": "6.0.0",
     "require-dir": "1.2.0",
     "semver": "6.3.0",
