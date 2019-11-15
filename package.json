@@ -65,7 +65,7 @@
     "typescript": "3.7.2"
   },
   "devDependencies": {
-    "assertthat": "4.0.2",
+    "assertthat": "5.0.1",
     "isolated": "2.0.1",
     "react": "16.12.0"
   },
