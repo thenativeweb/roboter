@@ -67,7 +67,7 @@
   "devDependencies": {
     "assertthat": "4.0.2",
     "isolated": "2.0.1",
-    "react": "16.11.0"
+    "react": "16.12.0"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
