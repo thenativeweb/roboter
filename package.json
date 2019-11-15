@@ -50,7 +50,7 @@
     "execa": "3.3.0",
     "findsuggestions": "1.0.0",
     "globby": "10.0.1",
-    "is-typescript": "3.0.1",
+    "is-typescript": "4.0.0",
     "lodash": "4.17.15",
     "mocha": "6.2.2",
     "processenv": "3.0.0",
