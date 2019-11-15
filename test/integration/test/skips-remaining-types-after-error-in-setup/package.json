@@ -2,6 +2,6 @@
   "name": "test-package",
   "version": "0.0.1",
   "devDependencies": {
-    "assertthat": "4.0.1"
+    "assertthat": "5.0.2"
   }
 }

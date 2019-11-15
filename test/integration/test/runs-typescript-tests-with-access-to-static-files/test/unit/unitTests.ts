@@ -1,4 +1,4 @@
-import assert from 'assertthat';
+import { assert } from 'assertthat';
 import data from '../shared/something.json';
 
 suite('typescript unit tests', (): void => {

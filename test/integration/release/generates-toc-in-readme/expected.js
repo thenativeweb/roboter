@@ -2,8 +2,8 @@
 
 const path = require('path');
 
-const assert = require('assertthat').default,
-      isolated = require('isolated').default,
+const { assert } = require('assertthat'),
+      { isolated } = require('isolated'),
       shell = require('shelljs'),
       stripIndent = require('common-tags/lib/stripIndent');
 

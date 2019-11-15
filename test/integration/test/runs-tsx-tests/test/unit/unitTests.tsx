@@ -1,4 +1,4 @@
-import assert from 'assertthat';
+import { assert } from 'assertthat';
 import React from 'react';
 
 suite('tsx unit tests', (): void => {

@@ -1,6 +1,6 @@
 'use strict';
 
-const isolated = require('isolated').default,
+const { isolated } = require('isolated'),
       shell = require('shelljs');
 
 const exitCode = 0;

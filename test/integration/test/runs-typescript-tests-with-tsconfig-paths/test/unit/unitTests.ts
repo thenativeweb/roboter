@@ -1,4 +1,4 @@
-import assert from 'assertthat';
+import { assert } from 'assertthat';
 import foo from '@blub';
 
 suite('typescript unit tests', (): void => {

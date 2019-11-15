@@ -1,19 +1,16 @@
 'use strict';
 
 const fs = require('fs'),
-      path = require('path'),
-      { promisify } = require('util');
+      path = require('path');
 
-const assert = require('assertthat').default,
-      isolated = require('isolated').default,
+const { assert } = require('assertthat'),
+      { isolated } = require('isolated'),
       shell = require('shelljs'),
       stripAnsi = require('strip-ansi'),
       stripIndent = require('common-tags/lib/stripIndent');
 
 const getArgsList = require('./getArgsList'),
       getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters');
-
-const writeFile = promisify(fs.writeFile);
 
 const createTest = function ({ task, testCase, directory }) {
   if (!task) {
@@ -79,8 +76,8 @@ const createTest = function ({ task, testCase, directory }) {
         node_modules
       `;
 
-      await writeFile(dockerfileName, dockerfile, { encoding: 'utf8' });
-      await writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
+      await fs.promises.writeFile(dockerfileName, dockerfile, { encoding: 'utf8' });
+      await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
 
       shell.exec(`docker build -t ${imageName} .`, {
         cwd: tempDirectory

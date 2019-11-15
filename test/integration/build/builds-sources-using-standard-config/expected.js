@@ -1,14 +1,11 @@
 'use strict';
 
 const fs = require('fs'),
-      path = require('path'),
-      { promisify } = require('util');
+      path = require('path');
 
-const assert = require('assertthat').default,
-      isolated = require('isolated').default,
+const { assert } = require('assertthat'),
+      { isolated } = require('isolated'),
       shell = require('shelljs');
-
-const readFile = promisify(fs.readFile);
 
 const exitCode = 0;
 
@@ -21,7 +18,7 @@ const validate = async function ({ container }) {
 
   shell.exec(`docker cp ${container}:/home/node/app/build/index.js ${tempDirectory}`);
 
-  const builtFile = await readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
+  const builtFile = await fs.promises.readFile(path.join(tempDirectory, 'index.js'), { encoding: 'utf8' });
 
   assert.that(builtFile).is.containing('function (left, right) {');
 };

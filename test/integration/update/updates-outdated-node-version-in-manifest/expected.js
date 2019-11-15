@@ -3,9 +3,9 @@
 const fs = require('fs').promises,
       path = require('path');
 
-const assert = require('assertthat').default,
+const { assert } = require('assertthat'),
       { stripIndent } = require('common-tags'),
-      isolated = require('isolated').default,
+      { isolated } = require('isolated'),
       semver = require('semver'),
       shell = require('shelljs');
 

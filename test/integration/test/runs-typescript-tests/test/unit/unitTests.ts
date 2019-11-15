@@ -1,4 +1,4 @@
-import assert from 'assertthat';
+import { assert } from 'assertthat';
 
 suite('typescript unit tests', (): void => {
   test('run successfully.', async (): Promise<void> => {
