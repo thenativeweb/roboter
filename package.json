@@ -29,7 +29,6 @@
     }
   ],
   "bin": {
-    "bot": "lib/bin/roboter.js",
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
@@ -46,7 +45,7 @@
     "depcheck": "0.9.1",
     "dotenv": "8.2.0",
     "eslint": "6.6.0",
-    "eslint-config-es": "3.17.0",
+    "eslint-config-es": "3.17.1",
     "execa": "3.3.0",
     "findsuggestions": "1.0.0",
     "globby": "10.0.1",
