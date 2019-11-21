@@ -359,6 +359,10 @@ If you need to register any additional pre or post actions (such as starting or 
 
 *Please note: The `post.js` respectively `post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
 
+#### Setting up and tearing down tests globally
+
+If you need to set something up and tear something down across all of your test types, add a `pre.js` and `post.js` (or `pre.ts` and `post.ts`) in the `test` folder of your project. These work just like the test specific pre/post tasks above but are only run once before and after all tests.
+
 #### Setting environment variables
 
 To set environment variables that are available in the tests, you can create a `.env` file per test type:
