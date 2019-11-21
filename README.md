@@ -361,7 +361,7 @@ If you need to register any additional pre or post actions (such as starting or 
 
 #### Setting up and tearing down tests globally
 
-If you need to set something up and tear something down across all of your test types, add a `pre.js` and `post.js` (or `pre.ts` and `post.ts`) in the `test` folder of your project. These function just like the test specific pre/post tasks above but are only run once before and after all tests.
+If you need to set something up and tear something down across all of your test types, add a `pre.js` and `post.js` (or `pre.ts` and `post.ts`) in the `test` folder of your project. These work just like the test specific pre/post tasks above but are only run once before and after all tests.
 
 #### Setting environment variables
 
