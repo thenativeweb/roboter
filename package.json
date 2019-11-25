@@ -46,7 +46,7 @@
     "dotenv": "8.2.0",
     "eslint": "6.7.1",
     "eslint-config-es": "3.18.1",
-    "execa": "3.3.0",
+    "execa": "3.4.0",
     "findsuggestions": "1.0.0",
     "globby": "10.0.1",
     "is-typescript": "4.0.0",
