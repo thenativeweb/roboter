@@ -5,9 +5,7 @@ const fs = require('fs').promises,
 
 const { assert } = require('assertthat'),
       { stripIndent } = require('common-tags'),
-      { isolated } = require('isolated'),
-      semver = require('semver'),
-      shell = require('shelljs');
+      semver = require('semver');
 
 const getLatestVersion = require('../../../../lib/steps/dependencies/getLatestNodeLtsVersion');
 
@@ -22,15 +20,12 @@ const stdout = [
 
 const stderr = '';
 
-const validate = async function ({ container }) {
+const validate = async function ({ directory }) {
   const latestVersion = await getLatestVersion();
   const constraint = `>=${latestVersion} <${semver.inc(latestVersion, 'major')}`;
-  const tempDirectory = await isolated();
-
-  shell.exec(`docker cp ${container}:/home/node/app/package.json ${tempDirectory}`);
 
   /* eslint-disable global-require */
-  const packageJson = await fs.readFile(path.join(tempDirectory, 'package.json'), { encoding: 'utf-8' });
+  const packageJson = await fs.readFile(path.join(directory, 'package.json'), { encoding: 'utf-8' });
   /* eslint-enable global-require */
 
   const newPackageJson = stripIndent`
@@ -42,7 +37,7 @@ const validate = async function ({ container }) {
     }
   }`;
 
-  assert.that(packageJson).is.equalTo(`${newPackageJson}\n`);
+  assert.that(packageJson).is.atLeast(`${newPackageJson}\n`);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

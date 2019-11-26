@@ -3,23 +3,23 @@
 const fs = require('fs'),
       path = require('path');
 
-const shell = require('shelljs');
+const globby = require('globby'),
+      shell = require('shelljs'),
+      { uuid } = require('uuidv4');
 
-const {
-  createTest,
-  shallTestCaseBeExecuted
-} = require('../helpers');
+const createTest = require('../helpers/createTest3'),
+      shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
 suite('roboter', function () {
   this.timeout(100 * 1000);
 
-  suiteSetup(async function () {
-    this.timeout(5 * 60 * 1000);
+  const roboterPackageDirectory = path.join(shell.tempdir(), uuid());
 
-    shell.exec('docker build -t thenativeweb/roboter-test .', {
-      cwd: path.join(__dirname, '..', '..')
-    });
-  });
+  shell.mkdir(roboterPackageDirectory);
+
+  shell.exec(`npm pack ${path.join(__dirname, '..', '..')}`, { cwd: roboterPackageDirectory });
+
+  const roboterPackagePath = globby.sync([ path.join(roboterPackageDirectory, 'roboter*') ]);
 
   /* eslint-disable no-sync */
   fs.readdirSync(__dirname).forEach(task => {
@@ -45,7 +45,7 @@ suite('roboter', function () {
           return;
         }
 
-        createTest({ task, testCase, directory: testCaseDirectory });
+        createTest({ task, testCase, directory: testCaseDirectory, roboterPackagePath });
       });
     });
   });
