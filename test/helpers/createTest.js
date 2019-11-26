@@ -37,7 +37,7 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
       const npmCacheDirectory = await isolated();
 
       shell.cp('-r', `${directory}/*`, testDirectory);
-      if (await globby([ `${directory}/.*` ]).length > 0) {
+      if ((await globby([ `${directory}/.*` ])).length > 0) {
         shell.cp('-r', `${directory}/.*`, testDirectory);
       }
 
