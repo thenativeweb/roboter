@@ -12,7 +12,7 @@ const createTest = require('../helpers/createTest'),
       shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
 describe('roboter', function () {
-  this.timeout(30 * 60 * 1000);
+  this.timeout(60 * 60 * 1000);
 
   const roboterPackageDirectory = path.join(shell.tempdir(), uuid());
 

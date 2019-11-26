@@ -53,8 +53,8 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
 
       await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
 
-      await runCommand(`npm install --no-package-lock --silent --cache=${npmCacheDirectory}`, { cwd: testDirectory });
-      await runCommand(`npm install ${roboterPackagePath} --no-package-lock --cache=${npmCacheDirectory}`, { cwd: testDirectory });
+      await runCommand(`npm install --no-package-lock --silent --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
+      await runCommand(`npm install ${roboterPackagePath} --no-package-lock --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
 
       await runCommand('git init', { cwd: testDirectory, silent: true });
       await runCommand('git config user.name "Sophie van Sky"', { cwd: testDirectory, silent: true });
@@ -81,7 +81,7 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
         ...getEnv({ directory: testDirectory })
       };
       const roboter = await new Promise(resolve => {
-        shell.exec(roboterCmd.join(' '), { cwd: testDirectory, env }, (code, stdout, stderr) => {
+        shell.exec(roboterCmd.join(' '), { cwd: testDirectory, env, silent: true }, (code, stdout, stderr) => {
           resolve({ code, stdout, stderr });
         });
       });
