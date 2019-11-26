@@ -4,6 +4,7 @@ const fs = require('fs'),
       path = require('path');
 
 const { assert } = require('assertthat'),
+      globby = require('globby'),
       { isolated } = require('isolated'),
       { processenv } = require('processenv'),
       shell = require('shelljs'),
@@ -35,14 +36,10 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
       const gitDirectory = await isolated();
       const npmCacheDirectory = await isolated();
 
-      shell.cp(
-        '-r',
-        [
-          `${directory}/*`,
-          `${directory}/.*`
-        ],
-        testDirectory
-      );
+      shell.cp('-r', `${directory}/*`, testDirectory);
+      if (await globby([ `${directory}/.*` ]).length > 0) {
+        shell.cp('-r', `${directory}/.*`, testDirectory);
+      }
 
       shell.rm('-rf', path.join(testDirectory, 'expected.js'));
 
@@ -67,7 +64,7 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
       await runCommand('git push origin master', { cwd: testDirectory, silent: true });
 
       if (await hasPreHook({ directory: testDirectory })) {
-        await runCommand('node pre.js', { cwd: testDirectory });
+        await runCommand('node pre.js', { cwd: testDirectory, silent: true });
       }
 
       const roboterCmd = [
