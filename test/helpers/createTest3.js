@@ -57,8 +57,8 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
       await runCommand(`npm install ${roboterPackagePath} --no-package-lock --cache=${npmCacheDirectory}`, { cwd: testDirectory });
 
       await runCommand('git init', { cwd: testDirectory, silent: true });
-      await runCommand('git config set user.name "Sophie van Sky"', { cwd: testDirectory, silent: true });
-      await runCommand('git config set user.email "hello@thenativeweb.io"', { cwd: testDirectory, silent: true });
+      await runCommand('git config user.name "Sophie van Sky"', { cwd: testDirectory, silent: true });
+      await runCommand('git config user.email "hello@thenativeweb.io"', { cwd: testDirectory, silent: true });
       await runCommand('git add .', { cwd: testDirectory, silent: true });
       await runCommand('git commit -m "Initial commit."', { cwd: testDirectory, silent: true });
 
