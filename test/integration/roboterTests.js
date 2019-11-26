@@ -4,14 +4,15 @@ const fs = require('fs'),
       path = require('path');
 
 const globby = require('globby'),
+      parallel = require('mocha.parallel'),
       shell = require('shelljs'),
       { uuid } = require('uuidv4');
 
 const createTest = require('../helpers/createTest3'),
       shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
-suite('roboter', function () {
-  this.timeout(100 * 1000);
+describe('roboter', function () {
+  this.timeout(30 * 60 * 1000);
 
   const roboterPackageDirectory = path.join(shell.tempdir(), uuid());
 
@@ -21,6 +22,10 @@ suite('roboter', function () {
 
   const roboterPackagePath = globby.sync([ path.join(roboterPackageDirectory, 'roboter*') ]);
 
+  after(async () => {
+    shell.rm('-rf', roboterPackageDirectory);
+  });
+
   /* eslint-disable no-sync */
   fs.readdirSync(__dirname).forEach(task => {
     const taskDirectory = path.join(__dirname, task);
@@ -29,7 +34,7 @@ suite('roboter', function () {
       return;
     }
 
-    suite(task, () => {
+    parallel(task, () => {
       fs.readdirSync(taskDirectory).forEach(testCase => {
         const testCaseDirectory = path.join(taskDirectory, testCase);
 
