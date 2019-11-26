@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs'),
+      os = require('os'),
       path = require('path');
 
 const globby = require('globby'),
@@ -14,7 +15,7 @@ describe('roboter', function () {
   this.timeout(60 * 60 * 1000);
 
   /* eslint-disable no-sync */
-  const roboterPackageDirectory = fs.mkdtempSync();
+  const roboterPackageDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'roboter-'));
   /* eslint-enable no-sync */
 
   shell.mkdir(roboterPackageDirectory);
