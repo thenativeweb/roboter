@@ -1,7 +1,7 @@
 'use strict';
 
-const { isolated } = require('isolated'),
-      shell = require('shelljs');
+const fs = require('fs').promises,
+      path = require('path');
 
 const exitCode = 0;
 
@@ -9,11 +9,9 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function ({ container }) {
-  const tempDirectory = await isolated();
-
-  shell.exec(`docker cp ${container}:/home/node/app/build/src/index.js ${tempDirectory}`);
-  shell.exec(`docker cp ${container}:/home/node/app/build/test/indexTest.js ${tempDirectory}`);
+const validate = async function ({ directory }) {
+  await fs.stat(path.join(directory, 'build', 'src', 'index.js'));
+  await fs.stat(path.join(directory, 'build', 'test', 'unit', 'indexTest.js'));
 };
 
 module.exports = { exitCode, stdout, stderr, validate };

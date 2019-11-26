@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const getEnvListAsDockerParameters = function ({ directory }) {
+const getEnv = function ({ directory }) {
   if (!directory) {
     throw new Error('Directory is missing.');
   }
@@ -17,11 +17,7 @@ const getEnvListAsDockerParameters = function ({ directory }) {
     env = {};
   }
 
-  const envList = Object.entries(env).
-    map(([ envName, envValue ]) => `-e ${envName}=${envValue}`).
-    join(' ');
-
-  return envList;
+  return env;
 };
 
-module.exports = getEnvListAsDockerParameters;
+module.exports = getEnv;

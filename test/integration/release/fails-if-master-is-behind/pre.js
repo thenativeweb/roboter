@@ -1,10 +1,14 @@
 'use strict';
 
+const path = require('path');
+
 const shell = require('shelljs');
 
-shell.mkdir('-p', '/home/node/temp');
-shell.exec('git clone /home/node/remote .', { cwd: '/home/node/temp' });
-shell.exec('echo "second file" > second.txt', { cwd: '/home/node/temp' });
-shell.exec('git add .', { cwd: '/home/node/temp' });
-shell.exec('git commit -m "Second commit."', { cwd: '/home/node/temp' });
-shell.exec('git push origin master', { cwd: '/home/node/temp' });
+shell.mkdir('-p', path.join(__dirname, 'temp'));
+shell.exec('echo "second file" > second.txt');
+shell.exec('git add .');
+shell.exec('git commit -m "Second commit."');
+shell.exec('git push origin master');
+shell.exec('git checkout master~');
+shell.exec('git branch -f master master~');
+shell.exec('git checkout master');

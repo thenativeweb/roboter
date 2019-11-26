@@ -1,24 +1,31 @@
 'use strict';
 
 const fs = require('fs'),
+      os = require('os'),
       path = require('path');
 
-const shell = require('shelljs');
+const globby = require('globby'),
+      parallel = require('mocha.parallel'),
+      shell = require('shelljs');
 
-const {
-  createTest,
-  shallTestCaseBeExecuted
-} = require('../helpers');
+const createTest = require('../helpers/createTest'),
+      shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
-suite('roboter', function () {
-  this.timeout(100 * 1000);
+describe('roboter', function () {
+  this.timeout(60 * 60 * 1000);
 
-  suiteSetup(async function () {
-    this.timeout(5 * 60 * 1000);
+  /* eslint-disable no-sync */
+  const roboterPackageDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'roboter-'));
+  /* eslint-enable no-sync */
 
-    shell.exec('docker build -t thenativeweb/roboter-test .', {
-      cwd: path.join(__dirname, '..', '..')
-    });
+  shell.mkdir(roboterPackageDirectory);
+
+  shell.exec(`npm pack ${path.join(__dirname, '..', '..')}`, { cwd: roboterPackageDirectory });
+
+  const roboterPackagePath = globby.sync([ path.join(roboterPackageDirectory, 'roboter*') ]);
+
+  after(async () => {
+    shell.rm('-rf', roboterPackageDirectory);
   });
 
   /* eslint-disable no-sync */
@@ -29,7 +36,7 @@ suite('roboter', function () {
       return;
     }
 
-    suite(task, () => {
+    parallel(task, () => {
       fs.readdirSync(taskDirectory).forEach(testCase => {
         const testCaseDirectory = path.join(taskDirectory, testCase);
 
@@ -45,7 +52,7 @@ suite('roboter', function () {
           return;
         }
 
-        createTest({ task, testCase, directory: testCaseDirectory });
+        createTest({ task, testCase, directory: testCaseDirectory, roboterPackagePath });
       });
     });
   });

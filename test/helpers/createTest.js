@@ -4,15 +4,19 @@ const fs = require('fs'),
       path = require('path');
 
 const { assert } = require('assertthat'),
+      globby = require('globby'),
       { isolated } = require('isolated'),
+      { processenv } = require('processenv'),
       shell = require('shelljs'),
       stripAnsi = require('strip-ansi'),
       stripIndent = require('common-tags/lib/stripIndent');
 
 const getArgsList = require('./getArgsList'),
-      getEnvListAsDockerParameters = require('./getEnvListAsDockerParameters');
+      getEnv = require('./getEnv'),
+      hasPreHook = require('./hasPreHook'),
+      runCommand = require('../../lib/runCommand');
 
-const createTest = function ({ task, testCase, directory }) {
+const createTest = function ({ task, testCase, directory, roboterPackagePath }) {
   if (!task) {
     throw new Error('Task is missing.');
   }
@@ -22,84 +26,76 @@ const createTest = function ({ task, testCase, directory }) {
   if (!directory) {
     throw new Error('Directory is missing.');
   }
+  if (!roboterPackagePath) {
+    throw new Error('Roboter package path is missing.');
+  }
 
-  test(`${testCase.replace(/-/ug, ' ')}.`, async () => {
-    const tempDirectory = await isolated();
-
-    const imageName = `roboter-test-${task}-${testCase}`;
-    const containerName = imageName;
-
+  it(`${testCase.replace(/-/ug, ' ')}.`, async () => {
     try {
-      shell.cp(
-        '-r',
-        [
-          `${directory}/*`,
-          `${directory}/.*`
-        ],
-        tempDirectory
-      );
+      const testDirectory = await isolated();
+      const gitDirectory = await isolated();
+      const npmCacheDirectory = await isolated();
 
-      shell.rm('-rf', path.join(tempDirectory, 'expected.js'));
+      shell.cp('-r', `${directory}/*`, testDirectory);
+      if ((await globby([ `${directory}/.*` ])).length > 0) {
+        shell.cp('-r', `${directory}/.*`, testDirectory);
+      }
 
-      const dockerfileName = path.join(tempDirectory, 'Dockerfile');
-      const dockerfileCmd = [
+      shell.rm('-rf', path.join(testDirectory, 'expected.js'));
+
+      const gitignoreName = path.join(testDirectory, '.gitignore');
+      const gitignore = stripIndent`
+          node_modules
+        `;
+
+      await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
+
+      await runCommand(`npm install --no-package-lock --silent --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
+      await runCommand(`npm install ${roboterPackagePath} --no-package-lock --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
+
+      await runCommand('git init', { cwd: testDirectory, silent: true });
+      await runCommand('git config user.name "Sophie van Sky"', { cwd: testDirectory, silent: true });
+      await runCommand('git config user.email "hello@thenativeweb.io"', { cwd: testDirectory, silent: true });
+      await runCommand('git add .', { cwd: testDirectory, silent: true });
+      await runCommand('git commit -m "Initial commit."', { cwd: testDirectory, silent: true });
+
+      await runCommand('git init --bare', { cwd: gitDirectory, silent: true });
+      await runCommand(`git remote add origin ${gitDirectory}`, { cwd: testDirectory, silent: true });
+      await runCommand('git push origin master', { cwd: testDirectory, silent: true });
+
+      if (await hasPreHook({ directory: testDirectory })) {
+        await runCommand('node pre.js', { cwd: testDirectory, silent: true });
+      }
+
+      const roboterCmd = [
         'npx',
         'roboter',
         task === 'default' ? [] : [ task ],
-        getArgsList({ directory: tempDirectory })
+        getArgsList({ directory: testDirectory })
       ].flat();
-
-      const dockerfile = stripIndent`
-        FROM thenativeweb/roboter-test:latest
-        LABEL maintainer="the native web <hello@thenativeweb.io>"
-
-        ADD . /home/node/app
-
-        RUN npm install --no-package-lock --silent
-
-        RUN git init && \
-            git add . && \
-            git commit -m "Initial commit."
-
-        RUN mkdir                 /home/node/remote && \
-            git init --bare       /home/node/remote && \
-            git remote add origin /home/node/remote && \
-            git push origin master
-
-        RUN if [ -f pre.js ]; then node pre.js; fi
-
-        CMD [ ${dockerfileCmd.map(part => `"${part}"`).join(', ')} ]
-      `;
-
-      const gitignoreName = path.join(tempDirectory, '.gitignore');
-      const gitignore = stripIndent`
-        node_modules
-      `;
-
-      await fs.promises.writeFile(dockerfileName, dockerfile, { encoding: 'utf8' });
-      await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
-
-      shell.exec(`docker build -t ${imageName} .`, {
-        cwd: tempDirectory
+      const env = {
+        ...processenv(),
+        ...getEnv({ directory: testDirectory })
+      };
+      const roboter = await new Promise(resolve => {
+        shell.exec(roboterCmd.join(' '), { cwd: testDirectory, env, silent: true }, (code, stdout, stderr) => {
+          resolve({ code, stdout, stderr });
+        });
       });
 
-      const docker = shell.exec(`docker run ${getEnvListAsDockerParameters({ directory: tempDirectory })} --name ${containerName} ${imageName}`, {
-        cwd: tempDirectory
-      });
-
-      const stderr = stripAnsi(docker.stderr),
-            stdout = stripAnsi(docker.stdout);
+      const stderr = stripAnsi(roboter.stderr),
+            stdout = stripAnsi(roboter.stdout);
 
       /* eslint-disable global-require */
       const expected = require(path.join(directory, 'expected.js'));
       /* eslint-enable global-require */
 
-      if (docker.code !== expected.exitCode) {
+      if (roboter.code !== expected.exitCode) {
         /* eslint-disable no-console */
         console.log({
           stdout,
           stderr,
-          exitCode: { actual: docker.code, expected: expected.exitCode }
+          exitCode: { actual: roboter.code, expected: expected.exitCode }
         });
         /* eslint-enable no-console */
       }
@@ -118,7 +114,7 @@ const createTest = function ({ task, testCase, directory }) {
         previousIndex = currentIndex;
       }
 
-      assert.that(docker.code).is.equalTo(expected.exitCode);
+      assert.that(roboter.code).is.equalTo(expected.exitCode);
 
       const expectedStdouts = [ expected.stdout ].flat();
 
@@ -139,14 +135,21 @@ const createTest = function ({ task, testCase, directory }) {
       }
 
       await expected.validate({
-        container: containerName,
-        directory: tempDirectory,
-        exitCode: docker.code,
+        directory: testDirectory,
+        repository: gitDirectory,
+        exitCode: roboter.code,
         stdout,
         stderr
       });
-    } finally {
-      shell.exec(`docker rm -v ${containerName}`);
+
+      shell.rm('-rf', testDirectory);
+      shell.rm('-rf', gitDirectory);
+      shell.rm('-rf', npmCacheDirectory);
+    } catch (ex) {
+      /* eslint-disable no-console */
+      console.log({ ex });
+      /* eslint-enable no-console */
+      throw ex;
     }
   });
 };

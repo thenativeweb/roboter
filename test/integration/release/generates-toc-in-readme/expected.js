@@ -3,7 +3,6 @@
 const path = require('path');
 
 const { assert } = require('assertthat'),
-      { isolated } = require('isolated'),
       shell = require('shelljs'),
       stripIndent = require('common-tags/lib/stripIndent');
 
@@ -13,12 +12,8 @@ const stdout = '';
 
 const stderr = '';
 
-const validate = async function ({ container }) {
-  const tempDirectory = await isolated();
-
-  shell.exec(`docker cp ${container}:/home/node/app/README.md ${tempDirectory}`);
-
-  const readMe = shell.cat(path.join(tempDirectory, 'README.md'));
+const validate = async function ({ directory }) {
+  const readMe = shell.cat(path.join(directory, 'README.md'));
 
   assert.that(readMe.stdout).is.containing(stripIndent`
 
