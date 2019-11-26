@@ -8,7 +8,7 @@ const globby = require('globby'),
       shell = require('shelljs'),
       { uuid } = require('uuidv4');
 
-const createTest = require('../helpers/createTest3'),
+const createTest = require('../helpers/createTest'),
       shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
 describe('roboter', function () {
