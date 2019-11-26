@@ -5,8 +5,7 @@ const fs = require('fs'),
 
 const globby = require('globby'),
       parallel = require('mocha.parallel'),
-      shell = require('shelljs'),
-      { uuid } = require('uuidv4');
+      shell = require('shelljs');
 
 const createTest = require('../helpers/createTest'),
       shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
@@ -14,7 +13,9 @@ const createTest = require('../helpers/createTest'),
 describe('roboter', function () {
   this.timeout(60 * 60 * 1000);
 
-  const roboterPackageDirectory = path.join(shell.tempdir(), uuid());
+  /* eslint-disable no-sync */
+  const roboterPackageDirectory = fs.mkdtempSync();
+  /* eslint-enable no-sync */
 
   shell.mkdir(roboterPackageDirectory);
 
