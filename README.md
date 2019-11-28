@@ -16,6 +16,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 
 ## Upgrading
 
+### From 9.x to 10.x
+
+roboter 10.x removed the `release` command, since in the future this should be done using [semantic-release](https://www.npmjs.com/package/semantic-release).
+
 ### From 8.x to 9.x
 
 roboter 9.x dropped support for the `--watch` flag in the [`analyse`](#the-analyse-task) and [`test`](#the-test-task) commands, because it was unreliable and sometimes caused problems in CI/CD environments.
@@ -86,7 +90,6 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 | `help` | Shows the help. |
 | [`license`](#the-license-task) | Checks dependencies for incompatible licenses. |
 | [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
-| [`release`](#the-release-task) | Releases a new version. |
 | [`test`](#the-test-task) | Runs tests. |
 | [`update`](#the-update-task) | Updates the Node.js version. |
 
@@ -252,58 +255,6 @@ None
 
 None
 
-## The `release` task
-
-This task releases a new version.
-
-It first runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
-
-Afterwards, it runs the following tasks:
-
-- Check if you're currently in the `master` branch
-- Check if there are any pending, i.e. not yet committed, changes
-- Check if your local `master` branch is up-to-date with the remote one
-- Optional: [Generate the TOC](#generating-the-toc) in the `README.md` file
-- Optional: [Build code](#building-the-code-before-releasing) using TypeScript
-- Increase version number
-- Commit all changes
-- Create a tag for the new version
-- Push all changes and the tag
-
-*Please note: This task does not publish your module or application to the npm registry. Instead, you need to do this manually by running `npm publish`.*
-
-### Flags
-
-| Flag | Alias | Description |
-|-|-|-|
-| --force | -f | Releases without running tests, code analysis etc. |
-| --type | -t | Specifies the type of the release, either `patch`, `minor`, or `major`. |
-
-### Exit codes
-
-| Exit code | Description |
-|-|-|
-| 0 | Success |
-| 1 | Code analysis or tests failed |
-
-### Details
-
-For generating version numbers roboter uses [SemVer](https://semver.org/). It omits the leading `v`.
-
-#### Generating the TOC
-
-To automatically generate a TOC for your `README.md` file add the following line to your `README.md`.
-
-```markdown
-## Table of Contents
-```
-
-*Please note: roboter looks for the first heading containing 'Table of Contents', 'toc', or 'table-of-contents'. It removes all following contents until an equal or higher heading is found and inserts a table of contents.*
-
-#### Building the code before releasing
-
-You can use roboter to automatically build your code before publishing. roboter will run the [`build`](#the-build-task) task automatically for you. For details on how to enable and to configure this build step, see the [`build`](#the-build-task) task.
-
 ## The `test` task
 
 This task runs unit, integration, and other tests using [Mocha](https://mochajs.org/).
@@ -412,13 +363,13 @@ $ npm run test
 You can run all integration tests for one task by specifying the task name as an additional argument:
 
 ```shell
-$ npm run test release
+$ npm run test analyse
 ```
 
 You can run a single integration test case by specifying the individual test as an additional argument:
 
 ```shell
-$ npm run test release/bumps-minor-version
+$ npm run test analyse/fails-on-invalid-code
 ```
 
 ## Running the build
@@ -430,11 +381,3 @@ To analyse the source code run the following command:
 ```shell
 $ npm run analyse
 ```
-
-To release a new version run the following command:
-
-```shell
-$ npm run release-patch
-```
-
-Alternatively you may also use `release-minor` and `release-major`, depending on the changes you have made.

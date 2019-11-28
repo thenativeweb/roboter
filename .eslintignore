@@ -8,4 +8,3 @@
 /test/integration/analyse/uses-eslintignore/app.js
 /test/integration/build/fails-when-build-fails/src/index.js
 /test/integration/qa/fails-on-invalid-code/app.js
-/test/integration/release/fails-on-invalid-code/app.js
