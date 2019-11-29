@@ -14,50 +14,10 @@ roboter streamlines software development by automating tasks and enforcing conve
 | Build | ![GitHub Actions](https://github.com/thenativeweb/roboter/workflows/Release/badge.svg?branch=master) |
 | License | ![GitHub](https://img.shields.io/github/license/thenativeweb/roboter) |
 
-## Upgrading
-
-### From 9.x to 10.x
-
-roboter 10.x removed the `release` command, since in the future this should be done using [semantic-release](https://www.npmjs.com/package/semantic-release).
-
-### From 8.x to 9.x
-
-roboter 9.x dropped support for the `--watch` flag in the [`analyse`](#the-analyse-task) and [`test`](#the-test-task) commands, because it was unreliable and sometimes caused problems in CI/CD environments.
-
-### From 7.x to 8.x
-
-roboter 8.x introduces a [`build`](#the-build-task) command, which replaces the `precompile` command.
-
-### From 6.x to 7.x
-
-roboter 7.x introduced support for TypeScript, but at the same time dropped support for Babel. However, TypeScript support is completely optional. If you want to use TypeScript, simply put a `tsconfig.json` file into the root of your package, and that's it (especially, you do not have to install TypeScript, since roboter includes TypeScript out of the box). The tests' pre and post tasks are now expected to be standalone executables instead of modules exporting `async` functions.
-
-### From 5.x to 6.x
-
-roboter 6.x received a major update with respect to the ESLint rules being used. That means that when you update you should be prepared to adjust some code analysis issues in your code. Additionally, you need to change the name of the ESLint configuration module in your `.eslintrc.json` file: The new base name is now `es/node` (was `es/2015/server`), if you are working on a client project it's `es/browser` (was `es/2015/client`).
-
-### From 4.x to 5.x
-
-roboter 5.x names the directory for unit tests `unit`, not `units`, to streamline things with `integration` and `performance`. This means that you need to rename the `units` directory to `unit` in your projects.
-
-### From 3.x to 4.x
-
-roboter 4.x slightly modifies the way it generates Table of Contents inside your `README.md` during the `publish` task. It is no longer necessary to add a `<!-- toc -->` tag your `README.md`. Instead add a heading called `Table of Contents` and roboter will insert a TOC below this headline. For more details refer to the section [Generating the TOC](#generating-the-toc)
-
-### From 2.x to 3.x
-
-roboter 3.x makes the `license` task fail if incompatible licenses were found. This means that you may need to adjust your build scripts, if you use the `license` task directly (you may have to ignore the exit code).
-
-### From 1.x to 2.x
-
-roboter 2.x introduces `babel` 7. If you have been using the precompilation feature of the `release` task, you might need to take action. If you've been using a local `.babelrc` make sure to upgrade it to the scoped package names of `babel` 7. If you have been using [`babel-runtime`](https://www.npmjs.com/package/babel-runtime) as a dependency in your module, also make sure to switch to the new scoped [`@babel/runtime`](https://www.npmjs.com/package/@babel/runtime) module.
-
-Please refer to the [babel upgrading guide](https://babeljs.io/docs/en/next/v7-migration) and the new [`precompile`](#the-precompile-task) task that has been introduced to verify the precompilation result before a release.
-
 ## Installation
 
 ```shell
-$ npm install roboter --save-dev
+$ npm install roboter
 ```
 
 *Please note: Never install roboter globally, but always into the local context of your module or application.*
