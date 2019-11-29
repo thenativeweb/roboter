@@ -1,6 +1,10 @@
-name: On push
+name: QA
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - '*'
+      - '!master'
 
 jobs:
   build:
@@ -9,7 +13,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ '12.x' ]
-        os: [ ubuntu-latest, macOS-latest ]
+        os: [ ubuntu-latest ]
 
     steps:
     - uses: actions/checkout@v1

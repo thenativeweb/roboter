@@ -35,7 +35,6 @@
     "@types/mocha": "5.2.7",
     "async-af": "7.0.38",
     "axios": "0.19.0",
-    "bump-regex": "4.0.0",
     "buntstift": "3.0.0",
     "command-line-args": "5.1.1",
     "command-line-commands": "3.0.1",
@@ -46,15 +45,11 @@
     "dotenv": "8.2.0",
     "eslint": "6.7.1",
     "eslint-config-es": "3.18.1",
-    "execa": "3.4.0",
     "findsuggestions": "1.0.0",
     "globby": "10.0.1",
     "is-typescript": "4.0.0",
-    "lodash": "4.17.15",
     "mocha": "6.2.2",
     "processenv": "3.0.0",
-    "remark": "11.0.2",
-    "remark-toc": "6.0.0",
     "require-dir": "1.2.0",
     "semver": "6.3.0",
     "shelljs": "0.8.3",
@@ -67,14 +62,13 @@
     "assertthat": "5.0.2",
     "isolated": "3.0.0",
     "mocha.parallel": "0.15.6",
-    "react": "16.12.0"
+    "react": "16.12.0",
+    "semantic-release-configuration": "1.0.4"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
-    "test": "mocha --async-only --bail --recursive --reporter spec --ui bdd test/integration/roboterTests.js",
-    "release-patch": "npm run analyse && npm run test && npm version patch && git push --tags && git push",
-    "release-minor": "npm run analyse && npm run test && npm version minor && git push --tags && git push",
-    "release-major": "npm run analyse && npm run test && npm version major && git push --tags && git push"
+    "deps": "node lib/bin/roboter.js deps",
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui bdd test/integration/roboterTests.js"
   },
   "repository": {
     "type": "git",
