@@ -16,6 +16,11 @@ const packageLicenses = {
     '0.6.2': 'MIT'
   },
 
+  'config-chain': {
+    // https://github.com/dawsbot/config-chain/blob/v1.1.12/LICENCE
+    '1.1.12': 'MIT'
+  },
+
   'css-select': {
     // https://github.com/fb55/css-select/blob/v1.2.0/LICENSE
     '1.2.0': 'BSD-2-Clause'
