@@ -35,7 +35,7 @@
     "@types/mocha": "5.2.7",
     "async-af": "7.0.38",
     "axios": "0.19.0",
-    "buntstift": "3.0.0",
+    "buntstift": "3.0.1",
     "command-line-args": "5.1.1",
     "command-line-commands": "3.0.1",
     "command-line-usage": "6.1.0",
