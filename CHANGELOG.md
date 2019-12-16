@@ -1,3 +1,10 @@
+# [10.1.0](https://github.com/thenativeweb/roboter/compare/10.0.6...10.1.0) (2019-12-16)
+
+
+### Features
+
+* Release new version. ([1d71f35](https://github.com/thenativeweb/roboter/commit/1d71f355107c2534a42aacff8f05fb1428cc183e))
+
 ## [10.0.6](https://github.com/thenativeweb/roboter/compare/10.0.5...10.0.6) (2019-12-15)
 
 
