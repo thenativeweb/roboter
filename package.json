@@ -51,7 +51,7 @@
     "mocha": "6.2.2",
     "processenv": "3.0.1",
     "require-dir": "1.2.0",
-    "semver": "7.0.0",
+    "semver": "7.1.0",
     "shelljs": "0.8.3",
     "strip-ansi": "6.0.0",
     "ts-node": "8.5.4",
