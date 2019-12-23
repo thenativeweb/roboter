@@ -1,3 +1,10 @@
+## [10.1.8](https://github.com/thenativeweb/roboter/compare/10.1.7...10.1.8) (2019-12-23)
+
+
+### Bug Fixes
+
+* Add parantheses to broken license string. ([#209](https://github.com/thenativeweb/roboter/issues/209)) ([95d6c84](https://github.com/thenativeweb/roboter/commit/95d6c8481d213401a6a36ee95365b6e9a03a3ad4))
+
 ## [10.1.7](https://github.com/thenativeweb/roboter/compare/10.1.6...10.1.7) (2019-12-23)
 
 
