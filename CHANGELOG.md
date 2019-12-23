@@ -1,3 +1,10 @@
+## [10.1.6](https://github.com/thenativeweb/roboter/compare/10.1.5...10.1.6) (2019-12-23)
+
+
+### Bug Fixes
+
+* Add LGPL-OR-MIT as compatible to various licenses. ([#208](https://github.com/thenativeweb/roboter/issues/208)) ([bc9b96e](https://github.com/thenativeweb/roboter/commit/bc9b96e6b31a70333847e2d0d672d00206b99b46))
+
 ## [10.1.5](https://github.com/thenativeweb/roboter/compare/10.1.4...10.1.5) (2019-12-20)
 
 
