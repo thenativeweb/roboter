@@ -1,3 +1,10 @@
+## [10.1.10](https://github.com/thenativeweb/roboter/compare/10.1.9...10.1.10) (2019-12-28)
+
+
+### Bug Fixes
+
+* bump async-af from 7.0.38 to 7.0.39 ([#213](https://github.com/thenativeweb/roboter/issues/213)) ([2a76395](https://github.com/thenativeweb/roboter/commit/2a76395b7c687badb317d2925f6de097713e1163))
+
 ## [10.1.9](https://github.com/thenativeweb/roboter/compare/10.1.8...10.1.9) (2019-12-27)
 
 
