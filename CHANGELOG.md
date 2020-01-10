@@ -1,3 +1,10 @@
+## [10.1.18](https://github.com/thenativeweb/roboter/compare/10.1.17...10.1.18) (2020-01-10)
+
+
+### Bug Fixes
+
+* bump ts-node from 8.5.4 to 8.6.0 ([#225](https://github.com/thenativeweb/roboter/issues/225)) ([8776e34](https://github.com/thenativeweb/roboter/commit/8776e3447f0f01c3a97c66434877621e03b1aadd))
+
 ## [10.1.17](https://github.com/thenativeweb/roboter/compare/10.1.16...10.1.17) (2020-01-07)
 
 
