@@ -1,3 +1,10 @@
+## [10.1.22](https://github.com/thenativeweb/roboter/compare/10.1.21...10.1.22) (2020-01-14)
+
+
+### Bug Fixes
+
+* bump globby from 10.0.1 to 11.0.0 ([#219](https://github.com/thenativeweb/roboter/issues/219)) ([210c14f](https://github.com/thenativeweb/roboter/commit/210c14f0e34a48b56fa218cae7b6226d7eadd64a))
+
 ## [10.1.21](https://github.com/thenativeweb/roboter/compare/10.1.20...10.1.21) (2020-01-14)
 
 
