@@ -2,6 +2,7 @@
   "name": "test-package",
   "version": "0.0.1",
   "devDependencies": {
+    "@types/node": "12.12.14",
     "assertthat": "5.0.2"
   }
 }

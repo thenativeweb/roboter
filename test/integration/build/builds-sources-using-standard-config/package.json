@@ -1,4 +1,7 @@
 {
   "name": "test-package",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "devDependencies": {
+    "@types/node": "12.12.14"
+  }
 }
