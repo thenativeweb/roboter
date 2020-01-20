@@ -1,3 +1,10 @@
+# [10.2.0](https://github.com/thenativeweb/roboter/compare/10.1.24...10.2.0) (2020-01-20)
+
+
+### Features
+
+* Update to new Mocha configuration file format. ([#234](https://github.com/thenativeweb/roboter/issues/234)) ([ae91f62](https://github.com/thenativeweb/roboter/commit/ae91f62f1686f6cc0e14b59b01a5e3b745a4b9a5))
+
 ## [10.1.24](https://github.com/thenativeweb/roboter/compare/10.1.23...10.1.24) (2020-01-16)
 
 
