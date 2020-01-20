@@ -284,7 +284,7 @@ SOME_ENV=foo
 
 #### Configuring test execution
 
-To adjust test execution, you can provide a [`mocha.opts`](https://mochajs.org/#mochaopts) file per test type. However, the following options can not be overwritten, and are always set:
+To adjust test execution, you can provide a [`.mocharc.json`](https://mochajs.org/#configuring-mocha-nodejs) file per test type. However, the following options can not be overwritten, and are always set:
 
 - `--async-only`
 - `--bail`
