@@ -1,3 +1,16 @@
+# [11.0.0](https://github.com/thenativeweb/roboter/compare/10.2.0...11.0.0) (2020-01-20)
+
+
+### Bug Fixes
+
+* Release major version after mistaken minor release. ([#235](https://github.com/thenativeweb/roboter/issues/235)) ([ed11cf2](https://github.com/thenativeweb/roboter/commit/ed11cf213b93d6dbd1ace899f4e46a81c5fd4f58))
+
+
+### BREAKING CHANGES
+
+* This commit releases the previous minor release as
+the intended major release.
+
 # [10.2.0](https://github.com/thenativeweb/roboter/compare/10.1.24...10.2.0) (2020-01-20)
 
 
