@@ -1,3 +1,10 @@
+## [11.0.5](https://github.com/thenativeweb/roboter/compare/11.0.4...11.0.5) (2020-01-26)
+
+
+### Bug Fixes
+
+* bump mocha from 7.0.0 to 7.0.1 ([#242](https://github.com/thenativeweb/roboter/issues/242)) ([c1c683b](https://github.com/thenativeweb/roboter/commit/c1c683ba270f141d282e94cfba53e9045a2f555b))
+
 ## [11.0.4](https://github.com/thenativeweb/roboter/compare/11.0.3...11.0.4) (2020-01-25)
 
 
