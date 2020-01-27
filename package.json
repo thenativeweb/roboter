@@ -63,7 +63,7 @@
     "isolated": "3.0.0",
     "mocha.parallel": "0.15.6",
     "react": "16.12.0",
-    "semantic-release-configuration": "1.0.12"
+    "semantic-release-configuration": "1.0.13"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
