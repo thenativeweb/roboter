@@ -1,3 +1,10 @@
+## [11.0.10](https://github.com/thenativeweb/roboter/compare/11.0.9...11.0.10) (2020-01-30)
+
+
+### Bug Fixes
+
+* bump depcheck from 0.9.1 to 0.9.2 ([#252](https://github.com/thenativeweb/roboter/issues/252)) ([9a6dd4b](https://github.com/thenativeweb/roboter/commit/9a6dd4b28837be48fcbd57fdb91354203ec8c8ac))
+
 ## [11.0.9](https://github.com/thenativeweb/roboter/compare/11.0.8...11.0.9) (2020-01-30)
 
 
