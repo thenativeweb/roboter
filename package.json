@@ -32,7 +32,7 @@
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
-    "@types/mocha": "5.2.7",
+    "@types/mocha": "7.0.1",
     "async-af": "7.0.39",
     "axios": "0.19.2",
     "buntstift": "3.1.0",
