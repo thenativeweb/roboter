@@ -1,3 +1,10 @@
+## [11.0.11](https://github.com/thenativeweb/roboter/compare/11.0.10...11.0.11) (2020-01-31)
+
+
+### Bug Fixes
+
+* bump semver from 7.1.1 to 7.1.2 ([#253](https://github.com/thenativeweb/roboter/issues/253)) ([0e2379b](https://github.com/thenativeweb/roboter/commit/0e2379b762a4ad5a46f7f93b273ea3adcc27270c))
+
 ## [11.0.10](https://github.com/thenativeweb/roboter/compare/11.0.9...11.0.10) (2020-01-30)
 
 
