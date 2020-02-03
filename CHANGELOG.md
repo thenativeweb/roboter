@@ -1,3 +1,10 @@
+## [11.0.13](https://github.com/thenativeweb/roboter/compare/11.0.12...11.0.13) (2020-02-03)
+
+
+### Bug Fixes
+
+* bump defekt from 5.0.0 to 5.0.1 ([#258](https://github.com/thenativeweb/roboter/issues/258)) ([c2bb1bf](https://github.com/thenativeweb/roboter/commit/c2bb1bf19f1e4d0012867a7b93f1503fc829fd5b))
+
 ## [11.0.12](https://github.com/thenativeweb/roboter/compare/11.0.11...11.0.12) (2020-02-03)
 
 
