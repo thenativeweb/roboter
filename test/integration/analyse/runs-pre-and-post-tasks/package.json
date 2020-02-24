@@ -1,0 +1,8 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "scripts": {
+    "preanalyse": "echo From the pre task.",
+    "postanalyse": "echo From the post task."
+  }
+}
