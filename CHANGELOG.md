@@ -1,3 +1,10 @@
+# [11.1.0](https://github.com/thenativeweb/roboter/compare/11.0.25...11.1.0) (2020-02-26)
+
+
+### Features
+
+* Add pre and post tasks. ([#277](https://github.com/thenativeweb/roboter/issues/277)) ([fee3556](https://github.com/thenativeweb/roboter/commit/fee3556a5b09123be2614ae7bc07ba6c7b890a06))
+
 ## [11.0.25](https://github.com/thenativeweb/roboter/compare/11.0.24...11.0.25) (2020-02-26)
 
 
