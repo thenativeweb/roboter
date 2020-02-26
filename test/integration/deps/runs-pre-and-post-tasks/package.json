@@ -1,0 +1,11 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "dependencies": {
+    "noop3": "*"
+  },
+  "scripts": {
+    "predeps": "echo From the pre task.",
+    "postdeps": "echo From the post task."
+  }
+}

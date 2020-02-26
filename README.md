@@ -77,6 +77,8 @@ Then you can run the following command. If you specify any options, they will be
 $ npx roboter analyse-css
 ```
 
+In addition to this, for any command you can run you can add a `pre...` and / or `post...` script to the `scripts` section of your application's `package.json` file, which then gets executed when the appropriate task is run.
+
 ### Setting environment variables
 
 Environment variables you specify when running roboter are also available to the tasks. E.g., if you want to run tests with disabled TLS verification, run roboter as follows:
