@@ -1,3 +1,10 @@
+## [11.1.10](https://github.com/thenativeweb/roboter/compare/11.1.9...11.1.10) (2020-03-16)
+
+
+### Bug Fixes
+
+* bump eslint-config-es from 3.19.45 to 3.19.46 ([#295](https://github.com/thenativeweb/roboter/issues/295)) ([dc6bc1f](https://github.com/thenativeweb/roboter/commit/dc6bc1fc735653f635233deb34c09a79cbba6053))
+
 ## [11.1.9](https://github.com/thenativeweb/roboter/compare/11.1.8...11.1.9) (2020-03-15)
 
 
