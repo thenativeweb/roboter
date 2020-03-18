@@ -1,3 +1,10 @@
+## [11.1.13](https://github.com/thenativeweb/roboter/compare/11.1.12...11.1.13) (2020-03-18)
+
+
+### Bug Fixes
+
+* Improve license check. ([#299](https://github.com/thenativeweb/roboter/issues/299)) ([58c24cb](https://github.com/thenativeweb/roboter/commit/58c24cbbb669c27c6f98333068754ee58da18e48))
+
 ## [11.1.12](https://github.com/thenativeweb/roboter/compare/11.1.11...11.1.12) (2020-03-18)
 
 
