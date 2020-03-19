@@ -59,7 +59,7 @@
     "typescript": "3.8.3"
   },
   "devDependencies": {
-    "assertthat": "5.1.0",
+    "assertthat": "5.1.1",
     "isolated": "3.0.0",
     "mocha.parallel": "0.15.6",
     "react": "16.13.0",
