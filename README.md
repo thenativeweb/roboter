@@ -225,7 +225,7 @@ This task runs unit, integration, and other tests using [Mocha](https://mochajs.
 
 | Flag | Alias | Description |
 |-|-|-|
-| --type | -t | The test type, such as `units`, `integration`, … |
+| --type | -t | The test type, such as `unit`, `integration`, … |
 
 ### Exit codes
 
