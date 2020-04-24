@@ -5,7 +5,6 @@ const fs = require('fs'),
       path = require('path');
 
 const globby = require('globby'),
-      parallel = require('mocha.parallel'),
       shell = require('shelljs');
 
 const createTest = require('../helpers/createTest'),
@@ -36,7 +35,7 @@ describe('roboter', function () {
       return;
     }
 
-    parallel(task, () => {
+    describe(task, () => {
       fs.readdirSync(taskDirectory).forEach(testCase => {
         const testCaseDirectory = path.join(taskDirectory, testCase);
 
