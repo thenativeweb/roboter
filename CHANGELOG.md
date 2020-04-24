@@ -1,3 +1,10 @@
+## [11.1.18](https://github.com/thenativeweb/roboter/compare/11.1.17...11.1.18) (2020-04-24)
+
+
+### Bug Fixes
+
+* Fix typo. ([#320](https://github.com/thenativeweb/roboter/issues/320)) ([b677dde](https://github.com/thenativeweb/roboter/commit/b677dde69b1b68b68a7eaebd8410623f2eb55179))
+
 ## [11.1.17](https://github.com/thenativeweb/roboter/compare/11.1.16...11.1.17) (2020-03-30)
 
 
