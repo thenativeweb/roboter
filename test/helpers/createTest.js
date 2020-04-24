@@ -130,17 +130,15 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
         previousIndex = currentIndex;
       }
 
-      if (typeof expected.validate !== 'function') {
-        return;
+      if (typeof expected.validate === 'function') {
+        await expected.validate({
+          directory: testDirectory,
+          repository: gitDirectory,
+          exitCode: roboter.code,
+          stdout,
+          stderr
+        });
       }
-
-      await expected.validate({
-        directory: testDirectory,
-        repository: gitDirectory,
-        exitCode: roboter.code,
-        stdout,
-        stderr
-      });
 
       shell.rm('-rf', testDirectory);
       shell.rm('-rf', gitDirectory);
