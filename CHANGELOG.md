@@ -1,3 +1,10 @@
+## [11.1.19](https://github.com/thenativeweb/roboter/compare/11.1.18...11.1.19) (2020-04-25)
+
+
+### Bug Fixes
+
+* bump shelljs from 0.8.3 to 0.8.4 ([#324](https://github.com/thenativeweb/roboter/issues/324)) ([0c973a5](https://github.com/thenativeweb/roboter/commit/0c973a5ad688c8ba2bb6ac1f3762a9bd8991d264))
+
 ## [11.1.18](https://github.com/thenativeweb/roboter/compare/11.1.17...11.1.18) (2020-04-24)
 
 
