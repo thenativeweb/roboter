@@ -1,3 +1,10 @@
+## [11.1.22](https://github.com/thenativeweb/roboter/compare/11.1.21...11.1.22) (2020-04-30)
+
+
+### Bug Fixes
+
+* bump processenv from 3.0.1 to 3.0.2 ([#328](https://github.com/thenativeweb/roboter/issues/328)) ([dce8a72](https://github.com/thenativeweb/roboter/commit/dce8a72aecb19a5b3e37117d97da2e6e10637193))
+
 ## [11.1.21](https://github.com/thenativeweb/roboter/compare/11.1.20...11.1.21) (2020-04-27)
 
 
