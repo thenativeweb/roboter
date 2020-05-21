@@ -1,3 +1,10 @@
+## [11.1.25](https://github.com/thenativeweb/roboter/compare/11.1.24...11.1.25) (2020-05-21)
+
+
+### Bug Fixes
+
+* bump typescript from 3.9.2 to 3.9.3 ([#336](https://github.com/thenativeweb/roboter/issues/336)) ([5abcd07](https://github.com/thenativeweb/roboter/commit/5abcd07209ec9637ebf8e97a38db8cbc1459cbe9))
+
 ## [11.1.24](https://github.com/thenativeweb/roboter/compare/11.1.23...11.1.24) (2020-05-13)
 
 
