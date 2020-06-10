@@ -1,3 +1,10 @@
+# [11.2.0](https://github.com/thenativeweb/roboter/compare/11.1.26...11.2.0) (2020-06-10)
+
+
+### Features
+
+* Add other writing style for Apache 2.0 license. ([d7f3fbe](https://github.com/thenativeweb/roboter/commit/d7f3fbef8caf7f8399f2471b19be13cf6f4fc28e))
+
 ## [11.1.26](https://github.com/thenativeweb/roboter/compare/11.1.25...11.1.26) (2020-05-25)
 
 
