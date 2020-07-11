@@ -1,3 +1,10 @@
+## [11.2.5](https://github.com/thenativeweb/roboter/compare/11.2.4...11.2.5) (2020-07-11)
+
+
+### Bug Fixes
+
+* bump buntstift from 4.0.7 to 4.0.8 ([#352](https://github.com/thenativeweb/roboter/issues/352)) ([369df6b](https://github.com/thenativeweb/roboter/commit/369df6b6d599e483d9301361176959ba34aa15f4))
+
 ## [11.2.4](https://github.com/thenativeweb/roboter/compare/11.2.3...11.2.4) (2020-07-06)
 
 
