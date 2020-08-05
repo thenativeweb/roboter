@@ -1,3 +1,10 @@
+## [11.2.14](https://github.com/thenativeweb/roboter/compare/11.2.13...11.2.14) (2020-08-05)
+
+
+### Bug Fixes
+
+* bump mocha from 8.1.0 to 8.1.1 ([#365](https://github.com/thenativeweb/roboter/issues/365)) ([79fe3a3](https://github.com/thenativeweb/roboter/commit/79fe3a34d7febc2f00c8ea1a21bbec2283f149cb))
+
 ## [11.2.13](https://github.com/thenativeweb/roboter/compare/11.2.12...11.2.13) (2020-08-01)
 
 
