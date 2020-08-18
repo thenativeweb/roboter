@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "11.2.18",
+  "version": "11.2.19",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -32,7 +32,7 @@
     "roboter": "lib/bin/roboter.js"
   },
   "dependencies": {
-    "@types/mocha": "8.0.2",
+    "@types/mocha": "8.0.3",
     "async-af": "7.0.39",
     "axios": "0.19.2",
     "buntstift": "4.0.14",
