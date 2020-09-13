@@ -152,4 +152,5 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
   });
 };
 
+// eslint-disable-next-line mocha/no-exports
 module.exports = createTest;
