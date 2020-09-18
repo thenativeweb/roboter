@@ -1,3 +1,10 @@
+## [11.3.2](https://github.com/thenativeweb/roboter/compare/11.3.1...11.3.2) (2020-09-18)
+
+
+### Bug Fixes
+
+* Update ESLint rules. ([43e7fd5](https://github.com/thenativeweb/roboter/commit/43e7fd5af4171077638bd1f6c5bad16004eb6e60))
+
 ## [11.3.1](https://github.com/thenativeweb/roboter/compare/11.3.0...11.3.1) (2020-09-16)
 
 
