@@ -44,7 +44,7 @@
     "depcheck": "1.2.0",
     "dotenv": "8.2.0",
     "eslint": "7.9.0",
-    "eslint-config-es": "3.20.4",
+    "eslint-config-es": "3.21.1",
     "findsuggestions": "1.0.0",
     "globby": "11.0.1",
     "is-typescript": "4.0.0",
@@ -62,7 +62,7 @@
     "assertthat": "5.2.1",
     "isolated": "3.0.2",
     "react": "16.13.1",
-    "semantic-release-configuration": "1.0.20"
+    "semantic-release-configuration": "1.0.21"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
