@@ -1,3 +1,10 @@
+## [11.3.3](https://github.com/thenativeweb/roboter/compare/11.3.2...11.3.3) (2020-09-18)
+
+
+### Bug Fixes
+
+* Fix error output. ([#384](https://github.com/thenativeweb/roboter/issues/384)) ([440d927](https://github.com/thenativeweb/roboter/commit/440d927f12ddd6f423331ecf29b009c4eb24c02a))
+
 ## [11.3.2](https://github.com/thenativeweb/roboter/compare/11.3.1...11.3.2) (2020-09-18)
 
 
