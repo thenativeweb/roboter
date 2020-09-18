@@ -57,8 +57,6 @@ If you don't specify a task, the `qa` task is run as default task.
 
 To get help, run `npx roboter --help`. To get help for a specific command, run `npx roboter <command> --help`.
 
-If you need more detailed output, provide the `--verbose` flag for any command.
-
 ### Running npm scripts
 
 If your `package.json` file contains custom scripts, you can run them using roboter to have a streamlined user experience. Supposed, your `package.json` looks like this:
