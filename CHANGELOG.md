@@ -1,3 +1,10 @@
+## [11.3.8](https://github.com/thenativeweb/roboter/compare/11.3.7...11.3.8) (2020-09-24)
+
+
+### Bug Fixes
+
+* Additional tests were not run if no unit or integration tests existed. ([#389](https://github.com/thenativeweb/roboter/issues/389)) ([f5ce08b](https://github.com/thenativeweb/roboter/commit/f5ce08b198086baf884cfd005ea121a5fff01d49))
+
 ## [11.3.7](https://github.com/thenativeweb/roboter/compare/11.3.6...11.3.7) (2020-09-22)
 
 
