@@ -44,7 +44,7 @@
     "depcheck": "1.2.0",
     "dotenv": "8.2.0",
     "eslint": "7.9.0",
-    "eslint-config-es": "3.23.3",
+    "eslint-config-es": "3.23.4",
     "findsuggestions": "1.0.0",
     "globby": "11.0.1",
     "is-typescript": "4.0.0",
