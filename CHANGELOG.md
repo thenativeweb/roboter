@@ -1,3 +1,10 @@
+# [11.4.0](https://github.com/thenativeweb/roboter/compare/11.3.15...11.4.0) (2020-10-12)
+
+
+### Features
+
+* Run component tests between unit and integration tests. ([#398](https://github.com/thenativeweb/roboter/issues/398)) ([ccd6c40](https://github.com/thenativeweb/roboter/commit/ccd6c40ea03c72e712f252f747e4f792db1a1d89))
+
 ## [11.3.15](https://github.com/thenativeweb/roboter/compare/11.3.14...11.3.15) (2020-10-12)
 
 
