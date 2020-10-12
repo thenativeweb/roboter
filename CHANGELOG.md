@@ -1,3 +1,10 @@
+## [11.3.15](https://github.com/thenativeweb/roboter/compare/11.3.14...11.3.15) (2020-10-12)
+
+
+### Bug Fixes
+
+* bump eslint from 7.10.0 to 7.11.0 ([#397](https://github.com/thenativeweb/roboter/issues/397)) ([9f5a803](https://github.com/thenativeweb/roboter/commit/9f5a80388d976f6e928b35f0a12ce359f79e9bb7))
+
 ## [11.3.14](https://github.com/thenativeweb/roboter/compare/11.3.13...11.3.14) (2020-10-08)
 
 
