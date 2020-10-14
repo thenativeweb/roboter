@@ -1,3 +1,10 @@
+## [11.4.1](https://github.com/thenativeweb/roboter/compare/11.4.0...11.4.1) (2020-10-14)
+
+
+### Bug Fixes
+
+* bump defekt from 5.1.0 to 5.2.0 ([#404](https://github.com/thenativeweb/roboter/issues/404)) ([d04dedd](https://github.com/thenativeweb/roboter/commit/d04deddde3d77e4e54bd12c2b61f72e758b285fa))
+
 # [11.4.0](https://github.com/thenativeweb/roboter/compare/11.3.15...11.4.0) (2020-10-12)
 
 
