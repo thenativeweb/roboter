@@ -7,6 +7,6 @@ suite('sample', () => {
     setTimeout(() => {
       assert.that(true).is.true();
       done();
-    }, 3 * 1000);
+    }, 3_000);
   });
 });

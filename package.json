@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "11.4.4",
+  "version": "11.4.5",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -40,11 +40,11 @@
     "command-line-commands": "3.0.1",
     "command-line-usage": "6.1.0",
     "common-tags": "1.8.0",
-    "defekt": "5.2.0",
+    "defekt": "5.2.1",
     "depcheck": "1.2.0",
     "dotenv": "8.2.0",
     "eslint": "7.12.1",
-    "eslint-config-es": "3.24.6",
+    "eslint-config-es": "3.24.9",
     "findsuggestions": "1.0.0",
     "globby": "11.0.1",
     "is-typescript": "4.0.0",
@@ -60,8 +60,8 @@
   },
   "devDependencies": {
     "assertthat": "5.2.1",
-    "isolated": "3.0.2",
-    "react": "17.0.0",
+    "isolated": "3.0.4",
+    "react": "17.0.1",
     "semantic-release-configuration": "1.0.23"
   },
   "scripts": {

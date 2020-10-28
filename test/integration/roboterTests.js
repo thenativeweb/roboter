@@ -11,7 +11,7 @@ const createTest = require('../helpers/createTest'),
       shallTestCaseBeExecuted = require('../helpers/shallTestCaseBeExecuted');
 
 describe('roboter', function () {
-  this.timeout(60 * 60 * 1000);
+  this.timeout(3_600_000);
 
   /* eslint-disable no-sync */
   const roboterPackageDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'roboter-'));
