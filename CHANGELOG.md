@@ -1,3 +1,11 @@
+## [11.4.4](https://github.com/thenativeweb/roboter/compare/11.4.3...11.4.4) (2020-10-28)
+
+
+### Bug Fixes
+
+* bump eslint from 7.11.0 to 7.12.0 ([#414](https://github.com/thenativeweb/roboter/issues/414)) ([3c6f343](https://github.com/thenativeweb/roboter/commit/3c6f343b95dd8143f8de0b5c1db5da517a05f21d))
+* bump typescript from 4.0.3 to 4.0.5 ([#415](https://github.com/thenativeweb/roboter/issues/415)) ([c2b1c3c](https://github.com/thenativeweb/roboter/commit/c2b1c3ce66d6bafdccef64e13b6312ee193d9485))
+
 ## [11.4.3](https://github.com/thenativeweb/roboter/compare/11.4.2...11.4.3) (2020-10-19)
 
 
