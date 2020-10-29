@@ -1,3 +1,10 @@
+## [11.4.6](https://github.com/thenativeweb/roboter/compare/11.4.5...11.4.6) (2020-10-29)
+
+
+### Bug Fixes
+
+* bump axios from 0.20.0 to 0.21.0 ([#413](https://github.com/thenativeweb/roboter/issues/413)) ([5caf29b](https://github.com/thenativeweb/roboter/commit/5caf29b19b17165bacda4849c3bbd6d0464b7f75))
+
 ## [11.4.5](https://github.com/thenativeweb/roboter/compare/11.4.4...11.4.5) (2020-10-28)
 
 
