@@ -1,3 +1,10 @@
+# [11.5.0](https://github.com/thenativeweb/roboter/compare/11.4.9...11.5.0) (2020-11-03)
+
+
+### Features
+
+* Improve license detection. ([#423](https://github.com/thenativeweb/roboter/issues/423)) ([4c75d2f](https://github.com/thenativeweb/roboter/commit/4c75d2f0f5af23502fee724c1168ef1e1c15d43f))
+
 ## [11.4.9](https://github.com/thenativeweb/roboter/compare/11.4.8...11.4.9) (2020-11-03)
 
 
