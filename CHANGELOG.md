@@ -1,3 +1,11 @@
+## [11.5.2](https://github.com/thenativeweb/roboter/compare/11.5.1...11.5.2) (2020-11-03)
+
+
+### Bug Fixes
+
+* bump is-typescript from 4.0.0 to 4.0.1 ([#428](https://github.com/thenativeweb/roboter/issues/428)) ([91a2bf1](https://github.com/thenativeweb/roboter/commit/91a2bf1ab32a6d4df4c71ab010ac4243b7cc3fc6))
+* bump processenv from 3.0.2 to 3.0.3 ([#426](https://github.com/thenativeweb/roboter/issues/426)) ([5974001](https://github.com/thenativeweb/roboter/commit/5974001117a92fbe2d8f69aadff3e6f2e03f5613))
+
 ## [11.5.1](https://github.com/thenativeweb/roboter/compare/11.5.0...11.5.1) (2020-11-03)
 
 
