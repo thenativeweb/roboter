@@ -49,7 +49,7 @@
     "globby": "11.0.1",
     "is-typescript": "4.0.0",
     "mocha": "8.2.1",
-    "processenv": "3.0.2",
+    "processenv": "3.0.3",
     "require-dir": "1.2.0",
     "semver": "7.3.2",
     "shelljs": "0.8.4",
