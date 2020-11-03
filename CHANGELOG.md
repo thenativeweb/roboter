@@ -1,3 +1,17 @@
+## [11.4.9](https://github.com/thenativeweb/roboter/compare/11.4.8...11.4.9) (2020-11-03)
+
+
+### Bug Fixes
+
+* bump mocha from 8.2.0 to 8.2.1 ([#421](https://github.com/thenativeweb/roboter/issues/421)) ([5e0bd36](https://github.com/thenativeweb/roboter/commit/5e0bd3664b98574543d41b0119339fabaf2deff6))
+
+## [11.4.8](https://github.com/thenativeweb/roboter/compare/11.4.7...11.4.8) (2020-10-30)
+
+
+### Bug Fixes
+
+* bump eslint-config-es from 3.25.0 to 3.25.1 ([#419](https://github.com/thenativeweb/roboter/issues/419)) ([9cad5dd](https://github.com/thenativeweb/roboter/commit/9cad5dd5c72b87d5d09608c3afbe02726dd7ac99))
+
 ## [11.4.7](https://github.com/thenativeweb/roboter/compare/11.4.6...11.4.7) (2020-10-30)
 
 
