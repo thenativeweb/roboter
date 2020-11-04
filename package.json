@@ -37,14 +37,14 @@
     "axios": "0.21.0",
     "buntstift": "4.0.17",
     "command-line-args": "5.1.1",
-    "command-line-commands": "3.0.1",
+    "command-line-commands": "3.0.2",
     "command-line-usage": "6.1.0",
     "common-tags": "1.8.0",
-    "defekt": "5.2.1",
+    "defekt": "5.2.2",
     "depcheck": "1.2.0",
     "dotenv": "8.2.0",
     "eslint": "7.12.1",
-    "eslint-config-es": "3.25.3",
+    "eslint-config-es": "3.25.4",
     "findsuggestions": "1.0.0",
     "globby": "11.0.1",
     "is-typescript": "4.0.1",
@@ -60,9 +60,9 @@
   },
   "devDependencies": {
     "assertthat": "5.2.5",
-    "isolated": "3.0.5",
+    "isolated": "3.0.6",
     "react": "17.0.1",
-    "semantic-release-configuration": "1.0.23"
+    "semantic-release-configuration": "1.0.25"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
