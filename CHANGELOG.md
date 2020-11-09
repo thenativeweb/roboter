@@ -1,3 +1,10 @@
+## [11.5.5](https://github.com/thenativeweb/roboter/compare/11.5.4...11.5.5) (2020-11-09)
+
+
+### Bug Fixes
+
+* bump command-line-usage from 6.1.0 to 6.1.1 ([#437](https://github.com/thenativeweb/roboter/issues/437)) ([3a21810](https://github.com/thenativeweb/roboter/commit/3a21810a9d7044dcc95e5b139535923953752be4))
+
 ## [11.5.4](https://github.com/thenativeweb/roboter/compare/11.5.3...11.5.4) (2020-11-04)
 
 
