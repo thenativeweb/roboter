@@ -95,6 +95,12 @@ const packageLicenses = {
     '4.3.2': 'BSD-2-Clause'
   },
 
+  stackframe: {
+    // https://github.com/stacktracejs/stackframe/blob/v1.0.4/package.json
+    // Originally unlicensed, but MIT since 1.0.4.
+    '0.3.1': 'MIT'
+  },
+
   'unique-stream': {
     // https://github.com/eugeneware/unique-stream/blob/v1.0.0/LICENSE
     '1.0.0': 'MIT'
