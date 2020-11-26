@@ -40,7 +40,7 @@
     "command-line-commands": "3.0.2",
     "command-line-usage": "6.1.1",
     "common-tags": "1.8.0",
-    "defekt": "5.3.0",
+    "defekt": "6.0.0",
     "depcheck": "1.2.0",
     "dotenv": "8.2.0",
     "eslint": "7.14.0",
