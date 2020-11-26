@@ -90,6 +90,12 @@ const packageLicenses = {
     '0.1.5': 'BSD-2-Clause'
   },
 
+  'scss-parser': {
+    // https://github.com/salesforce-ux/scss-parser/blob/v1.0.4/LICENSE
+    // Actually this is not MIT, but it comes close to it, so we handle it like this.
+    '1.0.4': 'MIT'
+  },
+
   semver: {
     // https://github.com/npm/node-semver/blob/v4.3.2/LICENSE
     '4.3.2': 'BSD-2-Clause'
