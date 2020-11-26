@@ -1,3 +1,10 @@
+## [11.5.16](https://github.com/thenativeweb/roboter/compare/11.5.15...11.5.16) (2020-11-26)
+
+
+### Bug Fixes
+
+* Add license compatibility for stackframe 0.3.1. ([2d2a7c5](https://github.com/thenativeweb/roboter/commit/2d2a7c5a81ee7e9003b6ed13a885887be57c5708))
+
 ## [11.5.15](https://github.com/thenativeweb/roboter/compare/11.5.14...11.5.15) (2020-11-26)
 
 
