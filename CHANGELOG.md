@@ -1,3 +1,10 @@
+## [11.5.18](https://github.com/thenativeweb/roboter/compare/11.5.17...11.5.18) (2020-11-27)
+
+
+### Bug Fixes
+
+* bump defekt from 6.0.0 to 6.0.1 ([#458](https://github.com/thenativeweb/roboter/issues/458)) ([95d5db6](https://github.com/thenativeweb/roboter/commit/95d5db6e1b7626fc0c53b82342fd26efeda11c1e))
+
 ## [11.5.17](https://github.com/thenativeweb/roboter/compare/11.5.16...11.5.17) (2020-11-27)
 
 
