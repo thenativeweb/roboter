@@ -2,7 +2,7 @@
 
 const exitCode = 1;
 
-const stdout = [
+const stdoutTest = [
   'Running strict dependencies check...',
   'Name   Version  Type',
   '─────  ───────  ────────────',
@@ -11,4 +11,10 @@ const stdout = [
 
 const stderr = 'Non-strict dependencies found.';
 
-module.exports = { exitCode, stdout, stderr };
+const validate = function ({ stdout }) {
+  if (stdout.includes('TypeError: errors.NonStrictDependenciesFound is not a constructor')) {
+    throw new Error('This bug should be fixed, see #464.');
+  }
+};
+
+module.exports = { exitCode, stdout: stdoutTest, stderr, validate };
