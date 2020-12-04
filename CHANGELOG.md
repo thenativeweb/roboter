@@ -1,3 +1,10 @@
+## [11.5.22](https://github.com/thenativeweb/roboter/compare/11.5.21...11.5.22) (2020-12-04)
+
+
+### Bug Fixes
+
+* Use correct error constructor when non-strict dependencies are found. ([#465](https://github.com/thenativeweb/roboter/issues/465)) ([b6a1a99](https://github.com/thenativeweb/roboter/commit/b6a1a99e2a27e218b909f35b567137e7bfa67adf))
+
 ## [11.5.21](https://github.com/thenativeweb/roboter/compare/11.5.20...11.5.21) (2020-12-03)
 
 
