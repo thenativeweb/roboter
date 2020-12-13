@@ -1,3 +1,10 @@
+## [11.5.27](https://github.com/thenativeweb/roboter/compare/11.5.26...11.5.27) (2020-12-13)
+
+
+### Bug Fixes
+
+* bump typescript from 4.1.2 to 4.1.3 ([#472](https://github.com/thenativeweb/roboter/issues/472)) ([7c9d85a](https://github.com/thenativeweb/roboter/commit/7c9d85ad448bf15eb001dfdab892622fc8c22793))
+
 ## [11.5.26](https://github.com/thenativeweb/roboter/compare/11.5.25...11.5.26) (2020-12-08)
 
 
