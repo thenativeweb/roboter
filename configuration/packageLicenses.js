@@ -41,6 +41,12 @@ const packageLicenses = {
     '1.0.0': 'BSD-3-Clause'
   },
 
+  'fast-xml-parser': {
+    // https://github.com/NaturalIntelligence/fast-xml-parser/blob/8d5858b84ddc4122edaea207fb30ef2cead0584c/LICENSE
+    // Actually this is not MIT, but it comes close to it, so we handle it like this.
+    '3.17.6': 'MIT'
+  },
+
   fileset: {
     // https://github.com/mklabs/node-fileset/blob/v0.2.1/LICENSE-MIT
     '0.2.1': 'MIT'
