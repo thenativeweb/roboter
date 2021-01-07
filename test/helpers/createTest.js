@@ -30,7 +30,7 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
     throw new Error('Roboter package path is missing.');
   }
 
-  it(`${testCase.replace(/-/ug, ' ')}.`, async () => {
+  it(`${testCase.replaceAll('-', ' ')}.`, async () => {
     try {
       const testDirectory = await isolated();
       const gitDirectory = await isolated();
