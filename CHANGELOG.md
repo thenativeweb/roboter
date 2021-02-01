@@ -1,3 +1,10 @@
+## [11.6.8](https://github.com/thenativeweb/roboter/compare/11.6.7...11.6.8) (2021-02-01)
+
+
+### Bug Fixes
+
+* bump defekt from 6.0.1 to 6.0.2 ([#495](https://github.com/thenativeweb/roboter/issues/495)) ([f7a9b4e](https://github.com/thenativeweb/roboter/commit/f7a9b4e73caa6b96678ffaf944e9d097f81453ba))
+
 ## [11.6.7](https://github.com/thenativeweb/roboter/compare/11.6.6...11.6.7) (2021-02-01)
 
 
