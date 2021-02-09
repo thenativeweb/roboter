@@ -1,3 +1,10 @@
+## [11.6.11](https://github.com/thenativeweb/roboter/compare/11.6.10...11.6.11) (2021-02-09)
+
+
+### Bug Fixes
+
+* Update missing license compatibility. ([dfb0121](https://github.com/thenativeweb/roboter/commit/dfb0121ddd426e7c921eb7aa56d19221881a1a44))
+
 ## [11.6.10](https://github.com/thenativeweb/roboter/compare/11.6.9...11.6.10) (2021-02-09)
 
 
