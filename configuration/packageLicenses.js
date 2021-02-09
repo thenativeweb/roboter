@@ -44,7 +44,8 @@ const packageLicenses = {
   'fast-xml-parser': {
     // https://github.com/NaturalIntelligence/fast-xml-parser/blob/8d5858b84ddc4122edaea207fb30ef2cead0584c/LICENSE
     // Actually this is not MIT, but it comes close to it, so we handle it like this.
-    '3.17.6': 'MIT'
+    '3.17.6': 'MIT',
+    '3.18.0': 'MIT'
   },
 
   fileset: {
