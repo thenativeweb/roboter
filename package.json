@@ -41,7 +41,7 @@
     "command-line-usage": "6.1.1",
     "common-tags": "1.8.0",
     "defekt": "6.0.2",
-    "depcheck": "1.3.1",
+    "depcheck": "1.4.0",
     "dotenv": "8.2.0",
     "eslint": "7.20.0",
     "eslint-config-es": "3.28.8",
