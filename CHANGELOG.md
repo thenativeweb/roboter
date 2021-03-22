@@ -1,3 +1,10 @@
+## [11.6.27](https://github.com/thenativeweb/roboter/compare/11.6.26...11.6.27) (2021-03-22)
+
+
+### Bug Fixes
+
+* bump globby from 11.0.2 to 11.0.3 ([#539](https://github.com/thenativeweb/roboter/issues/539)) ([75c4a26](https://github.com/thenativeweb/roboter/commit/75c4a2639d8624b18a7f984137d2cd79ee318a19))
+
 ## [11.6.26](https://github.com/thenativeweb/roboter/compare/11.6.25...11.6.26) (2021-03-22)
 
 
