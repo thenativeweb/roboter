@@ -1,3 +1,10 @@
+## [11.6.28](https://github.com/thenativeweb/roboter/compare/11.6.27...11.6.28) (2021-03-23)
+
+
+### Bug Fixes
+
+* bump semver from 7.3.4 to 7.3.5 ([#541](https://github.com/thenativeweb/roboter/issues/541)) ([9670b36](https://github.com/thenativeweb/roboter/commit/9670b36cbe8ff9a8c0dbb6dffc043ae24594fa8a))
+
 ## [11.6.27](https://github.com/thenativeweb/roboter/compare/11.6.26...11.6.27) (2021-03-22)
 
 
