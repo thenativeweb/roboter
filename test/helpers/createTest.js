@@ -53,15 +53,15 @@ const createTest = function ({ task, testCase, directory, roboterPackagePath }) 
       await runCommand(`npm install --no-package-lock --silent --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
       await runCommand(`npm install ${roboterPackagePath} --no-package-lock --cache=${npmCacheDirectory}`, { cwd: testDirectory, silent: true });
 
-      await runCommand('git init', { cwd: testDirectory, silent: true });
+      await runCommand('git init --initial-branch main', { cwd: testDirectory, silent: true });
       await runCommand('git config user.name "Sophie van Sky"', { cwd: testDirectory, silent: true });
       await runCommand('git config user.email "hello@thenativeweb.io"', { cwd: testDirectory, silent: true });
       await runCommand('git add .', { cwd: testDirectory, silent: true });
       await runCommand('git commit -m "Initial commit."', { cwd: testDirectory, silent: true });
 
-      await runCommand('git init --bare', { cwd: gitDirectory, silent: true });
+      await runCommand('git init --bare --initial-branch main', { cwd: gitDirectory, silent: true });
       await runCommand(`git remote add origin ${gitDirectory}`, { cwd: testDirectory, silent: true });
-      await runCommand('git push origin master', { cwd: testDirectory, silent: true });
+      await runCommand('git push origin main', { cwd: testDirectory, silent: true });
 
       if (await hasPreHook({ directory: testDirectory })) {
         await runCommand('node pre.js', { cwd: testDirectory, silent: true });
