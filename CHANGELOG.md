@@ -1,3 +1,10 @@
+## [11.6.32](https://github.com/thenativeweb/roboter/compare/11.6.31...11.6.32) (2021-03-25)
+
+
+### Bug Fixes
+
+* update defekt ([#556](https://github.com/thenativeweb/roboter/issues/556)) ([2d3e80c](https://github.com/thenativeweb/roboter/commit/2d3e80c6c17da673eacd3ba17a90441d3627f024))
+
 ## [11.6.31](https://github.com/thenativeweb/roboter/compare/11.6.30...11.6.31) (2021-03-25)
 
 
