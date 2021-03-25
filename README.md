@@ -2,7 +2,7 @@
 
 roboter streamlines software development by automating tasks and enforcing conventions.
 
-![roboter](https://github.com/thenativeweb/roboter/raw/master/images/logo.jpg "roboter")
+![roboter](https://github.com/thenativeweb/roboter/raw/main/images/logo.jpg "roboter")
 
 ## Status
 
@@ -186,9 +186,9 @@ None
 
 ### Details
 
-roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/master/lib/steps/license/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
+roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/main/lib/steps/license/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
 
-If you encounter a license incompatibility, and think that it should be fixed, please submit a pull request for either the [compatibility chart](https://github.com/thenativeweb/roboter/edit/master/configuration/licenseCompatibility.js) or the [license list](https://github.com/thenativeweb/roboter/edit/master/configuration/packageLicenses.js).
+If you encounter a license incompatibility, and think that it should be fixed, please submit a pull request for either the [compatibility chart](https://github.com/thenativeweb/roboter/edit/main/configuration/licenseCompatibility.js) or the [license list](https://github.com/thenativeweb/roboter/edit/main/configuration/packageLicenses.js).
 
 *Please note: Consider the license compatibility check of roboter only to be a suggestion, not as legal advice you can rely on. If you want to be on the safe side, consult a lawyer. the native web does not provide any warranty of any kind.*
 
