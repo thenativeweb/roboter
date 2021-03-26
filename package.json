@@ -39,7 +39,7 @@
     "@types/mocha": "8.2.2",
     "async-af": "7.0.39",
     "axios": "0.21.1",
-    "buntstift": "4.0.21",
+    "buntstift": "4.0.22",
     "command-line-args": "5.1.1",
     "command-line-commands": "3.0.2",
     "command-line-usage": "6.1.1",
@@ -48,10 +48,10 @@
     "depcheck": "1.4.0",
     "dotenv": "8.2.0",
     "eslint": "7.22.0",
-    "eslint-config-es": "3.28.23",
+    "eslint-config-es": "3.28.24",
     "findsuggestions": "1.0.0",
     "globby": "11.0.3",
-    "is-typescript": "4.0.1",
+    "is-typescript": "4.0.2",
     "mocha": "8.2.1",
     "processenv": "3.0.4",
     "require-dir": "1.2.0",
@@ -63,7 +63,7 @@
     "typescript": "4.2.3"
   },
   "devDependencies": {
-    "assertthat": "5.2.6",
+    "assertthat": "5.2.8",
     "isolated": "3.0.15",
     "react": "17.0.2",
     "semantic-release-configuration": "2.0.0"
