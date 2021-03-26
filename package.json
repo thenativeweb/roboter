@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "assertthat": "5.2.6",
-    "isolated": "3.0.14",
+    "isolated": "3.0.15",
     "react": "17.0.2",
     "semantic-release-configuration": "2.0.0"
   },
