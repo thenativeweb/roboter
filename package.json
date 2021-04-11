@@ -47,7 +47,7 @@
     "defekt": "7.1.0",
     "depcheck": "1.4.0",
     "dotenv": "8.2.0",
-    "eslint": "7.23.0",
+    "eslint": "7.24.0",
     "eslint-config-es": "3.28.25",
     "findsuggestions": "1.0.0",
     "globby": "11.0.3",
