@@ -1,0 +1,61 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  assignees:
+  - goloroden
+  - yeldiRium
+  labels:
+  - Dependencies
+  versioning-strategy: increase
+  allow:
+  - dependency-type: direct
+  ignore:
+  - dependency-name: strip-ansi
+    versions:
+    - 7.0.0
+  - dependency-name: mocha
+    versions:
+    - 8.3.0
+    - 8.3.1
+    - 8.3.2
+  - dependency-name: typescript
+    versions:
+    - 4.2.4
+  - dependency-name: is-typescript
+    versions:
+    - 4.0.2
+  - dependency-name: buntstift
+    versions:
+    - 4.0.22
+  - dependency-name: assertthat
+    versions:
+    - 5.2.7
+  - dependency-name: eslint-config-es
+    versions:
+    - 3.28.11
+    - 3.28.12
+    - 3.28.17
+    - 3.28.22
+    - 3.28.24
+    - 3.28.6
+    - 3.28.7
+    - 3.28.9
+  - dependency-name: defekt
+    versions:
+    - 7.0.0
+    - 7.0.1
+    - 7.0.2
+    - 7.0.3
+    - 7.0.4
+  - dependency-name: semantic-release-configuration
+    versions:
+    - 1.0.32
+    - 2.0.0
+  commit-message:
+    prefix: fix
+    prefix-development: chore
