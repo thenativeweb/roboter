@@ -36,7 +36,7 @@ const validate = async function ({ directory }) {
     }
   }`;
 
-  assert.that(packageJson).is.atLeast(`${newPackageJson}\n`);
+  assert.that(packageJson).is.startingWith(`${newPackageJson}\n`);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
