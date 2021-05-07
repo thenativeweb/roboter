@@ -4,7 +4,6 @@ const fs = require('fs').promises,
       path = require('path');
 
 const { assert } = require('assertthat'),
-      { stripIndent } = require('common-tags'),
       semver = require('semver');
 
 const getLatestVersion = require('../../../../lib/steps/dependencies/getLatestNodeLtsVersion');
@@ -24,19 +23,23 @@ const validate = async function ({ directory }) {
   const constraint = `>=${latestVersion} <${semver.inc(latestVersion, 'major')}`;
 
   /* eslint-disable global-require */
-  const packageJson = await fs.readFile(path.join(directory, 'package.json'), { encoding: 'utf-8' });
+  const packageJson = JSON.parse(
+    await fs.readFile(
+      path.join(directory, 'package.json'),
+      { encoding: 'utf-8' }
+    )
+  );
   /* eslint-enable global-require */
 
-  const newPackageJson = stripIndent`
-  {
-    "name": "test-package",
-    "version": "0.0.1",
-    "engines": {
-      "node": "${constraint}"
+  const newPackageJson = {
+    name: 'test-package',
+    version: '0.0.1',
+    engines: {
+      node: constraint
     }
-  }`;
+  };
 
-  assert.that(packageJson).is.startingWith(`${newPackageJson}\n`);
+  assert.that(packageJson).is.atLest(newPackageJson);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
