@@ -39,7 +39,7 @@ const validate = async function ({ directory }) {
     }
   };
 
-  assert.that(packageJson).is.atLest(newPackageJson);
+  assert.that(packageJson).is.atLeast(newPackageJson);
 };
 
 module.exports = { exitCode, stdout, stderr, validate };
