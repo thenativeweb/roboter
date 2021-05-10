@@ -1,3 +1,10 @@
+## [11.6.41](https://github.com/thenativeweb/roboter/compare/11.6.40...11.6.41) (2021-05-10)
+
+
+### Bug Fixes
+
+* bump hosted-git-info from 2.8.8 to 2.8.9 ([#587](https://github.com/thenativeweb/roboter/issues/587)) ([11c0483](https://github.com/thenativeweb/roboter/commit/11c0483345db51faecf71523e5565614e59dc48e))
+
 ## [11.6.40](https://github.com/thenativeweb/roboter/compare/11.6.39...11.6.40) (2021-04-28)
 
 
