@@ -46,7 +46,7 @@
     "common-tags": "1.8.0",
     "defekt": "7.1.0",
     "depcheck": "1.4.0",
-    "dotenv": "9.0.0",
+    "dotenv": "9.0.1",
     "eslint": "7.25.0",
     "eslint-config-es": "3.28.28",
     "findsuggestions": "1.0.0",
