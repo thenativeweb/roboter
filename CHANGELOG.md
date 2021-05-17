@@ -1,3 +1,10 @@
+## [11.6.44](https://github.com/thenativeweb/roboter/compare/11.6.43...11.6.44) (2021-05-17)
+
+
+### Bug Fixes
+
+* bump depcheck from 1.4.0 to 1.4.1 ([#593](https://github.com/thenativeweb/roboter/issues/593)) ([83a2cba](https://github.com/thenativeweb/roboter/commit/83a2cbacf695e12af4f74c6f0567c0b535ded8e3))
+
 ## [11.6.43](https://github.com/thenativeweb/roboter/compare/11.6.42...11.6.43) (2021-05-17)
 
 
