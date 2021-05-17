@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "11.6.42",
+  "version": "11.6.44",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -39,13 +39,13 @@
     "@types/mocha": "8.2.2",
     "async-af": "7.0.39",
     "axios": "0.21.1",
-    "buntstift": "4.0.23",
+    "buntstift": "4.0.24",
     "command-line-args": "5.1.1",
     "command-line-commands": "3.0.2",
     "command-line-usage": "6.1.1",
     "common-tags": "1.8.0",
     "defekt": "7.1.0",
-    "depcheck": "1.4.0",
+    "depcheck": "1.4.1",
     "dotenv": "9.0.1",
     "eslint": "7.26.0",
     "eslint-config-es": "3.28.30",
@@ -53,7 +53,7 @@
     "globby": "11.0.3",
     "is-typescript": "4.0.2",
     "mocha": "8.2.1",
-    "processenv": "3.0.4",
+    "processenv": "3.0.5",
     "require-dir": "1.2.0",
     "semver": "7.3.5",
     "shelljs": "0.8.4",
