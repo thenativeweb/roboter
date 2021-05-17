@@ -44,14 +44,14 @@
     "command-line-commands": "3.0.2",
     "command-line-usage": "6.1.1",
     "common-tags": "1.8.0",
-    "defekt": "7.1.0",
+    "defekt": "7.1.1",
     "depcheck": "1.4.1",
-    "dotenv": "9.0.1",
+    "dotenv": "9.0.2",
     "eslint": "7.26.0",
-    "eslint-config-es": "3.28.30",
+    "eslint-config-es": "3.29.0",
     "findsuggestions": "1.0.0",
     "globby": "11.0.3",
-    "is-typescript": "4.0.2",
+    "is-typescript": "4.0.3",
     "mocha": "8.2.1",
     "processenv": "3.0.5",
     "require-dir": "1.2.0",
@@ -63,10 +63,10 @@
     "typescript": "4.2.4"
   },
   "devDependencies": {
-    "assertthat": "6.0.0",
-    "isolated": "3.0.17",
+    "assertthat": "6.1.1",
+    "isolated": "3.0.18",
     "react": "17.0.2",
-    "semantic-release-configuration": "2.0.0"
+    "semantic-release-configuration": "2.0.1"
   },
   "scripts": {
     "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
