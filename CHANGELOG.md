@@ -1,3 +1,10 @@
+## [11.6.47](https://github.com/thenativeweb/roboter/compare/11.6.46...11.6.47) (2021-05-17)
+
+
+### Bug Fixes
+
+* bump dotenv from 9.0.1 to 9.0.2 ([#597](https://github.com/thenativeweb/roboter/issues/597)) ([6af45e9](https://github.com/thenativeweb/roboter/commit/6af45e92983e6580d7558b33dc0ef6940041715d))
+
 ## [11.6.46](https://github.com/thenativeweb/roboter/compare/11.6.45...11.6.46) (2021-05-17)
 
 
