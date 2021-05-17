@@ -52,7 +52,7 @@
     "findsuggestions": "1.0.0",
     "globby": "11.0.3",
     "is-typescript": "4.0.2",
-    "mocha": "8.2.1",
+    "mocha": "8.4.0",
     "processenv": "3.0.5",
     "require-dir": "1.2.0",
     "semver": "7.3.5",
