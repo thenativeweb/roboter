@@ -2,4 +2,4 @@
 
 /* eslint-disable unicorn/no-process-exit */
 process.exit(1);
-/* eslint-disable unicorn/no-process-exit */
+/* eslint-enable unicorn/no-process-exit */

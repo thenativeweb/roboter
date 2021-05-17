@@ -22,14 +22,12 @@ const validate = async function ({ directory }) {
   const latestVersion = await getLatestVersion();
   const constraint = `>=${latestVersion} <${semver.inc(latestVersion, 'major')}`;
 
-  /* eslint-disable global-require */
   const packageJson = JSON.parse(
     await fs.readFile(
       path.join(directory, 'package.json'),
       { encoding: 'utf-8' }
     )
   );
-  /* eslint-enable global-require */
 
   const newPackageJson = {
     name: 'test-package',

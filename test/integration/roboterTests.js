@@ -55,5 +55,5 @@ describe('roboter', function () {
       });
     });
   });
-  /* eslint-enalbe no-sync */
+  /* eslint-enable no-sync */
 });
