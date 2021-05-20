@@ -1,3 +1,10 @@
+## [11.6.48](https://github.com/thenativeweb/roboter/compare/11.6.47...11.6.48) (2021-05-20)
+
+
+### Bug Fixes
+
+* use packaged typescript ([#602](https://github.com/thenativeweb/roboter/issues/602)) ([371dd31](https://github.com/thenativeweb/roboter/commit/371dd31b642f01feb4689b633113a971c7cd5497))
+
 ## [11.6.47](https://github.com/thenativeweb/roboter/compare/11.6.46...11.6.47) (2021-05-17)
 
 
