@@ -1,3 +1,10 @@
+# [11.7.0](https://github.com/thenativeweb/roboter/compare/11.6.50...11.7.0) (2021-05-25)
+
+
+### Features
+
+* Support mocharc.js to configure test types. ([#611](https://github.com/thenativeweb/roboter/issues/611)) ([f7f367b](https://github.com/thenativeweb/roboter/commit/f7f367bf8965e5080d015373eaee063cf129fa37))
+
 ## [11.6.50](https://github.com/thenativeweb/roboter/compare/11.6.49...11.6.50) (2021-05-24)
 
 
