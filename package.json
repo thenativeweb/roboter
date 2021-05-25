@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "11.6.49",
+  "version": "11.7.0",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -58,7 +58,7 @@
     "semver": "7.3.5",
     "shelljs": "0.8.4",
     "strip-ansi": "6.0.0",
-    "ts-node": "9.1.1",
+    "ts-node": "10.0.0",
     "tsconfig-paths": "3.9.0",
     "typescript": "4.2.4"
   },
