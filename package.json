@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "11.6.48",
+  "version": "11.6.50",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -47,7 +47,7 @@
     "defekt": "7.1.2",
     "depcheck": "1.4.1",
     "dotenv": "9.0.2",
-    "eslint": "7.26.0",
+    "eslint": "7.27.0",
     "eslint-config-es": "3.28.30",
     "findsuggestions": "1.0.0",
     "globby": "11.0.3",
