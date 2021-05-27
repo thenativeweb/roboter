@@ -27,8 +27,10 @@ describe('roboter', function () {
     shell.rm('-rf', roboterPackageDirectory);
   });
 
+  const absoluteProjectsDirectory = path.join(__dirname, '..', 'shared', 'projects');
+
   /* eslint-disable no-sync */
-  fs.readdirSync(__dirname).forEach(task => {
+  fs.readdirSync(absoluteProjectsDirectory).forEach(task => {
     const taskDirectory = path.join(__dirname, task);
 
     if (!fs.statSync(taskDirectory).isDirectory()) {

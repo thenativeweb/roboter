@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
+    "jsx": "react",
     "lib": [ "esnext" ],
     "module": "commonjs",
     "outDir": "build",
@@ -11,9 +12,7 @@
     "target": "es2019"
   },
   "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./test/shared/projects/**/*.ts"
+    "./**/*.ts",
+    "test/unit/unitTests.tsx"
   ]
 }

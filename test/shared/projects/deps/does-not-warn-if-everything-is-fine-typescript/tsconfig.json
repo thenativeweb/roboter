@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
     "lib": [ "esnext" ],
@@ -9,11 +9,5 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "es2019"
-  },
-  "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./test/shared/projects/**/*.ts"
-  ]
+  }
 }

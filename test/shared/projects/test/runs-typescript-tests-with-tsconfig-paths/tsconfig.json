@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
     "lib": [ "esnext" ],
@@ -8,12 +8,13 @@
     "outDir": "build",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2019",
+    "paths": {
+      "@blub": ["./blub"]
+    }
   },
   "include": [
-    "./**/*.ts"
-  ],
-  "exclude": [
-    "./test/shared/projects/**/*.ts"
+    "./**/*.ts",
+    "./blub"
   ]
 }

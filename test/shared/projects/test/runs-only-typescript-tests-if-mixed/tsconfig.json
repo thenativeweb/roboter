@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
     "lib": [ "esnext" ],
@@ -12,8 +12,5 @@
   },
   "include": [
     "./**/*.ts"
-  ],
-  "exclude": [
-    "./test/shared/projects/**/*.ts"
   ]
 }
