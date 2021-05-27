@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ '14.x' ]
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
 
     steps:
     - uses: actions/checkout@v1
@@ -21,9 +21,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-    - name: Run code analysis
+    - name: Run roboter
       run: |
-        npm run analyse
-    - name: Run tests
-      run: |
-        npm run test
+        npm run roboter

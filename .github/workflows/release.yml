@@ -19,12 +19,12 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-    - name: Run code analysis
+    - name: Run roboter
       run: |
-        npm run analyse
-    - name: Run tests
+        npm run roboter
+    - name: Compile TypeScript
       run: |
-        npm run test
+        npm run roboter -- build
     - name: Release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN_ADMIN }}

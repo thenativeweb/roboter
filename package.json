@@ -69,9 +69,7 @@
     "semantic-release-configuration": "2.0.0"
   },
   "scripts": {
-    "analyse": "eslint \"**/*.js\" --config node_modules/eslint-config-es/node.js --ignore-path .eslintignore",
-    "deps": "node lib/bin/roboter.js deps",
-    "test": "mocha --async-only --bail --recursive --reporter spec --ui bdd test/integration/roboterTests.js"
+    "roboter": "node build/lib/bin/roboter.js"
   },
   "repository": {
     "type": "git",
