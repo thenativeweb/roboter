@@ -1,3 +1,11 @@
+## [11.7.2](https://github.com/thenativeweb/roboter/compare/11.7.1...11.7.2) (2021-05-31)
+
+
+### Bug Fixes
+
+* bump defekt from 7.1.2 to 7.2.0 ([#613](https://github.com/thenativeweb/roboter/issues/613)) ([9717655](https://github.com/thenativeweb/roboter/commit/97176550d5f57994af42e21b18e45b51d262ef80))
+* bump dotenv from 9.0.2 to 10.0.0 ([#603](https://github.com/thenativeweb/roboter/issues/603)) ([f0e34db](https://github.com/thenativeweb/roboter/commit/f0e34db9ab2d1b6d10ee48b8252744ac1664b938))
+
 ## [11.7.1](https://github.com/thenativeweb/roboter/compare/11.7.0...11.7.1) (2021-05-25)
 
 
