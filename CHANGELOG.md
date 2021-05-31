@@ -1,3 +1,11 @@
+## [11.7.3](https://github.com/thenativeweb/roboter/compare/11.7.2...11.7.3) (2021-05-31)
+
+
+### Bug Fixes
+
+* bump buntstift from 4.0.24 to 4.0.25 ([#616](https://github.com/thenativeweb/roboter/issues/616)) ([6fd5291](https://github.com/thenativeweb/roboter/commit/6fd5291885bd737b3cd07541e3e56d767a498485))
+* bump typescript from 4.2.4 to 4.3.2 ([#614](https://github.com/thenativeweb/roboter/issues/614)) ([a3c96ee](https://github.com/thenativeweb/roboter/commit/a3c96ee77b43bbb16a6a4520152b761917414eb0))
+
 ## [11.7.2](https://github.com/thenativeweb/roboter/compare/11.7.1...11.7.2) (2021-05-31)
 
 
