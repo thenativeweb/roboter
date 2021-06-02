@@ -1,0 +1,179 @@
+import { assert } from 'assertthat';
+import fs from 'fs';
+import { getArgsList } from './getArgsList.js';
+import { getEnv } from './getEnv.js';
+import globby from 'globby';
+import { hasPreHook } from './hasPreHook.js';
+import { isolated } from 'isolated';
+import path from 'path';
+import { processenv } from 'processenv';
+import { runCommand } from '../../lib/utils/runCommand.js';
+import shell from 'shelljs';
+import stripAnsi from 'strip-ansi';
+import { stripIndent } from 'common-tags';
+
+const timer = {
+  startTime: 0,
+  lastTime: 0,
+  start (): void {
+    this.startTime = Date.now();
+    this.lastTime = this.startTime;
+  },
+  lap (message: string): void {
+    const newTime = Date.now();
+    console.log(message, { elapsedSinceLast: newTime - this.lastTime, elapsedSinceStart: newTime - this.startTime });
+    this.lastTime = newTime;
+  }
+};
+
+const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absoluteRoboterPackageFile }: {
+  task: string;
+  testCase: string;
+  absoluteTestCaseDirectory: string;
+  absoluteRoboterPackageFile: string;
+}): void {
+  it(`${testCase.replace(/-/ug, ' ')}.`, async (): Promise<void> => {
+    try {
+      timer.start();
+      const absoluteTestDirectory = await isolated();
+      const absoluteGitDirectory = await isolated();
+      const absoluteNpmCacheDirectory = await isolated();
+
+      shell.cp('-r', `${absoluteTestCaseDirectory}/*`, absoluteTestDirectory);
+      if ((await globby([ `${absoluteTestCaseDirectory}/.*` ])).length > 0) {
+        shell.cp('-r', `${absoluteTestCaseDirectory}/.*`, absoluteTestDirectory);
+      }
+
+      shell.rm('-rf', path.join(absoluteTestDirectory, 'expected.js'));
+
+      const gitignoreName = path.join(absoluteTestDirectory, '.gitignore');
+      const gitignore = stripIndent`
+          node_modules
+        `;
+
+      await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
+
+      await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+      timer.lap('npm install');
+      await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+      timer.lap('npm install roboter package');
+
+      await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
+      await runCommand('git config user.name "Sophie van Sky"', { cwd: absoluteTestDirectory, silent: true });
+      await runCommand('git config user.email "hello@thenativeweb.io"', { cwd: absoluteTestDirectory, silent: true });
+      await runCommand('git add .', { cwd: absoluteTestDirectory, silent: true });
+      await runCommand('git commit -m "Initial commit."', { cwd: absoluteTestDirectory, silent: true });
+      timer.lap('git main repo');
+
+      await runCommand('git init --bare --initial-branch main', { cwd: absoluteGitDirectory, silent: true });
+      await runCommand(`git remote add origin ${absoluteGitDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+      await runCommand('git push origin main', { cwd: absoluteTestDirectory, silent: true });
+      timer.lap('git remote');
+
+      if (await hasPreHook({ absoluteTestDirectory })) {
+        await runCommand('node pre.js', { cwd: absoluteTestDirectory, silent: true });
+        timer.lap('pre hook');
+      }
+
+      const roboterCmd = [
+        'npx',
+        'roboter',
+        task === 'default' ? [] : [ task ],
+        await getArgsList({ absoluteTestDirectory })
+      ].flat();
+      const env: NodeJS.ProcessEnv = {
+        ...processenv(),
+        ...await getEnv({ absoluteTestDirectory }),
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NODE_OPTIONS: '--experimental-specifier-resolution=node'
+      } as NodeJS.ProcessEnv;
+      const roboter = await new Promise<{
+        code: number;
+        stdout: string;
+        stderr: string;
+      }>((resolve): void => {
+        shell.exec(
+          roboterCmd.join(' '),
+          {
+            cwd: absoluteTestDirectory,
+            env,
+            silent: true
+          },
+          (code, stdout, stderr): void => {
+            resolve({ code, stdout, stderr });
+          }
+        );
+      });
+      timer.lap('roboter');
+
+      const stderr = stripAnsi(roboter.stderr),
+            stdout = stripAnsi(roboter.stdout);
+
+      const expected = await import(path.join(absoluteTestCaseDirectory, 'expected.js'));
+
+      if (roboter.code !== expected.exitCode) {
+        /* eslint-disable no-console */
+        console.log({
+          stdout,
+          stderr,
+          exitCode: { actual: roboter.code, expected: expected.exitCode }
+        });
+        /* eslint-enable no-console */
+      }
+
+      const expectedStderrs = [ expected.stderr ].flat();
+
+      let previousIndex = -1;
+
+      for (const expectedStderr of expectedStderrs) {
+        assert.that(stderr).is.containing(expectedStderr);
+
+        const currentIndex = stderr.indexOf(expectedStderr);
+
+        assert.that(currentIndex).is.greaterThan(previousIndex);
+
+        previousIndex = currentIndex;
+      }
+
+      assert.that(roboter.code).is.equalTo(expected.exitCode);
+
+      const expectedStdouts = [ expected.stdout ].flat();
+
+      previousIndex = -1;
+
+      for (const expectedStdout of expectedStdouts) {
+        assert.that(stdout).is.containing(expectedStdout);
+
+        const currentIndex = stdout.indexOf(expectedStdout);
+
+        assert.that(currentIndex).is.greaterThan(previousIndex);
+
+        previousIndex = currentIndex;
+      }
+
+      if (typeof expected.validate === 'function') {
+        await expected.validate({
+          directory: absoluteTestDirectory,
+          repository: absoluteGitDirectory,
+          exitCode: roboter.code,
+          stdout,
+          stderr
+        });
+      }
+
+      shell.rm('-rf', absoluteTestDirectory);
+      shell.rm('-rf', absoluteGitDirectory);
+      shell.rm('-rf', absoluteNpmCacheDirectory);
+    } catch (ex: unknown) {
+      /* eslint-disable no-console */
+      console.log({ ex });
+      /* eslint-enable no-console */
+      throw ex;
+    }
+  });
+};
+
+// eslint-disable-next-line mocha/no-exports
+export {
+  createTest
+};

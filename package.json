@@ -33,10 +33,13 @@
     }
   ],
   "bin": {
-    "roboter": "lib/bin/roboter.js"
+    "roboter": "build/lib/bin/roboter.js"
   },
   "dependencies": {
+    "@types/common-tags": "1.8.0",
+    "@types/eslint": "7.2.12",
     "@types/mocha": "8.2.2",
+    "@types/shelljs": "0.8.8",
     "async-af": "7.0.39",
     "axios": "0.21.1",
     "buntstift": "4.0.25",
@@ -47,10 +50,13 @@
     "dotenv": "10.0.0",
     "eslint": "7.27.0",
     "eslint-config-es": "3.29.2",
+    "esm": "3.2.25",
+    "findsuggestions": "1.0.0",
     "globby": "11.0.3",
     "is-typescript": "4.0.3",
     "mocha": "8.4.0",
     "processenv": "3.0.5",
+    "require-dir": "1.2.0",
     "semver": "7.3.5",
     "shelljs": "0.8.4",
     "strip-ansi": "7.0.0",
@@ -65,7 +71,8 @@
     "semantic-release-configuration": "2.0.1"
   },
   "scripts": {
-    "roboter": "ts-node lib/bin/roboter.js"
+    "roboter": "ts-node lib/bin/roboter.js",
+    "test": "mocha --async-only --bail --recursive --reporter spec --ui bdd test/integration/roboterTests.ts"
   },
   "repository": {
     "type": "git",
@@ -74,5 +81,6 @@
   "keywords": [
     "build"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }

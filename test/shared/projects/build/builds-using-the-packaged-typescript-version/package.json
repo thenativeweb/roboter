@@ -1,0 +1,10 @@
+{
+  "name": "test-package",
+  "version": "1.33.7",
+  "dependencies": {
+    "typescript": "3.9.9"
+  },
+  "devDependencies": {
+    "roboter": "11.6.47"
+  }
+}
