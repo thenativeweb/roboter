@@ -21,15 +21,17 @@ const timer = {
   },
   lap (message: string): void {
     const newTime = Date.now();
+
     console.log(message, { elapsedSinceLast: newTime - this.lastTime, elapsedSinceStart: newTime - this.startTime });
     this.lastTime = newTime;
   }
 };
 
-const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absoluteRoboterPackageFile }: {
+const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absoluteNpmCacheDirectory, absoluteRoboterPackageFile }: {
   task: string;
   testCase: string;
   absoluteTestCaseDirectory: string;
+  absoluteNpmCacheDirectory: string;
   absoluteRoboterPackageFile: string;
 }): void {
   it(`${testCase.replace(/-/ug, ' ')}.`, async (): Promise<void> => {
@@ -37,7 +39,6 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
       timer.start();
       const absoluteTestDirectory = await isolated();
       const absoluteGitDirectory = await isolated();
-      const absoluteNpmCacheDirectory = await isolated();
 
       shell.cp('-r', `${absoluteTestCaseDirectory}/*`, absoluteTestDirectory);
       if ((await globby([ `${absoluteTestCaseDirectory}/.*` ])).length > 0) {
@@ -53,10 +54,19 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
 
       await fs.promises.writeFile(gitignoreName, gitignore, { encoding: 'utf8' });
 
-      await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+      const absolutePackageJsonFile = path.join(absoluteTestDirectory, 'package.json');
+      const packageJson = JSON.parse(await fs.promises.readFile(absolutePackageJsonFile, 'utf-8'));
+
+      packageJson.dependencies = {
+        ...packageJson.dependencies ?? {},
+        roboter: absoluteRoboterPackageFile
+      };
+      await fs.promises.writeFile(absolutePackageJsonFile, JSON.stringify(packageJson, null, 2), 'utf-8');
+
+      await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
       timer.lap('npm install');
-      await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
-      timer.lap('npm install roboter package');
+      // await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+      // timer.lap('npm install roboter package');
 
       await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
       await runCommand('git config user.name "Sophie van Sky"', { cwd: absoluteTestDirectory, silent: true });
@@ -104,6 +114,7 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
           }
         );
       });
+
       timer.lap('roboter');
 
       const stderr = stripAnsi(roboter.stderr),
@@ -163,7 +174,6 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
 
       shell.rm('-rf', absoluteTestDirectory);
       shell.rm('-rf', absoluteGitDirectory);
-      shell.rm('-rf', absoluteNpmCacheDirectory);
     } catch (ex: unknown) {
       /* eslint-disable no-console */
       console.log({ ex });

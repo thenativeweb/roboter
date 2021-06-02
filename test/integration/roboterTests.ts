@@ -26,6 +26,8 @@ describe('roboter', function (): void {
 
   // eslint-disable-next-line no-sync
   const absoluteRoboterPackageDestinationDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'roboter-'));
+  // eslint-disable-next-line no-sync
+  const absoluteNpmCacheDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'npm-cache-'));
 
   shelljs.mkdir(absoluteRoboterPackageDestinationDirectory);
   const { code: packCode, stderr: packStderr } = shelljs.exec(`npm pack ${absoluteRoboterProjectDirectory}`, { cwd: absoluteRoboterPackageDestinationDirectory });
@@ -38,7 +40,12 @@ describe('roboter', function (): void {
   }
 
   const absoluteRoboterPackageFile = globby.sync([ path.join(absoluteRoboterPackageDestinationDirectory, 'roboter*') ])[0];
+
   const absoluteProjectsDirectory = path.join(dirname, '..', 'shared', 'projects');
+
+  after(async (): Promise<void> => {
+    await fs.promises.rmdir(absoluteNpmCacheDirectory, { recursive: true });
+  });
 
   // eslint-disable-next-line no-sync
   fs.readdirSync(absoluteProjectsDirectory).forEach((task): void => {
@@ -70,6 +77,7 @@ describe('roboter', function (): void {
           task,
           testCase,
           absoluteTestCaseDirectory,
+          absoluteNpmCacheDirectory,
           absoluteRoboterPackageFile
         });
       });

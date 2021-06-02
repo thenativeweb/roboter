@@ -1,10 +1,10 @@
 import { buntstift } from 'buntstift';
+import fs from 'fs';
 import globby from 'globby';
 import path from 'path';
 import ts from 'typescript';
 import { error, Result, value } from 'defekt';
 import * as errors from '../../errors';
-import * as fs from "fs";
 
 const compileTypeScript = async function ({ applicationRoot }: {
   applicationRoot: string;
