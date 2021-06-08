@@ -3,18 +3,15 @@
     "baseUrl": "./",
     "declaration": true,
     "esModuleInterop": true,
-    "lib": [ "esnext" ],
+    "incremental": true,
+    "lib": [ "dom", "esnext" ],
     "module": "commonjs",
     "outDir": "build",
     "resolveJsonModule": true,
     "strict": true,
-    "target": "es2019",
-    "paths": {
-      "@blub": ["./blub"]
-    }
+    "target": "es2019"
   },
   "include": [
-    "./**/*.ts",
-    "./blub"
+    "./**/*.ts"
   ]
 }

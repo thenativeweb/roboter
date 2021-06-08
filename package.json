@@ -55,13 +55,13 @@
     "globby": "11.0.3",
     "is-typescript": "4.0.3",
     "mocha": "8.4.0",
+    "nodeenv": "3.0.61",
     "processenv": "3.0.5",
     "require-dir": "1.2.0",
     "semver": "7.3.5",
     "shelljs": "0.8.4",
     "strip-ansi": "7.0.0",
     "ts-node": "10.0.0",
-    "tsconfig-paths": "3.9.0",
     "typescript": "4.3.2"
   },
   "devDependencies": {
@@ -71,7 +71,7 @@
     "semantic-release-configuration": "2.0.1"
   },
   "scripts": {
-    "roboter": "ts-node lib/bin/roboter.js",
+    "roboter": "node --loader=ts-node/esm --experimental-specifier-resolution=node lib/bin/roboter.ts",
     "test": "mocha --async-only --bail --recursive --reporter spec --ui bdd test/integration/roboterTests.ts"
   },
   "repository": {

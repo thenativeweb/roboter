@@ -65,7 +65,8 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
 
       await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
       timer.lap('npm install');
-      // await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
+
+      // Await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
       // timer.lap('npm install roboter package');
 
       await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
@@ -85,10 +86,21 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         timer.lap('pre hook');
       }
 
+      const expectations = await import(path.join(absoluteTestCaseDirectory, 'expected.js'));
+
+      let subCommand: string[] = [];
+
+      if (task !== 'default') {
+        subCommand = [ task ];
+      }
+      if (expectations.subCommand) {
+        subCommand = [ expectations.subCommand ];
+      }
+
       const roboterCmd = [
         'npx',
         'roboter',
-        task === 'default' ? [] : [ task ],
+        subCommand,
         await getArgsList({ absoluteTestDirectory })
       ].flat();
       const env: NodeJS.ProcessEnv = {
@@ -120,19 +132,17 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
       const stderr = stripAnsi(roboter.stderr),
             stdout = stripAnsi(roboter.stdout);
 
-      const expected = await import(path.join(absoluteTestCaseDirectory, 'expected.js'));
-
-      if (roboter.code !== expected.exitCode) {
+      if (roboter.code !== expectations.exitCode) {
         /* eslint-disable no-console */
         console.log({
           stdout,
           stderr,
-          exitCode: { actual: roboter.code, expected: expected.exitCode }
+          exitCode: { actual: roboter.code, expected: expectations.exitCode }
         });
         /* eslint-enable no-console */
       }
 
-      const expectedStderrs = [ expected.stderr ].flat();
+      const expectedStderrs = [ expectations.stderr ].flat();
 
       let previousIndex = -1;
 
@@ -146,9 +156,9 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         previousIndex = currentIndex;
       }
 
-      assert.that(roboter.code).is.equalTo(expected.exitCode);
+      assert.that(roboter.code).is.equalTo(expectations.exitCode);
 
-      const expectedStdouts = [ expected.stdout ].flat();
+      const expectedStdouts = [ expectations.stdout ].flat();
 
       previousIndex = -1;
 
@@ -162,8 +172,8 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         previousIndex = currentIndex;
       }
 
-      if (typeof expected.validate === 'function') {
-        await expected.validate({
+      if (typeof expectations.validate === 'function') {
+        await expectations.validate({
           directory: absoluteTestDirectory,
           repository: absoluteGitDirectory,
           exitCode: roboter.code,

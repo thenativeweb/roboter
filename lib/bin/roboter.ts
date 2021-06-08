@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --loader ts-node/esm --experimental-specifier-resolution=node
 
 import { buntstift } from 'buntstift';
 import { getHandlers } from '../cli/getHandlers';

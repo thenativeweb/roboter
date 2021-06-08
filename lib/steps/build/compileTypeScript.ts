@@ -32,7 +32,8 @@ const compileTypeScript = async function ({ applicationRoot }: {
   );
   const compilerOptions = ts.convertCompilerOptionsFromJson(
     tsconfig.compilerOptions,
-    applicationRoot
+    applicationRoot,
+    tsconfigPath
   ).options;
 
   const program = ts.createProgram({

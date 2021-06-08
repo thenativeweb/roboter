@@ -1,15 +1,15 @@
-import { AnalyseOptions } from './AnalyseOptions';
-import { buildTask } from '../../tasks/buildTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
 import { getApplicationRoot } from '../../utils/getApplicationRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
+import { TestOptions } from './TestOptions';
+import { testTask } from '../../tasks/testTask';
 
-const buildCommand = function (): Command<AnalyseOptions> {
+const testCommand = function (): Command<TestOptions> {
   return {
-    name: 'build',
-    description: 'Compiles TypeScript',
+    name: 'test',
+    description: 'Runs tests',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -32,15 +32,15 @@ const buildCommand = function (): Command<AnalyseOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'build',
+        task: 'test',
         phase: 'pre'
       });
 
-      (await buildTask({ applicationRoot })).unwrapOrThrow();
+      (await testTask({ applicationRoot })).unwrapOrThrow();
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'build',
+        task: 'test',
         phase: 'post'
       });
     }
@@ -48,5 +48,5 @@ const buildCommand = function (): Command<AnalyseOptions> {
 };
 
 export {
-  buildCommand
+  testCommand
 };
