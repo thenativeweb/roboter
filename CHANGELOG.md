@@ -1,3 +1,10 @@
+## [11.7.4](https://github.com/thenativeweb/roboter/compare/11.7.3...11.7.4) (2021-06-08)
+
+
+### Bug Fixes
+
+* bump trim-newlines from 3.0.0 to 3.0.1 ([#620](https://github.com/thenativeweb/roboter/issues/620)) ([09688b4](https://github.com/thenativeweb/roboter/commit/09688b49832775b55f16c9f5fa3de53aeb2920d1))
+
 ## [11.7.3](https://github.com/thenativeweb/roboter/compare/11.7.2...11.7.3) (2021-05-31)
 
 
