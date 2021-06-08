@@ -1,3 +1,10 @@
+## [11.7.5](https://github.com/thenativeweb/roboter/compare/11.7.4...11.7.5) (2021-06-08)
+
+
+### Bug Fixes
+
+* bump glob-parent from 5.1.1 to 5.1.2 ([#621](https://github.com/thenativeweb/roboter/issues/621)) ([ae4cc78](https://github.com/thenativeweb/roboter/commit/ae4cc78134cd5c95956b88c1823200f9d53ed066))
+
 ## [11.7.4](https://github.com/thenativeweb/roboter/compare/11.7.3...11.7.4) (2021-06-08)
 
 
