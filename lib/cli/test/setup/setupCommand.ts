@@ -1,17 +1,15 @@
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
-import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
-import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
-import { setupCommand } from './setup/setupCommand';
-import { teardownCommand } from './teardown/teardownCommand';
-import { TestOptions } from './TestOptions';
-import { testTask } from '../../tasks/testTask';
+import { exit } from '../../../utils/exit';
+import { getApplicationRoot } from '../../../utils/getApplicationRoot';
+import { runPreOrPostScript } from '../../../tasks/runPreOrPostScript';
+import { SetupOptions } from './SetupOptions';
+import { testSetupTask } from '../../../tasks/testSetupTask';
 
-const testCommand = function (): Command<TestOptions> {
+const setupCommand = function (): Command<SetupOptions> {
   return {
-    name: 'test',
-    description: 'Runs tests',
+    name: 'setup',
+    description: 'Runs the test setup, if one is configured',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -34,25 +32,21 @@ const testCommand = function (): Command<TestOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'test',
+        task: 'test-setup',
         phase: 'pre'
       });
 
-      (await testTask({ applicationRoot })).unwrapOrThrow();
+      (await testSetupTask({ applicationRoot })).unwrapOrThrow();
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'test',
+        task: 'test-setup',
         phase: 'post'
       });
-    },
-    subcommands: {
-      setup: setupCommand(),
-      teardown: teardownCommand()
     }
   };
 };
 
 export {
-  testCommand
+  setupCommand
 };

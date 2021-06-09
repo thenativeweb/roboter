@@ -48,6 +48,7 @@ class PackageJsonMissing extends defekt({ code: 'PackageJsonMissing' }) {}
 class PackageNotFound extends defekt({ code: 'PackageNotFound' }) {}
 class PendingChanges extends defekt({ code: 'PendingChanges' }) {}
 class StepExecutionFailed extends defekt({ code: 'StepExecutionFailed' }) {}
+class TestSetupFailed extends defekt({ code: 'TestSetupFailed' }) {}
 class TestsFailed extends defekt({ code: 'TestsFailed' }) {}
 class TypeScriptCompilationFailed extends defekt({ code: 'TypeScriptCompilationFailed' }) {}
 class TypeScriptOutputConfigurationMissing extends defekt({ code: 'TypeScriptOutputConfigurationMissing' }) {}
@@ -80,6 +81,7 @@ export {
   PackageNotFound,
   PendingChanges,
   StepExecutionFailed,
+  TestSetupFailed,
   TestsFailed,
   TypeScriptCompilationFailed,
   TypeScriptOutputConfigurationMissing,

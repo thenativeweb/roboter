@@ -1,17 +1,15 @@
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
-import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
-import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
-import { setupCommand } from './setup/setupCommand';
-import { teardownCommand } from './teardown/teardownCommand';
-import { TestOptions } from './TestOptions';
-import { testTask } from '../../tasks/testTask';
+import { exit } from '../../../utils/exit';
+import { getApplicationRoot } from '../../../utils/getApplicationRoot';
+import { runPreOrPostScript } from '../../../tasks/runPreOrPostScript';
+import { TeardownOptions } from './TeardownOptions';
+import { testTeardownTask } from '../../../tasks/testTeardownTask';
 
-const testCommand = function (): Command<TestOptions> {
+const teardownCommand = function (): Command<TeardownOptions> {
   return {
-    name: 'test',
-    description: 'Runs tests',
+    name: 'teardown',
+    description: 'Runs the test teardown, if one is configured',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -34,25 +32,21 @@ const testCommand = function (): Command<TestOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'test',
+        task: 'test-teardown',
         phase: 'pre'
       });
 
-      (await testTask({ applicationRoot })).unwrapOrThrow();
+      (await testTeardownTask({ applicationRoot })).unwrapOrThrow();
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'test',
+        task: 'test-teardown',
         phase: 'post'
       });
-    },
-    subcommands: {
-      setup: setupCommand(),
-      teardown: teardownCommand()
     }
   };
 };
 
 export {
-  testCommand
+  teardownCommand
 };

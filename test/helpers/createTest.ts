@@ -38,6 +38,7 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
     try {
       timer.start();
       const absoluteTestDirectory = await isolated();
+      console.log({ absoluteTestDirectory });
       const absoluteGitDirectory = await isolated();
 
       shell.cp('-r', `${absoluteTestCaseDirectory}/*`, absoluteTestDirectory);

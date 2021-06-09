@@ -65,9 +65,7 @@ const testTask = async function ({ applicationRoot, type }: {
       }
     );
 
-    console.log({ absoluteTestFiles });
-
-    const environmentVariablesForTest = await loadEnvironmentVariables({
+   const environmentVariablesForTest = await loadEnvironmentVariables({
       directory: absoluteTestTypeDirectory
     });
 
