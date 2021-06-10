@@ -1,3 +1,10 @@
+## [11.7.6](https://github.com/thenativeweb/roboter/compare/11.7.5...11.7.6) (2021-06-10)
+
+
+### Bug Fixes
+
+* bump normalize-url from 5.3.0 to 5.3.1 ([#622](https://github.com/thenativeweb/roboter/issues/622)) ([3119456](https://github.com/thenativeweb/roboter/commit/31194563e50798a4505f0b41196a6b61147c7403))
+
 ## [11.7.5](https://github.com/thenativeweb/roboter/compare/11.7.4...11.7.5) (2021-06-08)
 
 
