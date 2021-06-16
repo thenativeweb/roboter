@@ -1,6 +1,8 @@
 import { RootOptions } from '../RootOptions';
 
-type TestOptions = RootOptions;
+interface TestOptions extends RootOptions {
+  watch: boolean;
+}
 
 export type {
   TestOptions

@@ -1,17 +1,16 @@
 import { buntstift } from 'buntstift';
+import chokidar from 'chokidar';
 import { fileExists } from '../utils/fileExists';
-import { findMochaConfigurationfile } from '../steps/test/findMochaConfigurationFile';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
-import globby from 'globby';
-import { loadEnvironmentVariables } from '../steps/test/loadEnvironmentVariables';
 import path from 'path';
-import { testCode } from '../steps/test/testCode';
+import { TestRunner } from '../runner/TestRunner';
 import { Result, value } from 'defekt';
 import * as errors from '../errors';
 
-const testTask = async function ({ applicationRoot, type }: {
+const testTask = async function ({ applicationRoot, type, watch }: {
   applicationRoot: string;
   type?: string;
+  watch: boolean;
 }): Promise<Result<undefined, errors.TestsFailed>> {
   buntstift.line();
   buntstift.info(`Running tests...`, { prefix: '▸' });
@@ -43,54 +42,53 @@ const testTask = async function ({ applicationRoot, type }: {
     }
   });
 
-  for (const currentType of types) {
-    buntstift.line();
-    buntstift.info(`Running ${currentType} tests...`);
+  const testRunner = new TestRunner({
+    applicationRoot,
+    types,
+    bail: true
+  });
 
-    const absoluteTestTypeDirectory = path.join(
-      applicationRoot, 'test', currentType
-    );
+  if (!watch) {
+    const testResult = await testRunner.run();
 
-    const absoluteTestFiles = await globby(
-      [
-        path.posix.join('test', currentType, '**', '*Tests.js'),
-        path.posix.join('test', currentType, '**', '*Tests.jsx'),
-        path.posix.join('test', currentType, '**', '*Tests.ts'),
-        path.posix.join('test', currentType, '**', '*Tests.tsx')
-      ],
-      {
-        absolute: true,
-        cwd: applicationRoot,
-        onlyFiles: true
-      }
-    );
-
-   const environmentVariablesForTest = await loadEnvironmentVariables({
-      directory: absoluteTestTypeDirectory
-    });
-
-    const absoluteMochaConfigurationFile = await findMochaConfigurationfile({
-      directory: absoluteTestTypeDirectory
-    });
-
-    const testCodeResult = await testCode({
-      environmentVariables: environmentVariablesForTest,
-      absoluteMochaConfigurationFile,
-      absoluteTestFiles
-    });
-
-    if (testCodeResult.hasError()) {
+    if (testResult.hasError()) {
       buntstift.error('Tests failed.');
 
-      return testCodeResult;
+      return testResult;
     }
 
     buntstift.line();
-    buntstift.success(`${currentType} tests successful.`);
+    buntstift.success('Tests successful.');
+
+    return value();
   }
 
-  buntstift.line();
-  buntstift.success('Tests successful.');
+  const fileWatcher = chokidar.watch(
+    [
+      path.join(applicationRoot, '**', '*.js'),
+      path.join(applicationRoot, '**', '*.jsx'),
+      path.join(applicationRoot, '**', '*.ts'),
+      path.join(applicationRoot, '**', '*.tsx')
+    ],
+    {
+      ignored: [
+        'node_modules',
+        '.git'
+      ],
+      persistent: true
+    }
+  );
+
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  testRunner.run();
+
+  fileWatcher.on('ready', (): void => {
+    fileWatcher.on('all', async (): Promise<void> => {
+      await testRunner.abort();
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      testRunner.run();
+    });
+  });
 
   return value();
 };

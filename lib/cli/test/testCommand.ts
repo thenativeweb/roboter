@@ -12,9 +12,18 @@ const testCommand = function (): Command<TestOptions> {
   return {
     name: 'test',
     description: 'Runs tests',
-    optionDefinitions: [],
+    optionDefinitions: [
+      {
+        name: 'watch',
+        alias: 'w',
+        description: 'Watches the project and aborts and re-runs the tests when files change.',
+        type: 'boolean',
+        defaultValue: false
+      }
+    ],
     async handle ({ options: {
-      verbose
+      verbose,
+      watch
     }}): Promise <void> {
       buntstift.configure(
         buntstift.getConfiguration().
@@ -38,13 +47,15 @@ const testCommand = function (): Command<TestOptions> {
         phase: 'pre'
       });
 
-      (await testTask({ applicationRoot })).unwrapOrThrow();
+      (await testTask({ applicationRoot, watch })).unwrapOrThrow();
 
-      await runPreOrPostScript({
-        applicationRoot,
-        task: 'test',
-        phase: 'post'
-      });
+      if (!watch) {
+        await runPreOrPostScript({
+          applicationRoot,
+          task: 'test',
+          phase: 'post'
+        });
+      }
     },
     subcommands: {
       setup: setupCommand(),
