@@ -1,15 +1,22 @@
 import { buntstift } from 'buntstift';
 import chokidar from 'chokidar';
+import { DependencyGraph } from '../dataStructures/DependencyGraph';
 import { fileExists } from '../utils/fileExists';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
+import globby from 'globby';
+import minimatch from 'minimatch';
 import path from 'path';
 import { TestRunner } from '../runner/TestRunner';
+import { updateDependencyGraph } from '../steps/test/updateDependencyGraph';
 import { Result, value } from 'defekt';
 import * as errors from '../errors';
 
-const testTask = async function ({ applicationRoot, type, watch }: {
+const supportedFileExtensions = [ 'ts', 'tsx', 'js', 'jsx' ];
+
+const testTask = async function ({ applicationRoot, type, bail, watch }: {
   applicationRoot: string;
   type?: string;
+  bail: boolean;
   watch: boolean;
 }): Promise<Result<undefined, errors.TestsFailed>> {
   buntstift.line();
@@ -42,14 +49,35 @@ const testTask = async function ({ applicationRoot, type, watch }: {
     }
   });
 
+  const testGlobs: Record<string, string[]> = {};
+
+  for (const testType of types) {
+    // TODO unixify application root
+    testGlobs[testType] = supportedFileExtensions.map(
+      (fileExtension): string =>
+        path.posix.join(applicationRoot, 'test', testType, '**', `*Tests.${fileExtension}`)
+    );
+  }
+
   const testRunner = new TestRunner({
     applicationRoot,
-    types,
-    bail: true
+    bail
   });
 
+  const absoluteTestFilesPerType: Record<string, string[]> = {};
+
+  for (const [ testType, globs ] of Object.entries(testGlobs)) {
+    absoluteTestFilesPerType[testType] = await globby(globs, {
+      absolute: true,
+      onlyFiles: true
+    });
+  }
+
   if (!watch) {
-    const testResult = await testRunner.run();
+    const testResult = await testRunner.run({
+      absoluteTestFilesPerType,
+      typeSequence: types
+    });
 
     if (testResult.hasError()) {
       buntstift.error('Tests failed.');
@@ -63,15 +91,27 @@ const testTask = async function ({ applicationRoot, type, watch }: {
     return value();
   }
 
+  const graph = new DependencyGraph();
+  const staleFiles: string[] = [];
+
+  for (const [ , absoluteTestFiles ] of Object.entries(absoluteTestFilesPerType)) {
+    for (const absoluteTestFile of absoluteTestFiles) {
+      graph.addRoot(absoluteTestFile);
+      staleFiles.push(absoluteTestFile);
+    }
+  }
+
+  await updateDependencyGraph({ graph, staleFiles });
+
   const fileWatcher = chokidar.watch(
-    [
-      path.join(applicationRoot, '**', '*.js'),
-      path.join(applicationRoot, '**', '*.jsx'),
-      path.join(applicationRoot, '**', '*.ts'),
-      path.join(applicationRoot, '**', '*.tsx')
-    ],
+    supportedFileExtensions.map(
+      (fileExtension): string =>
+        path.join(applicationRoot, '**', `*.${fileExtension}`)
+    ),
     {
       ignored: [
+        // TODO: use .gitignore
+        'build',
         'node_modules',
         '.git'
       ],
@@ -79,15 +119,100 @@ const testTask = async function ({ applicationRoot, type, watch }: {
     }
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  testRunner.run();
+  await new Promise((resolve): void => {
+    fileWatcher.on('ready', resolve);
+  });
 
-  fileWatcher.on('ready', (): void => {
-    fileWatcher.on('all', async (): Promise<void> => {
+  fileWatcher.on('unlink', async (absoluteDeletedFile): Promise<void> => {
+    if (graph.hasRoot(absoluteDeletedFile)) {
+      graph.removeRoot(absoluteDeletedFile);
+    }
+    if (graph.hasNode(absoluteDeletedFile)) {
+      graph.removeNode(absoluteDeletedFile);
+    }
+  });
+
+  fileWatcher.on('add', async (absoluteNewFile): Promise<void> => {
+    if (
+      Object.values(testGlobs).some(
+        (testTypeGlobs): boolean => testTypeGlobs.some(
+          (testTypeGlob): boolean => minimatch(absoluteNewFile, testTypeGlob)
+        )
+      )
+    ) {
+      graph.addRoot(absoluteNewFile);
+      staleFiles.push(absoluteNewFile);
+    }
+    if (graph.hasNode(absoluteNewFile)) {
+      staleFiles.push(absoluteNewFile);
+    }
+    await updateDependencyGraph({ graph, staleFiles });
+
+    if (graph.hasNode(absoluteNewFile)) {
+      const absoluteRelevantTestFiles = graph.findRoots(absoluteNewFile).unwrapOrThrow();
+      const absoluteRelevantTestFilesPerType: Record<string, string[]> = {};
+
+      for (const absoluteRelevantTestFile of absoluteRelevantTestFiles) {
+        for (const [ testType, globs ] of Object.entries(testGlobs)) {
+          if (globs.some((glob): boolean => minimatch(absoluteRelevantTestFile, glob))) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!absoluteRelevantTestFilesPerType[testType]) {
+              absoluteRelevantTestFilesPerType[testType] = [];
+            }
+            absoluteRelevantTestFilesPerType[testType].push(absoluteRelevantTestFile);
+          }
+        }
+      }
+
       await testRunner.abort();
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      testRunner.run();
-    });
+      testRunner.run({
+        absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
+        typeSequence: types
+      });
+    } else {
+      buntstift.info('No relevant test suites found; skipped re-execution.');
+    }
+  });
+
+  fileWatcher.on('change', async (absoluteChangedFile): Promise<void> => {
+    if (graph.hasNode(absoluteChangedFile)) {
+      staleFiles.push(absoluteChangedFile);
+    }
+
+    await updateDependencyGraph({ graph, staleFiles });
+
+    if (graph.hasNode(absoluteChangedFile)) {
+      const absoluteRelevantTestFiles = graph.findRoots(absoluteChangedFile).unwrapOrThrow();
+      const absoluteRelevantTestFilesPerType: Record<string, string[]> = {};
+
+      for (const absoluteRelevantTestFile of absoluteRelevantTestFiles) {
+        for (const [ testType, globs ] of Object.entries(testGlobs)) {
+          if (globs.some((glob): boolean => minimatch(absoluteRelevantTestFile, glob))) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!absoluteRelevantTestFilesPerType[testType]) {
+              absoluteRelevantTestFilesPerType[testType] = [];
+            }
+            absoluteRelevantTestFilesPerType[testType].push(absoluteRelevantTestFile);
+          }
+        }
+      }
+
+      await testRunner.abort();
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      testRunner.run({
+        absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
+        typeSequence: types
+      });
+    } else {
+      buntstift.info('No relevant test suites found; skipped re-execution.');
+    }
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  testRunner.run({
+    absoluteTestFilesPerType,
+    typeSequence: types
   });
 
   return value();

@@ -14,15 +14,33 @@ const testCommand = function (): Command<TestOptions> {
     description: 'Runs tests',
     optionDefinitions: [
       {
+        name: 'type',
+        alias: 't',
+        description: 'Run only the tests for this test type.',
+        type: 'string',
+        isRequired: false
+      },
+      {
+        name: 'no-bail',
+        alias: 'b',
+        description: 'Do not end test execution as soon a a test fails.',
+        type: 'boolean',
+        isRequired: false,
+        defaultValue: false
+      },
+      {
         name: 'watch',
         alias: 'w',
         description: 'Watches the project and aborts and re-runs the tests when files change.',
         type: 'boolean',
-        defaultValue: false
+        defaultValue: false,
+        isRequired: false
       }
     ],
     async handle ({ options: {
       verbose,
+      type,
+      'no-bail': noBail,
       watch
     }}): Promise <void> {
       buntstift.configure(
@@ -47,7 +65,7 @@ const testCommand = function (): Command<TestOptions> {
         phase: 'pre'
       });
 
-      (await testTask({ applicationRoot, watch })).unwrapOrThrow();
+      (await testTask({ applicationRoot, type, bail: !noBail, watch })).unwrapOrThrow();
 
       if (!watch) {
         await runPreOrPostScript({

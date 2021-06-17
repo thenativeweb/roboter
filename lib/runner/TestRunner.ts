@@ -10,28 +10,28 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 class TestRunner {
   protected applicationRoot: string;
 
-  protected types: string[];
-
   protected bail: boolean;
 
   protected worker: Worker | undefined;
 
-  public constructor ({ applicationRoot, types, bail = true }: {
+  public constructor ({ applicationRoot, bail = true }: {
     applicationRoot: string;
-    types: string[];
     bail?: boolean;
   }) {
     this.applicationRoot = applicationRoot;
-    this.types = types;
     this.bail = bail;
     this.worker = undefined;
   }
 
-  public async run (): Promise<Result<undefined, errors.TestsFailed>> {
+  public async run ({ absoluteTestFilesPerType, typeSequence }: {
+    absoluteTestFilesPerType: Record<string, string[]>;
+    typeSequence: string[];
+  }): Promise<Result<undefined, errors.TestsFailed>> {
     this.worker = new Worker(path.join(dirname, '..', 'steps', 'test', 'testWorker.js'), {
       workerData: {
         applicationRoot: this.applicationRoot,
-        types: this.types,
+        absoluteTestFilesPerType,
+        typeSequence,
         bail: this.bail
       }
     });

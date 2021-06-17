@@ -1,6 +1,5 @@
 import { buntstift } from 'buntstift';
 import { findMochaConfigurationfile } from './findMochaConfigurationFile';
-import globby from 'globby';
 import { loadEnvironmentVariables } from './loadEnvironmentVariables';
 import Mocha from 'mocha';
 import { nodeenv } from 'nodeenv';
@@ -11,30 +10,19 @@ import { parentPort, workerData } from 'worker_threads';
 (async (): Promise<void> => {
   const {
     applicationRoot,
-    types,
+    absoluteTestFilesPerType,
+    typeSequence,
     bail
   } = workerData;
 
-  for (const currentType of types) {
+  for (const testType of typeSequence) {
     buntstift.line();
-    buntstift.info(`Running ${currentType} tests...`);
+    buntstift.info(`Running ${testType} tests...`);
 
-    const absoluteTestFiles = await globby(
-      [
-        path.posix.join('test', currentType, '**', '*Tests.js'),
-        path.posix.join('test', currentType, '**', '*Tests.jsx'),
-        path.posix.join('test', currentType, '**', '*Tests.ts'),
-        path.posix.join('test', currentType, '**', '*Tests.tsx')
-      ],
-      {
-        absolute: true,
-        cwd: applicationRoot,
-        onlyFiles: true
-      }
-    );
+    const absoluteTestFiles = absoluteTestFilesPerType[testType];
 
     const absoluteTestTypeDirectory = path.join(
-      applicationRoot, 'test', currentType
+      applicationRoot, 'test', testType
     );
 
     const environmentVariablesForTest = await loadEnvironmentVariables({
@@ -70,6 +58,10 @@ import { parentPort, workerData } from 'worker_threads';
 
     const runner = mocha.run();
 
+    runner.on('fail', (test): void => {
+      buntstift.raw(test.err!.stack!);
+    });
+
     await new Promise<void>((resolve): void => {
       runner.on('end', (): void => resolve());
     });
@@ -81,7 +73,7 @@ import { parentPort, workerData } from 'worker_threads';
     resetEnvironment();
 
     if (runner.failures > 0) {
-      buntstift.error(`${currentType} tests failed.`);
+      buntstift.error(`${testType} tests failed.`);
 
       parentPort?.postMessage(false);
 
@@ -89,7 +81,7 @@ import { parentPort, workerData } from 'worker_threads';
     }
 
     buntstift.line();
-    buntstift.success(`${currentType} tests successful.`);
+    buntstift.success(`${testType} tests successful.`);
   }
 
   parentPort?.postMessage(true);
