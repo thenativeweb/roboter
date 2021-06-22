@@ -7,7 +7,7 @@ import { hasPreHook } from './hasPreHook.js';
 import { isolated } from 'isolated';
 import path from 'path';
 import { processenv } from 'processenv';
-import { runCommand } from '../../lib/utils/runCommand.js';
+import { runCommand } from '../../../lib/utils/runCommand.js';
 import shell from 'shelljs';
 import stripAnsi from 'strip-ansi';
 import { stripIndent } from 'common-tags';

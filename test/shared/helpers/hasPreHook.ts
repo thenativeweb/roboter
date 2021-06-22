@@ -1,4 +1,4 @@
-import { fileExists } from '../../lib/utils/fileExists.js';
+import { fileExists } from '../../../lib/utils/fileExists.js';
 import path from 'path';
 
 const hasPreHook = async function ({ absoluteTestDirectory }: {

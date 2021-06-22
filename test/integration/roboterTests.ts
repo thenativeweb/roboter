@@ -1,10 +1,10 @@
 import { buntstift } from 'buntstift';
-import { createTest } from '../helpers/createTest.js';
+import { createTest } from '../shared/helpers/createTest.js';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import globby from 'globby';
 import path from 'path';
-import { shallTestCaseBeExecuted } from '../helpers/shallTestCaseBeExecuted.js';
+import { shallTestCaseBeExecuted } from '../shared/helpers/shallTestCaseBeExecuted.js';
 import shelljs from 'shelljs';
 import * as os from 'os';
 
