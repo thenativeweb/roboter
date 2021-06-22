@@ -23,6 +23,8 @@ const updateDependencyGraph = async function ({ graph, staleFiles }: {
     }
     graph.updateEdgesFromNode(nextFile, importedFilePaths);
   }
+
+  console.log(graph.prettyPrint());
 };
 
 export {

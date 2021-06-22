@@ -52,7 +52,7 @@ class TestRunner {
 
   public async abort (): Promise<void> {
     buntstift.line();
-    buntstift.info('Aborting current test run... Ongoing tests will be finished.');
+    buntstift.info('Aborting current test run...');
 
     if (this.worker) {
       await this.worker.terminate();

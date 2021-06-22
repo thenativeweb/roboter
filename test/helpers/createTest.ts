@@ -34,10 +34,11 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
   absoluteNpmCacheDirectory: string;
   absoluteRoboterPackageFile: string;
 }): void {
-  it(`${testCase.replace(/-/ug, ' ')}.`, async (): Promise<void> => {
+  test(`${testCase.replace(/-/ug, ' ')}.`, async (): Promise<void> => {
     try {
       timer.start();
       const absoluteTestDirectory = await isolated();
+
       console.log({ absoluteTestDirectory });
       const absoluteGitDirectory = await isolated();
 
@@ -115,17 +116,26 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         stdout: string;
         stderr: string;
       }>((resolve): void => {
-        shell.exec(
+        const childProcess = shell.exec(
           roboterCmd.join(' '),
           {
             cwd: absoluteTestDirectory,
             env,
-            silent: true
+            silent: true,
+            async: true
           },
           (code, stdout, stderr): void => {
-            resolve({ code, stdout, stderr });
+            resolve({
+              code,
+              stdout,
+              stderr
+            });
           }
         );
+
+        if (expectations.whileTheCommandIsRunning) {
+          expectations.whileTheCommandIsRunning({ childProcess, absoluteTestDirectory });
+        }
       });
 
       timer.lap('roboter');
@@ -159,18 +169,16 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
 
       assert.that(roboter.code).is.equalTo(expectations.exitCode);
 
-      const expectedStdouts = [ expectations.stdout ].flat();
+      const expectedStdouts: string[] = [ expectations.stdout ].flat();
 
-      previousIndex = -1;
+      let stdoutWithoutPreviousMatches = stdout;
 
       for (const expectedStdout of expectedStdouts) {
         assert.that(stdout).is.containing(expectedStdout);
 
         const currentIndex = stdout.indexOf(expectedStdout);
 
-        assert.that(currentIndex).is.greaterThan(previousIndex);
-
-        previousIndex = currentIndex;
+        stdoutWithoutPreviousMatches = stdoutWithoutPreviousMatches.slice(currentIndex + expectedStdout.length);
       }
 
       if (typeof expectations.validate === 'function') {

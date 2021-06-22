@@ -1,10 +1,13 @@
 import { buntstift } from 'buntstift';
 import chokidar from 'chokidar';
 import { DependencyGraph } from '../dataStructures/DependencyGraph';
+import { exit } from '../utils/exit';
 import { fileExists } from '../utils/fileExists';
+import { getGitIgnore } from '../steps/git/getGitIgnore';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
 import globby from 'globby';
 import minimatch from 'minimatch';
+import normalize from 'normalize-path';
 import path from 'path';
 import { TestRunner } from '../runner/TestRunner';
 import { updateDependencyGraph } from '../steps/test/updateDependencyGraph';
@@ -52,10 +55,9 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
   const testGlobs: Record<string, string[]> = {};
 
   for (const testType of types) {
-    // TODO unixify application root
     testGlobs[testType] = supportedFileExtensions.map(
       (fileExtension): string =>
-        path.posix.join(applicationRoot, 'test', testType, '**', `*Tests.${fileExtension}`)
+        path.posix.join(normalize(applicationRoot), 'test', testType, '**', `*Tests.${fileExtension}`)
     );
   }
 
@@ -91,6 +93,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
     return value();
   }
 
+  const gitIgnore = await getGitIgnore({ applicationRoot });
+
   const graph = new DependencyGraph();
   const staleFiles: string[] = [];
 
@@ -110,8 +114,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
     ),
     {
       ignored: [
-        // TODO: use .gitignore
-        'build',
+        ...gitIgnore,
         'node_modules',
         '.git'
       ],
@@ -213,6 +216,32 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
   testRunner.run({
     absoluteTestFilesPerType,
     typeSequence: types
+  });
+
+  if (process.stdin.isTTY) {
+    process.stdin.setRawMode(true);
+  }
+  process.stdin.setEncoding('utf-8');
+  process.stdin.resume();
+  process.stdin.on('data', async (key: string): Promise<void> => {
+    if (key === 'q' || key === '\u0003') {
+      buntstift.info('Quitting...');
+      exit();
+
+      return;
+    }
+    if (key === 's') {
+      await testRunner.abort();
+    }
+    if (key === 'r') {
+      buntstift.info('Rerunning all tests...');
+      await testRunner.abort();
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      testRunner.run({
+        absoluteTestFilesPerType,
+        typeSequence: types
+      });
+    }
   });
 
   return value();

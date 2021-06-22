@@ -10,7 +10,7 @@ import * as os from 'os';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-describe('roboter', function (): void {
+suite('roboter', function (): void {
   this.timeout(3_600_000);
 
   const absoluteRoboterProjectDirectory = path.join(dirname, '..', '..');
@@ -43,7 +43,7 @@ describe('roboter', function (): void {
 
   const absoluteProjectsDirectory = path.join(dirname, '..', 'shared', 'projects');
 
-  after(async (): Promise<void> => {
+  teardown(async (): Promise<void> => {
     await fs.promises.rmdir(absoluteNpmCacheDirectory, { recursive: true });
   });
 
@@ -56,7 +56,7 @@ describe('roboter', function (): void {
       return;
     }
 
-    describe(task, (): void => {
+    suite(task, (): void => {
       // eslint-disable-next-line no-sync
       fs.readdirSync(taskDirectory).forEach((testCase): void => {
         const absoluteTestCaseDirectory = path.join(taskDirectory, testCase);

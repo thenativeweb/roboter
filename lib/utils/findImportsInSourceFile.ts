@@ -20,6 +20,10 @@ const isDynamicImport = function (node: ESTree.Node): node is ESTree.ImportExpre
   return node.type === 'ImportExpression';
 };
 
+const isNodeRequireCall = function (node: ESTree.Node): node is ESTree.CallExpression {
+  return node.type === 'CallExpression' && node.callee.type === 'Identifier' && node.callee.name === 'require';
+};
+
 const handleImportDeclaration = function ({
   node,
   filePath
@@ -54,24 +58,46 @@ const handleImportDeclaration = function ({
       relativeImportedFile = node.source.value;
       break;
     }
+    case 'CallExpression': {
+      const argument = node.arguments[0];
+
+      if (argument.type !== 'Literal' || typeof argument.value !== 'string') {
+        return importedFiles;
+      }
+
+      relativeImportedFile = argument.value;
+      break;
+    }
     default: {
       return importedFiles;
     }
   }
 
-  const importedstringWithoutExtension = path.join(fileDirectory, relativeImportedFile);
-  const possibleImportedstrings = [
-    `${importedstringWithoutExtension}.tsx`,
-    path.join(importedstringWithoutExtension, 'index.tsx'),
-    `${importedstringWithoutExtension}.ts`,
-    path.join(importedstringWithoutExtension, 'index.ts')
-  ];
-
-  for (const possibleImportedstring of possibleImportedstrings) {
-    importedFiles.add(possibleImportedstring);
+  // If an import does not start with a '.', it is a module name and not a
+  // relative path. We want to ignore modules.
+  if (!relativeImportedFile.startsWith('.')) {
+    return importedFiles;
   }
 
-  return importedFiles;
+  const absoluteImportedFile = path.join(fileDirectory, relativeImportedFile);
+
+  if ([ '.ts', '.tsx', '.js', '.jsx' ].some(
+    (extension): boolean => absoluteImportedFile.endsWith(extension)
+  )
+  ) {
+    return new Set([ absoluteImportedFile ]);
+  }
+
+  return new Set([
+    `${absoluteImportedFile}.tsx`,
+    path.join(absoluteImportedFile, 'index.tsx'),
+    `${absoluteImportedFile}.ts`,
+    path.join(absoluteImportedFile, 'index.ts'),
+    `${absoluteImportedFile}.jsx`,
+    path.join(absoluteImportedFile, 'index.jsx'),
+    `${absoluteImportedFile}.js`,
+    path.join(absoluteImportedFile, 'index.js')
+  ]);
 };
 
 const findImportsInSourceFile = async function ({
@@ -90,7 +116,7 @@ const findImportsInSourceFile = async function ({
       {
         fallback: 'iteration',
         enter (node): void {
-          if (isImportDeclaration(node) || isDynamicImport(node)) {
+          if (isImportDeclaration(node) || isDynamicImport(node) || isNodeRequireCall(node)) {
             const importedFiles = handleImportDeclaration({ node, filePath });
 
             allImportedstrings = mergeCollections<string>(

@@ -42,7 +42,7 @@ const compileTypeScript = async function ({ applicationRoot }: {
   });
 
   if (tsconfig.compilerOptions.incremental !== true) {
-    await fs.promises.rmdir(tsconfig.compilerOptions.outDir, { recursive: true });
+    await fs.promises.rm(tsconfig.compilerOptions.outDir, { recursive: true, force: true });
   }
 
   const emitResult = program.emit();
