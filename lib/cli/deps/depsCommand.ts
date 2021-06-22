@@ -1,4 +1,4 @@
-import { BuildOptions } from './BuildOptions';
+import { AnalyseOptions } from '../analyse/AnalyseOptions';
 import { buildTask } from '../../tasks/buildTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
@@ -6,7 +6,7 @@ import { exit } from '../../utils/exit';
 import { getApplicationRoot } from '../../utils/getApplicationRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
-const buildCommand = function (): Command<BuildOptions> {
+const buildCommand = function (): Command<AnalyseOptions> {
   return {
     name: 'build',
     description: 'Compiles TypeScript',

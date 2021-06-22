@@ -3,19 +3,19 @@
 const fs = require('fs');
 const path = require('path');
 
-const exitCode = 0;
+const exitCode = null;
 
 const subCommand = 'test --watch --no-bail';
 
 const stdout = [
   'Running unit tests...',
   'unit tests successful.',
-  'Running unit tests...',
-  'unit tests failed.',
-  'Quitting...'
+  'Running unit tests...'
 ];
 
-const stderr = '';
+const stderr = [
+  'unit tests failed.',
+];
 
 const whileTheCommandIsRunning = async function ({ childProcess, absoluteTestDirectory }) {
   let stdoutAccumulator = '';
@@ -25,7 +25,7 @@ const whileTheCommandIsRunning = async function ({ childProcess, absoluteTestDir
     stdoutAccumulator += chunk;
   });
   childProcess.stderr.on('data', (chunk) => {
-    stdoutAccumulator += chunk;
+    stderrAccumulator += chunk;
   });
 
   await new Promise((resolve) => {

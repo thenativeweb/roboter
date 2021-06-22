@@ -112,7 +112,7 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         NODE_OPTIONS: '--experimental-specifier-resolution=node'
       } as NodeJS.ProcessEnv;
       const roboter = await new Promise<{
-        code: number;
+        code: number | null;
         stdout: string;
         stderr: string;
       }>((resolve): void => {
