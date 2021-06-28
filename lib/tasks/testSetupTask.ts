@@ -44,7 +44,7 @@ const testSetupTask = async function ({ applicationRoot }: {
 
         return value();
       } catch (ex: unknown) {
-        buntstift.error(`Error: ${(ex as Error).message}`);
+        buntstift.error((ex as Error).stack!);
         buntstift.error('Failed to run test setup.');
 
         return error(new errors.TestSetupFailed());

@@ -36,7 +36,11 @@ const setupCommand = function (): Command<SetupOptions> {
         phase: 'pre'
       });
 
-      (await testSetupTask({ applicationRoot })).unwrapOrThrow();
+      const testSetupResult = await testSetupTask({ applicationRoot });
+
+      if (testSetupResult.hasError()) {
+        return exit(1);
+      }
 
       await runPreOrPostScript({
         applicationRoot,

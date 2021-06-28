@@ -1,14 +1,10 @@
-'use strict';
+import depcheck from 'depcheck';
+import { error, Result, value } from 'defekt';
+import * as errors from '../../errors';
 
-const depcheck = require('depcheck');
-
-const errors = require('../../errors');
-
-const checkForUnusedDependencies = async function ({ directory }) {
-  if (!directory) {
-    throw new Error('Directory is missing.');
-  }
-
+const checkForUnusedDependencies = async function ({ applicationRoot }: {
+  applicationRoot: string;
+}): Promise<Result<undefined, errors.UnusedDependencies>> {
   const depcheckOptions = {
     ignoreDirs: [ 'node_modules' ],
     ignoreMatches: [
@@ -44,7 +40,7 @@ const checkForUnusedDependencies = async function ({ directory }) {
     invalidFiles,
     dependencies,
     devDependencies
-  } = await depcheck(directory, depcheckOptions);
+  } = await depcheck(applicationRoot, depcheckOptions);
 
   if (invalidFiles.length > 0) {
     throw new errors.FileParsingFailed(`Unable to parse some files: ${invalidFiles.join(', ')}`);
@@ -57,8 +53,12 @@ const checkForUnusedDependencies = async function ({ directory }) {
   if (dependencies.length > 0 || devDependencies.length > 0) {
     const allUnusedDeps = [ ...dependencies, ...devDependencies ];
 
-    throw new errors.UnusedDependencies(`The following dependencies are unused or missing:\n\n${allUnusedDeps.join(',\n')}`);
+    return error(new errors.UnusedDependencies(`The following dependencies are unused or missing:\n\n${allUnusedDeps.join(',\n')}`));
   }
+
+  return value();
 };
 
-module.exports = checkForUnusedDependencies;
+export {
+  checkForUnusedDependencies
+};

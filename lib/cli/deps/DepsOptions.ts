@@ -1,7 +1,7 @@
 import { RootOptions } from '../RootOptions';
 
-type BuildOptions = RootOptions;
+type DepsOptions = RootOptions;
 
 export type {
-  BuildOptions
+  DepsOptions
 };

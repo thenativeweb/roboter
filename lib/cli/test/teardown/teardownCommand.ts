@@ -36,7 +36,11 @@ const teardownCommand = function (): Command<TeardownOptions> {
         phase: 'pre'
       });
 
-      (await testTeardownTask({ applicationRoot })).unwrapOrThrow();
+      const testTeardownResult = await testTeardownTask({ applicationRoot });
+
+      if (testTeardownResult.hasError()) {
+        return exit(1);
+      }
 
       await runPreOrPostScript({
         applicationRoot,

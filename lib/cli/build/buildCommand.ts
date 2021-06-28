@@ -36,7 +36,11 @@ const buildCommand = function (): Command<BuildOptions> {
         phase: 'pre'
       });
 
-      (await buildTask({ applicationRoot })).unwrapOrThrow();
+      const buildResult = await buildTask({ applicationRoot });
+
+      if (buildResult.hasError()) {
+        return exit(1);
+      }
 
       await runPreOrPostScript({
         applicationRoot,

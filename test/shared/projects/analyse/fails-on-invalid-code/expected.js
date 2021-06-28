@@ -8,6 +8,6 @@ const stdout = `
 ✖ 1 problem (1 error, 0 warnings)
 `;
 
-const stderr = '';
+const stderr = 'Malformed code found.';
 
 module.exports = { exitCode, stdout, stderr };

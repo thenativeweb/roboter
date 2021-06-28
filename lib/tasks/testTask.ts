@@ -218,33 +218,32 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
     typeSequence: types
   });
 
-  if (process.stdin.isTTY) {
-    process.stdin.setRawMode(true);
-  }
-  process.stdin.setEncoding('utf-8');
-  process.stdin.resume();
-  process.stdin.on('data', async (key: string): Promise<void> => {
-    if (key === 'q' || key === '\u0003') {
-      buntstift.info('Quitting...');
-      exit();
+  return new Promise((resolve): void => {
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true);
+    }
+    process.stdin.setEncoding('utf-8');
+    process.stdin.resume();
+    process.stdin.on('data', async (key: string): Promise<void> => {
+      if (key === 'q' || key === '\u0003') {
+        buntstift.info('Quitting...');
 
-      return;
-    }
-    if (key === 's') {
-      await testRunner.abort();
-    }
-    if (key === 'r') {
-      buntstift.info('Rerunning all tests...');
-      await testRunner.abort();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      testRunner.run({
-        absoluteTestFilesPerType,
-        typeSequence: types
-      });
-    }
+        return resolve(value());
+      }
+      if (key === 's') {
+        await testRunner.abort();
+      }
+      if (key === 'r') {
+        buntstift.info('Rerunning all tests...');
+        await testRunner.abort();
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        testRunner.run({
+          absoluteTestFilesPerType,
+          typeSequence: types
+        });
+      }
+    });
   });
-
-  return value();
 };
 
 export {

@@ -65,7 +65,11 @@ const testCommand = function (): Command<TestOptions> {
         phase: 'pre'
       });
 
-      (await testTask({ applicationRoot, type, bail: !noBail, watch })).unwrapOrThrow();
+      const testResult = await testTask({ applicationRoot, type, bail: !noBail, watch });
+
+      if (testResult.hasError()) {
+        return exit(1);
+      }
 
       if (!watch) {
         await runPreOrPostScript({

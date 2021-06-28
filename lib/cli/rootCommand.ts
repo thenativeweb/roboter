@@ -1,6 +1,7 @@
 import { analyseCommand } from './analyse/analyseCommand';
 import { buildCommand } from './build/buildCommand';
 import { Command } from 'command-line-interface';
+import { depsCommand } from './deps/depsCommand';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';
 
@@ -29,6 +30,7 @@ const rootCommand = function (): Command<RootOptions> {
     subcommands: {
       analyse: analyseCommand(),
       build: buildCommand(),
+      deps: depsCommand(),
       test: testCommand()
     }
   };

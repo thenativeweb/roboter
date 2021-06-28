@@ -1,15 +1,15 @@
-import { AnalyseOptions } from '../analyse/AnalyseOptions';
-import { buildTask } from '../../tasks/buildTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
+import { dependencyCheckTask } from '../../tasks/dependencyCheckTask';
+import { DepsOptions } from './DepsOptions';
 import { exit } from '../../utils/exit';
 import { getApplicationRoot } from '../../utils/getApplicationRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
-const buildCommand = function (): Command<AnalyseOptions> {
+const depsCommand = function (): Command<DepsOptions> {
   return {
-    name: 'build',
-    description: 'Compiles TypeScript',
+    name: 'deps',
+    description: 'Check for missing, outdated, and unused dependencies.',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -32,15 +32,19 @@ const buildCommand = function (): Command<AnalyseOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'build',
+        task: 'deps',
         phase: 'pre'
       });
 
-      (await buildTask({ applicationRoot })).unwrapOrThrow();
+      const dependencyCheckResult = await dependencyCheckTask({ applicationRoot });
+
+      if (dependencyCheckResult.hasError()) {
+        return exit(1);
+      }
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'build',
+        task: 'deps',
         phase: 'post'
       });
     }
@@ -48,5 +52,5 @@ const buildCommand = function (): Command<AnalyseOptions> {
 };
 
 export {
-  buildCommand
+  depsCommand
 };

@@ -44,7 +44,7 @@ const testTeardownTask = async function ({ applicationRoot }: {
 
         return value();
       } catch (ex: unknown) {
-        buntstift.error(`Error: ${(ex as Error).message}`);
+        buntstift.error((ex as Error).stack!);
         buntstift.error('Failed to run test teardown.');
 
         return error(new errors.TestSetupFailed());

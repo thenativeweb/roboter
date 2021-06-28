@@ -36,7 +36,11 @@ const analyseCommand = function (): Command<AnalyseOptions> {
         phase: 'pre'
       });
 
-      (await analyseTask({ applicationRoot })).unwrapOrThrow();
+      const analyseTaskResult = await analyseTask({ applicationRoot });
+
+      if (analyseTaskResult.hasError()) {
+        return exit(1);
+      }
 
       await runPreOrPostScript({
         applicationRoot,
