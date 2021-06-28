@@ -2,7 +2,12 @@
 
 const exitCode = 0;
 
-const stdout = 'Hello from custom script';
+const stdout = [
+  'roboter',
+  'Synopsis',
+  'Options',
+  'Commands'
+];
 
 const stderr = '';
 

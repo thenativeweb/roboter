@@ -1,7 +1,9 @@
 import { analyseCommand } from './analyse/analyseCommand';
 import { buildCommand } from './build/buildCommand';
+import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
+import packageJson from '../../package.json';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';
 
@@ -18,13 +20,32 @@ const rootCommand = function (): Command<RootOptions> {
         type: 'boolean',
         isRequired: false,
         defaultValue: false
+      },
+      {
+        name: 'version',
+        description: 'show the version',
+        type: 'boolean',
+        isRequired: false,
+        defaultValue: false
       }
     ],
 
-    handle ({ getUsage }): void {
-      /* eslint-disable no-console */
-      console.log(getUsage({ commandPath: [ 'roboter' ]}));
-      /* eslint-enable no-console */
+    async handle ({ options: {
+      verbose,
+      version
+    }}): Promise<void> {
+      buntstift.configure(
+        buntstift.getConfiguration().
+          withVerboseMode(verbose)
+      );
+
+      if (version) {
+        buntstift.info(packageJson.version);
+
+        return;
+      }
+
+      buntstift.warn('Not implemented yet. Use --help.');
     },
 
     subcommands: {

@@ -105,6 +105,9 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
         subCommand,
         await getArgsList({ absoluteTestDirectory })
       ].flat();
+
+      console.log({ task, testCase, roboterCmd });
+
       const env: NodeJS.ProcessEnv = {
         ...processenv(),
         ...await getEnv({ absoluteTestDirectory }),

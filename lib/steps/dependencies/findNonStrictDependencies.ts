@@ -1,6 +1,5 @@
-import fs from 'fs';
+import { getPackageJson } from '../../utils/getPackageJson';
 import { PackageJson } from 'type-fest';
-import path from 'path';
 
 interface Dependency {
   name: string;
@@ -33,8 +32,7 @@ const findNonStrictDependencies = async function ({ applicationRoot }: {
 }): Promise<Dependency[]> {
   // This can not fail (under usual circumstances) since the application root of
   // a package is determined by the existence of a package.json file.
-  const packageJsonContent = await fs.promises.readFile(path.join(applicationRoot, 'package.json'), 'utf-8');
-  const packageJson: PackageJson = JSON.parse(packageJsonContent);
+  const packageJson = (await getPackageJson({ applicationRoot })).unwrapOrThrow();
 
   const dependencies = getNonStrictDependencies({
     packageJson,

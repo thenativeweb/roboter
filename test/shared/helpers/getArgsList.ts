@@ -6,7 +6,7 @@ const getArgsList = async function ({ absoluteTestDirectory }: {
   let args;
 
   try {
-    args = await import(path.join(absoluteTestDirectory, 'args.js'));
+    args = (await import(path.join(absoluteTestDirectory, 'args.js'))).default;
   } catch {
     args = {};
   }
