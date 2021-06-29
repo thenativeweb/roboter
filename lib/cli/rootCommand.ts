@@ -4,6 +4,7 @@ import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
 import packageJson from '../../package.json';
+import { qaCommand } from './qa/qaCommand';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';
 
@@ -52,6 +53,7 @@ const rootCommand = function (): Command<RootOptions> {
       analyse: analyseCommand(),
       build: buildCommand(),
       deps: depsCommand(),
+      qa: qaCommand(),
       test: testCommand()
     }
   };
