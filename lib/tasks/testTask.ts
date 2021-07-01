@@ -226,11 +226,18 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
     if (process.stdin.isTTY) {
       process.stdin.setRawMode(true);
     }
+
     process.stdin.setEncoding('utf-8');
     process.stdin.resume();
     process.stdin.on('data', async (key: string): Promise<void> => {
       if (key === 'q' || key === '\u0003') {
         buntstift.info('Quitting...');
+        await testRunner.abort();
+        await fileWatcher.close();
+
+        process.stdin.setRawMode(false);
+        process.stdin.removeAllListeners('data');
+        process.stdin.destroy();
 
         return resolve(value());
       }

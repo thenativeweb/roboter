@@ -49,6 +49,9 @@ class TestRunner {
       this.worker!.once('error', (workerError): void => {
         reject(workerError);
       });
+      this.worker!.once('exit', (): void => {
+        resolve(value());
+      });
     });
   }
 
