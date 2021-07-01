@@ -1,5 +1,6 @@
 import { analyseTask } from '../../tasks/analyseTask';
 import { buntstift } from 'buntstift';
+import { checkLicenseCompatibilityTask } from '../../tasks/checkLicenseCompatibilityTask';
 import { Command } from 'command-line-interface';
 import { dependencyCheckTask } from '../../tasks/dependencyCheckTask';
 import { exit } from '../../utils/exit';
@@ -102,15 +103,13 @@ const qaCommand = function (): Command<QaOptions> {
         phase: 'post'
       });
 
-      // eslint-disable-next-line multiline-comment-style
-      /*
       await runPreOrPostScript({
         applicationRoot,
         task: 'license',
         phase: 'pre'
       });
 
-      const licenseTaskResult = await licenseTask({ applicationRoot });
+      const licenseTaskResult = await checkLicenseCompatibilityTask({ applicationRoot });
 
       if (licenseTaskResult.hasError()) {
         return exit(1);
@@ -121,7 +120,6 @@ const qaCommand = function (): Command<QaOptions> {
         task: 'license',
         phase: 'post'
       });
-      */
 
       await runPreOrPostScript({
         applicationRoot,

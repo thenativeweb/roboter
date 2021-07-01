@@ -1,5 +1,5 @@
 import { assert } from 'assertthat';
-import { DependencyGraph } from '../../../lib/dataStructures/DependencyGraph';
+import { DependencyGraph } from '../../../lib/types/DependencyGraph';
 import * as errors from '../../../lib/errors';
 
 suite('DependencyGraph', (): void => {

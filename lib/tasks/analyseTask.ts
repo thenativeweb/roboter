@@ -27,9 +27,7 @@ const analyseTask = async function ({ applicationRoot }: {
       buntstift.raw(`${lintCodeResult.error.message}\n`);
       buntstift.error('Malformed code found.');
 
-      return error(new errors.AnalysisFailed({
-        message: 'Code analysis failed.', cause: lintCodeResult.error
-      }));
+      return error(new errors.AnalysisFailed());
     }
     default: {
       buntstift.error('Failed to run code analysis.');

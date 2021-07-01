@@ -32,7 +32,7 @@ const findNonStrictDependencies = async function ({ applicationRoot }: {
 }): Promise<Dependency[]> {
   // This can not fail (under usual circumstances) since the application root of
   // a package is determined by the existence of a package.json file.
-  const packageJson = (await getPackageJson({ applicationRoot })).unwrapOrThrow();
+  const packageJson = (await getPackageJson({ absoluteDirectory: applicationRoot })).unwrapOrThrow();
 
   const dependencies = getNonStrictDependencies({
     packageJson,

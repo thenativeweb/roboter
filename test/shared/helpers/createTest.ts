@@ -68,8 +68,8 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
       await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
       timer.lap('npm install');
 
-      // Await runCommand(`npm install ${absoluteRoboterPackageFile} --no-package-lock --cache=${absoluteNpmCacheDirectory}`, { cwd: absoluteTestDirectory, silent: true });
-      // timer.lap('npm install roboter package');
+      // We might want to add some node modules manually, especially in the license tests.
+      shell.cp('-r', `${absoluteTestCaseDirectory}/node_modules`, absoluteTestDirectory);
 
       await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
       await runCommand('git config user.name "Sophie van Sky"', { cwd: absoluteTestDirectory, silent: true });

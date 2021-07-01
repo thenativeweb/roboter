@@ -3,6 +3,7 @@ import { buildCommand } from './build/buildCommand';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
+import { licenseCommand } from './license/licenseCommand';
 import packageJson from '../../package.json';
 import { qaCommand } from './qa/qaCommand';
 import { RootOptions } from './RootOptions';
@@ -53,6 +54,7 @@ const rootCommand = function (): Command<RootOptions> {
       analyse: analyseCommand(),
       build: buildCommand(),
       deps: depsCommand(),
+      license: licenseCommand(),
       qa: qaCommand(),
       test: testCommand()
     }

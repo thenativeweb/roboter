@@ -1,4 +1,4 @@
-import { DependencyGraph } from '../../dataStructures/DependencyGraph';
+import { DependencyGraph } from '../../types/DependencyGraph';
 import { findImportsInSourceFile } from '../../utils/findImportsInSourceFile';
 
 const updateDependencyGraph = async function ({ graph, staleFiles }: {

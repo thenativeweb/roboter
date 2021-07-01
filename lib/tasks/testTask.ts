@@ -1,6 +1,6 @@
 import { buntstift } from 'buntstift';
 import chokidar from 'chokidar';
-import { DependencyGraph } from '../dataStructures/DependencyGraph';
+import { DependencyGraph } from '../types/DependencyGraph';
 import { fileExists } from '../utils/fileExists';
 import { getGitIgnore } from '../steps/git/getGitIgnore';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';

@@ -38,8 +38,11 @@ class FileParsingFailed extends defekt({ code: 'FileParsingFailed' }) {}
 class GitFailed extends defekt({ code: 'GitFailed' }) {}
 class GitNotInReleasableState extends defekt({ code: 'GitNotInReleasableState' }) {}
 class GitNotInUpdateableState extends defekt({ code: 'GitNotInUpdateableState' }) {}
+class LicenseCheckConfigurationNotFound extends defekt({ code: 'LicenseCheckConfigurationNotFound' }) {}
+class LicenseCheckConfigurationMalformed extends defekt({ code: 'LicenseCheckConfigurationMalformed' }) {}
 class LicenseCheckFailed extends defekt({ code: 'LicenseCheckFailed' }) {}
 class LicenseIncompatible extends defekt({ code: 'LicenseIncompatible' }) {}
+class LicenseNotFound extends defekt({ code: 'LicenseNotFound' }) {}
 class LicenseNotSupported extends defekt({ code: 'LicenseNotSupported' }) {}
 class LocalBranchBehindRemote extends defekt({ code: 'LocalBranchBehindRemote' }) {}
 class NoCodeFound extends defekt({ code: 'NoCodeFound' }) {}
@@ -79,8 +82,11 @@ export {
   GitFailed,
   GitNotInReleasableState,
   GitNotInUpdateableState,
+  LicenseCheckConfigurationNotFound,
+  LicenseCheckConfigurationMalformed,
   LicenseCheckFailed,
   LicenseIncompatible,
+  LicenseNotFound,
   LicenseNotSupported,
   LocalBranchBehindRemote,
   NoCodeFound,
