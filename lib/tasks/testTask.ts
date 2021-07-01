@@ -1,7 +1,6 @@
 import { buntstift } from 'buntstift';
 import chokidar from 'chokidar';
 import { DependencyGraph } from '../dataStructures/DependencyGraph';
-import { exit } from '../utils/exit';
 import { fileExists } from '../utils/fileExists';
 import { getGitIgnore } from '../steps/git/getGitIgnore';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
@@ -16,11 +15,12 @@ import * as errors from '../errors';
 
 const supportedFileExtensions = [ 'ts', 'tsx', 'js', 'jsx' ];
 
-const testTask = async function ({ applicationRoot, type, bail, watch }: {
+const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
   applicationRoot: string;
   type?: string;
   bail: boolean;
   watch: boolean;
+  grep?: RegExp;
 }): Promise<Result<undefined, errors.TestsFailed>> {
   buntstift.line();
   buntstift.info(`Running tests...`, { prefix: '▸' });
@@ -78,7 +78,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
   if (!watch) {
     const testResult = await testRunner.run({
       absoluteTestFilesPerType,
-      typeSequence: types
+      typeSequence: types,
+      grep
     });
 
     if (testResult.hasError()) {
@@ -171,7 +172,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
-        typeSequence: types
+        typeSequence: types,
+        grep
       });
     } else {
       buntstift.info('No relevant test suites found; skipped re-execution.');
@@ -205,7 +207,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
-        typeSequence: types
+        typeSequence: types,
+        grep
       });
     } else {
       buntstift.info('No relevant test suites found; skipped re-execution.');
@@ -215,7 +218,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
   testRunner.run({
     absoluteTestFilesPerType,
-    typeSequence: types
+    typeSequence: types,
+    grep
   });
 
   return new Promise((resolve): void => {
@@ -239,7 +243,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch }: {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         testRunner.run({
           absoluteTestFilesPerType,
-          typeSequence: types
+          typeSequence: types,
+          grep
         });
       }
     });

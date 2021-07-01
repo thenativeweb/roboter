@@ -23,16 +23,18 @@ class TestRunner {
     this.worker = undefined;
   }
 
-  public async run ({ absoluteTestFilesPerType, typeSequence }: {
+  public async run ({ absoluteTestFilesPerType, typeSequence, grep }: {
     absoluteTestFilesPerType: Record<string, string[]>;
     typeSequence: string[];
+    grep?: RegExp;
   }): Promise<Result<undefined, errors.TestsFailed>> {
     this.worker = new Worker(path.join(dirname, '..', 'steps', 'test', 'testWorker.js'), {
       workerData: {
         applicationRoot: this.applicationRoot,
         absoluteTestFilesPerType,
         typeSequence,
-        bail: this.bail
+        bail: this.bail,
+        grep
       }
     });
 

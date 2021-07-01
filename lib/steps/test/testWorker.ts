@@ -12,7 +12,8 @@ import { parentPort, workerData } from 'worker_threads';
     applicationRoot,
     absoluteTestFilesPerType,
     typeSequence,
-    bail
+    bail,
+    grep
   } = workerData;
 
   for (const testType of typeSequence) {
@@ -45,6 +46,7 @@ import { parentPort, workerData } from 'worker_threads';
       color: true,
       reporter: 'spec',
       ui: 'tdd',
+      grep,
       ...additionalMochaConfiguration
     });
 

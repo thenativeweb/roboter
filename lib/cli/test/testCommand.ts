@@ -35,13 +35,21 @@ const testCommand = function (): Command<TestOptions> {
         type: 'boolean',
         defaultValue: false,
         isRequired: false
+      },
+      {
+        name: 'grep',
+        alias: 'g',
+        description: 'Matches the test descriptions against a regex and only executes ones that match.',
+        type: 'string',
+        isRequired: false
       }
     ],
     async handle ({ options: {
       verbose,
       type,
       'no-bail': noBail,
-      watch
+      watch,
+      grep
     }}): Promise <void> {
       buntstift.configure(
         buntstift.getConfiguration().
@@ -65,7 +73,13 @@ const testCommand = function (): Command<TestOptions> {
         phase: 'pre'
       });
 
-      const testResult = await testTask({ applicationRoot, type, bail: !noBail, watch });
+      const testResult = await testTask({
+        applicationRoot,
+        type,
+        bail: !noBail,
+        watch,
+        grep: grep ? new RegExp(grep, 'u') : undefined
+      });
 
       if (testResult.hasError()) {
         return exit(1);
