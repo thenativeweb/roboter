@@ -16,9 +16,9 @@
     "./**/*.ts"
   ],
   "exclude": [
-    "./build/**/*.ts",
-    "./test/shared/sources/**/*.ts",
-    "./test/shared/projects/**/*.ts",
-    "./test/shared/projectsOld/**/*.ts"
+    "./build/**/*.(t|j)s",
+    "./test/shared/sources/**/*.(t|j)s",
+    "./test/shared/projects/**/*.(t|j)s",
+    "./test/shared/projectsOld/**/*.(t|j)s"
   ]
 }
