@@ -1,3 +1,4 @@
+import { getMatchingLicense } from './getMatchingLicense';
 import { getPackageJson } from '../../utils/getPackageJson';
 import { LicenseCheckConfiguration } from './LicenseCheckConfiguration';
 import { packageLicenses } from '../../../configuration/packageLicenses';
@@ -17,7 +18,7 @@ const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguratio
 
   const packageJson = packageJsonResult.value;
 
-  let licenseString: string = '';
+  let licenseString = '';
 
   // The `packageJson.licenses` field is not valid anymore, but unfortunately
   // still in use. (https://docs.npmjs.com/cli/v7/configuring-npm/package-json#license)
@@ -57,9 +58,17 @@ const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguratio
 
   let knownPackageLicense: string | undefined;
 
-  knownPackageLicense = licenseCheckConfiguration.knownPackageLicenses?.[packageName]?.[packageVersion];
+  knownPackageLicense = getMatchingLicense({
+    licensesMap: licenseCheckConfiguration.knownPackageLicenses ?? {},
+    packageName,
+    packageVersion
+  });
   if (!knownPackageLicense) {
-    knownPackageLicense = packageLicenses[packageName]?.[packageVersion];
+    knownPackageLicense = getMatchingLicense({
+      licensesMap: packageLicenses,
+      packageName,
+      packageVersion
+    });
   }
 
   if (knownPackageLicense) {

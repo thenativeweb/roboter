@@ -52,11 +52,11 @@ errors.LicenseCheckConfigurationMalformed
 
   if (licenseCheckConfiguration.knownPackageLicenses) {
     for (const [ packageName, packageLicenses ] of Object.entries(licenseCheckConfiguration.knownPackageLicenses)) {
-      for (const packageVersion of Object.keys(packageLicenses)) {
-        if (!semver.valid(packageVersion)) {
+      for (const versionRange of Object.keys(packageLicenses)) {
+        if (!semver.validRange(versionRange)) {
           return error(new errors.LicenseCheckConfigurationMalformed({
             message: 'A package version in the known package licenses configuration is not valid semver.',
-            data: { packageName, packageVersion }
+            data: { packageName, versionRange }
           }));
         }
       }

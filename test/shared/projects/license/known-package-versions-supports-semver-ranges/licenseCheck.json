@@ -1,0 +1,28 @@
+{
+  "compatibleLicenses": [
+    "0BSD",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "CC-BY-3.0",
+    "CC-BY-4.0",
+    "CC0-1.0",
+    "MIT",
+    "ISC",
+    "Python-2.0"
+  ],
+  "knownPackageLicenses": {
+    "dependency-package-0": {
+      "^1.0.0": "MIT"
+    },
+    "dependency-package-1": {
+      "~1.42.0": "MIT"
+    },
+    "dependency-package-2": {
+      "1.X": "MIT"
+    },
+    "dependency-package-3": {
+      "1 - 1.42": "MIT"
+    }
+  }
+}
