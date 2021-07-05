@@ -63,7 +63,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
 
   const testRunner = new TestRunner({
     applicationRoot,
-    bail
+    bail,
+    watch
   });
 
   const absoluteTestFilesPerType: Record<string, string[]> = {};

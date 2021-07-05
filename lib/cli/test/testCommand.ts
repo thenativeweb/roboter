@@ -3,8 +3,6 @@ import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
 import { getApplicationRoot } from '../../utils/getApplicationRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
-import { setupCommand } from './setup/setupCommand';
-import { teardownCommand } from './teardown/teardownCommand';
 import { TestOptions } from './TestOptions';
 import { testTask } from '../../tasks/testTask';
 
@@ -90,10 +88,6 @@ const testCommand = function (): Command<TestOptions> {
         task: 'test',
         phase: 'post'
       });
-    },
-    subcommands: {
-      setup: setupCommand(),
-      teardown: teardownCommand()
     }
   };
 };

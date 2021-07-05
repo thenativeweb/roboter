@@ -35,6 +35,7 @@
   "bin": {
     "roboter": "build/lib/bin/roboter.js"
   },
+  "types": "build/lib/index.d.ts",
   "dependencies": {
     "@types/common-tags": "1.8.0",
     "@types/eslint": "7.2.13",

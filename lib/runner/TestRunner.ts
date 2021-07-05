@@ -12,14 +12,20 @@ class TestRunner {
 
   protected bail: boolean;
 
+  protected watch: boolean;
+
   protected worker: Worker | undefined;
 
-  public constructor ({ applicationRoot, bail = true }: {
+  protected previousRunResult?: 'success' | 'fail' | 'bail';
+
+  public constructor ({ applicationRoot, bail, watch }: {
     applicationRoot: string;
-    bail?: boolean;
+    bail: boolean;
+    watch: boolean;
   }) {
     this.applicationRoot = applicationRoot;
     this.bail = bail;
+    this.watch = watch;
     this.worker = undefined;
   }
 
@@ -34,15 +40,22 @@ class TestRunner {
         absoluteTestFilesPerType,
         typeSequence,
         bail: this.bail,
-        grep
+        watch: this.watch,
+        grep,
+        previousRunResult: this.previousRunResult
       }
     });
 
     return await new Promise<Result<undefined, errors.TestsFailed>>((resolve, reject): void => {
       this.worker!.once('message', (message): void => {
-        if (message === true) {
+        if (message === 'success') {
+          this.previousRunResult = 'success';
           resolve(value());
         }
+        if (message === 'bail') {
+          this.previousRunResult = 'bail';
+        }
+        this.previousRunResult = 'fail';
 
         resolve(error(new errors.TestsFailed()));
       });

@@ -4,6 +4,12 @@ import { loadEnvironmentVariables } from './loadEnvironmentVariables';
 import Mocha from 'mocha';
 import { nodeenv } from 'nodeenv';
 import path from 'path';
+import {
+  loadGlobalPostScript,
+  loadGlobalPreScript,
+  loadTestTypePostScript,
+  loadTestTypePreScript
+} from './loadTestScript';
 import { parentPort, workerData } from 'worker_threads';
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -13,10 +19,42 @@ import { parentPort, workerData } from 'worker_threads';
     absoluteTestFilesPerType,
     typeSequence,
     bail,
-    grep
+    grep,
+    watch,
+    previousRunResult
   } = workerData;
 
+  const globalPreScript = await loadGlobalPreScript({ applicationRoot });
+
+  if (globalPreScript) {
+    buntstift.line();
+    buntstift.info('Running global pre script...');
+    await globalPreScript({
+      runNumber: 0,
+      isBailActive: bail,
+      isWatchModeActive: watch,
+      previousRunResult
+    });
+  }
+
+  let entireRunHadFailure = false;
+
   for (const testType of typeSequence) {
+    let currentTestTypeHadFailure = false;
+
+    const testTypePreScript = await loadTestTypePreScript({ applicationRoot, testType });
+
+    if (testTypePreScript) {
+      buntstift.line();
+      buntstift.info(`Running pre script for ${testType} tests...`);
+      await testTypePreScript({
+        runNumber: 0,
+        isBailActive: bail,
+        isWatchModeActive: watch,
+        previousRunResult
+      });
+    }
+
     buntstift.line();
     buntstift.info(`Running ${testType} tests...`);
 
@@ -75,16 +113,53 @@ import { parentPort, workerData } from 'worker_threads';
     resetEnvironment();
 
     if (runner.failures > 0) {
+      entireRunHadFailure = true;
+      currentTestTypeHadFailure = true;
+
       buntstift.error(`${testType} tests failed.`);
-
-      parentPort?.postMessage(false);
-
-      return;
+    } else {
+      buntstift.line();
+      buntstift.success(`${testType} tests successful.`);
     }
 
-    buntstift.line();
-    buntstift.success(`${testType} tests successful.`);
+    const testTypePostScript = await loadTestTypePostScript({ applicationRoot, testType });
+
+    if (testTypePostScript) {
+      buntstift.line();
+      buntstift.info(`Running post script for ${testType} tests...`);
+      await testTypePostScript({
+        runNumber: 0,
+        isBailActive: bail,
+        isWatchModeActive: watch,
+        currentRunResult: currentTestTypeHadFailure ? 'fail' : 'success'
+      });
+    }
+
+    if (currentTestTypeHadFailure && bail) {
+      break;
+    }
   }
 
-  parentPort?.postMessage(true);
+  const globalPostScript = await loadGlobalPostScript({ applicationRoot });
+
+  if (globalPostScript) {
+    buntstift.line();
+    buntstift.info('Running global post script...');
+    await globalPostScript({
+      runNumber: 0,
+      isBailActive: bail,
+      isWatchModeActive: watch,
+      currentRunResult: entireRunHadFailure ? 'fail' : 'success'
+    });
+  }
+
+  if (entireRunHadFailure) {
+    if (bail) {
+      parentPort?.postMessage('bail');
+    } else {
+      parentPort?.postMessage('fail');
+    }
+  } else {
+    parentPort?.postMessage('success');
+  }
 })();
