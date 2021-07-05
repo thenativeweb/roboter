@@ -85,13 +85,11 @@ const testCommand = function (): Command<TestOptions> {
         return exit(1);
       }
 
-      if (!watch) {
-        await runPreOrPostScript({
-          applicationRoot,
-          task: 'test',
-          phase: 'post'
-        });
-      }
+      await runPreOrPostScript({
+        applicationRoot,
+        task: 'test',
+        phase: 'post'
+      });
     },
     subcommands: {
       setup: setupCommand(),
