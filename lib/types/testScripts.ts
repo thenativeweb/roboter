@@ -9,10 +9,11 @@ interface TestPreScriptParameters extends BaseTestScriptParameters {
 }
 
 interface TestPostScriptParameters extends BaseTestScriptParameters {
+  preScriptData?: object;
   currentRunResult: 'success' | 'fail' | 'bail';
 }
 
-type TestPreScript = (parameters: TestPreScriptParameters) => Promise<void> | void;
+type TestPreScript = (parameters: TestPreScriptParameters) => Promise<object | undefined> | object | undefined;
 type TestPostScript = (parameters: TestPostScriptParameters) => Promise<void> | void;
 
 export type {

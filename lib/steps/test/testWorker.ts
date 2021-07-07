@@ -1,7 +1,7 @@
 import { buntstift } from 'buntstift';
 import { findMochaConfigurationfile } from './findMochaConfigurationFile';
 import { loadEnvironmentVariables } from './loadEnvironmentVariables';
-import Mocha from 'mocha';
+import Mocha, { Suite, Test } from 'mocha';
 import { nodeenv } from 'nodeenv';
 import path from 'path';
 import {
@@ -26,10 +26,12 @@ import { parentPort, workerData } from 'worker_threads';
 
   const globalPreScript = await loadGlobalPreScript({ applicationRoot });
 
+  let globalPreScriptResult: any;
+
   if (globalPreScript) {
     buntstift.line();
     buntstift.info('Running global pre script...');
-    await globalPreScript({
+    globalPreScriptResult = await globalPreScript({
       runNumber: 0,
       isBailActive: bail,
       isWatchModeActive: watch,
@@ -44,10 +46,12 @@ import { parentPort, workerData } from 'worker_threads';
 
     const testTypePreScript = await loadTestTypePreScript({ applicationRoot, testType });
 
+    let testTypePreScriptResult: any;
+
     if (testTypePreScript) {
       buntstift.line();
       buntstift.info(`Running pre script for ${testType} tests...`);
-      await testTypePreScript({
+      testTypePreScriptResult = await testTypePreScript({
         runNumber: 0,
         isBailActive: bail,
         isWatchModeActive: watch,
@@ -93,6 +97,27 @@ import { parentPort, workerData } from 'worker_threads';
     }
 
     await mocha.loadFilesAsync();
+
+    const roboterContext = {
+      ...globalPreScriptResult,
+      ...testTypePreScriptResult
+    };
+
+    const suites: Suite[] = [ mocha.suite ];
+    const tests: Test[] = [];
+
+    while (suites.length > 0) {
+      const currentSuite = suites.pop()!;
+
+      currentSuite.ctx.roboter = roboterContext;
+
+      suites.push(...currentSuite.suites);
+      tests.push(...currentSuite.tests);
+    }
+
+    for (const test of tests) {
+      test.ctx!.roboter = roboterContext;
+    }
 
     const resetEnvironment = nodeenv(environmentVariablesForTest);
 
