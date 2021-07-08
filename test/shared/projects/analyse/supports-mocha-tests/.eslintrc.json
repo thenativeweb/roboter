@@ -1,4 +1,0 @@
-{
-  "extends": "eslint-config-es/node",
-  "plugins": [ "react" ]
-}

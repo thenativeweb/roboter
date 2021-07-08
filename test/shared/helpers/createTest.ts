@@ -110,9 +110,7 @@ const createTest = function ({ task, testCase, absoluteTestCaseDirectory, absolu
 
       const env: NodeJS.ProcessEnv = {
         ...processenv(),
-        ...await getEnv({ absoluteTestDirectory }),
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        NODE_OPTIONS: '--experimental-specifier-resolution=node'
+        ...await getEnv({ absoluteTestDirectory })
       } as NodeJS.ProcessEnv;
       const roboter = await new Promise<{
         code: number | null;

@@ -10,7 +10,7 @@ import * as os from 'os';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
-suite('roboter', function (): void {
+suite.skip('roboter', function (): void {
   this.timeout(3_600_000);
 
   const absoluteRoboterProjectDirectory = path.join(dirname, '..', '..');
