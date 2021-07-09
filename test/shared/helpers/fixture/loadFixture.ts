@@ -74,9 +74,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   timer.lap('npm install');
 
   // We might want to add some node modules manually, especially in the license tests.
-  if ((await globby([ `${absoluteFixtureDirectory}/node_modules/*` ])).length > 0) {
-    shelljs.cp('-r', `${absoluteFixtureDirectory}/node_modules`, absoluteTestDirectory);
-  }
+  shelljs.cp('-rf', `${absoluteFixtureDirectory}/node_modules`, absoluteTestDirectory);
 
   await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
   await runCommand('git config user.name "Sophie van Sky"', { cwd: absoluteTestDirectory, silent: true });
