@@ -33,7 +33,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'ignores nested node modules',
+    'ignores nested node modules.',
     [ 'analyse', 'with-eslint-errors-in-nested-node-module' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -47,7 +47,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'ignores node modules at top level',
+    'ignores node modules at top level.',
     [ 'analyse', 'with-eslint-errors-in-top-level-node-module' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -61,7 +61,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'runs pre and post tasks',
+    'runs pre and post tasks.',
     [ 'analyse', 'with-preanalyse-and-postanalyse-task' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -79,7 +79,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'succeeds on valid code',
+    'succeeds on valid code.',
     [ 'with-valid-javascript' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -93,7 +93,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'supports jsx',
+    'supports jsx.',
     [ 'analyse', 'with-valid-jsx' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -115,7 +115,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'supports mocha tests',
+    'supports mocha tests.',
     [ 'analyse', 'with-eslint-errors-in-mocha-tests' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -137,7 +137,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'supports nested eslint configurations',
+    'supports nested eslint configurations.',
     [ 'analyse', 'with-nested-eslint-configuration' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -151,7 +151,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'supports typescript',
+    'supports typescript.',
     [ 'analyse', 'with-eslint-errors-in-typescript' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {
@@ -173,7 +173,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'uses eslintignore',
+    'uses eslintignore.',
     [ 'analyse', 'with-eslintignore' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter analyse', {

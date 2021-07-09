@@ -5,12 +5,12 @@ import { runCommand } from '../../lib/utils/runCommand';
 import stripAnsi from 'strip-ansi';
 import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 
-suite('analyse', function (): void {
+suite('build', function (): void {
   this.timeout(3_600_000);
 
   testWithFixture(
-    'builds sources and tests using standard config',
-    [ 'build', 'with-valid-typescript' ],
+    'builds sources and tests using standard config.',
+    [ 'with-valid-typescript' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
         cwd: fixture.absoluteTestDirectory,
@@ -30,7 +30,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'builds using the packaged typescript version',
+    'builds using the packaged typescript version.',
     [ 'build', 'with-typescript-feature-that-requires-newer-version' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
@@ -44,7 +44,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'fails-when-build-fails',
+    'fails-when-build-fails.',
     [ 'build', 'with-invalid-typescript' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
@@ -64,7 +64,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'runs-pre-and-post-tasks',
+    'runs-pre-and-post-tasks.',
     [ 'build', 'with-prebuild-and-postbuild-task' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
@@ -82,7 +82,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'skips compilation without typescript',
+    'skips compilation without typescript.',
     [ 'with-valid-javascript' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
@@ -99,7 +99,7 @@ suite('analyse', function (): void {
   );
 
   testWithFixture(
-    'supports incremental flag',
+    'supports incremental flag.',
     [ 'build', 'with-tsconfig-incremental-flag-true' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter build', {
