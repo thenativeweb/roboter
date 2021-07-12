@@ -31,12 +31,18 @@ import { parentPort, workerData } from 'worker_threads';
   if (globalPreScript) {
     buntstift.line();
     buntstift.info('Running global pre script...');
-    globalPreScriptResult = await globalPreScript({
-      runNumber: 0,
-      isBailActive: bail,
-      isWatchModeActive: watch,
-      previousRunResult
-    });
+    try {
+      globalPreScriptResult = await globalPreScript({
+        runNumber: 0,
+        isBailActive: bail,
+        isWatchModeActive: watch,
+        previousRunResult
+      });
+    } catch (ex: unknown) {
+      buntstift.error(`Global pre script failed.`);
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      buntstift.raw((ex as Error).toString());
+    }
   }
 
   let entireRunHadFailure = false;
@@ -51,12 +57,18 @@ import { parentPort, workerData } from 'worker_threads';
     if (testTypePreScript) {
       buntstift.line();
       buntstift.info(`Running pre script for ${testType} tests...`);
-      testTypePreScriptResult = await testTypePreScript({
-        runNumber: 0,
-        isBailActive: bail,
-        isWatchModeActive: watch,
-        previousRunResult
-      });
+      try {
+        testTypePreScriptResult = await testTypePreScript({
+          runNumber: 0,
+          isBailActive: bail,
+          isWatchModeActive: watch,
+          previousRunResult
+        });
+      } catch (ex: unknown) {
+        buntstift.error(`Pre script for ${testType} tests failed.`);
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        buntstift.raw((ex as Error).toString());
+      }
     }
 
     buntstift.line();
@@ -152,12 +164,19 @@ import { parentPort, workerData } from 'worker_threads';
     if (testTypePostScript) {
       buntstift.line();
       buntstift.info(`Running post script for ${testType} tests...`);
-      await testTypePostScript({
-        runNumber: 0,
-        isBailActive: bail,
-        isWatchModeActive: watch,
-        currentRunResult: currentTestTypeHadFailure ? 'fail' : 'success'
-      });
+      try {
+        await testTypePostScript({
+          runNumber: 0,
+          isBailActive: bail,
+          isWatchModeActive: watch,
+          currentRunResult: currentTestTypeHadFailure ? 'fail' : 'success',
+          preScriptData: testTypePreScriptResult
+        });
+      } catch (ex: unknown) {
+        buntstift.error(`Post script for ${testType} tests failed.`);
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        buntstift.raw((ex as Error).toString());
+      }
     }
 
     if (currentTestTypeHadFailure && bail) {
@@ -170,12 +189,19 @@ import { parentPort, workerData } from 'worker_threads';
   if (globalPostScript) {
     buntstift.line();
     buntstift.info('Running global post script...');
-    await globalPostScript({
-      runNumber: 0,
-      isBailActive: bail,
-      isWatchModeActive: watch,
-      currentRunResult: entireRunHadFailure ? 'fail' : 'success'
-    });
+    try {
+      await globalPostScript({
+        runNumber: 0,
+        isBailActive: bail,
+        isWatchModeActive: watch,
+        currentRunResult: entireRunHadFailure ? 'fail' : 'success',
+        preScriptData: globalPreScriptResult
+      });
+    } catch (ex: unknown) {
+      buntstift.error(`Global post script failed.`);
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      buntstift.raw((ex as Error).toString());
+    }
   }
 
   if (entireRunHadFailure) {

@@ -98,7 +98,11 @@ const packageLicenses: Partial<Record<string, Partial<Record<string, string>>>> 
   'scss-parser': {
     // https://github.com/salesforce-ux/scss-parser/blob/v1.0.4/LICENSE
     // Actually this is not MIT, but it comes close to it, so we handle it like this.
-    '1.0.4': 'MIT'
+    '1.0.4': 'MIT',
+
+    // https://github.com/salesforce-ux/scss-parser/blob/v1.0.5/LICENSE
+    // Same applies as above.
+    '1.0.5': 'MIT'
   },
 
   semver: {

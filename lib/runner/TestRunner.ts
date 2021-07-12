@@ -4,6 +4,7 @@ import path from 'path';
 import { Worker } from 'worker_threads';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
+import has = Reflect.has;
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -47,7 +48,10 @@ class TestRunner {
     });
 
     return await new Promise<Result<undefined, errors.TestsFailed>>((resolve, reject): void => {
+      let hasResolved = false;
+
       this.worker!.once('message', (message): void => {
+        hasResolved = true;
         if (message === 'success') {
           this.previousRunResult = 'success';
           resolve(value());
@@ -63,7 +67,9 @@ class TestRunner {
         reject(workerError);
       });
       this.worker!.once('exit', (): void => {
-        resolve(value());
+        if (!hasResolved) {
+          resolve(value());
+        }
       });
     });
   }

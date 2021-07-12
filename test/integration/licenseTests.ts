@@ -1,5 +1,6 @@
 import { assert } from 'assertthat';
 import { runCommand } from '../../lib/utils/runCommand';
+import stripAnsi from 'strip-ansi';
 import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 
 suite('license', function (): void {
@@ -21,6 +22,11 @@ suite('license', function (): void {
       const { error } = roboterResult;
 
       assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containingAllOf([
+        'Running license check',
+        '  incompatible-package  0.0.0'
+      ]);
+      assert.that(stripAnsi(error.stderr)).is.containing('There are incompatible dependencies.');
     }
   );
 

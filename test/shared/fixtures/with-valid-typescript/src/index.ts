@@ -4,4 +4,5 @@ const add = function (left: number, right: number): number {
 
 const sum = add(23, 42);
 
+// eslint-disable-next-line no-console
 console.log(sum);
