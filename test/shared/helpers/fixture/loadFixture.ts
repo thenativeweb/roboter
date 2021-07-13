@@ -1,3 +1,4 @@
+import { buntstift } from 'buntstift';
 import { fileExists } from '../../../../lib/utils/fileExists';
 import { fileURLToPath } from 'url';
 import { Fixture } from './Fixture';
@@ -24,7 +25,9 @@ const timer = {
   lap (message: string): void {
     const newTime = Date.now();
 
-    console.log(message, { elapsedSinceLast: newTime - this.lastTime, elapsedSinceStart: newTime - this.startTime });
+    buntstift.verbose(
+      `${message} - ${JSON.stringify({ elapsedSinceLast: newTime - this.lastTime, elapsedSinceStart: newTime - this.startTime })}`
+    );
     this.lastTime = newTime;
   }
 };
@@ -34,7 +37,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   absoluteRoboterPackageFile: string;
   absoluteNpmCacheDirectory: string;
 }): Promise<Result<Fixture, FixtureNotFound>> {
-  console.log(`Loading fixture ${fixturePath.join('/')}...`);
+  buntstift.verbose(`Loading fixture ${fixturePath.join('/')}...`);
   const absoluteFixtureDirectory = path.join(dirname, '..', '..', 'fixtures', ...fixturePath);
 
   if (!await fileExists({ absoluteFile: absoluteFixtureDirectory })) {
@@ -44,7 +47,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   timer.start();
   const absoluteTestDirectory = await isolated();
 
-  console.log({ absoluteTestDirectory });
+  buntstift.verbose(`absoluteTestDirectory: ${absoluteTestDirectory}`);
   const absoluteGitDirectory = await isolated();
 
   shelljs.cp('-r', `${absoluteFixtureDirectory}/*`, absoluteTestDirectory);
