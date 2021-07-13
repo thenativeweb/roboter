@@ -19,12 +19,10 @@
     "./build/**/*.ts",
     "./test/shared/fixtures/**/*.ts",
     "./test/shared/sources/**/*.ts",
-    "./test/shared/projects/**/*.ts",
     "./test/shared/projectsOld/**/*.ts",
     "./build/**/*.js",
     "./test/shared/fixtures/**/*.js",
     "./test/shared/sources/**/*.js",
-    "./test/shared/projects/**/*.js",
     "./test/shared/projectsOld/**/*.js"
   ]
 }

@@ -1,16 +1,14 @@
 import { TestPreScriptParameters } from 'roboter';
 
 const pre = function ({ runNumber, isWatchModeActive, isBailActive, previousRunResult }: TestPreScriptParameters): any {
-    console.log('global pre script', {
+    console.log('global pre script', JSON.stringify({
         runNumber,
         isWatchModeActive,
         isBailActive,
         previousRunResult
-    });
+    }));
 
-    console.log('global pre script successful');
-
-    return { foo: 'global' };
+    return { global: true };
 };
 
 export default pre;

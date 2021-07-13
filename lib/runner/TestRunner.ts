@@ -19,6 +19,8 @@ class TestRunner {
 
   protected previousRunResult?: 'success' | 'fail' | 'bail';
 
+  protected runNumber: number;
+
   public constructor ({ applicationRoot, bail, watch }: {
     applicationRoot: string;
     bail: boolean;
@@ -28,6 +30,7 @@ class TestRunner {
     this.bail = bail;
     this.watch = watch;
     this.worker = undefined;
+    this.runNumber = 0;
   }
 
   public async run ({ absoluteTestFilesPerType, typeSequence, grep }: {
@@ -43,9 +46,12 @@ class TestRunner {
         bail: this.bail,
         watch: this.watch,
         grep,
-        previousRunResult: this.previousRunResult
+        previousRunResult: this.previousRunResult,
+        runNumber: this.runNumber
       }
     });
+
+    this.runNumber += 1;
 
     return await new Promise<Result<undefined, errors.TestsFailed>>((resolve, reject): void => {
       let hasResolved = false;
@@ -55,9 +61,13 @@ class TestRunner {
         if (message === 'success') {
           this.previousRunResult = 'success';
           resolve(value());
+
+          return;
         }
         if (message === 'bail') {
           this.previousRunResult = 'bail';
+
+          return;
         }
         this.previousRunResult = 'fail';
 

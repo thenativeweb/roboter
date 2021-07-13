@@ -1,7 +1,6 @@
 import { buntstift } from 'buntstift';
 import { findMochaConfigurationfile } from './findMochaConfigurationFile';
 import { loadEnvironmentVariables } from './loadEnvironmentVariables';
-import Mocha, { Suite, Test } from 'mocha';
 import { nodeenv } from 'nodeenv';
 import path from 'path';
 import {
@@ -10,6 +9,7 @@ import {
   loadTestTypePostScript,
   loadTestTypePreScript
 } from './loadTestScript';
+import Mocha, { Suite, Test } from 'mocha';
 import { parentPort, workerData } from 'worker_threads';
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -21,7 +21,8 @@ import { parentPort, workerData } from 'worker_threads';
     bail,
     grep,
     watch,
-    previousRunResult
+    previousRunResult,
+    runNumber
   } = workerData;
 
   const globalPreScript = await loadGlobalPreScript({ applicationRoot });
@@ -33,7 +34,7 @@ import { parentPort, workerData } from 'worker_threads';
     buntstift.info('Running global pre script...');
     try {
       globalPreScriptResult = await globalPreScript({
-        runNumber: 0,
+        runNumber,
         isBailActive: bail,
         isWatchModeActive: watch,
         previousRunResult
@@ -48,6 +49,12 @@ import { parentPort, workerData } from 'worker_threads';
   let entireRunHadFailure = false;
 
   for (const testType of typeSequence) {
+    const absoluteTestFiles = absoluteTestFilesPerType[testType];
+
+    if (!absoluteTestFiles || absoluteTestFiles.length === 0) {
+      continue;
+    }
+
     let currentTestTypeHadFailure = false;
 
     const testTypePreScript = await loadTestTypePreScript({ applicationRoot, testType });
@@ -59,7 +66,7 @@ import { parentPort, workerData } from 'worker_threads';
       buntstift.info(`Running pre script for ${testType} tests...`);
       try {
         testTypePreScriptResult = await testTypePreScript({
-          runNumber: 0,
+          runNumber,
           isBailActive: bail,
           isWatchModeActive: watch,
           previousRunResult
@@ -73,8 +80,6 @@ import { parentPort, workerData } from 'worker_threads';
 
     buntstift.line();
     buntstift.info(`Running ${testType} tests...`);
-
-    const absoluteTestFiles = absoluteTestFilesPerType[testType];
 
     const absoluteTestTypeDirectory = path.join(
       applicationRoot, 'test', testType
@@ -166,11 +171,11 @@ import { parentPort, workerData } from 'worker_threads';
       buntstift.info(`Running post script for ${testType} tests...`);
       try {
         await testTypePostScript({
-          runNumber: 0,
+          runNumber,
           isBailActive: bail,
           isWatchModeActive: watch,
           currentRunResult: currentTestTypeHadFailure ? 'fail' : 'success',
-          preScriptData: testTypePreScriptResult
+          preScriptData: roboterContext
         });
       } catch (ex: unknown) {
         buntstift.error(`Post script for ${testType} tests failed.`);
@@ -191,7 +196,7 @@ import { parentPort, workerData } from 'worker_threads';
     buntstift.info('Running global post script...');
     try {
       await globalPostScript({
-        runNumber: 0,
+        runNumber,
         isBailActive: bail,
         isWatchModeActive: watch,
         currentRunResult: entireRunHadFailure ? 'fail' : 'success',

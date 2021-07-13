@@ -1,14 +1,14 @@
 import { TestPreScriptParameters } from 'roboter';
 
 const pre = function ({ runNumber, isWatchModeActive, isBailActive, previousRunResult }: TestPreScriptParameters): any {
-    console.log('unit pre script', {
+    console.log('unit pre script', JSON.stringify({
         runNumber,
         isWatchModeActive,
         isBailActive,
         previousRunResult
-    });
+    }));
 
-    return { foo: 'unit' };
+    return { unit: true };
 };
 
 export default pre;

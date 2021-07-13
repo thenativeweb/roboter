@@ -24,7 +24,10 @@ suite('build', function (): void {
         await fs.promises.stat(path.join(fixture.absoluteTestDirectory, 'build', 'src', 'index.js'));
       }).is.not.throwingAsync();
       await assert.that(async (): Promise<void> => {
-        await fs.promises.stat(path.join(fixture.absoluteTestDirectory, 'build', 'test', 'unit', 'indexTest.js'));
+        await fs.promises.stat(path.join(fixture.absoluteTestDirectory, 'build', 'test', 'unit', 'someUnitTests.js'));
+      }).is.not.throwingAsync();
+      await assert.that(async (): Promise<void> => {
+        await fs.promises.stat(path.join(fixture.absoluteTestDirectory, 'build', 'test', 'integration', 'someIntegrationTests.js'));
       }).is.not.throwingAsync();
     }
   );

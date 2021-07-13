@@ -3,7 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { runCommand } from '../../lib/utils/runCommand';
 import shell from 'shelljs';
+import { sleep } from '../shared/helpers/sleep';
 import stripAnsi from 'strip-ansi';
+import { stripIndent } from 'common-tags';
 import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 import { waitForStringInStream } from '../shared/helpers/waitForStringInStream';
 
@@ -95,24 +97,24 @@ suite('test', function (): void {
 
       assert.that(exitCode).is.equalTo(0);
       assert.that(stripAnsi(stdout)).is.containingAllOf([
-        'global pre script',
-        'unit pre script',
+        'global pre script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true}',
+        'unit pre script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true}',
         'Running unit tests...',
         'unit tests successful',
-        'unit post script',
-        'e2e pre script',
+        'unit post script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true,"currentRunResult":"success","preScriptData":{"global":true,"unit":true}}',
+        'e2e pre script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true}',
         'Running e2e tests...',
         'e2e tests successful',
-        'e2e post script',
-        'baz pre script',
+        'e2e post script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true,"currentRunResult":"success","preScriptData":{"global":true,"e2e":true}}',
+        'baz pre script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true}',
         'Running baz tests...',
         'baz tests successful',
-        'baz post script',
-        'foobar pre script',
+        'baz post script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true,"currentRunResult":"success","preScriptData":{"global":true,"baz":true}}',
+        'foobar pre script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true}',
         'Running foobar tests...',
         'foobar tests successful',
-        'foobar post script',
-        'global post script'
+        'foobar post script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true,"currentRunResult":"success","preScriptData":{"global":true,"foobar":true}}',
+        'global post script {"runNumber":0,"isWatchModeActive":false,"isBailActive":true,"currentRunResult":"success","preScriptData":{"global":true}}'
       ]);
     }
   );
@@ -256,11 +258,37 @@ suite('test', function (): void {
   );
 
   testWithFixture(
+    'can selectively run tests using the --grep flag and skips test types without matches.',
+    [ 'with-valid-typescript' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter test --grep someIntegration', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      const { exitCode, stdout } = roboterResult.unwrapOrThrow();
+
+      assert.that(exitCode).is.equalTo(0);
+      assert.that(stdout).is.containingAllOf([
+        'someIntegration',
+        'integration tests successful.'
+      ]);
+      assert.that(stdout).is.not.containingAnyOf([
+        'someUnit'
+
+        // TODO: enable this:
+        // 'unit tests successful.'
+      ]);
+    }
+  );
+
+  testWithFixture(
     'supports watch mode',
     [ 'test', 'with-library-under-test' ],
     async (fixture): Promise<void> => {
       const childProcess = shell.exec(
-        'npx roboter test',
+        'npx roboter test --watch',
         {
           cwd: fixture.absoluteTestDirectory,
           silent: true,
@@ -285,6 +313,100 @@ suite('test', function (): void {
         string: 'unit tests failed',
         timeout: 5_000
       });
+
+      await new Promise((resolve): void => {
+        childProcess.on('exit', resolve);
+        childProcess.kill();
+      });
+    }
+  );
+
+  testWithFixture(
+    'watch mode runs all relevant pre and post scripts with correct parameters.',
+    [ 'test', 'with-pre-and-post-scripts' ],
+    async (fixture): Promise<void> => {
+      const childProcess = shell.exec(
+        'npx roboter test --watch --no-bail',
+        {
+          cwd: fixture.absoluteTestDirectory,
+          silent: true,
+          async: true
+        }
+      );
+
+      let stdoutAccumulator = '';
+
+      childProcess.stdout!.on('data', (chunk): void => {
+        stdoutAccumulator += chunk;
+      });
+
+      await waitForStringInStream({
+        stream: childProcess.stdout!,
+        string: 'global post script',
+        timeout: 10_000
+      });
+
+      await sleep({ ms: 100 });
+
+      assert.that(stdoutAccumulator).is.containingAllOf([
+        'global pre script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false}',
+        'unit pre script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false}',
+        'Running unit tests...',
+        'unit tests successful',
+        'unit post script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"unit":true}}',
+        'e2e pre script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false}',
+        'Running e2e tests...',
+        'e2e tests successful',
+        'e2e post script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"e2e":true}}',
+        'baz pre script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false}',
+        'Running baz tests...',
+        'baz tests successful',
+        'baz post script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"baz":true}}',
+        'foobar pre script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false}',
+        'Running foobar tests...',
+        'foobar tests successful',
+        'foobar post script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"foobar":true}}',
+        'global post script {"runNumber":0,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true}}'
+      ]);
+
+      await fs.promises.writeFile(
+        path.join(fixture.absoluteTestDirectory, 'test', 'unit', 'unitTests.js'),
+        stripIndent`
+          'use strict'
+          
+          suite('unit', () => {
+            test('fails', async () => {
+              throw new Error('fail!');
+            });
+          });`,
+        'utf-8'
+      );
+
+      await waitForStringInStream({
+        stream: childProcess.stdout!,
+        string: 'global post script',
+        timeout: 10_000
+      });
+
+      assert.that(stdoutAccumulator).is.containingAllOf([
+        'global pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',
+        'unit pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',
+        'Running unit tests...',
+        'unit tests successful',
+        'unit post script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"fail","preScriptData":{"global":true,"unit":true}}',
+        'global post script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"fail","preScriptData":{"global":true}}'
+      ]);
+
+      // Since none of these tests changed, none of the types should have ran a
+      // second time.
+      assert.that(stdoutAccumulator).is.not.containingAnyOf([
+        'e2e pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',
+        'e2e post script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"e2e":true}}',
+        'baz pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',
+        'baz post script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"baz":true}}',
+        'foobar pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',
+        'foobar post script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"currentRunResult":"success","preScriptData":{"global":true,"foobar":true}}'
+      ]);
 
       await new Promise((resolve): void => {
         childProcess.on('exit', resolve);
