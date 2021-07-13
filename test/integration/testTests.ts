@@ -275,10 +275,8 @@ suite('test', function (): void {
         'integration tests successful.'
       ]);
       assert.that(stdout).is.not.containingAnyOf([
-        'someUnit'
-
-        // TODO: enable this:
-        // 'unit tests successful.'
+        'someUnit',
+        'unit tests successful.'
       ]);
     }
   );
@@ -299,7 +297,7 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stdout!,
         string: 'unit tests successful',
-        timeout: 5_000
+        timeout: 20_000
       });
 
       await fs.promises.writeFile(
@@ -311,7 +309,7 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stderr!,
         string: 'unit tests failed',
-        timeout: 5_000
+        timeout: 20_000
       });
 
       await new Promise((resolve): void => {
@@ -343,7 +341,7 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stdout!,
         string: 'global post script',
-        timeout: 10_000
+        timeout: 20_000
       });
 
       await sleep({ ms: 100 });
@@ -385,8 +383,10 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stdout!,
         string: 'global post script',
-        timeout: 10_000
+        timeout: 20_000
       });
+
+      await sleep({ ms: 100 });
 
       assert.that(stdoutAccumulator).is.containingAllOf([
         'global pre script {"runNumber":1,"isWatchModeActive":true,"isBailActive":false,"previousRunResult":"success"}',

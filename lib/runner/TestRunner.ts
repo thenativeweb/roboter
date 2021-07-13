@@ -64,12 +64,12 @@ class TestRunner {
 
           return;
         }
+
         if (message === 'bail') {
           this.previousRunResult = 'bail';
-
-          return;
+        } else {
+          this.previousRunResult = 'fail';
         }
-        this.previousRunResult = 'fail';
 
         resolve(error(new errors.TestsFailed()));
       });

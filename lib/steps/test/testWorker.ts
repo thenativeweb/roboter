@@ -1,8 +1,10 @@
 import { buntstift } from 'buntstift';
+import { doesMochaInstanceHaveTests } from './isMochaInstanceEmpty';
 import { findMochaConfigurationfile } from './findMochaConfigurationFile';
 import { loadEnvironmentVariables } from './loadEnvironmentVariables';
 import { nodeenv } from 'nodeenv';
 import path from 'path';
+import { pruneMochaInstanceByGrep } from './pruneMochaInstanceByGrep';
 import {
   loadGlobalPostScript,
   loadGlobalPreScript,
@@ -57,30 +59,6 @@ import { parentPort, workerData } from 'worker_threads';
 
     let currentTestTypeHadFailure = false;
 
-    const testTypePreScript = await loadTestTypePreScript({ applicationRoot, testType });
-
-    let testTypePreScriptResult: any;
-
-    if (testTypePreScript) {
-      buntstift.line();
-      buntstift.info(`Running pre script for ${testType} tests...`);
-      try {
-        testTypePreScriptResult = await testTypePreScript({
-          runNumber,
-          isBailActive: bail,
-          isWatchModeActive: watch,
-          previousRunResult
-        });
-      } catch (ex: unknown) {
-        buntstift.error(`Pre script for ${testType} tests failed.`);
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        buntstift.raw((ex as Error).toString());
-      }
-    }
-
-    buntstift.line();
-    buntstift.info(`Running ${testType} tests...`);
-
     const absoluteTestTypeDirectory = path.join(
       applicationRoot, 'test', testType
     );
@@ -105,7 +83,6 @@ import { parentPort, workerData } from 'worker_threads';
       color: true,
       reporter: 'spec',
       ui: 'tdd',
-      grep,
       ...additionalMochaConfiguration
     });
 
@@ -114,6 +91,36 @@ import { parentPort, workerData } from 'worker_threads';
     }
 
     await mocha.loadFilesAsync();
+
+    pruneMochaInstanceByGrep({ mocha, grep });
+
+    if (!doesMochaInstanceHaveTests({ mocha })) {
+      continue;
+    }
+
+    const testTypePreScript = await loadTestTypePreScript({ applicationRoot, testType });
+
+    let testTypePreScriptResult: any;
+
+    if (testTypePreScript) {
+      buntstift.line();
+      buntstift.info(`Running pre script for ${testType} tests...`);
+      try {
+        testTypePreScriptResult = await testTypePreScript({
+          runNumber,
+          isBailActive: bail,
+          isWatchModeActive: watch,
+          previousRunResult
+        });
+      } catch (ex: unknown) {
+        buntstift.error(`Pre script for ${testType} tests failed.`);
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        buntstift.raw((ex as Error).toString());
+      }
+    }
+
+    buntstift.line();
+    buntstift.info(`Running ${testType} tests...`);
 
     const roboterContext = {
       ...globalPreScriptResult,
