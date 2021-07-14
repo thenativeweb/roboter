@@ -11,7 +11,7 @@ const getAbsoluteDependencyDirectoryList = async function ({ absoluteDirectory }
     directory: path.join(absoluteDirectory, 'node_modules'),
     matches: (pathName): boolean => pathName.endsWith('package.json'),
     ignores (pathName): boolean {
-      const pathSegments = pathName.split(path.delimiter);
+      const pathSegments = pathName.split(path.sep);
       const pathSegmentCount = pathSegments.length;
 
       if (pathSegmentCount < 3) {
