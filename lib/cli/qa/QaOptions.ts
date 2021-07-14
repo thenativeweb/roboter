@@ -1,8 +1,6 @@
 import { RootOptions } from '../RootOptions';
 
-interface QaOptions extends RootOptions {
-  'no-bail': boolean;
-}
+type QaOptions = RootOptions;
 
 export type {
   QaOptions

@@ -1,10 +1,8 @@
 import { analyseCommand } from './analyse/analyseCommand';
 import { buildCommand } from './build/buildCommand';
-import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
 import { licenseCommand } from './license/licenseCommand';
-import packageJson from '../../package.json';
 import { qaCommand } from './qa/qaCommand';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';
@@ -29,25 +27,24 @@ const rootCommand = function (): Command<RootOptions> {
         type: 'boolean',
         isRequired: false,
         defaultValue: false
+      },
+      {
+        name: 'no-bail',
+        alias: 'b',
+        description: 'Do not end test execution as soon a a test fails.',
+        type: 'boolean',
+        isRequired: false,
+        defaultValue: false
       }
     ],
 
-    async handle ({ options: {
-      verbose,
-      version
-    }}): Promise<void> {
-      buntstift.configure(
-        buntstift.getConfiguration().
-          withVerboseMode(verbose)
-      );
-
-      if (version) {
-        buntstift.info(packageJson.version);
-
-        return;
-      }
-
-      buntstift.warn('Not implemented yet. Use --help.');
+    async handle ({ options, ancestors, getUsage, level }): Promise<void> {
+      await qaCommand().handle({
+        options,
+        ancestors: [ ...ancestors, 'qa' ],
+        getUsage,
+        level: level + 1
+      });
     },
 
     subcommands: {

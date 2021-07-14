@@ -13,16 +13,7 @@ const qaCommand = function (): Command<QaOptions> {
   return {
     name: 'qa',
     description: 'Run code analysis, tests, checks dependencies and license compatibility.',
-    optionDefinitions: [
-      {
-        name: 'no-bail',
-        alias: 'b',
-        description: 'Do not end test execution as soon a a test fails.',
-        type: 'boolean',
-        isRequired: false,
-        defaultValue: false
-      }
-    ],
+    optionDefinitions: [],
     async handle ({ options: {
       'no-bail': noBail,
       verbose
