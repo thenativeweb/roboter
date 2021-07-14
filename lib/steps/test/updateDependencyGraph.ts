@@ -1,3 +1,4 @@
+import { buntstift } from 'buntstift';
 import { DependencyGraph } from '../../types/DependencyGraph';
 import { findImportsInSourceFile } from '../../utils/findImportsInSourceFile';
 
@@ -24,7 +25,7 @@ const updateDependencyGraph = async function ({ graph, staleFiles }: {
     graph.updateEdgesFromNode(nextFile, importedFilePaths);
   }
 
-  console.log(graph.prettyPrint());
+  buntstift.verbose(graph.prettyPrint());
 };
 
 export {

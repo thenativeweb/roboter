@@ -4,7 +4,6 @@ import path from 'path';
 import { Worker } from 'worker_threads';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
-import has = Reflect.has;
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 

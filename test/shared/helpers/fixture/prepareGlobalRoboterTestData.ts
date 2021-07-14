@@ -10,7 +10,6 @@ import shelljs from 'shelljs';
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const prepareGlobalRoboterTestData = async function (): Promise<GlobalRoboterTestData> {
-  console.log('Preparing roboter for tests by building and packaging it...');
   const absoluteRoboterProjectDirectory = path.join(dirname, '..', '..', '..', '..');
 
   const { code: tscCode, stderr: tscStderr } = shelljs.exec(`npx tsc`, { cwd: absoluteRoboterProjectDirectory });
@@ -35,8 +34,6 @@ const prepareGlobalRoboterTestData = async function (): Promise<GlobalRoboterTes
   }
 
   const absoluteRoboterPackageFile = globby.sync([ path.join(absoluteRoboterPackageDestinationDirectory, 'roboter*') ])[0];
-
-  console.log('The roboter is now prepared for the tests.');
 
   return {
     absoluteNpmCacheDirectory,

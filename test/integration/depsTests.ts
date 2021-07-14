@@ -1,8 +1,8 @@
 import { assert } from 'assertthat';
 import { runCommand } from '../../lib/utils/runCommand';
 import stripAnsi from 'strip-ansi';
-import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 import { stripIndent } from 'common-tags';
+import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 
 suite('deps', function (): void {
   this.timeout(3_600_000);

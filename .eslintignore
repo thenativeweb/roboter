@@ -1,1 +1,2 @@
-test/shared/projects/*
+test/shared/fixtures/*
+test/shared/sources/*
