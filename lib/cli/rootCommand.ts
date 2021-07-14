@@ -1,8 +1,10 @@
 import { analyseCommand } from './analyse/analyseCommand';
 import { buildCommand } from './build/buildCommand';
+import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
 import { licenseCommand } from './license/licenseCommand';
+import packageJson from '../../package.json';
 import { qaCommand } from './qa/qaCommand';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';
@@ -38,7 +40,22 @@ const rootCommand = function (): Command<RootOptions> {
       }
     ],
 
-    async handle ({ options, ancestors, getUsage, level }): Promise<void> {
+    async handle ({
+      options,
+      ancestors,
+      getUsage,
+      level
+    }): Promise<void> {
+      buntstift.configure(
+        buntstift.getConfiguration().
+          withVerboseMode(options.verbose)
+      );
+
+      if (options.version) {
+        buntstift.info(packageJson.version);
+
+        return;
+      }
       await qaCommand().handle({
         options,
         ancestors: [ ...ancestors, 'qa' ],
