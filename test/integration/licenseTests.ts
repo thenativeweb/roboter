@@ -227,4 +227,20 @@ suite('license', function (): void {
       assert.that(exitCode).is.equalTo(0);
     }
   );
+
+  testWithFixture(
+    'ignores packages that are not actual dependencies (not in node_modules or a vendor package).',
+    [ 'license', 'with-irrelevant-package-json-in-dependency' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter license', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      const { exitCode } = roboterResult.unwrapOrThrow();
+
+      assert.that(exitCode).is.equalTo(0);
+    }
+  );
 });

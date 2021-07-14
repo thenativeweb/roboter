@@ -4,6 +4,11 @@ const packageLicenses: Partial<Record<string, Partial<Record<string, string>>>> 
     '0.0.4': 'MIT'
   },
 
+  'cli-table': {
+    // https://github.com/Automattic/cli-table/blob/v0.3.6/README.md
+    '0.3.6': 'MIT'
+  },
+
   coa: {
     // https://github.com/veged/coa/blob/v1.0.4/package.json
     '1.0.4': 'MIT'
@@ -80,6 +85,11 @@ const packageLicenses: Partial<Record<string, Partial<Record<string, string>>>> 
   nopter: {
     // https://github.com/stevenvachon/nopter/blob/bb0478aa64b6a1a156c28cfc51e94788617d6c0f/package.json
     '0.3.0': 'MIT'
+  },
+
+  'qrcode-terminal': {
+    // https://github.com/gtanner/qrcode-terminal/blob/0.12.0/package.json
+    '0.12.0': 'Apache-2.0'
   },
 
   'regenerator-transform': {
