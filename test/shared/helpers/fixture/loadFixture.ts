@@ -48,7 +48,6 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   const absoluteTestDirectory = await isolated();
 
   buntstift.verbose(`absoluteTestDirectory: ${absoluteTestDirectory}`);
-  const absoluteGitDirectory = await isolated();
 
   shelljs.cp('-r', `${absoluteFixtureDirectory}/*`, absoluteTestDirectory);
   if ((await globby([ `${absoluteFixtureDirectory}/.*` ])).length > 0) {
@@ -77,7 +76,9 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   timer.lap('npm install');
 
   // We might want to add some node modules manually, especially in the license tests.
-  shelljs.cp('-rf', `${absoluteFixtureDirectory}/node_modules`, absoluteTestDirectory);
+  if (await fileExists({ absoluteFile: path.join(absoluteFixtureDirectory, 'node_modules') })) {
+    shelljs.cp('-r', `${absoluteFixtureDirectory}/node_modules`, absoluteTestDirectory);
+  }
 
   await runCommand('git init --initial-branch main', { cwd: absoluteTestDirectory, silent: true });
   await runCommand('git config user.name "Sophie van Sky"', { cwd: absoluteTestDirectory, silent: true });
@@ -86,14 +87,8 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   await runCommand('git commit -m "Initial commit."', { cwd: absoluteTestDirectory, silent: true });
   timer.lap('git main repo');
 
-  await runCommand('git init --bare --initial-branch main', { cwd: absoluteGitDirectory, silent: true });
-  await runCommand(`git remote add origin ${absoluteGitDirectory}`, { cwd: absoluteTestDirectory, silent: true });
-  await runCommand('git push origin main', { cwd: absoluteTestDirectory, silent: true });
-  timer.lap('git remote');
-
   return value({
     fixturePath,
-    absoluteGitDirectory,
     absoluteTestDirectory
   });
 };
