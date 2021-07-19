@@ -66,8 +66,8 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   const absolutePackageJsonFile = path.join(absoluteTestDirectory, 'package.json');
   const packageJson = JSON.parse(await fs.promises.readFile(absolutePackageJsonFile, 'utf-8'));
 
-  packageJson.dependencies = {
-    ...packageJson.dependencies ?? {},
+  packageJson.devDependencies = {
+    ...packageJson.devDependencies ?? {},
     roboter: absoluteRoboterPackageFile
   };
   await fs.promises.writeFile(absolutePackageJsonFile, JSON.stringify(packageJson, null, 2), 'utf-8');
