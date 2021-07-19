@@ -199,4 +199,18 @@ suite('analyse', function (): void {
       assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
     }
   );
+
+  testWithFixture(
+    `uses the project's eslintrc.`,
+    [ 'analyse', 'with-custom-eslintrc' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyse', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
+    }
+  );
 });

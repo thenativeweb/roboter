@@ -1,4 +1,5 @@
 import { ESLint } from 'eslint';
+import { fileExists } from '../../utils/fileExists';
 import { getPackageLocation } from '../../utils/getPackageLocation';
 import path from 'path';
 import { error, Result, value } from 'defekt';
@@ -14,14 +15,19 @@ const lintCode = async function ({ applicationRoot }: {
     '**/*.tsx'
   ];
 
-  const eslintConfigEsVersion = (await import(path.join(applicationRoot, 'package.json'))).default.dependencies['eslint-config-es'];
-  const absoluteEslintPackageDirectory = (await getPackageLocation({
-    applicationRoot,
-    packageName: 'eslint-config-es',
-    version: eslintConfigEsVersion
-  })).unwrapOrThrow();
-  const absoluteEslintConfigFile = path.join(absoluteEslintPackageDirectory, 'node.js');
-  const baseEslintConfig = (await import(absoluteEslintConfigFile)).default;
+  let baseEslintConfig: any = {};
+
+  if (!await fileExists({ absoluteFile: path.join(applicationRoot, '.eslintrc.json') })) {
+    const eslintConfigEsVersion = (await import(path.join(applicationRoot, 'package.json'))).default.dependencies['eslint-config-es'];
+    const absoluteEslintPackageDirectory = (await getPackageLocation({
+      applicationRoot,
+      packageName: 'eslint-config-es',
+      version: eslintConfigEsVersion
+    })).unwrapOrThrow();
+    const absoluteEslintConfigFile = path.join(absoluteEslintPackageDirectory, 'node.js');
+
+    baseEslintConfig = (await import(absoluteEslintConfigFile)).default;
+  }
 
   baseEslintConfig.ignorePatterns = [
     ...baseEslintConfig.ignorePatterns ?? [],
