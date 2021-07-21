@@ -1,3 +1,10 @@
+## [11.7.8](https://github.com/thenativeweb/roboter/compare/11.7.7...11.7.8) (2021-07-21)
+
+
+### Bug Fixes
+
+* Add license of scss-parser@1.0.5. ([#660](https://github.com/thenativeweb/roboter/issues/660)) ([feaac7b](https://github.com/thenativeweb/roboter/commit/feaac7bfce335b10a1dfa61af70a321eca924124))
+
 ## [11.7.7](https://github.com/thenativeweb/roboter/compare/11.7.6...11.7.7) (2021-06-15)
 
 
