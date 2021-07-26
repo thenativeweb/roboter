@@ -9,7 +9,7 @@ import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 const buildCommand = function (): Command<BuildOptions> {
   return {
     name: 'build',
-    description: 'Compiles TypeScript',
+    description: 'Compiles TypeScript.',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -24,7 +24,7 @@ const buildCommand = function (): Command<BuildOptions> {
       });
 
       if (applicationRootResult.hasError()) {
-        buntstift.error('Roboter must be ran in an npm project.');
+        buntstift.error('Roboter must be run in an npm project.');
 
         return exit(1);
       }

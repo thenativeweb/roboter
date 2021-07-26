@@ -9,7 +9,7 @@ import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 const analyseCommand = function (): Command<AnalyseOptions> {
   return {
     name: 'analyse',
-    description: 'Analyses code quality',
+    description: 'Analyses code quality.',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -24,7 +24,7 @@ const analyseCommand = function (): Command<AnalyseOptions> {
       });
 
       if (applicationRootResult.hasError()) {
-        buntstift.error('Roboter must be ran in an npm project.');
+        buntstift.error('Roboter must be run in an npm project.');
 
         return exit(1);
       }

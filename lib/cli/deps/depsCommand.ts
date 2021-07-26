@@ -24,7 +24,7 @@ const depsCommand = function (): Command<DepsOptions> {
       });
 
       if (applicationRootResult.hasError()) {
-        buntstift.error('Roboter must be ran in an npm project.');
+        buntstift.error('Roboter must be run in an npm project.');
 
         return exit(1);
       }

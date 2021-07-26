@@ -12,7 +12,7 @@ import { testTask } from '../../tasks/testTask';
 const qaCommand = function (): Command<QaOptions> {
   return {
     name: 'qa',
-    description: 'Run code analysis, tests, checks dependencies and license compatibility.',
+    description: 'Run code analysis and tests and checks dependencies and license compatibility.',
     optionDefinitions: [],
     async handle ({ options: {
       'no-bail': noBail,
@@ -28,7 +28,7 @@ const qaCommand = function (): Command<QaOptions> {
       });
 
       if (applicationRootResult.hasError()) {
-        buntstift.error('Roboter must be ran in an npm project.');
+        buntstift.error('Roboter must be run in an npm project.');
 
         return exit(1);
       }

@@ -9,19 +9,19 @@ import { testTask } from '../../tasks/testTask';
 const testCommand = function (): Command<TestOptions> {
   return {
     name: 'test',
-    description: 'Runs tests',
+    description: 'Runs tests.',
     optionDefinitions: [
       {
         name: 'type',
         alias: 't',
-        description: 'Run only the tests for this test type.',
+        description: 'run only the tests for this test type',
         type: 'string',
         isRequired: false
       },
       {
         name: 'no-bail',
         alias: 'b',
-        description: 'Do not end test execution as soon a a test fails.',
+        description: 'do not end test execution as soon a a test fails',
         type: 'boolean',
         isRequired: false,
         defaultValue: false
@@ -29,7 +29,7 @@ const testCommand = function (): Command<TestOptions> {
       {
         name: 'watch',
         alias: 'w',
-        description: 'Watches the project and aborts and re-runs the tests when files change.',
+        description: 'watch the project and abort and re-run the tests when files change',
         type: 'boolean',
         defaultValue: false,
         isRequired: false
@@ -37,7 +37,7 @@ const testCommand = function (): Command<TestOptions> {
       {
         name: 'grep',
         alias: 'g',
-        description: 'Matches the test descriptions against a regex and only executes ones that match.',
+        description: 'match the test descriptions against a regex and only execute the ones that match',
         type: 'string',
         isRequired: false
       }
@@ -59,7 +59,7 @@ const testCommand = function (): Command<TestOptions> {
       });
 
       if (applicationRootResult.hasError()) {
-        buntstift.error('Roboter must be ran in an npm project.');
+        buntstift.error('Roboter must be run in an npm project.');
 
         return exit(1);
       }

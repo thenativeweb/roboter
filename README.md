@@ -93,9 +93,9 @@ To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.
 };
 ```
 
-The npm-package-json-lint analyses only affects the `package.json` file in the root of your project. It is currently not possible to analyse package files in other locations.
+The npm-package-json-lint analysis only affects the `package.json` file in the root of your project. It is currently not possible to analyse package files in other locations.
 
-To adjust the rules to be used, add an [`.npmpackagejsonlintrc.json`]() file to the root directory of your module or application. You may [extend](https://npmpackagejsonlint.org/docs/en/configuration#how-to-use-a-shared-config-module) the `npm-package-json-lint-config-tnw/app.json` config, the `npm-package-json-lint-config-tnw/lib.json` config or any config you have made yourself.
+To adjust the rules to be used, add an [`.npmpackagejsonlintrc.json`](https://npmpackagejsonlint.org/docs/en/rcfile-example) file to the root directory of your module or application. You may [extend](https://npmpackagejsonlint.org/docs/en/configuration#how-to-use-a-shared-config-module) the `npm-package-json-lint-config-tnw/app.json` configuration, the `npm-package-json-lint-config-tnw/lib.json` configuration or any configuration you have made yourself.
 
 ## The `build` task
 
@@ -261,9 +261,9 @@ If you want to use functions shared across multiple tests or test types, create 
 
 #### Setting up and tearing down test types
 
-If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type create a `pre.js` and/or a `post.js` file (or `pre.ts` and `post.ts`, if you use TypeScript) in the according test type folder. If you want to run some actions before or after all test types, create a `pre.js`/`post.js`/`pre.ts`/`post.ts` in the `test` folder.
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, create a `pre.js` and/or a `post.js` file (or `pre.ts` and `post.ts`, if you use TypeScript) in the according test type folder. If you want to run some actions before or after all test types, create a `pre.js` / `post.js` / `pre.ts` / `post.ts` in the `test` folder.
 
-This file needs to default export a function that matches one of the `...Script` types the roboter exports. The function exported from a `pre.ts` file must match the type `TestPreScript` and take the `TestPreScriptParameters` and vice versa.
+Each of these files needs to default export a function that matches one of the `...Script` types the roboter exports. The function exported from a `pre.ts` file must match the type `TestPreScript` and take the `TestPreScriptParameters` and vice versa.
 
 ```typescript
 import { TestPreScript, TestPreScriptParameters } from 'roboter';
@@ -293,7 +293,7 @@ Exemplary, for a project with the test types `unit`, `integration` and `e2e`, th
 
 All these scripts receive some parameter as seen in the TypeScript types. These parameters are especially relevant for the watch mode:
 
-When running the tests in the watch mode, the scripts are run for every test iteration. I.e. if you change a file and tests need to be re-run, all relevant scripts are executed. Their parameters change with every execution, since they receive a running count of the amount of test iterations since the watch mode was started. This way you can write your scripts so that they only execute your setup/teardown logic when you really need them to.
+When running the tests in watch mode, the scripts are run for every test iteration. I.e. if you change a file and tests need to be re-run, all relevant scripts are executed. Their parameters change with every execution, since they receive a running count of the amount of test iterations since watch mode was started. This way you can write your scripts so that they only execute your setup / teardown logic when you really need them to.
 
 #### Setting environment variables
 
@@ -315,10 +315,10 @@ To adjust test execution, you can provide a [`.mocharc.json` or `.mocharc.js`](h
 
 ## Running quality assurance
 
-Since this is the roboter, we can't just `npx roboter`. But we still want to use the roboter to quality test itself. So we run:
+Since this is roboter itself, we can't just run `npx roboter`. But we still want to use roboter to quality test itself. So we run:
 
 ```shell
 $ npm run roboter
 ```
 
-You can use all the sub-commands and flags the roboter supports.
+You can use all the sub-commands and flags roboter supports.

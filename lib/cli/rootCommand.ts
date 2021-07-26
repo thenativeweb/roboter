@@ -33,7 +33,7 @@ const rootCommand = function (): Command<RootOptions> {
       {
         name: 'no-bail',
         alias: 'b',
-        description: 'Do not end test execution as soon a a test fails.',
+        description: 'do not end test execution as soon a a test fails',
         type: 'boolean',
         isRequired: false,
         defaultValue: false
