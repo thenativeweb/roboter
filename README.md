@@ -51,43 +51,14 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 | [`license`](#the-license-task) | Checks dependencies for incompatible licenses. |
 | [`qa`](#the-qa-task) | Runs code analysis, tests and checks dependencies. |
 | [`test`](#the-test-task) | Runs tests. |
-| [`update`](#the-update-task) | Updates the Node.js version. |
 
 If you don't specify a task, the `qa` task is run as default task.
 
 To get help, run `npx roboter --help`. To get help for a specific command, run `npx roboter <command> --help`.
 
-### Running npm scripts
-
-If your `package.json` file contains custom scripts, you can run them using roboter to have a streamlined user experience. Supposed, your `package.json` looks like this:
-
-```json
-{
-  "scripts": {
-    "analyse-css": "..."
-  }
-}
-```
-
-Then you can run the following command. If you specify any options, they will be handed over to the script:
-
-```shell
-$ npx roboter analyse-css
-```
-
-In addition to this, for any command you can run you can add a `pre...` and / or `post...` script to the `scripts` section of your application's `package.json` file, which then gets executed when the appropriate task is run.
-
-### Setting environment variables
-
-Environment variables you specify when running roboter are also available to the tasks. E.g., if you want to run tests with disabled TLS verification, run roboter as follows:
-
-```shell
-$ NODE_TLS_REJECT_UNAUTHORIZED=0 npx roboter test
-```
-
 ## The `analyse` task
 
-This task runs code analysis on your code using [ESLint](http://eslint.org/). By default it uses the rules defined in the [eslint-config-es](https://www.npmjs.com/package/eslint-config-es) module.
+This task runs code analysis on your code using [ESLint](http://eslint.org/) and [npm-package-json-lint](https://npmpackagejsonlint.org/). By default it uses the rules defined in the [eslint-config-es](https://www.npmjs.com/package/eslint-config-es) module and the [npm-package-json-lint-config-tnw](https://www.npmjs.com/package/npm-package-json-lint-config-tnw) module.
 
 ### Flags
 
@@ -102,7 +73,7 @@ None
 
 ### Details
 
-Code analysis affects all `.js`, `.jsx`, `.ts` and `.tsx` files, but skips the following directories:
+The ESLint code analysis affects all `.js`, `.jsx`, `.ts` and `.tsx` files, but skips the following directories:
 
 - `node_modules` (nested)
 - `build` (only top-level)
@@ -121,6 +92,10 @@ To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.
   }
 };
 ```
+
+The npm-package-json-lint analyses only affects the `package.json` file in the root of your project. It is currently not possible to analyse package files in other locations.
+
+To adjust the rules to be used, add an [`.npmpackagejsonlintrc.json`]() file to the root directory of your module or application. You may [extend](https://npmpackagejsonlint.org/docs/en/configuration#how-to-use-a-shared-config-module) the `npm-package-json-lint-config-tnw/app.json` config, the `npm-package-json-lint-config-tnw/lib.json` config or any config you have made yourself.
 
 ## The `build` task
 
@@ -186,17 +161,42 @@ None
 
 ### Details
 
-roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/main/lib/steps/license/getLicense.js), and tries to check the license compatibility based on a compatibility chart and a license list.
+roboter tries to get your dependencies' licenses from their respective `package.json` files and, if necessary, from a variety of [other places](https://github.com/thenativeweb/roboter/blob/main/lib/steps/license/getLicense.ts), and tries to check the license compatibility based on a compatibility chart and a license list.
 
-If you encounter a license incompatibility, and think that it should be fixed, please submit a pull request for either the [compatibility chart](https://github.com/thenativeweb/roboter/edit/main/configuration/licenseCompatibility.js) or the [license list](https://github.com/thenativeweb/roboter/edit/main/configuration/packageLicenses.js).
+Since license compatibility is a difficult issue and depends very much on the situation, your willingness to take risks and your lawyers interpretation of license law, you need to configure which licenses you deem compatible to your project yourself. To do so, create a `licenseCheck.json` file in the root of your project with this general layout:
+
+```json
+{
+  "compatibleLicenses": [
+    "MIT",
+    "Apache-2.0",
+    ...
+  ]
+}
+```
+
+The list of compatible licenses most contain only valid [SPDX-expressions](https://spdx.org/licenses/).
+
+If one of your dependencies does not specify its license in a valid format and the roboter can not read it, or if you have a license agreement with someone that is not reflected in their package manifest, you can override any package's license in your `licenseCheck.json` file:
+
+```json
+{
+  "compatibleLicenses": [ ... ],
+  "knownPackageLicenses": {
+    "<package-name>": {
+      "<package-version-semver>": "<license SPDX-expression>"
+    }
+  }
+}
+```
 
 *Please note: Consider the license compatibility check of roboter only to be a suggestion, not as legal advice you can rely on. If you want to be on the safe side, consult a lawyer. the native web does not provide any warranty of any kind.*
 
-To disable the license check, omit the `license` field in your `package.json` file, or set it to the value `UNKNOWN`.
+To disable the license check, omit the `licenseCheck.json` file in your application root.
 
 ## The `qa` task
 
-This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), and [deps](#the-deps-task) sequentially.
+This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), [deps](#the-deps-task), and [license](#the-license-task) sequentially.
 
 ### Flags
 
@@ -224,6 +224,9 @@ This task runs unit, integration, and other tests using [Mocha](https://mochajs.
 | Flag | Alias | Description |
 |-|-|-|
 | --type | -t | The test type, such as `unit`, `integration`, … |
+| --no-bail | -b | Runs all tests, withouth bailing after failing tests. |
+| --watch | -w | Starts the tests in watch mode and reruns tests on file changes. |
+| --grep | -g | Filters tests to run according to a given regexp. |
 
 ### Exit codes
 
@@ -258,21 +261,39 @@ If you want to use functions shared across multiple tests or test types, create 
 
 #### Setting up and tearing down test types
 
-If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type, add a `pre.js` respectively a `post.js` file (or `pre.ts` and `post.ts`, if you use TypeScript), that act as standalone modules. If you want to use `async` and `await`, you have to wrap the file's content in an asynchronous IIFE:
+If you need to register any additional pre or post actions (such as starting or stopping Docker containers, …) that shall be run before or after all tests of a given type create a `pre.js` and/or a `post.js` file (or `pre.ts` and `post.ts`, if you use TypeScript) in the according test type folder. If you want to run some actions before or after all test types, create a `pre.js`/`post.js`/`pre.ts`/`post.ts` in the `test` folder.
 
-```javascript
-'use strict';
+This file needs to default export a function that matches one of the `...Script` types the roboter exports. The function exported from a `pre.ts` file must match the type `TestPreScript` and take the `TestPreScriptParameters` and vice versa.
 
-(async () => {
+```typescript
+import { TestPreScript, TestPreScriptParameters } from 'roboter';
+
+const script: TestPreScript = async function (parameters: TestPreScriptParameters): Promise<void> {
   // ...
-})();
+}
+
+export default script;
 ```
 
 *Please note: The `post.js` respectively `post.ts` file will be run no matter whether the tests themselves were run successfully or not.*
 
-#### Setting up and tearing down tests globally
+Exemplary, for a project with the test types `unit`, `integration` and `e2e`, the scripts are run in this order:
 
-If you need to set something up and tear something down across all of your test types, add a `pre.js` and `post.js` (or `pre.ts` and `post.ts`) in the `test` folder of your project. These work just like the test specific pre/post tasks above but are only run once before and after all tests.
+- global pre script
+    - unit pre script
+        - unit tests
+    - unit post script
+    - integration pre script
+        - integration tests
+    - integration post script
+    - e2e pre script
+        - e2e tests
+    - e2e post script
+- global post script
+
+All these scripts receive some parameter as seen in the TypeScript types. These parameters are especially relevant for the watch mode:
+
+When running the tests in the watch mode, the scripts are run for every test iteration. I.e. if you change a file and tests need to be re-run, all relevant scripts are executed. Their parameters change with every execution, since they receive a running count of the amount of test iterations since the watch mode was started. This way you can write your scripts so that they only execute your setup/teardown logic when you really need them to.
 
 #### Setting environment variables
 
@@ -292,52 +313,12 @@ To adjust test execution, you can provide a [`.mocharc.json` or `.mocharc.js`](h
 - `--exit`
 - `--ui tdd`
 
-### The `update` task
+## Running quality assurance
 
-This task updates the Node.js version to the latest available LTS version as long as it is newer than the currently used version, commits it and optionally pushes the changes.
-
-I.e. if you're on version `8.2.0`, it will update to the latest LTS (at the time of writing `10.16.3`). But if you're on `12.11.0` (the most current version at the time of writing), it won't change anything.
-
-### Flags
-
-| Flag | Alias | Description |
-|-|-|-|
-| --no-push | -p | Prevents pushing the changes. |
-| --node | -n | Whether Node.js should be updated. True by default, currently has no effect. |
-
-### Exit codes
-
-| Exit code | Description |
-|-|-|
-| 0 | Success (either updates were made or were not necessary) |
-| 1 | Update failed |
-
-## Running the tests
-
-To run the tests run the following command:
+Since this is the roboter, we can't just `npx roboter`. But we still want to use the roboter to quality test itself. So we run:
 
 ```shell
-$ npm run test
+$ npm run roboter
 ```
 
-You can run all integration tests for one task by specifying the task name as an additional argument:
-
-```shell
-$ npm run test analyse
-```
-
-You can run a single integration test case by specifying the individual test as an additional argument:
-
-```shell
-$ npm run test analyse/fails-on-invalid-code
-```
-
-## Running the build
-
-Unfortunately, this module can not be used to build itself. Hence you have to use `npm` for that.
-
-To analyse the source code run the following command:
-
-```shell
-$ npm run analyse
-```
+You can use all the sub-commands and flags the roboter supports.
