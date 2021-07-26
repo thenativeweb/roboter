@@ -1,8 +1,19 @@
 {
   "name": "test-package",
   "version": "0.0.1",
+  "description": "a test-package.",
+  "contributors": [],
+  "private": false,
+  "main": "",
+  "types": "",
+  "engines": {},
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "preanalyse": "echo From the pre task.",
-    "postanalyse": "echo From the post task."
-  }
+    "postanalyse": "echo From the post task.",
+    "preanalyse": "echo From the pre task."
+  },
+  "repository": {},
+  "keywords": [],
+  "license": "MIT"
 }

@@ -1,0 +1,6 @@
+{
+  "extends": "npm-package-json-lint-config-tnw/lib.json",
+  "rules": {
+    "prefer-absolute-version-dependencies": "off"
+  }
+}

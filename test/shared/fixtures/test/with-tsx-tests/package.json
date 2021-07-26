@@ -1,11 +1,21 @@
 {
   "name": "test-package",
   "version": "0.0.1",
+  "description": "a test-package.",
+  "contributors": [],
+  "private": false,
+  "main": "",
+  "types": "",
+  "engines": {},
   "dependencies": {
     "react": "16.10.2"
   },
   "devDependencies": {
     "@types/react": "16.9.5",
     "assertthat": "5.0.2"
-  }
+  },
+  "scripts": {},
+  "repository": {},
+  "keywords": [],
+  "license": "MIT"
 }

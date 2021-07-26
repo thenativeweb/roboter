@@ -2,7 +2,7 @@ import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { GlobalRoboterTestData } from './GlobalRoboterTestData';
-import globby from 'globby';
+import { globbySync } from 'globby';
 import os from 'os';
 import path from 'path';
 import shelljs from 'shelljs';
@@ -33,7 +33,7 @@ const prepareGlobalRoboterTestData = async function (): Promise<GlobalRoboterTes
     throw new Error(packStderr);
   }
 
-  const absoluteRoboterPackageFile = globby.sync([ path.join(absoluteRoboterPackageDestinationDirectory, 'roboter*') ])[0];
+  const absoluteRoboterPackageFile = globbySync([ path.join(absoluteRoboterPackageDestinationDirectory, 'roboter*') ])[0];
 
   return {
     absoluteNpmCacheDirectory,

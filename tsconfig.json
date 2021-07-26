@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "lib": [ "esnext" ],
-    "module": "ES2020",
+    "module": "ESNext",
     "outDir": "build",
     "resolveJsonModule": true,
     "strict": true,
@@ -21,6 +21,6 @@
     "./test/shared/sources/**/*.ts",
     "./build/**/*.js",
     "./test/shared/fixtures/**/*.js",
-    "./test/shared/sources/**/*.js",
+    "./test/shared/sources/**/*.js"
   ]
 }

@@ -3,7 +3,7 @@ import { fileExists } from '../../../../lib/utils/fileExists';
 import { fileURLToPath } from 'url';
 import { Fixture } from './Fixture';
 import fs from 'fs';
-import globby from 'globby';
+import { globby } from 'globby';
 import { isolated } from 'isolated';
 import path from 'path';
 import { runCommand } from '../../../../lib/utils/runCommand';

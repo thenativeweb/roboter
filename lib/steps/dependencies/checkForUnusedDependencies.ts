@@ -9,6 +9,7 @@ const checkForUnusedDependencies = async function ({ applicationRoot }: {
     ignoreDirs: [ 'node_modules' ],
     ignoreMatches: [
       '@types/*',
+      'npm-package-json-lint-config-tnw',
       'react',
       'roboter',
       'semantic-release-configuration',

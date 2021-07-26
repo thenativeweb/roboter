@@ -47,11 +47,11 @@ class LicenseNotSupported extends defekt({ code: 'LicenseNotSupported' }) {}
 class LocalBranchBehindRemote extends defekt({ code: 'LocalBranchBehindRemote' }) {}
 class NoCodeFound extends defekt({ code: 'NoCodeFound' }) {}
 class NodeNotInGraph extends defekt({ code: 'NodeNotInGraph' }) {}
-class NoNodeEngineInPackageJsonFound extends defekt({ code: 'NoNodeEngineInPackageJsonFound' }) {}
 class NonStrictDependencyFound extends defekt({ code: 'NonStrictDependencyFound' }) {}
 class NotOnExpectedBranch extends defekt({ code: 'NotOnExpectedBranch' }) {}
 class OutdatedDependencies extends defekt({ code: 'OutdatedDependencies' }) {}
 class OutdatedNodeReference extends defekt({ code: 'OutdatedNodeReference' }) {}
+class PackageJsonMalformed extends defekt({ code: 'PackageJsonMalformed' }) {}
 class PackageJsonMissing extends defekt({ code: 'PackageJsonMissing' }) {}
 class PackageNotFound extends defekt({ code: 'PackageNotFound' }) {}
 class PendingChanges extends defekt({ code: 'PendingChanges' }) {}
@@ -91,11 +91,11 @@ export {
   LocalBranchBehindRemote,
   NoCodeFound,
   NodeNotInGraph,
-  NoNodeEngineInPackageJsonFound,
   NonStrictDependencyFound,
   NotOnExpectedBranch,
   OutdatedDependencies,
   OutdatedNodeReference,
+  PackageJsonMalformed,
   PackageJsonMissing,
   PackageNotFound,
   PendingChanges,

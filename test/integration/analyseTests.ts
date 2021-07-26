@@ -213,4 +213,56 @@ suite('analyse', function (): void {
       assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
     }
   );
+
+  testWithFixture(
+    'fails on invalid package.json.',
+    [ 'analyse', 'with-invalid-package.json' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyse', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
+        ./package.json
+          error    name is required  (name)
+
+        ✖ 1 problems (1 errors, 0 warnings)
+      `);
+      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+    }
+  );
+
+  testWithFixture(
+    'supports custom npmpackagejsonlintrc files.',
+    [ 'analyse', 'with-invalid-package.json-and-custom-npmpackagejsonlintrc' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyse', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
+        ./package.json
+          error    name is required  (name)
+
+        ✖ 1 problems (1 errors, 0 warnings)
+      `);
+      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+    }
+  );
 });

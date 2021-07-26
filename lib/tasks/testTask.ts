@@ -4,7 +4,7 @@ import { DependencyGraph } from '../types/DependencyGraph';
 import { fileExists } from '../utils/fileExists';
 import { getGitIgnore } from '../steps/git/getGitIgnore';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
-import globby from 'globby';
+import { globby } from 'globby';
 import minimatch from 'minimatch';
 import normalize from 'normalize-path';
 import path from 'path';
