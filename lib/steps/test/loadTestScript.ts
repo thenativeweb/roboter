@@ -7,7 +7,7 @@ const loadTestScript = async function ({ absolutePotentialScriptFiles }: {
 }): Promise<(() => any) | undefined> {
   for (const absolutePotentialScriptFile of absolutePotentialScriptFiles) {
     if (await fileExists({ absoluteFile: absolutePotentialScriptFile })) {
-      const module = await import(absolutePotentialScriptFile);
+      const module = await import(`file://${absolutePotentialScriptFile}`);
       let setupFunction = module.default;
 
       if (setupFunction.default) {
