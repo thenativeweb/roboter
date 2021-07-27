@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { GlobalRoboterTestData } from './GlobalRoboterTestData';
 import { globbySync } from 'globby';
+import normalize from 'normalize-path';
 import os from 'os';
 import path from 'path';
 import shelljs from 'shelljs';
@@ -33,7 +34,9 @@ const prepareGlobalRoboterTestData = async function (): Promise<GlobalRoboterTes
     throw new Error(packStderr);
   }
 
-  const absoluteRoboterPackageFile = globbySync([ path.join(absoluteRoboterPackageDestinationDirectory, 'roboter*') ])[0];
+  const absoluteRoboterPackageFile = globbySync([
+    path.posix.join(normalize(absoluteRoboterPackageDestinationDirectory), 'roboter*')
+  ])[0].replaceAll('/', path.sep);
 
   return {
     absoluteNpmCacheDirectory,
