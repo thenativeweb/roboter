@@ -90,7 +90,7 @@
     "strip-ansi": "7.0.0"
   },
   "scripts": {
-    "roboter": "node roboter.cjs"
+    "roboter": "node --loader=ts-node/esm --experimental-specifier-resolution=node --no-warnings lib/bin/roboter.ts"
   },
   "repository": {
     "type": "git",
