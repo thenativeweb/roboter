@@ -36,7 +36,7 @@
   "types": "build/lib/index.d.ts",
   "type": "module",
   "bin": {
-    "roboter": "build/lib/bin/roboter.js"
+    "roboter": "roboter.cjs"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -90,7 +90,7 @@
     "strip-ansi": "7.0.0"
   },
   "scripts": {
-    "roboter": "node --loader=ts-node/esm --experimental-specifier-resolution=node --no-warnings lib/bin/roboter.ts"
+    "roboter": "node roboter.cjs"
   },
   "repository": {
     "type": "git",
