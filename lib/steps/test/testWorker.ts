@@ -74,7 +74,7 @@ for (const testType of typeSequence) {
   let additionalMochaConfiguration = {};
 
   if (absoluteMochaConfigurationFile) {
-    additionalMochaConfiguration = (await import(absoluteMochaConfigurationFile)).default;
+    additionalMochaConfiguration = (await import(`file://${absoluteMochaConfigurationFile}`)).default;
   }
 
   const mocha = new Mocha({

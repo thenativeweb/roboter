@@ -13,7 +13,7 @@ const runPreOrPostScript = async function ({ applicationRoot, task, phase }: {
 
   try {
     // eslint-disable-next-line prefer-const
-    packageJsonOfModule = (await import(packageJsonPath)).default;
+    packageJsonOfModule = (await import(`file://${packageJsonPath}`)).default;
   } catch {
     // Ignore error.
   }

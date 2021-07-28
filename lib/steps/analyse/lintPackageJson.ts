@@ -20,7 +20,9 @@ const lintPackageJson = async function ({ applicationRoot }: {
   if (await fileExists({ absoluteFile: absoluteCustomPackageJsonLintConfigFile })) {
     absolutePackageJsonLintConfigFile = absoluteCustomPackageJsonLintConfigFile;
   } else {
-    const packageJsonLintConfigVersion = (await import(path.join(applicationRoot, 'package.json'))).default.devDependencies['npm-package-json-lint-config-tnw'];
+    const packageJsonLintConfigVersion = (await import(`file://${path.join(applicationRoot, 'package.json')}`)).
+      default.
+      devDependencies['npm-package-json-lint-config-tnw'];
     const absolutePackageJsonLintPackageDirectory = (await getPackageLocation({
       applicationRoot,
       packageName: 'npm-package-json-lint-config-tnw',

@@ -13,7 +13,7 @@ const compileTypeScript = async function ({ applicationRoot }: {
   errors.TypeScriptOutputConfigurationMissing | errors.TypeScriptCompilationFailed
   >> {
   const tsconfigPath = path.join(applicationRoot, 'tsconfig.json');
-  const tsconfig = (await import(tsconfigPath)).default;
+  const tsconfig = (await import(`file://${tsconfigPath}`)).default;
 
   if (!tsconfig.compilerOptions || !tsconfig.compilerOptions.outDir) {
     return error(new errors.TypeScriptOutputConfigurationMissing());
