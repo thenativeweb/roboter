@@ -1,4 +1,3 @@
-import { fileExists } from '../../utils/fileExists';
 import path from 'path';
 import { TestPostScript, TestPreScript } from '../..';
 
@@ -6,7 +5,7 @@ const loadTestScript = async function ({ absolutePotentialScriptFiles }: {
   absolutePotentialScriptFiles: string[];
 }): Promise<(() => any) | undefined> {
   for (const absolutePotentialScriptFile of absolutePotentialScriptFiles) {
-    if (await fileExists({ absoluteFile: absolutePotentialScriptFile })) {
+    try {
       const module = await import(`file://${absolutePotentialScriptFile}`);
       let setupFunction = module.default;
 
@@ -15,6 +14,8 @@ const loadTestScript = async function ({ absolutePotentialScriptFiles }: {
       }
 
       return setupFunction;
+    } catch {
+      // Ignore potential files that don't exist.
     }
   }
 
@@ -40,7 +41,7 @@ const loadGlobalPostScript = async function ({ applicationRoot }: {
     path.join(applicationRoot, 'test', 'post.js')
   ];
 
-  return loadTestScript({ absolutePotentialScriptFiles });
+  return await loadTestScript({ absolutePotentialScriptFiles });
 };
 
 const loadTestTypePreScript = async function ({ applicationRoot, testType }: {

@@ -11,6 +11,8 @@ try {
     argv: process.argv,
     handlers: getHandlers()
   });
+
+  process.exit(0);
 } catch (ex: unknown) {
   buntstift.info((ex as Error).message);
   buntstift.error('An unexpected error occured.');

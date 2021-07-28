@@ -1,6 +1,7 @@
 import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { waitForSignals } from 'wait-for-signals';
 import { Worker } from 'worker_threads';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
@@ -52,35 +53,39 @@ class TestRunner {
 
     this.runNumber += 1;
 
-    return await new Promise<Result<undefined, errors.TestsFailed>>((resolve, reject): void => {
-      let hasResolved = false;
+    let result: Result<undefined, errors.TestsFailed> = error(new errors.TestsFailed());
+    const collector = waitForSignals({ count: 3 });
 
-      this.worker!.once('message', (message): void => {
-        hasResolved = true;
-        if (message === 'success') {
-          this.previousRunResult = 'success';
-          resolve(value());
+    this.worker.once('message', async (message): Promise<void> => {
+      if (message === 'success') {
+        this.previousRunResult = 'success';
+        result = value();
+        await collector.signal();
 
-          return;
-        }
+        return;
+      }
 
-        if (message === 'bail') {
-          this.previousRunResult = 'bail';
-        } else {
-          this.previousRunResult = 'fail';
-        }
+      if (message === 'bail') {
+        this.previousRunResult = 'bail';
+      } else {
+        this.previousRunResult = 'fail';
+      }
 
-        resolve(error(new errors.TestsFailed()));
-      });
-      this.worker!.once('error', (workerError): void => {
-        reject(workerError);
-      });
-      this.worker!.once('exit', (): void => {
-        if (!hasResolved) {
-          resolve(value());
-        }
-      });
+      await collector.signal();
     });
+    this.worker.once('error', (workerError): void => {
+      throw workerError;
+    });
+    this.worker.stdout.on('end', async (): Promise<void> => {
+      await collector.signal();
+    });
+    this.worker.stderr.on('end', async (): Promise<void> => {
+      await collector.signal();
+    });
+
+    await collector.promise;
+
+    return result;
   }
 
   public async abort (): Promise<void> {
