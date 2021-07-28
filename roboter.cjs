@@ -9,7 +9,7 @@ const absoluteRoboterEntryPointPath = path.join(__dirname, 'build', 'lib', 'bin'
 
 const args = process.argv;
 
-if (args[0].endsWith('node')) {
+if (args[0].endsWith('node') || args[0].endsWith('node.exe')) {
   args.shift();
 }
 if (args[0].includes('roboter')) {
