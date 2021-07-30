@@ -333,10 +333,11 @@ suite('test', function (): void {
       );
 
       let stdoutAccumulator = '';
-
-      childProcess.stdout!.on('data', (chunk): void => {
+      const accumulateStdout = (chunk: string): void => {
         stdoutAccumulator += chunk;
-      });
+      };
+
+      childProcess.stdout!.on('data', accumulateStdout);
 
       await waitForStringInStream({
         stream: childProcess.stdout!,
@@ -410,6 +411,7 @@ suite('test', function (): void {
 
       await new Promise((resolve): void => {
         childProcess.on('exit', resolve);
+        childProcess.stdout!.off('data', accumulateStdout);
         childProcess.kill();
       });
     }

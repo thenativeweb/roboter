@@ -54,36 +54,35 @@ class TestRunner {
     this.runNumber += 1;
 
     let result: Result<undefined, errors.TestsFailed> = error(new errors.TestsFailed());
-    const collector = waitForSignals({ count: 3 });
 
-    this.worker.once('message', async (message): Promise<void> => {
-      if (message === 'success') {
-        this.previousRunResult = 'success';
-        result = value();
-        await collector.signal();
+    await new Promise<void>((resolve, reject): void => {
+      this.worker!.once('message', async (message): Promise<void> => {
+        if (message === 'success') {
+          this.previousRunResult = 'success';
+          result = value();
+        } else if (message === 'bail') {
+          this.previousRunResult = 'bail';
+        } else {
+          this.previousRunResult = 'fail';
+        }
 
-        return;
-      }
-
-      if (message === 'bail') {
-        this.previousRunResult = 'bail';
-      } else {
-        this.previousRunResult = 'fail';
-      }
-
-      await collector.signal();
+        this.worker!.stdout.once('end', async (): Promise<void> => {
+          await this.worker!.terminate();
+        });
+        this.worker!.stderr.once('end', async (): Promise<void> => {
+          await this.worker!.terminate();
+        });
+        setTimeout(async (): Promise<void> => {
+          await this.worker!.terminate();
+        }, 30_000);
+      });
+      this.worker!.once('error', (workerError): void => {
+        reject(workerError);
+      });
+      this.worker!.once('exit', async (): Promise<void> => {
+        resolve();
+      });
     });
-    this.worker.once('error', (workerError): void => {
-      throw workerError;
-    });
-    this.worker.stdout.on('end', async (): Promise<void> => {
-      await collector.signal();
-    });
-    this.worker.stderr.on('end', async (): Promise<void> => {
-      await collector.signal();
-    });
-
-    await collector.promise;
 
     return result;
   }

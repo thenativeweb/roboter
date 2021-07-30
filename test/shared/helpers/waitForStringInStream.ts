@@ -24,6 +24,8 @@ const waitForStringInStream = async function ({ stream, string, timeout }: {
       }
 
       if (timeout && Date.now() - startTime > timeout) {
+        stream.off('data', resolveWhenAccumulatorContainsString);
+        stream.off('data', accumulateChunks);
         reject(new testErrors.WaitForStringInStreamTimeout());
       }
     };

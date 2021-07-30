@@ -21,7 +21,8 @@ const result = shelljs.exec(
   {
     // eslint-disable-next-line no-process-env
     env: process.env,
-    cwd: process.cwd()
+    cwd: process.cwd(),
+    silent: false
   }
 );
 

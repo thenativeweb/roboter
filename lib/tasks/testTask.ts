@@ -170,8 +170,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       }
 
       await testRunner.abort();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      testRunner.run({
+      await testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
         typeSequence: types,
         grep
@@ -205,8 +204,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       }
 
       await testRunner.abort();
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      testRunner.run({
+      await testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
         typeSequence: types,
         grep
@@ -216,8 +214,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
     }
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  testRunner.run({
+  await testRunner.run({
     absoluteTestFilesPerType,
     typeSequence: types,
     grep
@@ -248,8 +245,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       if (key === 'r') {
         buntstift.info('Rerunning all tests...');
         await testRunner.abort();
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        testRunner.run({
+        await testRunner.run({
           absoluteTestFilesPerType,
           typeSequence: types,
           grep
