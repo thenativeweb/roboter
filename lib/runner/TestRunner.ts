@@ -1,7 +1,6 @@
 import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { waitForSignals } from 'wait-for-signals';
 import { Worker } from 'worker_threads';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
