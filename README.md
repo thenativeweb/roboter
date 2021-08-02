@@ -44,7 +44,7 @@ roboter provides a variety of tasks. To run them, run roboter and provide the ta
 
 | Name | Description |
 |-|-|
-| [`analyse`](#the-analyse-task) | Runs code analysis. |
+| [`analyze`](#the-analyze-task) | Runs code analysis. |
 | [`build`](#the-build-task) | Builds a project using TypeScript. |
 | [`deps`](#the-deps-task) | Checks for missing, outdated, and unused dependencies. |
 | `help` | Shows the help. |
@@ -56,7 +56,7 @@ If you don't specify a task, the `qa` task is run as default task.
 
 To get help, run `npx roboter --help`. To get help for a specific command, run `npx roboter <command> --help`.
 
-## The `analyse` task
+## The `analyze` task
 
 This task runs code analysis on your code using [ESLint](http://eslint.org/) and [npm-package-json-lint](https://npmpackagejsonlint.org/). By default it uses the rules defined in the [eslint-config-es](https://www.npmjs.com/package/eslint-config-es) module and the [npm-package-json-lint-config-tnw](https://www.npmjs.com/package/npm-package-json-lint-config-tnw) module.
 
@@ -93,7 +93,7 @@ To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.
 };
 ```
 
-The npm-package-json-lint analysis only affects the `package.json` file in the root of your project. It is currently not possible to analyse package files in other locations.
+The npm-package-json-lint analysis only affects the `package.json` file in the root of your project. It is currently not possible to analyze package files in other locations.
 
 To adjust the rules to be used, add an [`.npmpackagejsonlintrc.json`](https://npmpackagejsonlint.org/docs/en/rcfile-example) file to the root directory of your module or application. You may [extend](https://npmpackagejsonlint.org/docs/en/configuration#how-to-use-a-shared-config-module) the `npm-package-json-lint-config-tnw/app.json` configuration, the `npm-package-json-lint-config-tnw/lib.json` configuration or any configuration you have made yourself.
 
@@ -196,7 +196,7 @@ To disable the license check, omit the `licenseCheck.json` file in your applicat
 
 ## The `qa` task
 
-This task runs the tasks [analyse](#the-analyse-task), [test](#the-test-task), [deps](#the-deps-task), and [license](#the-license-task) sequentially.
+This task runs the tasks [analyze](#the-analyze-task), [test](#the-test-task), [deps](#the-deps-task), and [license](#the-license-task) sequentially.
 
 ### Flags
 

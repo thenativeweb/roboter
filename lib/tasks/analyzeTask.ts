@@ -1,10 +1,10 @@
 import { buntstift } from 'buntstift';
-import { lintCode } from '../steps/analyse/lintCode';
-import { lintPackageJson } from '../steps/analyse/lintPackageJson';
+import { lintCode } from '../steps/analyze/lintCode';
+import { lintPackageJson } from '../steps/analyze/lintPackageJson';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
 
-const analyseTask = async function ({ applicationRoot }: {
+const analyzeTask = async function ({ applicationRoot }: {
   applicationRoot: string;
 }): Promise<Result<undefined, errors.AnalysisFailed>> {
   buntstift.line();
@@ -59,5 +59,5 @@ const analyseTask = async function ({ applicationRoot }: {
 };
 
 export {
-  analyseTask
+  analyzeTask
 };

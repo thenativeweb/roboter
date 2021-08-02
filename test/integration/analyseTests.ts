@@ -4,14 +4,14 @@ import stripAnsi from 'strip-ansi';
 import { stripIndent } from 'common-tags';
 import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 
-suite('analyse', function (): void {
+suite('analyze', function (): void {
   this.timeout(3_600_000);
 
   testWithFixture(
     'fails on invalid code.',
-    [ 'analyse', 'with-eslint-errors' ],
+    [ 'analyze', 'with-eslint-errors' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -34,9 +34,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'ignores nested node modules.',
-    [ 'analyse', 'with-eslint-errors-in-nested-node-module' ],
+    [ 'analyze', 'with-eslint-errors-in-nested-node-module' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -48,9 +48,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'ignores node modules at top level.',
-    [ 'analyse', 'with-eslint-errors-in-top-level-node-module' ],
+    [ 'analyze', 'with-eslint-errors-in-top-level-node-module' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -62,9 +62,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'runs pre and post tasks.',
-    [ 'analyse', 'with-preanalyse-and-postanalyse-task' ],
+    [ 'analyze', 'with-preanalyze-and-postanalyze-task' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -82,7 +82,7 @@ suite('analyse', function (): void {
     'succeeds on valid javascript code.',
     [ 'with-valid-javascript' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -96,7 +96,7 @@ suite('analyse', function (): void {
     'succeeds on valid typescript code.',
     [ 'with-valid-typescript' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -108,9 +108,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'supports jsx.',
-    [ 'analyse', 'with-valid-jsx' ],
+    [ 'analyze', 'with-valid-jsx' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -130,9 +130,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'supports mocha tests.',
-    [ 'analyse', 'with-eslint-errors-in-mocha-tests' ],
+    [ 'analyze', 'with-eslint-errors-in-mocha-tests' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -152,9 +152,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'supports nested eslint configurations.',
-    [ 'analyse', 'with-nested-eslint-configuration' ],
+    [ 'analyze', 'with-nested-eslint-configuration' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -166,9 +166,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'supports typescript.',
-    [ 'analyse', 'with-eslint-errors-in-typescript' ],
+    [ 'analyze', 'with-eslint-errors-in-typescript' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -188,9 +188,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'uses eslintignore.',
-    [ 'analyse', 'with-eslintignore' ],
+    [ 'analyze', 'with-eslintignore' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -202,9 +202,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     `uses the project's eslintrc.`,
-    [ 'analyse', 'with-custom-eslintrc' ],
+    [ 'analyze', 'with-custom-eslintrc' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -216,9 +216,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'fails on invalid package.json.',
-    [ 'analyse', 'with-invalid-package.json' ],
+    [ 'analyze', 'with-invalid-package.json' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });
@@ -242,9 +242,9 @@ suite('analyse', function (): void {
 
   testWithFixture(
     'supports custom npmpackagejsonlintrc files.',
-    [ 'analyse', 'with-invalid-package.json-and-custom-npmpackagejsonlintrc' ],
+    [ 'analyze', 'with-invalid-package.json-and-custom-npmpackagejsonlintrc' ],
     async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter analyse', {
+      const roboterResult = await runCommand('npx roboter analyze', {
         cwd: fixture.absoluteTestDirectory,
         silent: true
       });

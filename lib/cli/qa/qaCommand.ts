@@ -1,4 +1,4 @@
-import { analyseTask } from '../../tasks/analyseTask';
+import { analyzeTask } from '../../tasks/analyzeTask';
 import { buntstift } from 'buntstift';
 import { checkLicenseCompatibilityTask } from '../../tasks/checkLicenseCompatibilityTask';
 import { Command } from 'command-line-interface';
@@ -42,19 +42,19 @@ const qaCommand = function (): Command<QaOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'analyse',
+        task: 'analzse',
         phase: 'pre'
       });
 
-      const analyseTaskResult = await analyseTask({ applicationRoot });
+      const analyzeTaskResult = await analyzeTask({ applicationRoot });
 
-      if (analyseTaskResult.hasError()) {
+      if (analyzeTaskResult.hasError()) {
         return exit(1);
       }
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'analyse',
+        task: 'analyze',
         phase: 'post'
       });
 

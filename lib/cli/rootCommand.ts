@@ -1,4 +1,4 @@
-import { analyseCommand } from './analyse/analyseCommand';
+import { analyzeCommand } from './analyze/analyzeCommand';
 import { buildCommand } from './build/buildCommand';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
@@ -65,7 +65,7 @@ const rootCommand = function (): Command<RootOptions> {
     },
 
     subcommands: {
-      analyse: analyseCommand(),
+      analyze: analyzeCommand(),
       build: buildCommand(),
       deps: depsCommand(),
       license: licenseCommand(),

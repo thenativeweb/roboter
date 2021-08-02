@@ -56,7 +56,7 @@ suite('qa', function (): void {
 
   testWithFixture(
     'fails on eslint errors',
-    [ 'analyse', 'with-eslint-errors' ],
+    [ 'analyze', 'with-eslint-errors' ],
     async (fixture): Promise<void> => {
       const roboterResult = await runCommand('npx roboter qa', {
         cwd: fixture.absoluteTestDirectory,

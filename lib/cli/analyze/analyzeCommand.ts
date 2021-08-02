@@ -1,15 +1,15 @@
-import { AnalyseOptions } from './AnalyseOptions';
-import { analyseTask } from '../../tasks/analyseTask';
+import { AnalyzeOptions } from './AnalyzeOptions';
+import { analyzeTask } from '../../tasks/analyzeTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
 import { getApplicationRoot } from '../../utils/getApplicationRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
-const analyseCommand = function (): Command<AnalyseOptions> {
+const analyzeCommand = function (): Command<AnalyzeOptions> {
   return {
-    name: 'analyse',
-    description: 'Analyses code quality.',
+    name: 'analyze',
+    description: 'Analyzes code quality.',
     optionDefinitions: [],
     async handle ({ options: {
       verbose
@@ -32,19 +32,19 @@ const analyseCommand = function (): Command<AnalyseOptions> {
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'analyse',
+        task: 'analyze',
         phase: 'pre'
       });
 
-      const analyseTaskResult = await analyseTask({ applicationRoot });
+      const analyzeTaskResult = await analyzeTask({ applicationRoot });
 
-      if (analyseTaskResult.hasError()) {
+      if (analyzeTaskResult.hasError()) {
         return exit(1);
       }
 
       await runPreOrPostScript({
         applicationRoot,
-        task: 'analyse',
+        task: 'analyze',
         phase: 'post'
       });
     }
@@ -52,5 +52,5 @@ const analyseCommand = function (): Command<AnalyseOptions> {
 };
 
 export {
-  analyseCommand
+  analyzeCommand
 };

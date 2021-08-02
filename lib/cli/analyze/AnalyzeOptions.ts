@@ -1,7 +1,7 @@
 import { RootOptions } from '../RootOptions';
 
-type AnalyseOptions = RootOptions;
+type AnalyzeOptions = RootOptions;
 
 export type {
-  AnalyseOptions
+  AnalyzeOptions
 };

@@ -10,8 +10,8 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "postanalyse": "echo From the post task.",
-    "preanalyse": "echo From the pre task."
+    "postanalyze": "echo From the post task.",
+    "preanalyze": "echo From the pre task."
   },
   "repository": {},
   "keywords": [],
