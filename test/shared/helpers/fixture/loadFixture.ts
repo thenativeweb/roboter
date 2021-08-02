@@ -5,6 +5,7 @@ import { Fixture } from './Fixture';
 import fs from 'fs';
 import { globby } from 'globby';
 import { isolated } from 'isolated';
+import normalize from 'normalize-path';
 import path from 'path';
 import { runCommand } from '../../../../lib/utils/runCommand';
 import shelljs from 'shelljs';
@@ -50,7 +51,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   buntstift.verbose(`absoluteTestDirectory: ${absoluteTestDirectory}`);
 
   shelljs.cp('-r', `${absoluteFixtureDirectory}/*`, absoluteTestDirectory);
-  if ((await globby([ `${absoluteFixtureDirectory}/.*` ])).length > 0) {
+  if ((await globby([ `${normalize(absoluteFixtureDirectory)}/.*` ])).length > 0) {
     shelljs.cp('-r', `${absoluteFixtureDirectory}/.*`, absoluteTestDirectory);
   }
 
