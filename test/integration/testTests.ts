@@ -289,7 +289,7 @@ suite('test', function (): void {
         'npx roboter test --watch',
         {
           cwd: fixture.absoluteTestDirectory,
-          silent: true,
+          silent: false,
           async: true
         }
       );
