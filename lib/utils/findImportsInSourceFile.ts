@@ -104,7 +104,7 @@ const findImportsInSourceFile = async function ({
   filePath
 }: {
   filePath: string;
-}): Promise<Result<Set<string>, errors.CouldNotAnalyseSourceFile>> {
+}): Promise<Result<Set<string>, errors.CouldNotAnalyzeSourceFile>> {
   try {
     const code = await fs.promises.readFile(filePath, 'utf-8');
     const ast = parse(code, { jsx: true, loc: true });
@@ -130,7 +130,7 @@ const findImportsInSourceFile = async function ({
 
     return value(allImportedstrings);
   } catch (ex: unknown) {
-    return error(new errors.CouldNotAnalyseSourceFile({ cause: ex }));
+    return error(new errors.CouldNotAnalyzeSourceFile({ cause: ex }));
   }
 };
 

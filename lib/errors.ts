@@ -5,7 +5,7 @@ class ApplicationNotFound extends defekt({ code: 'ApplicationNotFound' }) {}
 class BuildFailed extends defekt({ code: 'BuildFailed' }) {}
 class CannotImplicitlyRemoveRoots extends defekt({ code: 'CannotImplicitlyRemoveRoots' }) {}
 class CodeMalformed extends defekt({ code: 'CodeMalformed' }) {}
-class CouldNotAnalyseSourceFile extends defekt({ code: 'CouldNotAnalyseSourceFile' }) {}
+class CouldNotAnalyzeSourceFile extends defekt({ code: 'CouldNotAnalyzeSourceFile' }) {}
 class DependencyCheckFailed extends defekt({ code: 'DependencyCheckFailed' }) {}
 class DirectoryAccessFailed extends defekt({ code: 'DirectoryAccessFailed' }) {}
 class DirectoryNotFound extends defekt({ code: 'DirectoryNotFound' }) {}
@@ -71,7 +71,7 @@ export {
   BuildFailed,
   CannotImplicitlyRemoveRoots,
   CodeMalformed,
-  CouldNotAnalyseSourceFile,
+  CouldNotAnalyzeSourceFile,
   DependencyCheckFailed,
   DirectoryAccessFailed,
   DirectoryNotFound,
