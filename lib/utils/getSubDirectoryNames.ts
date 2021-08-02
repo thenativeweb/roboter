@@ -6,8 +6,8 @@ const getSubDirectoryNames = async function ({ directory }: {
   const directoryContents = await fs.promises.readdir(directory, { withFileTypes: true });
 
   return directoryContents.
-    filter((dirent): boolean => dirent.isDirectory()).
-    map((dirent): string => dirent.name);
+    filter((directoryEntry): boolean => directoryEntry.isDirectory()).
+    map((directoryEntry): string => directoryEntry.name);
 };
 
 export {
