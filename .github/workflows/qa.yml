@@ -23,4 +23,4 @@ jobs:
         npm install
     - name: Run roboter
       run: |
-        npm run roboter test --type integration
+        npm run roboter -- test --type integration
