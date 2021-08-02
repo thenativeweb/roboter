@@ -95,8 +95,6 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
     return value();
   }
 
-  const gitIgnore = await getGitIgnore({ applicationRoot });
-
   const graph = new DependencyGraph();
   const staleFiles: string[] = [];
 
@@ -109,22 +107,16 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
 
   await updateDependencyGraph({ graph, staleFiles });
 
-  const watchedPaths = supportedFileExtensions.map(
-    (fileExtension): string =>
-      path.join(applicationRoot, '**', `*.${fileExtension}`)
-  );
-  const ignoredPaths = [
-    ...gitIgnore,
-    'node_modules',
-    '.git'
-  ];
-
-  console.log({ watchedPaths, ignoredPaths });
-
   const fileWatcher = chokidar.watch(
-    watchedPaths,
+    supportedFileExtensions.map(
+      (fileExtension): string =>
+        path.join(applicationRoot, '**', `*.${fileExtension}`)
+    ),
     {
-      ignored: ignoredPaths,
+      ignored: [
+        '**/node_modules/**',
+        '**/.git/**'
+      ],
       persistent: true
     }
   );
