@@ -281,7 +281,7 @@ suite('test', function (): void {
     }
   );
 
-  testWithFixture(
+  testWithFixture.only(
     'supports watch mode',
     [ 'test', 'with-library-under-test' ],
     async (fixture): Promise<void> => {
@@ -294,11 +294,15 @@ suite('test', function (): void {
         }
       );
 
+      console.log('roboter started. waiting for unit tests to succeed...');
+
       await waitForStringInStream({
         stream: childProcess.stdout!,
         string: 'unit tests successful',
         timeout: 20_000
       });
+
+      console.log('unit tests succeeded on first run');
 
       await fs.promises.writeFile(
         path.join(fixture.absoluteTestDirectory, 'lib', 'lib.js'),
@@ -306,16 +310,22 @@ suite('test', function (): void {
         'utf-8'
       );
 
+      console.log('updated a file. waiting for unit tests to fail...');
+
       await waitForStringInStream({
         stream: childProcess.stderr!,
         string: 'unit tests failed',
         timeout: 20_000
       });
 
+      console.log('unit tests failed on second run');
+
       await new Promise((resolve): void => {
         childProcess.on('exit', resolve);
         childProcess.kill();
       });
+
+      console.log('test over?');
     }
   );
 
