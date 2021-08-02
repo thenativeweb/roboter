@@ -124,6 +124,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
     }
   );
 
+  fileWatcher.on('add', console.log);
+
   await new Promise((resolve): void => {
     fileWatcher.on('ready', resolve);
   });
