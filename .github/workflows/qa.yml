@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         node-version: [ '16.x' ]
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
 
     steps:
     - uses: actions/checkout@v1
@@ -23,4 +23,4 @@ jobs:
         npm install
     - name: Run roboter
       run: |
-        npm run roboter -- test --type integration
+        npm run roboter

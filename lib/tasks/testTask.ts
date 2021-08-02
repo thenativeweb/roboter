@@ -2,7 +2,6 @@ import { buntstift } from 'buntstift';
 import chokidar from 'chokidar';
 import { DependencyGraph } from '../types/DependencyGraph';
 import { fileExists } from '../utils/fileExists';
-import { getGitIgnore } from '../steps/git/getGitIgnore';
 import { getSubDirectoryNames } from '../utils/getSubDirectoryNames';
 import { globby } from 'globby';
 import minimatch from 'minimatch';
@@ -124,8 +123,6 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
   await new Promise((resolve): void => {
     fileWatcher.on('ready', resolve);
   });
-
-  console.log({ watchedFiles: fileWatcher.getWatched() });
 
   fileWatcher.on('unlink', async (absoluteDeletedFile): Promise<void> => {
     if (graph.hasRoot(absoluteDeletedFile)) {
