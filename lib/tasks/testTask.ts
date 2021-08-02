@@ -123,11 +123,12 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       persistent: true
     }
   );
-  console.log({ watchedFiles: fileWatcher.getWatched() });
 
   await new Promise((resolve): void => {
     fileWatcher.on('ready', resolve);
   });
+
+  console.log({ watchedFiles: fileWatcher.getWatched() });
 
   fileWatcher.on('unlink', async (absoluteDeletedFile): Promise<void> => {
     if (graph.hasRoot(absoluteDeletedFile)) {
