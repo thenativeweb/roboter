@@ -1,4 +1,4 @@
-const packageLicenses: Partial<Record<string, Partial<Record<string, string>>>> = {
+const packageLicenses: Record<string, undefined | Record<string, undefined | string>> = {
   bitsyntax: {
     // https://github.com/squaremo/bitsyntax-js/commit/1692d9ec2b1bb703c44f10b181d383fa51a21f5d
     '0.0.4': 'MIT'

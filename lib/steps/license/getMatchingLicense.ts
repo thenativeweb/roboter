@@ -5,7 +5,7 @@ const getMatchingLicense = function ({
   packageName,
   packageVersion
 }: {
-  licensesMap: Partial<Record<string, Partial<Record<string, string>>>>;
+  licensesMap: Record<string, undefined | Record<string, undefined | string>>;
   packageName: string;
   packageVersion: string;
 }): string | undefined {
