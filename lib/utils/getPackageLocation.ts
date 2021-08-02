@@ -1,3 +1,4 @@
+import os from 'os';
 import { runCommand } from './runCommand';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
@@ -9,8 +10,12 @@ const getPackageLocation = async function ({ packageName, applicationRoot, versi
 }): Promise<Result<string, errors.PackageNotFound>> {
   const packageIdentifier = `${packageName}${version ? `@${version}` : ''}`;
 
+  const command = os.platform() === 'win32' ?
+    `npm ls "${packageIdentifier}" -p` :
+    `npm ls '${packageIdentifier}' -p`;
+
   const npmLsOutputResult = await runCommand(
-    `npm ls '${packageIdentifier}' -p`,
+    command,
     {
       cwd: applicationRoot,
       silent: true
