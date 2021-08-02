@@ -109,22 +109,25 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
 
   await updateDependencyGraph({ graph, staleFiles });
 
+  const watchedPaths = supportedFileExtensions.map(
+    (fileExtension): string =>
+      path.join(applicationRoot, '**', `*.${fileExtension}`)
+  );
+  const ignoredPaths = [
+    ...gitIgnore,
+    'node_modules',
+    '.git'
+  ];
+
+  console.log({ watchedPaths, ignoredPaths });
+
   const fileWatcher = chokidar.watch(
-    supportedFileExtensions.map(
-      (fileExtension): string =>
-        path.join(applicationRoot, '**', `*.${fileExtension}`)
-    ),
+    watchedPaths,
     {
-      ignored: [
-        ...gitIgnore,
-        'node_modules',
-        '.git'
-      ],
+      ignored: ignoredPaths,
       persistent: true
     }
   );
-
-  fileWatcher.on('add', console.log);
 
   await new Promise((resolve): void => {
     fileWatcher.on('ready', resolve);
