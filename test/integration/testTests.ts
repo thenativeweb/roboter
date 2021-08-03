@@ -313,7 +313,7 @@ suite('test', function (): void {
       });
 
       await new Promise((resolve): void => {
-        childProcess.on('close', resolve);
+        childProcess.on('exit', resolve);
         childProcess.kill();
       });
     }
@@ -410,7 +410,7 @@ suite('test', function (): void {
       ]);
 
       await new Promise((resolve): void => {
-        childProcess.on('close', resolve);
+        childProcess.on('exit', resolve);
         childProcess.stdout!.off('data', accumulateStdout);
         childProcess.kill();
       });
