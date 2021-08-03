@@ -289,7 +289,7 @@ suite('test', function (): void {
         'npx roboter test --watch',
         {
           cwd: fixture.absoluteTestDirectory,
-          silent: false,
+          silent: true,
           async: true
         }
       );
@@ -313,7 +313,7 @@ suite('test', function (): void {
       });
 
       await new Promise((resolve): void => {
-        childProcess.on('exit', resolve);
+        childProcess.on('close', resolve);
         childProcess.kill();
       });
     }
@@ -410,7 +410,7 @@ suite('test', function (): void {
       ]);
 
       await new Promise((resolve): void => {
-        childProcess.on('exit', resolve);
+        childProcess.on('close', resolve);
         childProcess.stdout!.off('data', accumulateStdout);
         childProcess.kill();
       });
