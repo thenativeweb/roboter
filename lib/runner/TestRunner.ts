@@ -54,6 +54,12 @@ class TestRunner {
 
     let result: Result<undefined, errors.TestsFailed> = error(new errors.TestsFailed());
 
+    const terminateWorker = async (): Promise<void> => {
+      await this.worker!.terminate();
+    };
+
+    process.on('SIGTERM', terminateWorker);
+
     await new Promise<void>((resolve, reject): void => {
       this.worker!.once('message', async (message): Promise<void> => {
         if (message === 'success') {
@@ -82,6 +88,8 @@ class TestRunner {
         resolve();
       });
     });
+
+    process.off('SIGTERM', terminateWorker);
 
     return result;
   }
