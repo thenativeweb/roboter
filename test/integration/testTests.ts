@@ -319,7 +319,7 @@ suite('test', function (): void {
     }
   );
 
-  testWithFixture(
+  testWithFixture.only(
     'watch mode runs all relevant pre and post scripts with correct parameters.',
     [ 'test', 'with-pre-and-post-scripts' ],
     async (fixture): Promise<void> => {
@@ -327,7 +327,7 @@ suite('test', function (): void {
         'npx roboter test --watch --no-bail',
         {
           cwd: fixture.absoluteTestDirectory,
-          silent: true,
+          silent: false,
           async: true
         }
       );
