@@ -7,10 +7,7 @@ const cleanupFixture = async function ({ fixture }: {
 }): Promise<void> {
   buntstift.verbose(`Cleaning fixture ${fixture.fixturePath.join('/')}...`);
   try {
-    await fs.promises.rm(fixture.absoluteTestDirectory, {
-      recursive: true,
-      maxRetries: 10
-    });
+    await fs.promises.rm(fixture.absoluteTestDirectory);
   } catch {
     // We don't care if this doesn't work. This is just convenience cleanup for
     // local development.
