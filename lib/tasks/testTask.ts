@@ -69,10 +69,15 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
   const absoluteTestFilesPerType: Record<string, string[]> = {};
 
   for (const [ testType, globs ] of Object.entries(testGlobs)) {
-    absoluteTestFilesPerType[testType] = await globby(globs, {
+    const absoluteUnixTestFiles = await globby(globs, {
       absolute: true,
       onlyFiles: true
     });
+
+    absoluteTestFilesPerType[testType] = absoluteUnixTestFiles.map(
+      (absoluteTestFile): string =>
+        absoluteTestFile.replaceAll('/', path.sep)
+    );
   }
 
   if (!watch) {
