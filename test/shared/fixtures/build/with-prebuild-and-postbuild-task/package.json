@@ -1,0 +1,21 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "description": "a test-package.",
+  "contributors": [],
+  "private": false,
+  "main": "",
+  "types": "",
+  "engines": {},
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "12.12.14"
+  },
+  "scripts": {
+    "postbuild": "echo From the post task.",
+    "prebuild": "echo From the pre task."
+  },
+  "repository": {},
+  "keywords": [],
+  "license": "MIT"
+}

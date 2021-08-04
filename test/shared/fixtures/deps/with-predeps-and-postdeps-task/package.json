@@ -1,0 +1,21 @@
+{
+  "name": "test-package",
+  "version": "0.0.1",
+  "description": "a test-package.",
+  "contributors": [],
+  "private": false,
+  "main": "",
+  "types": "",
+  "engines": {},
+  "dependencies": {
+    "noop3": "*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postdeps": "echo From the post task.",
+    "predeps": "echo From the pre task."
+  },
+  "repository": {},
+  "keywords": [],
+  "license": "MIT"
+}

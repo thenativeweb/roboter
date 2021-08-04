@@ -1,0 +1,16 @@
+{
+  "name": "test-package",
+  "version": "1.33.7",
+  "description": "a test-package.",
+  "contributors": [],
+  "private": false,
+  "main": "",
+  "types": "",
+  "engines": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {},
+  "keywords": [],
+  "license": "MIT"
+}

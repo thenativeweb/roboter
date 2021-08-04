@@ -1,7 +1,0 @@
-{
-  "name": "test-package",
-  "version": "0.0.1",
-  "scripts": {
-    "custom-script": "npx echo-cli Hello"
-  }
-}

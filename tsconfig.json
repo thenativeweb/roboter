@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "lib": [ "esnext" ],
+    "module": "ESNext",
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext"
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "./build/**/*.ts",
+    "./test/shared/fixtures/**/*.ts",
+    "./test/shared/sources/**/*.ts",
+    "./build/**/*.js",
+    "./test/shared/fixtures/**/*.js",
+    "./test/shared/sources/**/*.js"
+  ]
+}

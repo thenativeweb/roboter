@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "declaration": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "lib": [ "dom", "esnext" ],
+    "module": "commonjs",
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "es2019"
+  },
+  "include": [
+    "./**/*.ts"
+  ]
+}

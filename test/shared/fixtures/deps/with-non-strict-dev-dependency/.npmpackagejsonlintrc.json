@@ -1,0 +1,9 @@
+{
+  "extends": "npm-package-json-lint-config-tnw/lib.json",
+  "rules": {
+    "prefer-alphabetical-devDependencies": "off",
+
+    "no-caret-version-devDependencies": "off",
+    "prefer-absolute-version-devDependencies": "off"
+  }
+}

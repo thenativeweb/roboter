@@ -1,9 +1,0 @@
-{
-  "name": "test-package",
-  "version": "0.0.0",
-  "license": "AGPL-3.0-only",
-  "scripts": {
-    "prelicense": "echo From the pre task.",
-    "postlicense": "echo From the post task."
-  }
-}
