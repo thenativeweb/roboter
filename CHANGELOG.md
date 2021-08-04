@@ -1,3 +1,30 @@
+# [12.0.0](https://github.com/thenativeweb/roboter/compare/11.7.8...12.0.0) (2021-08-04)
+
+
+### Features
+
+* TypeScript rewrite; Overhaul feature-set. ([#632](https://github.com/thenativeweb/roboter/issues/632)) ([2d8c768](https://github.com/thenativeweb/roboter/commit/2d8c7686dee10507e0eb681316793c8dfa082c0c))
+
+
+### BREAKING CHANGES
+
+* - Rename the `analyse` command to `analyze`
+- Add package-json linting
+- Remove the `update` command
+- Remove the feature to run npm scripts via the roboter
+- Remove the node version check from the `deps` command
+- Redesign license check configuration and behavior to give the responsibility for license compatibility to the project owner(s)
+- Redesign the pre/post script running in tests
+- Add watch mode for tests
+- Add parameter to filter the executed tests
+- Add option not to bail after failing tests
+
+Internal things:
+- Use Node.js APIs of tools wherever possible (tsc, mocha, eslint, npm-package-json-lint)
+- Full typescript rewrite
+- Redesign the roboter tests. Now faster and more readable
+- Use the roboter to analyse and test itself
+
 ## [11.7.8](https://github.com/thenativeweb/roboter/compare/11.7.7...11.7.8) (2021-07-21)
 
 
