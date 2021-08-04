@@ -297,7 +297,7 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stdout!,
         string: 'unit tests successful',
-        timeout: 20_000
+        timeout: 60_000
       });
 
       await fs.promises.writeFile(
@@ -309,7 +309,7 @@ suite('test', function (): void {
       await waitForStringInStream({
         stream: childProcess.stderr!,
         string: 'unit tests failed',
-        timeout: 20_000
+        timeout: 60_000
       });
 
       await new Promise((resolve): void => {
