@@ -53,7 +53,7 @@
     "@types/spdx-expression-parse": "3.0.1",
     "@types/spdx-satisfies": "0.1.0",
     "@typescript-eslint/typescript-estree": "4.28.4",
-    "buntstift": "4.0.32",
+    "buntstift": "4.0.34",
     "chokidar": "3.5.2",
     "command-line-interface": "4.0.17",
     "common-tags": "1.8.0",
