@@ -55,7 +55,7 @@
     "@typescript-eslint/typescript-estree": "4.28.4",
     "buntstift": "4.0.32",
     "chokidar": "3.5.2",
-    "command-line-interface": "4.0.17",
+    "command-line-interface": "4.0.20",
     "common-tags": "1.8.0",
     "defekt": "7.3.2",
     "depcheck": "1.4.2",
