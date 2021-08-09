@@ -67,7 +67,7 @@
     "is-typescript": "4.0.5",
     "minimatch": "3.0.4",
     "mocha": "9.0.3",
-    "nodeenv": "3.0.66",
+    "nodeenv": "3.0.69",
     "normalize-path": "3.0.0",
     "npm-package-json-lint": "5.2.2",
     "npm-package-json-lint-config-tnw": "1.0.1",
