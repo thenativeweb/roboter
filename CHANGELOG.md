@@ -1,3 +1,10 @@
+# [12.1.0](https://github.com/thenativeweb/roboter/compare/12.0.0...12.1.0) (2021-08-16)
+
+
+### Features
+
+* Bump dependencies. ([#685](https://github.com/thenativeweb/roboter/issues/685)) ([33f3fab](https://github.com/thenativeweb/roboter/commit/33f3fab81c7b72d2ee7146edc4295b9f1bf6d535))
+
 # [12.0.0](https://github.com/thenativeweb/roboter/compare/11.7.8...12.0.0) (2021-08-04)
 
 
