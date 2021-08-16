@@ -1,3 +1,10 @@
+## [12.1.1](https://github.com/thenativeweb/roboter/compare/12.1.0...12.1.1) (2021-08-16)
+
+
+### Bug Fixes
+
+* Always use ANSI colors in output. ([#687](https://github.com/thenativeweb/roboter/issues/687)) ([ee431ea](https://github.com/thenativeweb/roboter/commit/ee431ea8ba873a979b7b0b6618f09516fe2d90b9))
+
 # [12.1.0](https://github.com/thenativeweb/roboter/compare/12.0.0...12.1.0) (2021-08-16)
 
 
