@@ -40,7 +40,7 @@ const findTsNode = async function () {
 // eslint-disable-next-line unicorn/prefer-top-level-await
 findTsNode().then(tsNode => {
   const result = shelljs.exec(
-    `node --loader=${tsNode}/esm --experimental-specifier-resolution=node --no-warnings ${absoluteRoboterEntryPointPath} ${args.join(' ')}`,
+    `node --loader=file://${tsNode}/esm --experimental-specifier-resolution=node --no-warnings ${absoluteRoboterEntryPointPath} ${args.join(' ')}`,
     {
       // eslint-disable-next-line no-process-env
       env: process.env,
