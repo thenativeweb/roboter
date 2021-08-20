@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+const fs = require('fs');
+
 const path = require('path');
 
 const shelljs = require('shelljs');
@@ -16,14 +18,36 @@ if (args[0].includes('roboter')) {
   args.shift();
 }
 
-const result = shelljs.exec(
-  `node --loader=ts-node/esm --experimental-specifier-resolution=node --no-warnings ${absoluteRoboterEntryPointPath} ${args.join(' ')}`,
-  {
-    // eslint-disable-next-line no-process-env
-    env: process.env,
-    cwd: process.cwd(),
-    silent: false
-  }
-);
+const findTsNode = async function () {
+  const possibleDirectories = [
+    path.join(process.cwd(), 'node_modules', 'ts-node'),
+    path.join(__dirname, 'node_modules', 'ts-node')
+  ];
 
-process.exit(result.code);
+  for (const possibleDirectory of possibleDirectories) {
+    try {
+      const stat = await fs.promises.stat(possibleDirectory);
+
+      if (stat.isDirectory()) {
+        return possibleDirectory;
+      }
+    } catch {
+      // Intentionally left blank.
+    }
+  }
+};
+
+// eslint-disable-next-line unicorn/prefer-top-level-await
+findTsNode().then(tsNode => {
+  const result = shelljs.exec(
+    `node --loader="file://${tsNode}/esm" --experimental-specifier-resolution=node --no-warnings "${absoluteRoboterEntryPointPath}" ${args.join(' ')}`,
+    {
+      // eslint-disable-next-line no-process-env
+      env: process.env,
+      cwd: process.cwd(),
+      silent: false
+    }
+  );
+
+  process.exit(result.code);
+});
