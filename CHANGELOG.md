@@ -1,3 +1,10 @@
+## [12.1.2](https://github.com/thenativeweb/roboter/compare/12.1.1...12.1.2) (2021-08-20)
+
+
+### Bug Fixes
+
+* remove require-engines rule ([#690](https://github.com/thenativeweb/roboter/issues/690)) ([6e0f512](https://github.com/thenativeweb/roboter/commit/6e0f512134f2fbfd246e7fa865d2a652ef09a55d))
+
 ## [12.1.1](https://github.com/thenativeweb/roboter/compare/12.1.0...12.1.1) (2021-08-16)
 
 
