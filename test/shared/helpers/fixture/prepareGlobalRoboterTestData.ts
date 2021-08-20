@@ -26,7 +26,7 @@ const prepareGlobalRoboterTestData = async function (): Promise<GlobalRoboterTes
   // eslint-disable-next-line no-sync
   const absoluteNpmCacheDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'npm-cache-'));
 
-  const { code: packCode, stderr: packStderr } = shelljs.exec(`npm pack ${absoluteRoboterProjectDirectory}`, { cwd: absoluteRoboterPackageDestinationDirectory });
+  const { code: packCode, stderr: packStderr } = shelljs.exec(`npm pack "${absoluteRoboterProjectDirectory}"`, { cwd: absoluteRoboterPackageDestinationDirectory });
 
   if (packCode !== 0) {
     buntstift.error('Failed to pack roboter package.');
