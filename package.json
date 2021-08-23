@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "assertthat": "6.3.13",
-    "isolated": "3.0.23",
+    "isolated": "3.0.24",
     "react": "17.0.2",
     "semantic-release-configuration": "2.0.5",
     "strip-ansi": "7.0.0"
