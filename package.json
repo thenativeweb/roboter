@@ -63,7 +63,7 @@
     "eslint": "7.32.0",
     "eslint-config-es": "3.30.11",
     "estraverse": "5.2.0",
-    "globby": "12.0.0",
+    "globby": "12.0.1",
     "is-typescript": "4.0.6",
     "minimatch": "3.0.4",
     "mocha": "9.0.3",
