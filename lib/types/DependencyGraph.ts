@@ -197,7 +197,7 @@ class DependencyGraph {
 
     for (const filePath of filePaths) {
       stringRepresentation += `${filePath} =>\n`;
-      for (const importPath of [ ...this.edges.get(filePath)! ]) {
+      for (const importPath of this.edges.get(filePath)!) {
         stringRepresentation += `  ${importPath}\n`;
       }
     }
