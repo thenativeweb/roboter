@@ -41,6 +41,7 @@ class GitNotInUpdateableState extends defekt({ code: 'GitNotInUpdateableState' }
 class LicenseCheckConfigurationNotFound extends defekt({ code: 'LicenseCheckConfigurationNotFound' }) {}
 class LicenseCheckConfigurationMalformed extends defekt({ code: 'LicenseCheckConfigurationMalformed' }) {}
 class LicenseCheckFailed extends defekt({ code: 'LicenseCheckFailed' }) {}
+class LicenseDeprecated extends defekt({ code: 'LicenseDeprecated' }) {}
 class LicenseIncompatible extends defekt({ code: 'LicenseIncompatible' }) {}
 class LicenseNotFound extends defekt({ code: 'LicenseNotFound' }) {}
 class LicenseNotSupported extends defekt({ code: 'LicenseNotSupported' }) {}
@@ -85,6 +86,7 @@ export {
   LicenseCheckConfigurationNotFound,
   LicenseCheckConfigurationMalformed,
   LicenseCheckFailed,
+  LicenseDeprecated,
   LicenseIncompatible,
   LicenseNotFound,
   LicenseNotSupported,

@@ -97,6 +97,9 @@ The npm-package-json-lint analysis only affects the `package.json` file in the r
 
 To adjust the rules to be used, add an [`.npmpackagejsonlintrc.json`](https://npmpackagejsonlint.org/docs/en/rcfile-example) file to the root directory of your module or application. You may [extend](https://npmpackagejsonlint.org/docs/en/configuration#how-to-use-a-shared-config-module) the `npm-package-json-lint-config-tnw/app.json` configuration, the `npm-package-json-lint-config-tnw/lib.json` configuration or any configuration you have made yourself.
 
+In addition to the linting provided by [npm-package-json-lint](https://npmpackagejsonlint.org/), roboter checks the license provided
+by you against the [SPDX license list](https://github.com/spdx/license-list-XML). The default behavior is to reject licenses that are not present on the list, as well as deprecated licenses. If you wish to use a more exotic license that is not listed by SPDX, you may set `allowUnsupportedLicenseForThisPackage` to `true` in `licenseCheck.json`. Deprecated licenses can be enabled in a similar way by setting `allowDeprecatedLicenseForThisPackage` to `true` in `licenseCheck.json`.
+
 ## The `build` task
 
 If you want to use TypeScript, add the required `tsconfig.json` file to the root of your package to enable compilation on build.
