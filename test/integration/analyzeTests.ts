@@ -265,4 +265,78 @@ suite('analyze', function (): void {
       assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
     }
   );
+
+  testWithFixture(
+    'fails with deprecated package license.',
+    [ 'analyze', 'with-deprecated-license' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
+        HERE BE ERRORS
+      `);
+      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+    }
+  );
+
+  testWithFixture(
+    'fails with unsupported package license.',
+    [ 'analyze', 'with-unsupported-license' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
+        HERE BE ERRORS
+      `);
+      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+    }
+  );
+
+  testWithFixture(
+    'succeeds with deprecated package license and allowDeprecatedLicenseForThisPackage set to true.',
+    [ 'analyze', 'with-deprecated-license-with-exception' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
+    }
+  );
+
+  testWithFixture(
+    'succeeds with unsupported package license and allowUnsupportedLicenseForThisPackage set to true.',
+    [ 'analyze', 'with-unsupported-license-with-exception' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
+    }
+  );
 });

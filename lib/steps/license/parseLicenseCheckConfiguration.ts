@@ -33,6 +33,12 @@ errors.LicenseCheckConfigurationMalformed
               }
             }
           }
+        },
+        allowUnsupportedLicenseForThisPackage: {
+          type: 'boolean'
+        },
+        allowDeprecatedLicenseForThisPackage: {
+          type: 'boolean'
         }
       },
       required: [ 'compatibleLicenses' ],

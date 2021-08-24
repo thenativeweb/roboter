@@ -75,6 +75,7 @@
     "semver": "7.3.5",
     "shelljs": "0.8.4",
     "spdx-expression-parse": "3.0.1",
+    "spdx-license-ids": "3.0.10",
     "spdx-satisfies": "5.0.1",
     "ts-node": "10.2.1",
     "type-fest": "2.0.0",
