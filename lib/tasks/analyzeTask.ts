@@ -39,20 +39,21 @@ const analyzeTask = async function ({ applicationRoot }: {
   stopWaiting();
 
   if (checkLicenseExpressionResult.hasError()) {
-    buntstift.raw(`${checkLicenseExpressionResult.error.message}\n`);
-
     // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check, default-case
     switch (checkLicenseExpressionResult.error.code) {
       case errors.LicenseNotFound.code: {
         buntstift.error('No license was found for this package.');
+        buntstift.raw(`${checkLicenseExpressionResult.error.message}\n`);
         break;
       }
       case errors.LicenseNotSupported.code: {
         buntstift.error('The given license is not a valid SPDX expression.');
+        buntstift.raw(`${checkLicenseExpressionResult.error.message}\n`);
         break;
       }
       case errors.LicenseDeprecated.code: {
         buntstift.error('The given license is deprecated.');
+        buntstift.raw(`${checkLicenseExpressionResult.error.message}\n`);
         break;
       }
     }

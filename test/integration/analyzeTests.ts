@@ -283,9 +283,9 @@ suite('analyze', function (): void {
 
       assert.that(error.exitCode).is.equalTo(1);
       assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
-        HERE BE ERRORS
+        GPL-2.0 is deprecated, please consider using an updated version of this license
       `);
-      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+      assert.that(stripAnsi(error.stderr)).is.containing('The given license is deprecated.');
     }
   );
 
@@ -306,9 +306,9 @@ suite('analyze', function (): void {
 
       assert.that(error.exitCode).is.equalTo(1);
       assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
-        HERE BE ERRORS
+        The given license is not supported, please check your spelling
       `);
-      assert.that(stripAnsi(error.stderr)).is.containing('Malformed package.json found.');
+      assert.that(stripAnsi(error.stderr)).is.containing('The given license is not a valid SPDX expression.');
     }
   );
 

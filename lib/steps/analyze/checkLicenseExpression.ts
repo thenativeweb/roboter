@@ -18,8 +18,7 @@ const checkLicenseExpression = async function ({
     }
 
     return error(new errors.LicenseNotSupported({
-      message: `The given license is not supported, please check your spelling, or disable this check by setting 'allowUnsupportedLicenseForThisPackage
-      ' in licenseCheck.json.`,
+      message: `The given license is not supported, please check your spelling, or disable this check by setting 'allowUnsupportedLicenseForThisPackage' in licenseCheck.json.`,
       cause: licenseResult.error
     }));
   }
@@ -28,8 +27,7 @@ const checkLicenseExpression = async function ({
 
   if (deprecatedSpdxLicenseIds.includes(license) && !licenseCheckConfiguration.allowDeprecatedLicenseForThisPackage) {
     return error(new errors.LicenseDeprecated({
-      message: `${license} is deprecated, please consider using an updated version of this license, or disable this check by setting 'allowDeprecatedLicenseForThisPackage
-      ' in licenseCheck.json.`
+      message: `${license} is deprecated, please consider using an updated version of this license, or disable this check by setting 'allowDeprecatedLicenseForThisPackage' in licenseCheck.json.`
     }));
   }
 
