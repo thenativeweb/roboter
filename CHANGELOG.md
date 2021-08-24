@@ -1,3 +1,10 @@
+# [12.2.0](https://github.com/thenativeweb/roboter/compare/12.1.3...12.2.0) (2021-08-24)
+
+
+### Features
+
+* check license against SPDX license list ([#701](https://github.com/thenativeweb/roboter/issues/701)) ([6125043](https://github.com/thenativeweb/roboter/commit/6125043e155f31a3e6dc941dac7aba065294584f))
+
 ## [12.1.3](https://github.com/thenativeweb/roboter/compare/12.1.2...12.1.3) (2021-08-24)
 
 
