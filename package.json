@@ -80,7 +80,7 @@
     "ts-node": "10.2.1",
     "type-fest": "2.0.0",
     "typescript": "4.3.5",
-    "validate-value": "9.1.4",
+    "validate-value": "9.1.6",
     "walk-file-tree": "1.0.31"
   },
   "devDependencies": {
