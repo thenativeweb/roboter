@@ -1,3 +1,17 @@
+# [12.2.0](https://github.com/thenativeweb/roboter/compare/12.1.3...12.2.0) (2021-08-24)
+
+
+### Features
+
+* check license against SPDX license list ([#701](https://github.com/thenativeweb/roboter/issues/701)) ([6125043](https://github.com/thenativeweb/roboter/commit/6125043e155f31a3e6dc941dac7aba065294584f))
+
+## [12.1.3](https://github.com/thenativeweb/roboter/compare/12.1.2...12.1.3) (2021-08-24)
+
+
+### Bug Fixes
+
+* bump eslint-config-es from 3.30.11 to 3.30.13 ([#700](https://github.com/thenativeweb/roboter/issues/700)) ([e13ecb9](https://github.com/thenativeweb/roboter/commit/e13ecb9261993a7f9c077f891663c5d02c8f950d))
+
 ## [12.1.2](https://github.com/thenativeweb/roboter/compare/12.1.1...12.1.2) (2021-08-20)
 
 
