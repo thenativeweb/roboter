@@ -1,3 +1,10 @@
+## [12.2.1](https://github.com/thenativeweb/roboter/compare/12.2.0...12.2.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* bump mocha from 9.0.3 to 9.1.0 ([#691](https://github.com/thenativeweb/roboter/issues/691)) ([0081063](https://github.com/thenativeweb/roboter/commit/0081063e8319132fb9089a521dbb0a99e8d819a4))
+
 # [12.2.0](https://github.com/thenativeweb/roboter/compare/12.1.3...12.2.0) (2021-08-24)
 
 
