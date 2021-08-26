@@ -17,7 +17,6 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
   let licenseCheckConfigurationContent: string;
 
   try {
-    // eslint-disable-next-line prefer-const
     licenseCheckConfigurationContent = await fs.promises.readFile(
       absoluteLicenseCheckConfigurationFile,
       'utf-8'
@@ -29,7 +28,6 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
   let licenseCheckConfigurationObject: JsonObject;
 
   try {
-    // eslint-disable-next-line prefer-const
     licenseCheckConfigurationObject = JSON.parse(licenseCheckConfigurationContent);
   } catch (ex: unknown) {
     return error(new errors.LicenseCheckConfigurationMalformed({
