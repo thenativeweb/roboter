@@ -1,3 +1,10 @@
+## [12.2.3](https://github.com/thenativeweb/roboter/compare/12.2.2...12.2.3) (2021-08-27)
+
+
+### Bug Fixes
+
+* update dependencies ([#705](https://github.com/thenativeweb/roboter/issues/705)) ([182175e](https://github.com/thenativeweb/roboter/commit/182175ecaa7aafaa49a48f4ff89d95bdc3f991bd))
+
 ## [12.2.2](https://github.com/thenativeweb/roboter/compare/12.2.1...12.2.2) (2021-08-26)
 
 
