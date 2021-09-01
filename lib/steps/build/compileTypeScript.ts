@@ -2,12 +2,16 @@ import { buntstift } from 'buntstift';
 import fs from 'fs';
 import { globby } from 'globby';
 import path from 'path';
-import ts from 'typescript';
 import { error, Result, value } from 'defekt';
+import ts, { EmitResult } from 'typescript';
 import * as errors from '../../errors';
 
-const compileTypeScript = async function ({ applicationRoot }: {
+const compileTypeScript = async function ({
+  applicationRoot,
+  noEmit
+}: {
   applicationRoot: string;
+  noEmit?: boolean;
 }): Promise<Result<
   undefined,
   errors.TypeScriptOutputConfigurationMissing | errors.TypeScriptCompilationFailed
@@ -45,14 +49,15 @@ const compileTypeScript = async function ({ applicationRoot }: {
     await fs.promises.rm(tsconfig.compilerOptions.outDir, { recursive: true, force: true });
   }
 
-  const emitResult = program.emit();
+  let emitResult: EmitResult | undefined;
+  const diagnostics = [ ...ts.getPreEmitDiagnostics(program) ];
 
-  const allDiagnostics = [
-    ...ts.getPreEmitDiagnostics(program),
-    ...emitResult.diagnostics
-  ];
+  if (!noEmit) {
+    emitResult = program.emit();
+    diagnostics.push(...emitResult.diagnostics);
+  }
 
-  allDiagnostics.forEach((diagnostic): void => {
+  diagnostics.forEach((diagnostic): void => {
     if (diagnostic.file) {
       const { line, character } = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start!);
       const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
@@ -63,7 +68,11 @@ const compileTypeScript = async function ({ applicationRoot }: {
     }
   });
 
-  if (emitResult.emitSkipped || allDiagnostics.length > 0) {
+  if (diagnostics.length > 0) {
+    return error(new errors.TypeScriptCompilationFailed());
+  }
+
+  if (!noEmit && emitResult!.emitSkipped) {
     return error(new errors.TypeScriptCompilationFailed());
   }
 
