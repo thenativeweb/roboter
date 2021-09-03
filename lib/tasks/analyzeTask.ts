@@ -1,7 +1,9 @@
 import { buntstift } from 'buntstift';
 import { checkLicenseExpression } from '../steps/analyze/checkLicenseExpression';
+import { isTypeScript } from 'is-typescript';
 import { lintCode } from '../steps/analyze/lintCode';
 import { lintPackageJson } from '../steps/analyze/lintPackageJson';
+import { typeCheckCode } from '../steps/analyze/typeCheckCode';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
 
@@ -77,9 +79,34 @@ const analyzeTask = async function ({ applicationRoot }: {
       }
       default: {
         buntstift.error('Failed to run code analysis.');
+
         throw lintCodeResult.error;
       }
     }
+  }
+
+  if (await isTypeScript({ directory: applicationRoot })) {
+    stopWaiting = buntstift.wait();
+
+    const typeCheckCodeResult = await typeCheckCode({ applicationRoot });
+
+    if (typeCheckCodeResult.hasError()) {
+      switch (typeCheckCodeResult.error.code) {
+        case errors.TypeScriptCompilationFailed.code: {
+          buntstift.raw(`${typeCheckCodeResult.error.message}\n`);
+          buntstift.error('Incorrectly typed code found.');
+
+          return error(new errors.AnalysisFailed());
+        }
+        default: {
+          buntstift.error('Failed to run type check.');
+
+          throw typeCheckCodeResult.error;
+        }
+      }
+    }
+
+    stopWaiting();
   }
 
   buntstift.line();

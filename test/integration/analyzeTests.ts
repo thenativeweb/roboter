@@ -290,6 +290,25 @@ suite('analyze', function (): void {
   );
 
   testWithFixture(
+    'fails with type errors',
+    [ 'analyze', 'with-type-errors' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+    }
+  );
+
+  testWithFixture(
     'fails with unsupported package license.',
     [ 'analyze', 'with-unsupported-license' ],
     async (fixture): Promise<void> => {
