@@ -1,3 +1,10 @@
+## [12.2.4](https://github.com/thenativeweb/roboter/compare/12.2.3...12.2.4) (2021-09-03)
+
+
+### Bug Fixes
+
+* perform type check during `qa` command ([#708](https://github.com/thenativeweb/roboter/issues/708)) ([66c790b](https://github.com/thenativeweb/roboter/commit/66c790bb4c8d98b80e6da71cded59f6e977161b8))
+
 ## [12.2.3](https://github.com/thenativeweb/roboter/compare/12.2.2...12.2.3) (2021-08-27)
 
 
