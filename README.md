@@ -298,6 +298,22 @@ All these scripts receive some parameter as seen in the TypeScript types. These 
 
 When running the tests in watch mode, the scripts are run for every test iteration. I.e. if you change a file and tests need to be re-run, all relevant scripts are executed. Their parameters change with every execution, since they receive a running count of the amount of test iterations since watch mode was started. This way you can write your scripts so that they only execute your setup / teardown logic when you really need them to.
 
+#### Returning values from pre-scripts and accessing them
+
+The global preTscript as well as the individual pre-scripts may return arbitrary objects (not primitive values!) as can be seen in the `TestPreScript` type signature.
+
+The returned objects from the global pre-script and the individual pre-scripts are available to the corresponding post-scripts via the `preScriptData` property. This is useful if, for example, you want to start a docker container before running your tests and to avoid collision include a random string in its name. This random string is then necessary in the post-script to cleanly stop and remove the container.
+
+It is also possible to access the values returned by the pre-scripts inside the tests. To make these values available, they are attached to the mocha context of every suite. You can access them like this:
+
+```typescript
+suite('some test suite', function (): void {
+    const { someValue } = this.ctx.roboter;
+});
+```
+
+The `this.ctx.roboter` property is an object that contains the merged return values from the global pre-script and the pre-script of the test type to which the suite belongs. The returned object from the test type has precedence in the merge.
+
 #### Setting environment variables
 
 To set environment variables that are available in the tests, you can create a `.env` file per test type:
