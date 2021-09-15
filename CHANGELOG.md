@@ -1,3 +1,10 @@
+## [12.2.5](https://github.com/thenativeweb/roboter/compare/12.2.4...12.2.5) (2021-09-15)
+
+
+### Bug Fixes
+
+* Add readme section documenting pre-script return values. ([#717](https://github.com/thenativeweb/roboter/issues/717)) ([19b0a19](https://github.com/thenativeweb/roboter/commit/19b0a19aeb6652470c6bfb887f03d1866d54c73e))
+
 ## [12.2.4](https://github.com/thenativeweb/roboter/compare/12.2.3...12.2.4) (2021-09-03)
 
 
