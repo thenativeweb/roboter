@@ -78,8 +78,8 @@
     "spdx-license-ids": "3.0.10",
     "spdx-satisfies": "5.0.1",
     "ts-node": "10.2.1",
-    "type-fest": "2.2.0",
-    "typescript": "4.4.2",
+    "type-fest": "2.3.2",
+    "typescript": "4.4.3",
     "validate-value": "9.1.6",
     "walk-file-tree": "1.0.31"
   },
@@ -88,7 +88,7 @@
     "isolated": "3.0.25",
     "react": "17.0.2",
     "semantic-release-configuration": "2.0.5",
-    "strip-ansi": "7.0.0"
+    "strip-ansi": "7.0.1"
   },
   "scripts": {
     "roboter": "node --loader=ts-node/esm --experimental-specifier-resolution=node --no-warnings lib/bin/roboter.ts"
