@@ -358,4 +358,27 @@ suite('analyze', function (): void {
       assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
     }
   );
+
+  testWithFixture(
+    'validates license strictly if no license check configuration exists.',
+    [ 'analyze', 'without-license-check-configuration' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+
+      assert.that(error.exitCode).is.equalTo(1);
+      assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
+        The given license is not supported, please check your spelling
+      `);
+      assert.that(stripAnsi(error.stderr)).is.containing('The given license is not a valid SPDX expression.');
+    }
+  );
 });
