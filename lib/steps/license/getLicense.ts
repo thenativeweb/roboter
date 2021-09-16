@@ -8,7 +8,7 @@ import * as errors from '../../errors';
 
 const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguration }: {
   absoluteDirectory: string;
-  licenseCheckConfiguration: LicenseCheckConfiguration;
+  licenseCheckConfiguration?: LicenseCheckConfiguration;
 }): Promise<Result<string, errors.LicenseNotFound | errors.LicenseNotSupported>> {
   const packageJsonResult = await getPackageJson({ absoluteDirectory });
 
@@ -58,11 +58,13 @@ const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguratio
 
   let knownPackageLicense: string | undefined;
 
-  knownPackageLicense = getMatchingLicense({
-    licensesMap: licenseCheckConfiguration.knownPackageLicenses ?? {},
-    packageName,
-    packageVersion
-  });
+  if (licenseCheckConfiguration) {
+    knownPackageLicense = getMatchingLicense({
+      licensesMap: licenseCheckConfiguration.knownPackageLicenses ?? {},
+      packageName,
+      packageVersion
+    });
+  }
   if (!knownPackageLicense) {
     knownPackageLicense = getMatchingLicense({
       licensesMap: packageLicenses,

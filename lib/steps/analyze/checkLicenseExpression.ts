@@ -9,11 +9,13 @@ const checkLicenseExpression = async function ({
 }: {
   applicationRoot: string;
 }): Promise<Result<undefined, errors.LicenseNotFound | errors.LicenseNotSupported | errors.LicenseDeprecated>> {
-  const licenseCheckConfiguration = (await getLicenseCheckConfiguration({ absoluteDirectory: applicationRoot })).unwrapOrThrow();
+  const licenseCheckConfigurationResult = await getLicenseCheckConfiguration({ absoluteDirectory: applicationRoot });
+  const licenseCheckConfiguration = licenseCheckConfigurationResult.hasValue() ? licenseCheckConfigurationResult.value : undefined;
+
   const licenseResult = await getLicense({ absoluteDirectory: applicationRoot, licenseCheckConfiguration });
 
   if (licenseResult.hasError()) {
-    if (licenseResult.error.code === errors.LicenseNotSupported.code && licenseCheckConfiguration.allowUnsupportedLicenseForThisPackage) {
+    if (licenseResult.error.code === errors.LicenseNotSupported.code && licenseCheckConfiguration?.allowUnsupportedLicenseForThisPackage) {
       return value();
     }
 
@@ -25,7 +27,7 @@ const checkLicenseExpression = async function ({
 
   const license = licenseResult.unwrapOrThrow();
 
-  if (deprecatedSpdxLicenseIds.includes(license) && !licenseCheckConfiguration.allowDeprecatedLicenseForThisPackage) {
+  if (deprecatedSpdxLicenseIds.includes(license) && !licenseCheckConfiguration?.allowDeprecatedLicenseForThisPackage) {
     return error(new errors.LicenseDeprecated({
       message: `${license} is deprecated, please consider using an updated version of this license, or disable this check by setting 'allowDeprecatedLicenseForThisPackage' in licenseCheck.json.`
     }));
