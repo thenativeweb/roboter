@@ -1,3 +1,10 @@
+# [12.3.0](https://github.com/thenativeweb/roboter/compare/12.2.5...12.3.0) (2021-09-16)
+
+
+### Features
+
+* Make license check configuration optional for analyze command. ([#718](https://github.com/thenativeweb/roboter/issues/718)) ([122b81d](https://github.com/thenativeweb/roboter/commit/122b81da4d00a6b3bd4e3203922f17106e2dd36e))
+
 ## [12.2.5](https://github.com/thenativeweb/roboter/compare/12.2.4...12.2.5) (2021-09-15)
 
 
