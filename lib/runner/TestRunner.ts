@@ -1,11 +1,20 @@
 import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { TestWorkerMessage } from '../steps/test/TestWorkerMessage';
 import { Worker } from 'worker_threads';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const messageHandler = (message: TestWorkerMessage): void => {
+  if (message.type !== 'buntstift') {
+    return;
+  }
+
+  buntstift[message.buntstiftMethod](message.value ?? '');
+};
 
 class TestRunner {
   protected applicationRoot: string;
@@ -50,6 +59,8 @@ class TestRunner {
       }
     });
 
+    this.worker.on('message', messageHandler);
+
     this.runNumber += 1;
 
     let result: Result<undefined, errors.TestsFailed> = error(new errors.TestsFailed());
@@ -61,26 +72,26 @@ class TestRunner {
     process.on('SIGTERM', terminateWorker);
 
     await new Promise<void>((resolve, reject): void => {
-      this.worker!.once('message', async (message): Promise<void> => {
-        if (message === 'success') {
+      const finalStatusHandler = async (message: TestWorkerMessage): Promise<void> => {
+        if (message.type !== 'final-status') {
+          return;
+        }
+        this.worker!.off('message', finalStatusHandler);
+        this.worker!.off('message', messageHandler);
+
+        if (message.value === 'success') {
           this.previousRunResult = 'success';
           result = value();
-        } else if (message === 'bail') {
+        } else if (message.value === 'bail') {
           this.previousRunResult = 'bail';
         } else {
           this.previousRunResult = 'fail';
         }
 
-        this.worker!.stdout.once('end', async (): Promise<void> => {
-          await this.worker!.terminate();
-        });
-        this.worker!.stderr.once('end', async (): Promise<void> => {
-          await this.worker!.terminate();
-        });
-        setTimeout(async (): Promise<void> => {
-          await this.worker!.terminate();
-        }, 30_000);
-      });
+        await terminateWorker();
+      };
+
+      this.worker!.on('message', finalStatusHandler);
       this.worker!.once('error', (workerError): void => {
         reject(workerError);
       });

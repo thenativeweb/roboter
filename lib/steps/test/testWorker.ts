@@ -5,6 +5,7 @@ import { loadEnvironmentVariables } from './loadEnvironmentVariables';
 import { nodeenv } from 'nodeenv';
 import path from 'path';
 import { pruneMochaInstanceByGrep } from './pruneMochaInstanceByGrep';
+import { TestWorkerMessage } from './TestWorkerMessage';
 import {
   loadGlobalPostScript,
   loadGlobalPreScript,
@@ -25,13 +26,17 @@ const {
   runNumber
 } = workerData;
 
+const postMessage = function (message: TestWorkerMessage): void {
+  parentPort?.postMessage(message);
+};
+
 const globalPreScript = await loadGlobalPreScript({ applicationRoot });
 
 let globalPreScriptResult: any;
 
 if (globalPreScript) {
-  buntstift.line();
-  buntstift.info('Running global pre script...');
+  postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+  postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: 'Running global pre script...' });
   try {
     globalPreScriptResult = await globalPreScript({
       runNumber,
@@ -40,9 +45,9 @@ if (globalPreScript) {
       previousRunResult
     });
   } catch (ex: unknown) {
-    buntstift.error(`Global pre script failed.`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'error', value: 'Global pre script failed.' });
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    buntstift.raw((ex as Error).toString());
+    postMessage({ type: 'buntstift', buntstiftMethod: 'raw', value: (ex as Error).toString() });
   }
 } else {
   globalPreScriptResult = {};
@@ -103,8 +108,8 @@ for (const testType of typeSequence) {
   let testTypePreScriptResult: any;
 
   if (testTypePreScript) {
-    buntstift.line();
-    buntstift.info(`Running pre script for ${testType} tests...`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+    postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: `Running pre script for ${testType} tests...` });
     try {
       testTypePreScriptResult = await testTypePreScript({
         runNumber,
@@ -113,16 +118,16 @@ for (const testType of typeSequence) {
         previousRunResult
       });
     } catch (ex: unknown) {
-      buntstift.error(`Pre script for ${testType} tests failed.`);
+      postMessage({ type: 'buntstift', buntstiftMethod: 'error', value: `Pre script for ${testType} tests failed.` });
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      buntstift.raw((ex as Error).toString());
+      postMessage({ type: 'buntstift', buntstiftMethod: 'raw', value: (ex as Error).toString() });
     }
   } else {
     testTypePreScriptResult = {};
   }
 
-  buntstift.line();
-  buntstift.info(`Running ${testType} tests...`);
+  postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+  postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: `Running ${testType} tests...` });
 
   const roboterContext = {
     ...globalPreScriptResult,
@@ -150,7 +155,7 @@ for (const testType of typeSequence) {
   const runner = mocha.run();
 
   runner.on('fail', (test): void => {
-    buntstift.raw(test.err!.stack!);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'raw', value: test.err!.stack! });
   });
 
   await new Promise<void>((resolve): void => {
@@ -167,17 +172,17 @@ for (const testType of typeSequence) {
     entireRunHadFailure = true;
     currentTestTypeHadFailure = true;
 
-    buntstift.error(`${testType} tests failed.`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'error', value: `${testType} tests failed.` });
   } else {
-    buntstift.line();
-    buntstift.success(`${testType} tests successful.`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+    postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: `${testType} tests successful.` });
   }
 
   const testTypePostScript = await loadTestTypePostScript({ applicationRoot, testType });
 
   if (testTypePostScript) {
-    buntstift.line();
-    buntstift.info(`Running post script for ${testType} tests...`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+    postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: `Running post script for ${testType} tests...` });
     try {
       await testTypePostScript({
         runNumber,
@@ -187,9 +192,9 @@ for (const testType of typeSequence) {
         preScriptData: roboterContext
       });
     } catch (ex: unknown) {
-      buntstift.error(`Post script for ${testType} tests failed.`);
+      postMessage({ type: 'buntstift', buntstiftMethod: 'error', value: `Post script for ${testType} tests failed.` });
       // eslint-disable-next-line @typescript-eslint/no-base-to-string
-      buntstift.raw((ex as Error).toString());
+      postMessage({ type: 'buntstift', buntstiftMethod: 'raw', value: (ex as Error).toString() });
     }
   }
 
@@ -201,8 +206,8 @@ for (const testType of typeSequence) {
 const globalPostScript = await loadGlobalPostScript({ applicationRoot });
 
 if (globalPostScript) {
-  buntstift.line();
-  buntstift.info('Running global post script...');
+  postMessage({ type: 'buntstift', buntstiftMethod: 'line' });
+  postMessage({ type: 'buntstift', buntstiftMethod: 'info', value: 'Running global post script...' });
   try {
     await globalPostScript({
       runNumber,
@@ -212,18 +217,18 @@ if (globalPostScript) {
       preScriptData: globalPreScriptResult
     });
   } catch (ex: unknown) {
-    buntstift.error(`Global post script failed.`);
+    postMessage({ type: 'buntstift', buntstiftMethod: 'error', value: 'Global post script failed.' });
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    buntstift.raw((ex as Error).toString());
+    postMessage({ type: 'buntstift', buntstiftMethod: 'raw', value: (ex as Error).toString() });
   }
 }
 
 if (entireRunHadFailure) {
   if (bail) {
-    parentPort?.postMessage('bail');
+    postMessage({ type: 'final-status', value: 'bail' });
   } else {
-    parentPort?.postMessage('fail');
+    postMessage({ type: 'final-status', value: 'fail' });
   }
 } else {
-  parentPort?.postMessage('success');
+  postMessage({ type: 'final-status', value: 'success' });
 }
