@@ -1,4 +1,3 @@
-import { buntstift } from 'buntstift';
 import { doesMochaInstanceHaveTests } from './isMochaInstanceEmpty';
 import { findMochaConfigurationfile } from './findMochaConfigurationFile';
 import { loadEnvironmentVariables } from './loadEnvironmentVariables';
