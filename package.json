@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@types/common-tags": "1.8.1",
-    "@types/eslint": "7.28.0",
+    "@types/eslint": "7.28.1",
     "@types/estraverse": "5.1.1",
     "@types/estree": "0.0.50",
     "@types/mocha": "9.0.0",
@@ -52,7 +52,7 @@
     "@types/shelljs": "0.8.9",
     "@types/spdx-expression-parse": "3.0.1",
     "@types/spdx-satisfies": "0.1.0",
-    "@typescript-eslint/typescript-estree": "4.32.0",
+    "@typescript-eslint/typescript-estree": "4.33.0",
     "buntstift": "5.0.0",
     "chokidar": "3.5.2",
     "command-line-interface": "4.0.21",
