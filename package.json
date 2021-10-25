@@ -48,7 +48,7 @@
     "@types/estree": "0.0.50",
     "@types/mocha": "9.0.0",
     "@types/normalize-path": "3.0.0",
-    "@types/semver": "7.3.8",
+    "@types/semver": "7.3.9",
     "@types/shelljs": "0.8.9",
     "@types/spdx-expression-parse": "3.0.1",
     "@types/spdx-satisfies": "0.1.0",
