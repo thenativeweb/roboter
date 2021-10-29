@@ -1,6 +1,6 @@
 {
+  "name": "test-package",
   "version": "0.0.1",
-  "description": "a test-package.",
   "contributors": [],
   "private": false,
   "main": "",

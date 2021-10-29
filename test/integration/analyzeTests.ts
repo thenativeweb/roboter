@@ -232,7 +232,7 @@ suite('analyze', function (): void {
       assert.that(error.exitCode).is.equalTo(1);
       assert.that(stripAnsi(error.stdout)).is.containing(stripIndent`
         ./package.json
-          error    name is required  (name)
+          error    description is required  (description)
 
         ✖ 1 problems (1 errors, 0 warnings)
       `);
