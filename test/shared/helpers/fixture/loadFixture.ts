@@ -73,6 +73,21 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   };
   await fs.promises.writeFile(absolutePackageJsonFile, JSON.stringify(packageJson, null, 2), 'utf-8');
 
+  const absoluteNpmPackageJsonLintRcFile = path.join(absoluteTestDirectory, '.npmpackagejsonlintrc.json');
+  let npmPackageJsonLintRc: any;
+
+  try {
+    npmPackageJsonLintRc = JSON.parse(await fs.promises.readFile(absoluteNpmPackageJsonLintRcFile, 'utf-8'));
+  } catch {
+    npmPackageJsonLintRc = {
+      extends: 'npm-package-json-lint-config-tnw/lib.json'
+    };
+  }
+
+  npmPackageJsonLintRc.rules = 'rules' in npmPackageJsonLintRc ? npmPackageJsonLintRc.rules : {};
+  npmPackageJsonLintRc.rules = { ...npmPackageJsonLintRc.rules, 'no-archive-devDependencies': 'off' };
+  await fs.promises.writeFile(absoluteNpmPackageJsonLintRcFile, JSON.stringify(npmPackageJsonLintRc, null, 2), 'utf-8');
+
   await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
   timer.lap('npm install');
 
