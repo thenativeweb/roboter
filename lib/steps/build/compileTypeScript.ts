@@ -16,37 +16,37 @@ const compileTypeScript = async function ({
   undefined,
   errors.TypeScriptOutputConfigurationMissing | errors.TypeScriptCompilationFailed
   >> {
-  const tsconfigPath = path.join(applicationRoot, 'tsconfig.json');
-  const tsconfig = (await import(`file://${tsconfigPath}`)).default;
+  const tsConfigPath = path.join(applicationRoot, 'tsconfig.json');
+  const tsConfig = (await import(`file://${tsConfigPath}`)).default;
 
-  if (!tsconfig.compilerOptions || !tsconfig.compilerOptions.outDir) {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const tsConfigSourceFile = ts.readJsonConfigFile(tsConfigPath, ts.sys.readFile);
+  const parsedTsConfig = ts.parseJsonSourceFileConfigFileContent(tsConfigSourceFile, ts.sys, applicationRoot, undefined, tsConfigPath);
+  const compilerOptions = parsedTsConfig.options;
+
+  if (!compilerOptions.outDir) {
     return error(new errors.TypeScriptOutputConfigurationMissing());
   }
 
   const inputFiles = await globby(
-    tsconfig.include ?? [],
+    tsConfig.include ?? [],
     {
       absolute: false,
       cwd: applicationRoot,
       ignore: [
-        ...tsconfig.exclude ?? [],
+        ...tsConfig.exclude ?? [],
         'node_modules'
       ]
     }
   );
-  const compilerOptions = ts.convertCompilerOptionsFromJson(
-    tsconfig.compilerOptions,
-    applicationRoot,
-    tsconfigPath
-  ).options;
 
   const program = ts.createProgram({
     rootNames: inputFiles,
     options: compilerOptions
   });
 
-  if (tsconfig.compilerOptions.incremental !== true) {
-    await fs.promises.rm(tsconfig.compilerOptions.outDir, { recursive: true, force: true });
+  if (compilerOptions.incremental !== true) {
+    await fs.promises.rm(compilerOptions.outDir, { recursive: true, force: true });
   }
 
   let emitResult: EmitResult | undefined;
