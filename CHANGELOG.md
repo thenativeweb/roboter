@@ -1,3 +1,10 @@
+# [12.4.0](https://github.com/thenativeweb/roboter/compare/12.3.0...12.4.0) (2021-11-02)
+
+
+### Features
+
+* Update dependencies for node v16.12+ compatibility. ([#746](https://github.com/thenativeweb/roboter/issues/746)) ([811dcb7](https://github.com/thenativeweb/roboter/commit/811dcb79e9ed7008cbfd83b39de109b7ed49e456))
+
 # [12.3.0](https://github.com/thenativeweb/roboter/compare/12.2.5...12.3.0) (2021-09-16)
 
 
