@@ -120,4 +120,18 @@ suite('build', function (): void {
       assert.that(builtFile).is.containing('function (left, right) {');
     }
   );
+
+  testWithFixture(
+    'respects the extends fields in tsconfig.json',
+    [ 'build/with-extended-tsconfig' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter build', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
+    }
+  );
 });
