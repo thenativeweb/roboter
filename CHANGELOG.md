@@ -1,3 +1,10 @@
+# [12.5.0](https://github.com/thenativeweb/roboter/compare/12.4.0...12.5.0) (2021-11-02)
+
+
+### Features
+
+* Load tsconfig using tsc API; This respects the extends field now. ([#745](https://github.com/thenativeweb/roboter/issues/745)) ([a46a323](https://github.com/thenativeweb/roboter/commit/a46a3238e37041127a799dc7ac291af34ac19c77)), closes [#743](https://github.com/thenativeweb/roboter/issues/743)
+
 # [12.4.0](https://github.com/thenativeweb/roboter/compare/12.3.0...12.4.0) (2021-11-02)
 
 
