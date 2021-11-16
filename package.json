@@ -78,7 +78,7 @@
     "spdx-license-ids": "3.0.11",
     "spdx-satisfies": "5.0.1",
     "ts-node": "10.4.0",
-    "type-fest": "2.5.2",
+    "type-fest": "2.5.3",
     "typescript": "4.4.4",
     "validate-value": "9.1.6",
     "walk-file-tree": "1.0.31"
