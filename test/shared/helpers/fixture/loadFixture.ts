@@ -68,7 +68,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   const packageJson = JSON.parse(await fs.promises.readFile(absolutePackageJsonFile, 'utf-8'));
 
   packageJson.devDependencies = {
-    ...packageJson.devDependencies ?? {},
+    ...packageJson.devDependencies,
     roboter: absoluteRoboterPackageFile
   };
   await fs.promises.writeFile(absolutePackageJsonFile, JSON.stringify(packageJson, null, 2), 'utf-8');
@@ -88,7 +88,7 @@ const loadFixture = async function ({ fixturePath, absoluteRoboterPackageFile, a
   npmPackageJsonLintRc.rules = { ...npmPackageJsonLintRc.rules, 'no-archive-devDependencies': 'off' };
   await fs.promises.writeFile(absoluteNpmPackageJsonLintRcFile, JSON.stringify(npmPackageJsonLintRc, null, 2), 'utf-8');
 
-  await runCommand(`npm install --no-package-lock --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
+  await runCommand(`npm install --silent --cache=${absoluteNpmCacheDirectory} --prefer-offline`, { cwd: absoluteTestDirectory, silent: true });
   timer.lap('npm install');
 
   // We might want to add some node modules manually, especially in the license tests.
