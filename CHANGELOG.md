@@ -1,3 +1,10 @@
+# [12.6.0](https://github.com/thenativeweb/roboter/compare/12.5.0...12.6.0) (2021-11-19)
+
+
+### Features
+
+* Move linter configuration packages to peer dependencies. ([#760](https://github.com/thenativeweb/roboter/issues/760)) ([565c022](https://github.com/thenativeweb/roboter/commit/565c0229e40c53bb0c94c6a7dff3c781d64a0343))
+
 # [12.5.0](https://github.com/thenativeweb/roboter/compare/12.4.0...12.5.0) (2021-11-02)
 
 
