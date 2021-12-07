@@ -60,7 +60,7 @@
     "defekt": "8.0.0",
     "depcheck": "1.4.2",
     "dotenv": "10.0.0",
-    "eslint": "8.3.0",
+    "eslint": "8.4.0",
     "estraverse": "5.3.0",
     "globby": "12.0.2",
     "is-typescript": "4.0.6",
