@@ -79,7 +79,7 @@
     "type-fest": "2.8.0",
     "typescript": "4.5.2",
     "validate-value": "9.1.7",
-    "walk-file-tree": "1.0.31"
+    "walk-file-tree": "1.0.32"
   },
   "devDependencies": {
     "assertthat": "6.3.14",
