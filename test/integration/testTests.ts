@@ -416,4 +416,26 @@ suite('test', function (): void {
       });
     }
   );
+
+  testWithFixture(
+    'fails with appropriate message if typescript errors are encountered',
+    [ 'test', 'with-invalid-typescript' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter test', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      if (roboterResult.hasValue()) {
+        throw new Error(`The command should have failed, but didn't.`);
+      }
+
+      const { error } = roboterResult;
+      const { exitCode, stderr } = error;
+
+      assert.that(exitCode).is.equalTo(1);
+      assert.that(stripAnsi(stderr)).is.containing('error TS1109: Expression expected.');
+      assert.that(stripAnsi(stderr)).is.containing('TypeScript compilation failed.');
+    }
+  );
 });

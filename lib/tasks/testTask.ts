@@ -9,7 +9,7 @@ import normalize from 'normalize-path';
 import path from 'path';
 import { TestRunner } from '../runner/TestRunner';
 import { updateDependencyGraph } from '../steps/test/updateDependencyGraph';
-import { Result, value } from 'defekt';
+import { isCustomError, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const supportedFileExtensions = [ 'ts', 'tsx', 'js', 'jsx' ];
@@ -20,7 +20,7 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
   bail: boolean;
   watch: boolean;
   grep?: RegExp;
-}): Promise<Result<undefined, errors.TestsFailed>> {
+}): Promise<Result<undefined, errors.TestsFailed | errors.TypeScriptCompilationFailed>> {
   buntstift.line();
   buntstift.info(`Running tests...`, { prefix: '▸' });
 
@@ -88,7 +88,12 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
     });
 
     if (testResult.hasError()) {
-      buntstift.error('Tests failed.');
+      if (isCustomError(testResult.error, errors.TypeScriptCompilationFailed)) {
+        buntstift.warn(testResult.error.message);
+        buntstift.error('TypeScript compilation failed.');
+      } else {
+        buntstift.error('Tests failed.');
+      }
 
       return testResult;
     }
