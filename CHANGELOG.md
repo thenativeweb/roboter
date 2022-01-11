@@ -1,3 +1,10 @@
+## [12.6.1](https://github.com/thenativeweb/roboter/compare/12.6.0...12.6.1) (2022-01-11)
+
+
+### Bug Fixes
+
+* Handle TypeScript error during testing (including watch mode). ([#785](https://github.com/thenativeweb/roboter/issues/785)) ([5509cd6](https://github.com/thenativeweb/roboter/commit/5509cd6dce07c60f0e8d2e417bc78c39974450ff))
+
 # [12.6.0](https://github.com/thenativeweb/roboter/compare/12.5.0...12.6.0) (2021-11-19)
 
 
