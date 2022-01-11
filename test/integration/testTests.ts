@@ -438,4 +438,54 @@ suite('test', function (): void {
       assert.that(stripAnsi(stderr)).is.containing('TypeScript compilation failed.');
     }
   );
+
+  testWithFixture(
+    'does not abort watch mode when typescript errors are encountered, but instead reports them and keep going.',
+    [ 'with-valid-typescript' ],
+    async (fixture): Promise<void> => {
+      const childProcess = shell.exec(
+        'npx roboter test --watch',
+        {
+          cwd: fixture.absoluteTestDirectory,
+          silent: true,
+          async: true
+        }
+      );
+
+      await waitForStringInStream({
+        stream: childProcess.stdout!,
+        string: 'unit tests successful',
+        timeout: 60_000
+      });
+
+      await fs.promises.writeFile(
+        path.join(fixture.absoluteTestDirectory, 'test', 'unit', 'someUnitTests.ts'),
+        'const number = ;\n',
+        'utf-8'
+      );
+
+      await waitForStringInStream({
+        stream: childProcess.stderr!,
+        string: 'TypeScript compilation failed.',
+        timeout: 60_000
+      });
+
+      await fs.promises.writeFile(
+        path.join(fixture.absoluteTestDirectory, 'test', 'unit', 'someUnitTests.ts'),
+        'suite(\'suite\', () => {test(\'test\', async () => {})});\n',
+        'utf-8'
+      );
+
+      await waitForStringInStream({
+        stream: childProcess.stdout!,
+        string: 'unit tests successful',
+        timeout: 60_000
+      });
+
+      await new Promise((resolve): void => {
+        childProcess.on('exit', resolve);
+        childProcess.kill();
+      });
+    }
+  );
 });

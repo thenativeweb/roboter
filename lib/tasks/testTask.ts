@@ -7,9 +7,10 @@ import { globby } from 'globby';
 import minimatch from 'minimatch';
 import normalize from 'normalize-path';
 import path from 'path';
+import { reportTestResult } from '../steps/test/reportTestResult';
 import { TestRunner } from '../runner/TestRunner';
 import { updateDependencyGraph } from '../steps/test/updateDependencyGraph';
-import { isCustomError, Result, value } from 'defekt';
+import { Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const supportedFileExtensions = [ 'ts', 'tsx', 'js', 'jsx' ];
@@ -87,14 +88,8 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       grep
     });
 
+    reportTestResult({ testResult });
     if (testResult.hasError()) {
-      if (isCustomError(testResult.error, errors.TypeScriptCompilationFailed)) {
-        buntstift.warn(testResult.error.message);
-        buntstift.error('TypeScript compilation failed.');
-      } else {
-        buntstift.error('Tests failed.');
-      }
-
       return testResult;
     }
 
@@ -176,11 +171,13 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       }
 
       await testRunner.abort();
-      await testRunner.run({
+      const testResult = await testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
         typeSequence: types,
         grep
       });
+
+      reportTestResult({ testResult });
     } else {
       buntstift.info('No relevant test suites found; skipped re-execution.');
     }
@@ -210,21 +207,25 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       }
 
       await testRunner.abort();
-      await testRunner.run({
+      const testResult = await testRunner.run({
         absoluteTestFilesPerType: absoluteRelevantTestFilesPerType,
         typeSequence: types,
         grep
       });
+
+      reportTestResult({ testResult });
     } else {
       buntstift.info('No relevant test suites found; skipped re-execution.');
     }
   });
 
-  await testRunner.run({
+  const testResult = await testRunner.run({
     absoluteTestFilesPerType,
     typeSequence: types,
     grep
   });
+
+  reportTestResult({ testResult });
 
   return new Promise((resolve): void => {
     if (process.stdin.isTTY) {
@@ -251,11 +252,13 @@ const testTask = async function ({ applicationRoot, type, bail, watch, grep }: {
       if (key === 'r') {
         buntstift.info('Rerunning all tests...');
         await testRunner.abort();
-        await testRunner.run({
+        const testRunResult = await testRunner.run({
           absoluteTestFilesPerType,
           typeSequence: types,
           grep
         });
+
+        reportTestResult({ testResult: testRunResult });
       }
     });
   });
