@@ -36,7 +36,7 @@ class TestRunner {
     absoluteTestFilesPerType: Record<string, string[]>;
     typeSequence: string[];
     grep?: RegExp;
-  }): Promise<Result<undefined, errors.TestsFailed>> {
+  }): Promise<Result<undefined, errors.TestsFailed | errors.TypeScriptCompilationFailed>> {
     this.worker = new Worker(path.join(dirname, '..', 'steps', 'test', 'testWorker.js'), {
       workerData: {
         applicationRoot: this.applicationRoot,
@@ -60,38 +60,46 @@ class TestRunner {
 
     process.on('SIGTERM', terminateWorker);
 
-    await new Promise<void>((resolve, reject): void => {
-      this.worker!.once('message', async (message): Promise<void> => {
-        if (message === 'success') {
-          this.previousRunResult = 'success';
-          result = value();
-        } else if (message === 'bail') {
-          this.previousRunResult = 'bail';
-        } else {
-          this.previousRunResult = 'fail';
-        }
+    try {
+      await new Promise<void>((resolve, reject): void => {
+        this.worker!.once('message', async (message): Promise<void> => {
+          if (message === 'success') {
+            this.previousRunResult = 'success';
+            result = value();
+          } else if (message === 'bail') {
+            this.previousRunResult = 'bail';
+          } else {
+            this.previousRunResult = 'fail';
+          }
 
-        this.worker!.stdout.once('end', async (): Promise<void> => {
-          await this.worker!.terminate();
+          this.worker!.stdout.once('end', async (): Promise<void> => {
+            await this.worker!.terminate();
+          });
+          this.worker!.stderr.once('end', async (): Promise<void> => {
+            await this.worker!.terminate();
+          });
+          setTimeout(async (): Promise<void> => {
+            await this.worker!.terminate();
+          }, 30_000);
         });
-        this.worker!.stderr.once('end', async (): Promise<void> => {
-          await this.worker!.terminate();
+        this.worker!.once('error', (workerError): void => {
+          reject(workerError);
         });
-        setTimeout(async (): Promise<void> => {
-          await this.worker!.terminate();
-        }, 30_000);
+        this.worker!.once('exit', async (): Promise<void> => {
+          resolve();
+        });
       });
-      this.worker!.once('error', (workerError): void => {
-        reject(workerError);
-      });
-      this.worker!.once('exit', async (): Promise<void> => {
-        resolve();
-      });
-    });
 
-    process.off('SIGTERM', terminateWorker);
+      process.off('SIGTERM', terminateWorker);
 
-    return result;
+      return result;
+    } catch (ex: unknown) {
+      if (typeof ex === 'object' && ex !== null && 'diagnosticText' in ex) {
+        return error(new errors.TypeScriptCompilationFailed({ cause: ex, message: (ex as any).diagnosticText.trim() }));
+      }
+
+      throw ex;
+    }
   }
 
   public async abort (): Promise<void> {
