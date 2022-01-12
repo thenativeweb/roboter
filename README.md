@@ -90,7 +90,7 @@ To adjust the ESLint rules to be used, add an [`.eslintrc.json`](https://eslint.
   "rules": {
     "eqeqeq": 0
   }
-};
+}
 ```
 
 The npm-package-json-lint analysis only affects the `package.json` file in the root of your project. It is currently not possible to analyze package files in other locations.
