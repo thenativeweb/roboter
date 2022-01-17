@@ -1,3 +1,10 @@
+## [12.6.2](https://github.com/thenativeweb/roboter/compare/12.6.1...12.6.2) (2022-01-17)
+
+
+### Bug Fixes
+
+* Analyze succeeds even if ts output config is missing. ([#788](https://github.com/thenativeweb/roboter/issues/788)) ([8424542](https://github.com/thenativeweb/roboter/commit/8424542fd6dd6fc107b02535705806c4ce0fe867))
+
 ## [12.6.1](https://github.com/thenativeweb/roboter/compare/12.6.0...12.6.1) (2022-01-11)
 
 
