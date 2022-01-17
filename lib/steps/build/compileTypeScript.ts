@@ -24,7 +24,7 @@ const compileTypeScript = async function ({
   const parsedTsConfig = ts.parseJsonSourceFileConfigFileContent(tsConfigSourceFile, ts.sys, applicationRoot, undefined, tsConfigPath);
   const compilerOptions = parsedTsConfig.options;
 
-  if (!compilerOptions.outDir) {
+  if (!compilerOptions.outDir && !noEmit) {
     return error(new errors.TypeScriptOutputConfigurationMissing());
   }
 
@@ -45,8 +45,8 @@ const compileTypeScript = async function ({
     options: compilerOptions
   });
 
-  if (compilerOptions.incremental !== true) {
-    await fs.promises.rm(compilerOptions.outDir, { recursive: true, force: true });
+  if (compilerOptions.incremental !== true && !noEmit) {
+    await fs.promises.rm(compilerOptions.outDir!, { recursive: true, force: true });
   }
 
   let emitResult: EmitResult | undefined;
