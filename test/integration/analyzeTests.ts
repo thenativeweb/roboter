@@ -381,4 +381,18 @@ suite('analyze', function (): void {
       assert.that(stripAnsi(error.stderr)).is.containing('The given license is not a valid SPDX expression.');
     }
   );
+
+  testWithFixture(
+    'does not fail when outDir is not configured in tsconfig',
+    [ 'analyze', 'without-output-config' ],
+    async (fixture): Promise<void> => {
+      const roboterResult = await runCommand('npx roboter analyze', {
+        cwd: fixture.absoluteTestDirectory,
+        silent: true
+      });
+
+      assert.that(roboterResult).is.aValue();
+      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
+    }
+  );
 });
