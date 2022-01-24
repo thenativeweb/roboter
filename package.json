@@ -52,7 +52,7 @@
     "@types/shelljs": "0.8.10",
     "@types/spdx-expression-parse": "3.0.1",
     "@types/spdx-satisfies": "0.1.0",
-    "@typescript-eslint/typescript-estree": "5.9.1",
+    "@typescript-eslint/typescript-estree": "5.10.0",
     "buntstift": "5.0.1",
     "chokidar": "3.5.2",
     "command-line-interface": "4.0.21",
