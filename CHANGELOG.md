@@ -1,3 +1,10 @@
+## [12.6.4](https://github.com/thenativeweb/roboter/compare/12.6.3...12.6.4) (2022-01-25)
+
+
+### Bug Fixes
+
+* bump globby from 13.0.0 to 13.1.0 ([#806](https://github.com/thenativeweb/roboter/issues/806)) ([1400460](https://github.com/thenativeweb/roboter/commit/14004602c676e51132a477491a82a2202fdfc06e))
+
 ## [12.6.3](https://github.com/thenativeweb/roboter/compare/12.6.2...12.6.3) (2022-01-25)
 
 
