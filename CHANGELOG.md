@@ -1,3 +1,10 @@
+## [12.6.3](https://github.com/thenativeweb/roboter/compare/12.6.2...12.6.3) (2022-01-25)
+
+
+### Bug Fixes
+
+* Report malformed package json better. ([#805](https://github.com/thenativeweb/roboter/issues/805)) ([1f2d18d](https://github.com/thenativeweb/roboter/commit/1f2d18d84b98b1f07acb0901a794d1e6d2f9322d))
+
 ## [12.6.2](https://github.com/thenativeweb/roboter/compare/12.6.1...12.6.2) (2022-01-17)
 
 
