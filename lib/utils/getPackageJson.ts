@@ -6,14 +6,21 @@ import * as errors from '../errors';
 
 const getPackageJson = async function ({ absoluteDirectory }: {
   absoluteDirectory: string;
-}): Promise<Result<PackageJson, errors.PackageJsonMissing>> {
+}): Promise<Result<PackageJson, errors.PackageJsonMissing | errors.PackageJsonMalformed>> {
+  let packageJsonContent: string;
+
   try {
-    const packageJsonContent = await fs.promises.readFile(path.join(absoluteDirectory, 'package.json'), 'utf-8');
+    packageJsonContent = await fs.promises.readFile(path.join(absoluteDirectory, 'package.json'), 'utf-8');
+  } catch (ex: unknown) {
+    return error(new errors.PackageJsonMissing({ cause: ex }));
+  }
+
+  try {
     const packageJson: PackageJson = JSON.parse(packageJsonContent);
 
     return value(packageJson);
   } catch (ex: unknown) {
-    return error(new errors.PackageJsonMissing({ cause: ex }));
+    return error(new errors.PackageJsonMalformed({ cause: ex }));
   }
 };
 

@@ -48,7 +48,7 @@ const lintCode = async function ({ applicationRoot }: {
   const results = await eslint.lintFiles(patterns);
 
   if (results.some((eslintResult): boolean => eslintResult.errorCount > 0)) {
-    return error(new errors.CodeMalformed(formatter.format(results)));
+    return error(new errors.CodeMalformed(await formatter.format(results)));
   }
 
   return value();
