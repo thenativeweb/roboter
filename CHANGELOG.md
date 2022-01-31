@@ -1,3 +1,10 @@
+## [12.6.5](https://github.com/thenativeweb/roboter/compare/12.6.4...12.6.5) (2022-01-31)
+
+
+### Bug Fixes
+
+* Make package finding more robust. ([#808](https://github.com/thenativeweb/roboter/issues/808)) ([bbe2cc2](https://github.com/thenativeweb/roboter/commit/bbe2cc29ce075f8d2337d77b595ec2d1a2274874)), closes [#807](https://github.com/thenativeweb/roboter/issues/807)
+
 ## [12.6.4](https://github.com/thenativeweb/roboter/compare/12.6.3...12.6.4) (2022-01-25)
 
 
