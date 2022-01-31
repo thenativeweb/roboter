@@ -7,7 +7,7 @@ const isErrnoException = function (err: unknown): err is NodeJS.ErrnoException {
   return typeof err === 'object' && err !== null && 'code' in err;
 };
 
-const getApplicationRoot = async function ({ directory }: {
+const getPackageRoot = async function ({ directory }: {
   directory: string;
 }): Promise<Result<string, errors.DirectoryNotFound | errors.ApplicationNotFound>> {
   try {
@@ -32,7 +32,7 @@ const getApplicationRoot = async function ({ directory }: {
         return error(new errors.ApplicationNotFound());
       }
 
-      return await getApplicationRoot({ directory: upperDirectory });
+      return await getPackageRoot({ directory: upperDirectory });
     }
 
     throw ex;
@@ -41,4 +41,4 @@ const getApplicationRoot = async function ({ directory }: {
   return value(directory);
 };
 
-export { getApplicationRoot };
+export { getPackageRoot };

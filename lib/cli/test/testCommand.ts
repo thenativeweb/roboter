@@ -1,7 +1,7 @@
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 import { TestOptions } from './TestOptions';
 import { testTask } from '../../tasks/testTask';
@@ -54,7 +54,7 @@ const testCommand = function (): Command<TestOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 

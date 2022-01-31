@@ -3,7 +3,7 @@ import { buildTask } from '../../tasks/buildTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
 const buildCommand = function (): Command<BuildOptions> {
@@ -19,7 +19,7 @@ const buildCommand = function (): Command<BuildOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 

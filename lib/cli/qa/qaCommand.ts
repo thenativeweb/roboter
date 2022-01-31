@@ -4,7 +4,7 @@ import { checkLicenseCompatibilityTask } from '../../tasks/checkLicenseCompatibi
 import { Command } from 'command-line-interface';
 import { dependencyCheckTask } from '../../tasks/dependencyCheckTask';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { QaOptions } from './QaOptions';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 import { testTask } from '../../tasks/testTask';
@@ -23,7 +23,7 @@ const qaCommand = function (): Command<QaOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 

@@ -1,37 +1,38 @@
-import os from 'os';
-import { runCommand } from './runCommand';
+import fs from 'fs/promises';
+import { getPackageRoot } from './getPackageRoot';
+import module from 'module';
+import path from 'path';
 import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
 
-const getPackageLocation = async function ({ packageName, applicationRoot, version }: {
+const getPackageLocation = async function ({ packageName, applicationRoot }: {
   packageName: string;
   applicationRoot: string;
-  version?: string;
 }): Promise<Result<string, errors.PackageNotFound>> {
-  const packageIdentifier = `${packageName}${version ? `@${version}` : ''}`;
+  const require = module.createRequire(`${applicationRoot}/`);
 
-  const command = os.platform() === 'win32' ?
-    `npm ls "${packageIdentifier}" -p` :
-    `npm ls '${packageIdentifier}' -p`;
+  try {
+    const packagePath = require.resolve(packageName);
+    const packageStat = await fs.stat(packagePath);
+    const packageRootResult = await getPackageRoot({
+      directory: packageStat.isDirectory() ? packagePath : path.dirname(packagePath)
+    });
 
-  const npmLsOutputResult = await runCommand(
-    command,
-    {
-      cwd: applicationRoot,
-      silent: true
+    if (packageRootResult.hasError()) {
+      return error(new errors.PackageNotFound({
+        message: 'Could not find the requested package.',
+        data: { packageName, applicationRoot },
+        cause: packageRootResult.error
+      }));
     }
-  );
 
-  if (npmLsOutputResult.hasError()) {
+    return value(packageRootResult.value);
+  } catch {
     return error(new errors.PackageNotFound({
       message: 'Could not find the requested package.',
       data: { packageName, applicationRoot }
     }));
   }
-
-  const absolutePackageDirectory = npmLsOutputResult.value.stdout.trim();
-
-  return value(absolutePackageDirectory);
 };
 
 export {

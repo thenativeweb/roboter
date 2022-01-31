@@ -2,7 +2,7 @@ import { buntstift } from 'buntstift';
 import { checkLicenseCompatibilityTask } from '../../tasks/checkLicenseCompatibilityTask';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { LicenseOptions } from './LicenseOptions';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
@@ -19,7 +19,7 @@ const licenseCommand = function (): Command<LicenseOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 
