@@ -3,7 +3,7 @@ import { analyzeTask } from '../../tasks/analyzeTask';
 import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
 const analyzeCommand = function (): Command<AnalyzeOptions> {
@@ -19,7 +19,7 @@ const analyzeCommand = function (): Command<AnalyzeOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 

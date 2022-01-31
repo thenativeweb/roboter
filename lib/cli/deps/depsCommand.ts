@@ -3,7 +3,7 @@ import { Command } from 'command-line-interface';
 import { dependencyCheckTask } from '../../tasks/dependencyCheckTask';
 import { DepsOptions } from './DepsOptions';
 import { exit } from '../../utils/exit';
-import { getApplicationRoot } from '../../utils/getApplicationRoot';
+import { getPackageRoot } from '../../utils/getPackageRoot';
 import { runPreOrPostScript } from '../../tasks/runPreOrPostScript';
 
 const depsCommand = function (): Command<DepsOptions> {
@@ -19,7 +19,7 @@ const depsCommand = function (): Command<DepsOptions> {
           withVerboseMode(verbose)
       );
 
-      const applicationRootResult = await getApplicationRoot({
+      const applicationRootResult = await getPackageRoot({
         directory: process.cwd()
       });
 

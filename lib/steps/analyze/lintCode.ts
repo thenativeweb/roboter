@@ -18,13 +18,9 @@ const lintCode = async function ({ applicationRoot }: {
   let baseEslintConfig: any = {};
 
   if (!await fileExists({ absoluteFile: path.join(applicationRoot, '.eslintrc.json') })) {
-    const eslintConfigEsVersion = (await import(`file://${path.join(applicationRoot, 'package.json')}`)).
-      default.
-      dependencies['eslint-config-es'];
     const absoluteEslintPackageDirectory = (await getPackageLocation({
       applicationRoot,
-      packageName: 'eslint-config-es',
-      version: eslintConfigEsVersion
+      packageName: 'eslint-config-es'
     })).unwrapOrThrow();
     const absoluteEslintConfigFile = path.join(absoluteEslintPackageDirectory, 'node.js');
 
