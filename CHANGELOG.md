@@ -1,3 +1,10 @@
+## [12.6.6](https://github.com/thenativeweb/roboter/compare/12.6.5...12.6.6) (2022-02-02)
+
+
+### Bug Fixes
+
+* bump eslint from 8.7.0 to 8.8.0 ([#809](https://github.com/thenativeweb/roboter/issues/809)) ([3e25638](https://github.com/thenativeweb/roboter/commit/3e256385a01c0c838df5b0aada32caf9fc2f82b9))
+
 ## [12.6.5](https://github.com/thenativeweb/roboter/compare/12.6.4...12.6.5) (2022-01-31)
 
 
