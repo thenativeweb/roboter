@@ -60,7 +60,7 @@ const findIncompatiblePackages = async function ({
     const packageLicense = getLicenseResult.value;
     const packageVersion = packageJson.version!;
 
-    if (licenseCheckConfiguration.compatibleLicenses.some((license): boolean => satisfies(license, packageLicense))) {
+    if (licenseCheckConfiguration.compatibleLicenses!.some((license): boolean => satisfies(license, packageLicense))) {
       continue;
     }
 
