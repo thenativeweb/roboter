@@ -41,7 +41,7 @@ errors.LicenseCheckConfigurationMalformed
           type: 'boolean'
         }
       },
-      required: [ 'compatibleLicenses' ],
+      required: [],
       additionalProperties: false
     },
     { valueName: 'licenseCheckConfiguration' }

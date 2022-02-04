@@ -1,5 +1,5 @@
 interface LicenseCheckConfiguration {
-  compatibleLicenses: string[];
+  compatibleLicenses?: string[];
   knownPackageLicenses?: Record<string, Record<string, string>>;
   allowUnsupportedLicenseForThisPackage?: boolean;
   allowDeprecatedLicenseForThisPackage?: boolean;

@@ -36,6 +36,12 @@ const checkLicenseCompatibilityTask = async function ({ applicationRoot }: {
 
   const licenseCheckConfiguration = licenseCheckConfigurationResult.value;
 
+  if (licenseCheckConfiguration.compatibleLicenses === undefined) {
+    buntstift.warn('No list of compatible licenses found. Skipping license compatibility check...');
+
+    return value();
+  }
+
   const incompatiblePackages = await findIncompatiblePackages({
     licenseCheckConfiguration,
     absoluteDirectory: applicationRoot
