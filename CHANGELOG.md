@@ -1,3 +1,10 @@
+# [12.7.0](https://github.com/thenativeweb/roboter/compare/12.6.6...12.7.0) (2022-02-04)
+
+
+### Features
+
+* Make license list optional. ([#815](https://github.com/thenativeweb/roboter/issues/815)) ([5699bba](https://github.com/thenativeweb/roboter/commit/5699bba71a76a3f61ad530aa94b99f2b247354ee))
+
 ## [12.6.6](https://github.com/thenativeweb/roboter/compare/12.6.5...12.6.6) (2022-02-02)
 
 
