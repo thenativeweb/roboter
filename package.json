@@ -45,7 +45,7 @@
     "@types/common-tags": "1.8.1",
     "@types/eslint": "8.4.1",
     "@types/estraverse": "5.1.1",
-    "@types/estree": "0.0.50",
+    "@types/estree": "0.0.51",
     "@types/mocha": "9.1.0",
     "@types/normalize-path": "3.0.0",
     "@types/semver": "7.3.9",
