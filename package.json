@@ -75,7 +75,7 @@
     "spdx-expression-parse": "3.0.1",
     "spdx-license-ids": "3.0.11",
     "spdx-satisfies": "5.0.1",
-    "ts-node": "10.4.0",
+    "ts-node": "10.7.0",
     "type-fest": "2.12.0",
     "validate-value": "9.2.2",
     "walk-file-tree": "1.0.37"
