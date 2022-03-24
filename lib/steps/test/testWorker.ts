@@ -14,6 +14,17 @@ import {
 import Mocha, { Suite, Test } from 'mocha';
 import { parentPort, workerData } from 'worker_threads';
 
+process.on('uncaughtException', (ex: Error): void => {
+  // eslint-disable-next-line no-throw-literal,@typescript-eslint/no-throw-literal
+  throw {
+    ...ex,
+    name: ex.name,
+    message: ex.message,
+    stack: ex.stack,
+    cause: ex.cause
+  };
+});
+
 const {
   applicationRoot,
   absoluteTestFilesPerType,

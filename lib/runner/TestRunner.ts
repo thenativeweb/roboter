@@ -72,15 +72,9 @@ class TestRunner {
             this.previousRunResult = 'fail';
           }
 
-          this.worker!.stdout.once('end', async (): Promise<void> => {
-            await this.worker!.terminate();
-          });
-          this.worker!.stderr.once('end', async (): Promise<void> => {
-            await this.worker!.terminate();
-          });
-          setTimeout(async (): Promise<void> => {
-            await this.worker!.terminate();
-          }, 30_000);
+          this.worker!.stdout.once('end', terminateWorker);
+          this.worker!.stderr.once('end', terminateWorker);
+          setTimeout(terminateWorker, 30_000);
         });
         this.worker!.once('error', (workerError): void => {
           reject(workerError);
@@ -94,8 +88,8 @@ class TestRunner {
 
       return result;
     } catch (ex: unknown) {
-      if (typeof ex === 'object' && ex !== null && 'diagnosticText' in ex) {
-        return error(new errors.TypeScriptCompilationFailed({ cause: ex as Error, message: (ex as any).diagnosticText.trim() }));
+      if (typeof ex === 'object' && ex !== null && 'diagnosticCodes' in ex) {
+        return error(new errors.TypeScriptCompilationFailed({ cause: ex as Error, message: (ex as any).message }));
       }
 
       throw ex;

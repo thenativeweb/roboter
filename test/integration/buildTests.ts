@@ -33,20 +33,6 @@ suite('build', function (): void {
   );
 
   testWithFixture(
-    'builds using the packaged typescript version.',
-    [ 'build', 'with-typescript-feature-that-requires-newer-version' ],
-    async (fixture): Promise<void> => {
-      const roboterResult = await runCommand('npx roboter build', {
-        cwd: fixture.absoluteTestDirectory,
-        silent: true
-      });
-
-      assert.that(roboterResult).is.aValue();
-      assert.that(roboterResult.unwrapOrThrow().exitCode).is.equalTo(0);
-    }
-  );
-
-  testWithFixture(
     'fails-when-build-fails.',
     [ 'build', 'with-invalid-typescript' ],
     async (fixture): Promise<void> => {

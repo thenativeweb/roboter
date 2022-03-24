@@ -8,9 +8,7 @@
   "types": "",
   "engines": {},
   "dependencies": {},
-  "devDependencies": {
-    "typescript": "3.5.3"
-  },
+  "devDependencies": {},
   "scripts": {},
   "repository": {},
   "keywords": [],
