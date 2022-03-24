@@ -95,7 +95,7 @@ class TestRunner {
       return result;
     } catch (ex: unknown) {
       if (typeof ex === 'object' && ex !== null && 'diagnosticText' in ex) {
-        return error(new errors.TypeScriptCompilationFailed({ cause: ex, message: (ex as any).diagnosticText.trim() }));
+        return error(new errors.TypeScriptCompilationFailed({ cause: ex as Error, message: (ex as any).diagnosticText.trim() }));
       }
 
       throw ex;

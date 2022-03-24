@@ -12,7 +12,7 @@ const getPackageJson = async function ({ absoluteDirectory }: {
   try {
     packageJsonContent = await fs.promises.readFile(path.join(absoluteDirectory, 'package.json'), 'utf-8');
   } catch (ex: unknown) {
-    return error(new errors.PackageJsonMissing({ cause: ex }));
+    return error(new errors.PackageJsonMissing({ cause: ex as Error }));
   }
 
   try {
@@ -20,7 +20,7 @@ const getPackageJson = async function ({ absoluteDirectory }: {
 
     return value(packageJson);
   } catch (ex: unknown) {
-    return error(new errors.PackageJsonMalformed({ cause: ex }));
+    return error(new errors.PackageJsonMalformed({ cause: ex as Error }));
   }
 };
 

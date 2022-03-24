@@ -22,7 +22,7 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
       'utf-8'
     );
   } catch (ex: unknown) {
-    return error(new errors.LicenseCheckConfigurationNotFound({ cause: ex }));
+    return error(new errors.LicenseCheckConfigurationNotFound({ cause: ex as Error }));
   }
 
   let licenseCheckConfigurationObject: JsonObject;
@@ -32,7 +32,7 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
   } catch (ex: unknown) {
     return error(new errors.LicenseCheckConfigurationMalformed({
       message: (ex as Error).message,
-      cause: ex
+      cause: ex as Error
     }));
   }
 

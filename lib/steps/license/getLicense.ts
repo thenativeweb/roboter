@@ -80,7 +80,10 @@ const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguratio
   try {
     parse(licenseString);
   } catch (ex: unknown) {
-    return error(new errors.LicenseNotSupported({ cause: ex, data: { license: licenseString }}));
+    return error(new errors.LicenseNotSupported({
+      cause: ex as Error,
+      data: { license: licenseString }
+    }));
   }
 
   return value(licenseString);

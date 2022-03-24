@@ -130,7 +130,7 @@ const findImportsInSourceFile = async function ({
 
     return value(allImportedstrings);
   } catch (ex: unknown) {
-    return error(new errors.CouldNotAnalyzeSourceFile({ cause: ex }));
+    return error(new errors.CouldNotAnalyzeSourceFile({ cause: ex as Error }));
   }
 };
 
