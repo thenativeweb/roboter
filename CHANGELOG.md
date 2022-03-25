@@ -1,3 +1,17 @@
+# [13.0.0](https://github.com/thenativeweb/roboter/compare/12.7.1...13.0.0) (2022-03-23)
+
+
+### Bug Fixes
+
+* Move TypeScript to peer dependency and allow >=4 <5. ([#851](https://github.com/thenativeweb/roboter/issues/851)) ([1002e40](https://github.com/thenativeweb/roboter/commit/1002e40e1a0d074161c85590ad594672fd228be8))
+
+
+### BREAKING CHANGES
+
+* This will install a newer version of TypeScript than before. Since 4.6.2
+is currently a breaking change compared to 4.5.5, this might require
+action in your library.
+
 ## [12.7.1](https://github.com/thenativeweb/roboter/compare/12.7.0...12.7.1) (2022-03-21)
 
 
