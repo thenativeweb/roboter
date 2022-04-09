@@ -13,6 +13,7 @@ const checkForUnusedDependencies = async function ({ applicationRoot }: {
       'react',
       'roboter',
       'semantic-release-configuration',
+      'ts-jest',
       'ts-node',
       'tsconfig-paths',
       'typescript'
