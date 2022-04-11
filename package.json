@@ -1,6 +1,6 @@
 {
   "name": "roboter",
-  "version": "13.0.0",
+  "version": "13.1.0",
   "description": "roboter streamlines software development by automating tasks and enforcing conventions.",
   "contributors": [
     {
@@ -52,7 +52,7 @@
     "@types/shelljs": "0.8.11",
     "@types/spdx-expression-parse": "3.0.1",
     "@types/spdx-satisfies": "0.1.0",
-    "@typescript-eslint/typescript-estree": "5.15.0",
+    "@typescript-eslint/typescript-estree": "5.17.0",
     "buntstift": "5.0.1",
     "chokidar": "3.5.3",
     "command-line-interface": "4.0.21",
@@ -76,7 +76,7 @@
     "spdx-license-ids": "3.0.11",
     "spdx-satisfies": "5.0.1",
     "ts-node": "10.4.0",
-    "type-fest": "2.12.0",
+    "type-fest": "2.12.1",
     "validate-value": "9.2.2",
     "walk-file-tree": "1.0.37"
   },

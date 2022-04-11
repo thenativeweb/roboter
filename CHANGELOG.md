@@ -1,3 +1,10 @@
+# [13.1.0](https://github.com/thenativeweb/roboter/compare/13.0.0...13.1.0) (2022-04-09)
+
+
+### Features
+
+* exclude ts-jest from dependency usage checks ([#863](https://github.com/thenativeweb/roboter/issues/863)) ([b53d888](https://github.com/thenativeweb/roboter/commit/b53d88830270bb557afe0772709eb753f24abc3c))
+
 # [13.0.0](https://github.com/thenativeweb/roboter/compare/12.7.1...13.0.0) (2022-03-23)
 
 
