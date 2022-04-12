@@ -3,7 +3,7 @@ import ESTree from 'estree';
 import fs from 'fs';
 import { parse } from '@typescript-eslint/typescript-estree';
 import path from 'path';
-import { error, Result, value } from 'defekt';
+import { error, isError, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const mergeCollections = function<T>(collectionOne: Set<T>, collectionTwo: Set<T>): Set<T> {
@@ -130,6 +130,10 @@ const findImportsInSourceFile = async function ({
 
     return value(allImportedstrings);
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.CouldNotAnalyzeSourceFile({ cause: ex }));
   }
 };

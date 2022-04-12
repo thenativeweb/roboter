@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { PackageJson } from 'type-fest';
 import path from 'path';
-import { error, Result, value } from 'defekt';
+import { error, isError, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const getPackageJson = async function ({ absoluteDirectory }: {
@@ -12,6 +12,10 @@ const getPackageJson = async function ({ absoluteDirectory }: {
   try {
     packageJsonContent = await fs.promises.readFile(path.join(absoluteDirectory, 'package.json'), 'utf-8');
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.PackageJsonMissing({ cause: ex }));
   }
 
@@ -20,6 +24,10 @@ const getPackageJson = async function ({ absoluteDirectory }: {
 
     return value(packageJson);
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.PackageJsonMalformed({ cause: ex }));
   }
 };

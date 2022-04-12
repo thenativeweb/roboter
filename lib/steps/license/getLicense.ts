@@ -3,7 +3,7 @@ import { getPackageJson } from '../../utils/getPackageJson';
 import { LicenseCheckConfiguration } from './LicenseCheckConfiguration';
 import { packageLicenses } from '../../../configuration/packageLicenses';
 import parse from 'spdx-expression-parse';
-import { error, Result, value } from 'defekt';
+import { error, isError, Result, value } from 'defekt';
 import * as errors from '../../errors';
 
 const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguration }: {
@@ -80,6 +80,10 @@ const getLicense = async function ({ absoluteDirectory, licenseCheckConfiguratio
   try {
     parse(licenseString);
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.LicenseNotSupported({ cause: ex, data: { license: licenseString }}));
   }
 

@@ -50,6 +50,7 @@ class NoCodeFound extends defekt({ code: 'NoCodeFound' }) {}
 class NodeNotInGraph extends defekt({ code: 'NodeNotInGraph' }) {}
 class NonStrictDependencyFound extends defekt({ code: 'NonStrictDependencyFound' }) {}
 class NotOnExpectedBranch extends defekt({ code: 'NotOnExpectedBranch' }) {}
+class OperationInvalid extends defekt({ code: 'OperationInvalid' }) {}
 class OutdatedDependencies extends defekt({ code: 'OutdatedDependencies' }) {}
 class OutdatedNodeReference extends defekt({ code: 'OutdatedNodeReference' }) {}
 class PackageJsonMalformed extends defekt({ code: 'PackageJsonMalformed' }) {}
@@ -95,6 +96,7 @@ export {
   NodeNotInGraph,
   NonStrictDependencyFound,
   NotOnExpectedBranch,
+  OperationInvalid,
   OutdatedDependencies,
   OutdatedNodeReference,
   PackageJsonMalformed,

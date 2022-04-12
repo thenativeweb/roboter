@@ -3,7 +3,7 @@ import { JsonObject } from 'type-fest';
 import { LicenseCheckConfiguration } from './LicenseCheckConfiguration';
 import { parseLicenseCheckConfiguration } from './parseLicenseCheckConfiguration';
 import path from 'path';
-import { error, Result, value } from 'defekt';
+import { error, isError, Result, value } from 'defekt';
 import * as errors from '../../errors';
 
 const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
@@ -22,6 +22,10 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
       'utf-8'
     );
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.LicenseCheckConfigurationNotFound({ cause: ex }));
   }
 
@@ -30,8 +34,12 @@ const getLicenseCheckConfiguration = async function ({ absoluteDirectory }: {
   try {
     licenseCheckConfigurationObject = JSON.parse(licenseCheckConfigurationContent);
   } catch (ex: unknown) {
+    if (!isError(ex)) {
+      throw new errors.OperationInvalid();
+    }
+
     return error(new errors.LicenseCheckConfigurationMalformed({
-      message: (ex as Error).message,
+      message: ex.message,
       cause: ex
     }));
   }

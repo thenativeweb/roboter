@@ -2,7 +2,7 @@ import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { Worker } from 'worker_threads';
-import { error, Result, value } from 'defekt';
+import { error, isError, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -94,7 +94,11 @@ class TestRunner {
 
       return result;
     } catch (ex: unknown) {
-      if (typeof ex === 'object' && ex !== null && 'diagnosticText' in ex) {
+      if (!isError(ex)) {
+        throw new errors.OperationInvalid();
+      }
+
+      if (typeof ex === 'object' && 'diagnosticText' in ex) {
         return error(new errors.TypeScriptCompilationFailed({ cause: ex, message: (ex as any).diagnosticText.trim() }));
       }
 
