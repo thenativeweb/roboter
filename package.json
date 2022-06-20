@@ -83,7 +83,7 @@
   "devDependencies": {
     "assertthat": "6.5.2",
     "isolated": "3.0.25",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "semantic-release-configuration": "2.0.7",
     "strip-ansi": "7.0.1",
     "typescript": "4.6.3"
