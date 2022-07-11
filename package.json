@@ -50,7 +50,7 @@
     "@types/normalize-path": "3.0.0",
     "@types/semver": "7.3.9",
     "@types/shelljs": "0.8.11",
-    "@types/spdx-expression-parse": "3.0.1",
+    "@types/spdx-expression-parse": "3.0.2",
     "@types/spdx-satisfies": "0.1.0",
     "@typescript-eslint/typescript-estree": "5.18.0",
     "buntstift": "5.0.1",
