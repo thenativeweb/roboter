@@ -4,7 +4,7 @@ import { buntstift } from 'buntstift';
 import { Command } from 'command-line-interface';
 import { depsCommand } from './deps/depsCommand';
 import { licenseCommand } from './license/licenseCommand';
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' assert { type: 'json' };
 import { qaCommand } from './qa/qaCommand';
 import { RootOptions } from './RootOptions';
 import { testCommand } from './test/testCommand';

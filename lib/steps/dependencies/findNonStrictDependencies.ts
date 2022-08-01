@@ -19,8 +19,8 @@ const getNonStrictDependencies = function ({ packageJson, type }: {
     // uses a range or a wildcard (or also a link to GitHub) as version, this
     // should be fine. The goal of this step is to find the accidental errors,
     // not to punish users for explicit decisions.
-    if (version.startsWith('^') || version.startsWith('~')) {
-      nonStrictDependencies.push({ name, version, type });
+    if (version!.startsWith('^') || version!.startsWith('~')) {
+      nonStrictDependencies.push({ name, version: version!, type });
     }
   }
 

@@ -1,5 +1,5 @@
 import { assert } from 'assertthat';
-import packageJson from '../../package.json';
+import packageJson from '../../package.json' assert { type: 'json' };
 import { runCommand } from '../../lib/utils/runCommand';
 import { testWithFixture } from '../shared/helpers/fixture/testWithFixture';
 

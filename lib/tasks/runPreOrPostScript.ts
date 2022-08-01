@@ -12,7 +12,10 @@ const runPreOrPostScript = async function ({ applicationRoot, task, phase }: {
   let packageJsonOfModule;
 
   try {
-    packageJsonOfModule = (await import(`file://${packageJsonPath}`)).default;
+    packageJsonOfModule = (await import(
+      `file://${packageJsonPath}`,
+      { assert: { type: 'json' }}
+    )).default;
   } catch {
     // Ignore error.
   }

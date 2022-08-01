@@ -1,4 +1,4 @@
-import deprecatedSpdxLicenseIds from 'spdx-license-ids/deprecated.json';
+import deprecatedSpdxLicenseIds from 'spdx-license-ids/deprecated.json' assert { type: 'json' };
 import { getLicense } from '../license/getLicense';
 import { getLicenseCheckConfiguration } from '../license/getLicenseCheckConfiguration';
 import { error, Result, value } from 'defekt';

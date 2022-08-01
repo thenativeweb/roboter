@@ -74,7 +74,14 @@ for (const testType of typeSequence) {
   let additionalMochaConfiguration = {};
 
   if (absoluteMochaConfigurationFile) {
-    additionalMochaConfiguration = (await import(`file://${absoluteMochaConfigurationFile}`)).default;
+    if (absoluteMochaConfigurationFile.endsWith('.json')) {
+      additionalMochaConfiguration = (await import(
+        `file://${absoluteMochaConfigurationFile}`,
+        { assert: { type: 'json' }}
+      )).default;
+    } else {
+      additionalMochaConfiguration = (await import(`file://${absoluteMochaConfigurationFile}`)).default;
+    }
   }
 
   const mocha = new Mocha({

@@ -17,7 +17,10 @@ const compileTypeScript = async function ({
   errors.TypeScriptOutputConfigurationMissing | errors.TypeScriptCompilationFailed
   >> {
   const tsConfigPath = path.join(applicationRoot, 'tsconfig.json');
-  const tsConfig = (await import(`file://${tsConfigPath}`)).default;
+  const tsConfig = (await import(
+    `file://${tsConfigPath}`,
+    { assert: { type: 'json' }}
+  )).default;
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const tsConfigSourceFile = ts.readJsonConfigFile(tsConfigPath, ts.sys.readFile);
