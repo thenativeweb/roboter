@@ -1,3 +1,10 @@
+# [13.2.0](https://github.com/thenativeweb/roboter/compare/13.1.0...13.2.0) (2022-08-01)
+
+
+### Features
+
+* Update dependencies; Adjust to breaking changes. ([#922](https://github.com/thenativeweb/roboter/issues/922)) ([9826684](https://github.com/thenativeweb/roboter/commit/982668400707464aaffcd2cdbcfcc316691b4a9b))
+
 # [13.1.0](https://github.com/thenativeweb/roboter/compare/13.0.0...13.1.0) (2022-04-09)
 
 
