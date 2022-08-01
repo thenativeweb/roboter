@@ -1,8 +1,9 @@
 import { buntstift } from 'buntstift';
 import { fileURLToPath } from 'url';
+import { getTscDiagnosticText } from '../utils/getTscDiagnosticText';
 import path from 'path';
 import { Worker } from 'worker_threads';
-import { error, isError, Result, value } from 'defekt';
+import { error, Result, value } from 'defekt';
 import * as errors from '../errors';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -94,12 +95,17 @@ class TestRunner {
 
       return result;
     } catch (ex: unknown) {
-      if (!isError(ex)) {
-        throw new errors.OperationInvalid();
-      }
+      if (typeof ex === 'object' && ex !== null) {
+        if ('diagnosticText' in ex) {
+          return error(new errors.TypeScriptCompilationFailed({ cause: ex as any, message: (ex as any).diagnosticText.trim() }));
+        }
+        if ('diagnosticCodes' in ex) {
+          const errorMessage = (ex as any).diagnosticCodes.
+            map((diagnosticCode: number): string => getTscDiagnosticText({ diagnosticCode })).
+            join('\n');
 
-      if (typeof ex === 'object' && 'diagnosticText' in ex) {
-        return error(new errors.TypeScriptCompilationFailed({ cause: ex, message: (ex as any).diagnosticText.trim() }));
+          return error(new errors.TypeScriptCompilationFailed({ cause: ex as any, message: errorMessage }));
+        }
       }
 
       throw ex;

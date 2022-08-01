@@ -1,7 +1,7 @@
-import { LinterResult } from 'npm-package-json-lint';
+import { OverallAggregatedResultCounts, PackageJsonFileLintingResult } from 'npm-package-json-lint';
 
 const formatPackageJsonLintResults = function ({ packageJsonLintResult }: {
-  packageJsonLintResult: LinterResult;
+  packageJsonLintResult: OverallAggregatedResultCounts & { results: PackageJsonFileLintingResult[] };
 }): string {
   let formattedResult = '';
 
