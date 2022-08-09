@@ -8,7 +8,7 @@
   "types": "",
   "engines": {},
   "dependencies": {
-    "typescript": "4.0.0"
+    "typescript": "4.0.2"
   },
   "devDependencies": {},
   "scripts": {},
