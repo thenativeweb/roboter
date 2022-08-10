@@ -1,3 +1,10 @@
+## [13.2.1](https://github.com/thenativeweb/roboter/compare/13.2.0...13.2.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* bump @typescript-eslint/typescript-estree from 5.31.0 to 5.32.0 ([#927](https://github.com/thenativeweb/roboter/issues/927)) ([361e757](https://github.com/thenativeweb/roboter/commit/361e75739427159c9a64168205b4a98d8811ba48))
+
 # [13.2.0](https://github.com/thenativeweb/roboter/compare/13.1.0...13.2.0) (2022-08-01)
 
 
