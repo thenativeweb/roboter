@@ -57,7 +57,7 @@
     "chokidar": "3.5.3",
     "command-line-interface": "4.0.24",
     "common-tags": "1.8.2",
-    "defekt": "9.3.0",
+    "defekt": "9.3.1",
     "depcheck": "1.4.3",
     "dotenv": "16.0.1",
     "eslint": "8.23.0",
