@@ -77,7 +77,7 @@
     "spdx-satisfies": "5.0.1",
     "ts-node": "10.9.1",
     "type-fest": "2.19.0",
-    "validate-value": "9.4.0",
+    "validate-value": "10.0.0",
     "walk-file-tree": "1.0.37"
   },
   "devDependencies": {
