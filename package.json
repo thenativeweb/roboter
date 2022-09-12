@@ -52,21 +52,21 @@
     "@types/shelljs": "0.8.11",
     "@types/spdx-expression-parse": "3.0.2",
     "@types/spdx-satisfies": "0.1.0",
-    "@typescript-eslint/typescript-estree": "5.36.1",
+    "@typescript-eslint/typescript-estree": "5.36.2",
     "buntstift": "5.0.2",
     "chokidar": "3.5.3",
-    "command-line-interface": "4.0.24",
+    "command-line-interface": "5.0.0",
     "common-tags": "1.8.2",
     "defekt": "9.3.1",
     "depcheck": "1.4.3",
     "dotenv": "16.0.2",
-    "eslint": "8.23.0",
+    "eslint": "8.23.1",
     "estraverse": "5.3.0",
     "globby": "13.1.2",
     "is-typescript": "4.0.7",
     "minimatch": "5.1.0",
     "mocha": "10.0.0",
-    "nodeenv": "3.0.74",
+    "nodeenv": "3.0.75",
     "normalize-path": "3.0.0",
     "npm-package-json-lint": "6.3.0",
     "processenv": "3.0.9",
@@ -78,7 +78,7 @@
     "ts-node": "10.9.1",
     "type-fest": "2.19.0",
     "validate-value": "10.0.0",
-    "walk-file-tree": "1.0.37"
+    "walk-file-tree": "1.0.38"
   },
   "devDependencies": {
     "assertthat": "6.5.2",
@@ -87,7 +87,7 @@
     "react": "18.2.0",
     "semantic-release-configuration": "2.0.7",
     "strip-ansi": "7.0.1",
-    "typescript": "4.8.2"
+    "typescript": "4.8.3"
   },
   "peerDependencies": {
     "eslint-config-es": "4.1.0",
