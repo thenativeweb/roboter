@@ -78,7 +78,7 @@
     "ts-node": "10.9.1",
     "type-fest": "2.19.0",
     "validate-value": "10.0.0",
-    "walk-file-tree": "1.0.37"
+    "walk-file-tree": "1.0.38"
   },
   "devDependencies": {
     "assertthat": "6.5.2",
