@@ -46,7 +46,7 @@
     "@types/eslint": "8.4.6",
     "@types/estraverse": "5.1.2",
     "@types/estree": "1.0.0",
-    "@types/mocha": "9.1.1",
+    "@types/mocha": "10.0.0",
     "@types/normalize-path": "3.0.0",
     "@types/semver": "7.3.12",
     "@types/shelljs": "0.8.11",
