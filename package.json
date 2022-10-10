@@ -70,7 +70,7 @@
     "normalize-path": "3.0.0",
     "npm-package-json-lint": "6.3.0",
     "processenv": "3.0.9",
-    "semver": "7.3.7",
+    "semver": "7.3.8",
     "shelljs": "0.8.5",
     "spdx-expression-parse": "3.0.1",
     "spdx-license-ids": "3.0.12",
